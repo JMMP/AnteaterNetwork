@@ -15,7 +15,7 @@
     <script type="text/javascript">
 	  var map;
 	  var markers = [];
-	  var debug = false;
+	  var debug = true;
       function initialize() {
         var myOptions = {
           center: new google.maps.LatLng(33.646259, -117.842056),
