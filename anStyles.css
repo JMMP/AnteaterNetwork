@@ -232,13 +232,49 @@ p {}
 /*****MAP****/
 
 #map_canvas{
+	position: absolute;
 	margin-left: 183px;
 	margin-right: 57px;
 	float: right;
-	width: 1092px;
+	width: 1094px;
 	height: 100%;
-}
 
+}/*
+<style type="text/css">
+      html, body, #map_canvas,#side {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        }
+	#map_canvas {
+	width:100%;
+	position:absolute;
+        float:right;
+	}
+	#side {
+	background-color:white;
+	position:absolute;
+	float:left;
+	width:40%;
+	z-index:100;
+        }
+</style>
+
+
+<script type="text/javascript">
+var side="wide";
+
+function reSize() {
+if (side=="wide"){
+document.getElementById("side").style.width="10%"
+side="narr";
+	} else {
+document.getElementById("side").style.width="45%"
+side="wide";
+	} 
+}
+</script>
+*/
 /******************************************
   MENU STYLES
  ******************************************/
