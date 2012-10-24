@@ -6,7 +6,7 @@
     <title>JMMP Architectural Prototype</title>
     <style type="text/css">
       html { height: 100% }
-      body { height: 100%; margin: 10px; padding: 0px }
+      body { height: 100%; margin: 20px; padding: 0px }
       #map_canvas { height: 100% }
     </style>
 	
@@ -15,7 +15,7 @@
     <script type="text/javascript">
 	  var map;
 	  var markers = [];
-	  var debug = true;
+	  var debug = false;
       function initialize() {
         var myOptions = {
           center: new google.maps.LatLng(33.646259, -117.842056),
@@ -28,6 +28,11 @@
 		var geocoder = new google.maps.Geocoder();
 		populate("");
 		if (debug) alert("1 Initialized");
+	  }
+	  
+	  function opensend(string) {
+		  xmlhttp.open("GET", "ANGetXML.php?Business_City=" + string + "%", true);
+		  xmlhttp.send();
 	  }
 	  
 	  function populate(city) {
@@ -172,24 +177,26 @@
     <br />
     <div>
       <input type="button" value="Refresh Map" onclick="location.reload(true)">
-      <input type="button" value="Dummy Database" onclick="parent.location='INF191 Dummy.xml'">
-      <input type="button" value="MySQL to XML" onclick="parent.location='ANGetXML.php'">
-      
+      <input type="button" value="MySQL to XML" onclick="parent.location='ANGetXML.php'">      
     </div>
     
-    <div id="county" style="background-color:#FFFFFF;height:20px;width:100px:float:left;">
+    <div id="filterCity" style="background-color:#aaaaaa;height:40px;width:200px:float:left;">
 	  <form>
         <select name="Business_City" onchange="populate(this.value)">
-          <option value="">Select a City</option>
-          <option value="Orange">Orange (3)</option>
-          <option value="Santa Ana">Santa Ana (2)</option>
-          <option value="Newport Beach">Newport Beach (4)</option>
-          <option value="Costa Mesa">Costa Mesa (3)</option>
-          <option value="Irvine">Irvine (3)</option>
+          <option value="">Cities</option>
+          <option value="Orange">Orange</option>
+          <option value="hello">Santa Ana</option>
+          <option value="Newport Beach">Newport Beach</option>
+          <option value="Costa Mesa">Costa Mesa</option>
+          <option value="Irvine">Irvine</option>
         </select>
       </form>
     </div>
-    <p><i>Version 0.1 || Last Updated Sunday, June 9, 2012</i></p>
-    <img src="JMMPWordmark.png"/>
+    <div id="filterTitle" style="background-color:#aaaaaa;height:40px;width:200px:float:left;">
+	  <form method="get" action="">
+        <input type="text" name="Business_Title" value="Search by Name" onfocus="if(this.value==this.defaultValue) this.value='';" onkeyup="populate(this.value)">
+      </form>
+    </div>
+    
   </body>
 </html>
