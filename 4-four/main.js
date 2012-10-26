@@ -1,5 +1,6 @@
 var map;
 var markers = [];
+var xmlDoc;
 function loadMap() {
    var myOptions = {
       center: new google.maps.LatLng(33.646259, -117.842056),
@@ -12,15 +13,7 @@ function loadMap() {
    var geocoder = new google.maps.Geocoder();
    populate("");
 }
-	  
-function opensend(string) {
-   xmlhttp.open("GET", "andb-connect.php", true);
-   xmlhttp.send();
-}
 
-function test(){ 
-   alert("heilsaf");
-}
 	  
 function populate(city) {
    try {
@@ -32,8 +25,8 @@ function populate(city) {
       }
       xmlhttp.onreadystatechange = function() {
          if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-            var xmlDoc = xmlhttp.responseXML;
-            deleteMarkers();
+            xmlDoc = xmlhttp.responseXML;
+            clearMarkers();
             var alumni = xmlDoc.getElementsByTagName("alumnus");
             for (var i = 0; i < alumni.length; i++) {
                var first_name = alumni[i].getAttribute("First_Name");
@@ -45,16 +38,34 @@ function populate(city) {
             }
          }
       }
-			  
-      if (city == null) city = "%";
+      
       xmlhttp.open("GET", "andb-connect.php", true);
       xmlhttp.send();
-			  
    } catch (e) {
       alert("Error: " + e);
    }
 }
-	  
+	
+function filterCity(input) {
+   clearMarkers();
+   var alumni = xmlDoc.getElementsByTagName("alumnus");
+   for (var i = 0; i < alumni.length; i++) {
+      var bus_city = alumni[i].getAttribute("Business_City");
+      if (input == "" | bus_city == input) {
+         var first_name = alumni[i].getAttribute("First_Name");
+         var last_name = alumni[i].getAttribute("Last_Name");
+         var bus_name = alumni[i].getAttribute("Business_Name");
+         var bus_lat = alumni[i].getAttribute("Business_Lat");
+         var bus_lng = alumni[i].getAttribute("Business_Lng");
+         createMarker(first_name, last_name, bus_name, bus_lat, bus_lng);
+      }
+   }
+}
+
+function filterName(input) {
+   
+}
+   
 function createMarker(first_name, last_name, bus_name, bus_lat, bus_lng) {
    var point = new google.maps.LatLng(parseFloat(bus_lat), parseFloat(bus_lng));
    var marker = new google.maps.Marker({
@@ -74,11 +85,14 @@ function createMarker(first_name, last_name, bus_name, bus_lat, bus_lng) {
    google.maps.event.addListener(marker, "click", function() {
       infowindow.open(map, marker);
    });
-   markers.push(marker);
+   
+   
+      markers.push(marker);
+   
 }
 	  
 	  
-function deleteMarkers() {
+function clearMarkers() {
    if (markers) {
       for (i in markers) {
          markers[i].setMap(null);
