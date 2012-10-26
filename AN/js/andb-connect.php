@@ -9,9 +9,9 @@
 require("andb-login.php");
 
 // Start XML file and create parent node
-$doc = domxml_new_doc("1.0");
-$node = $doc->create_element("alumni");
-$parnode = $doc->append_child($node);
+$dom = new DOMDocument("1.0");
+$node = $dom->createElement("alumni");
+$parnode = $dom->appendChild($node);
 
 
 // Set up connection to MySQL server
@@ -67,11 +67,10 @@ while ($row = @mysql_fetch_assoc($alumni)) {
     $newnode->setAttribute("Business_Lat", $row['Business_Lat']);
     $newnode->setAttribute("Business_Lng", $row['Business_Lng']);
 }
-
-//echo $dom->saveXML();
-$xmlfile = $doc->dump_mem();
-echo $xmlfile;
+echo $dom->saveXML();
+//$xmlfile = $doc->dump_mem();
+//echo $xmlfile;
 
 // Close connection to database
-mysql_close($con);
+//mysql_close($con);
 ?>
