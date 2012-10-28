@@ -1,0 +1,3 @@
+VPN: UCI-Full
+Folder Field: \\samba.ics.uci.edu\191grp10
+Username: UCI-ICS\user_name
