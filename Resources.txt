@@ -28,3 +28,20 @@ https://developers.facebook.com/docs/reference/plugins/like/
 ----
 
 Google + Button
+
+https://developers.google.com/+/plugins/+1button/
+
+var google_plus = "<div class='g-plusone' data-size='small' data-annotation='none' data-href='https://instdav.ics.uci.edu/~191grp10/5-fivevariant/'></div>";
+
+<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+
+
+----
+
+Tweet Button
+
+https://twitter.com/about/resources/buttons#tweet
+
+<a href="https://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a>
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
