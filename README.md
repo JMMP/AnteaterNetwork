@@ -4,6 +4,14 @@
 
 - - -
 ### Changelog
+
+##### Version 5.5
+1. Updated README with Changelog
+* Started using Github Issues
+* Fixed [issue #1](https://github.com/JMMP/AnteaterNetwork/issues/1)
+* Facebook Like integrated in info windows
+
+##### Version 5.0 October 26, 2012
 1. Added map styling from Patrick
 * Adjusted default zoom
 * Added custom marker icon
@@ -15,25 +23,20 @@ at the same time
 * Fixed markers' info windows not being closed automatically
 * Added more information inside info windows
 
+##### Version 4.0
+
+##### Version 3.0
+
+##### Version 2.0
+
+##### Version 1.0
+
+##### Version 0.0 June 2012
+1. Prototype
+
 
 ### Working Features
 1. Reset Markers
 * Search by City Dropdown
 * Search by Zip Code
 * Multiple Filters (hardcoded)
-
-
-### To Implement
-1. Results box
-* CSS styling
-* Pin density function
-* Map auto zoom and focusing
-
-### Known Issues
-1. Markers not being shown properly after applying a filter and then un-applying it
-  * Selecting the default value or clearing the textbook will not show the expected businesses
-  * This issue is not present when more than one filter is in use
-* Map styling is difficult to see
-* Marker icons don't have shadows
-* Search by City Instant-Search drops the pin every letter
-* Phantom Pin appearing in top left corner, appears with Irvine, 
