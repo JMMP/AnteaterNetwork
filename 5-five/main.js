@@ -1,7 +1,10 @@
 var map;
 var markers = [];
 var xmlDoc;
-var request = "";
+var filters = [
+["city", ""],
+["name", ""],
+["zipcode", ""]];
 var infowindow;
 
 // Style Google Maps
@@ -45,6 +48,7 @@ function loadMap() {
 	  
 function populate(filter, input) {
    var xmlhttp;
+   var i;
    if (window.XMLHttpRequest) {
       xmlhttp = new XMLHttpRequest();
    } else {
@@ -55,21 +59,26 @@ function populate(filter, input) {
          xmlDoc = xmlhttp.responseXML;
          clearMarkers();
          var alumni = xmlDoc.getElementsByTagName("alumnus");
-         for (var i = 0; i < alumni.length; i++) {
+         for (i = 0; i < alumni.length; i++) {
             
             createMarker(alumni[i]);
          }
       }
    }
    
-   if (filter != "") 
-      request += "&";
-   if (filter == "city")
-      request += "city=" + input;
-   else if (filter == "name")
-      request += "name=" + input;
-   else if (filter == "zipcode")
-      request += "zipcode=" + input;
+   for (i = 0; i < filters.length; i++) {
+      if (filters[i][0] == filter)
+         filters[i][1] = input;
+   }
+   
+   var request = ""; 
+   for (i = 0; i < filters.length; i++) {
+      if (filters[i][1] != "") {
+         if (request != "")
+            request += "&";
+         request += filters[i][0] + "=" + filters[i][1];
+      }
+   }
    
    xmlhttp.open("GET", "andb-connect.php?" + request, true);
    xmlhttp.send();
@@ -102,18 +111,18 @@ function createMarker(alumni) {
    });
 		  
    var contentString = "<div id='infoWindow'>" + 
-      "<h2 id='firstHeading' class='firstHeading'>" + bus_name + "</h2>" + 
-      "<div id='bodyContent'>" + "<p>" + first_name + " " + last_name + 
-      " " + school_code + " " + class_year + "</p>" + "<p>" + bus_name + "<br />" + 
-      bus_street1 + "<br />" + bus_city + ", " + bus_state + " " + bus_zipcode + 
-      "<br />" + bus_phone + "</p>";
+   "<h2 id='firstHeading' class='firstHeading'>" + bus_name + "</h2>" + 
+   "<div id='bodyContent'>" + "" + first_name + " " + last_name + 
+   " (" + school_code + ", " + class_year + ")<br />" + bus_title + "<br />" + bus_name + "<br />" + 
+   bus_street1 + "<br />" + bus_city + ", " + bus_state + " " + bus_zipcode + 
+   "<br />" + bus_phone + "<br />";
 		  
    
    google.maps.event.addListener(marker, "click", function() {
       if (infowindow) infowindow.close();
       infowindow = new google.maps.InfoWindow({
-      content: contentString
-   });
+         content: contentString
+      });
       infowindow.open(map, marker);
    });
    
@@ -142,14 +151,11 @@ function codeAddress() {
          if (debug) alert("Geocode was note successful: " + status);
       }
    });
-   if (debug) alert("4 Address Coded");
 }
 	  
 function reloadMap() {
    map = null;
-   myOptions = null;
-   marker = null;
-   address = null;
-   mapscript = close();
+   markers = null;
+   request = "";
    loadScripts();
 }
