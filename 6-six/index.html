@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+      <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+      <title>Anteater Network</title>
+
+
+      <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDjfKwuT7W5o7YSTt6wHmeDaEhgIxuOUoI&sensor=true"></script>
+      <script src="main.js"></script>
+   </head>
+
+   <body onload="loadMap(); populate('', '')">
+      <div id="map_canvas" style="width:70%; height: 600px"></div>
+      <div>
+         <input type="button" value="Refresh Map" onclick="location.reload(true)">
+         <input type="button" value="Reset Markers" onclick="clearMarkers()">
+         <input type="button" value="MySQL to XML" onclick="parent.location='ANGetXML.php'">      
+      </div>
+
+      <div id="filterCity" style="background-color:#aaaaaa;height:40px;width:200px;float:left">
+         <form>
+            <select onchange="populate('city', this.value)">
+               <option value="">Search by City</option>
+               <option value="Anaheim">Anaheim</option>
+               <option value="Costa Mesa">Costa Mesa</option>
+               <option value="Fountain Valley">Fountain Valley</option>
+               <option value="Garden Grove">Garden Grove</option>
+               <option value="Irvine">Irvine</option>
+               <option value="Laguna Beach">Laguna Beach</option>
+               <option value="Laguna Hills">Laguna Hills</option>
+               <option value="Newport Beach">Newport Beach</option>
+               <option value="Rancho Santa Margarita">Rancho Santa Margarita</option>
+               <option value="Santa Ana">Santa Ana</option>
+            </select>  
+         </form>
+         <form method="GET" action="">
+            <input type="text" value="Search by Name" onfocus="if(this.value==this.defaultValue) this.value='';" onsubmit="populate('name', this.value)" onkeyup="populate('name', this.value)">
+         </form>
+         <form method="GET" action="">
+            <input type="text" value="Search by Zipcode" onfocus="if(this.value==this.defaultValue) this.value='';" onsubmit="populate('name', this.value)" onkeyup="populate('zipcode', this.value)">
+         </form>
+      </div>
+      
+      <ul id="sidenav"></ul>
+
+   </body>
+</html>
