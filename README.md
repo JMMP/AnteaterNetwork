@@ -5,11 +5,13 @@
 - - -
 ### Changelog
 
-##### Version 5.5
+##### Version 6.0 October 29, 2012
 1. Updated README with Changelog
 * Started using Github Issues
 * Fixed [issue #1](https://github.com/JMMP/AnteaterNetwork/issues/1)
 * Facebook, Google Plus, Twitter, and LinkedIn integrated in 5-fivevariant
+* Fixed [issue #10] (https://github.com/JMMP/AnteaterNetwork/issues/10), Zoomed and centered map on markers
+* Added basic results list that updates on filter changes
 
 ##### Version 5.0 October 26, 2012
 1. Added map styling from Patrick
@@ -40,3 +42,4 @@ at the same time
 * Search by City Dropdown
 * Search by Zip Code
 * Multiple Filters (hardcoded)
+* Zoom and center map on filter
