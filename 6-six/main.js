@@ -77,8 +77,8 @@ function populate(filter, input) {
 
          // If array is empty, focus map around UCI
          if (markersLatLng.length == 0) {
-            markersLatLng.push(new google.maps.LatLng(33.653090, -117.854686));
-            markersLatLng.push(new google.maps.LatLng(33.638156, -117.828336));
+            markersLatLng.push(new google.maps.LatLng(33.70095,-117.710438));
+            markersLatLng.push(new google.maps.LatLng(33.576899,-117.978916));
          }
 
          //  Go through each...
