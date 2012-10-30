@@ -3,6 +3,7 @@
    <head>
       <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
       <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+	  <link rel="stylesheet" type="text/css" href="map.css">
       <title>Anteater Network</title>
 
 
@@ -11,6 +12,66 @@
    </head>
 
    <body onload="loadMap(); populate('', '')">
+   
+   <div class="banner"
+	<a href=""http://www.alumni.uci.edu"><img alt="Link to Alumni Home Page"  src="images/an_logo.png" width="300px" /></a>
+	</div>
+	
+	
+	<div id="cssmenu">
+		<ul>
+			<li class='active '><a href=''><span>Filter Types</span></a></li>
+				
+				<li class='has-sub '><a href='#'><span>City</span></a>
+					<ul>
+						<li class='has-sub '><a href='#'><span>Los Angeles</span></a>
+							<ul>
+								<li><a href='#'><span>Compton</span></a></li>
+								<li><a href='#'><span>South Central</span></a></li>
+							</ul>
+						</li>
+							<li class='has-sub '><a href='#'><span>Orange County</span></a>
+								<ul>
+									<li><a href='#'><span>UCIrvine</span></a></li>
+									<li><a href='#'><span>Irvine Valley College</span></a></li>
+								</ul>
+							</li>
+					</ul>
+				</li>
+				
+				<li class='has-sub'><a href='#' onclick="alert('hi')"><span>Businesses</span></a>
+					<ul>
+						<li class='has-sub '><a href='#'><span>Restaurant</span></a></li>
+						<li class='has-sub '><a href='#'><span>Car Wash</span></a></li>
+					</ul>
+				</li>
+				
+				<li class='has-sub '><a href='#'><span>Profession</span></a>
+					<ul>
+						<li class='has-sub '><a href='#'><span>Lawyer</span></a>
+							<ul>
+								<li><a href='#'><span>Civil Lawyer</span></a></li>
+								<li><a href='#'><span>Criminal Lawyer</span></a></li>
+							</ul>
+						</li>
+							<li class='has-sub '><a href='#'><span>Information Technology</span></a>
+								<ul>
+									<li><a href='#'><span>Software Engineer</span></a></li>
+									<li><a href='#'><span>Network Engineer</span></a></li>
+								</ul>
+							</li>
+					</ul>
+				</li>
+				
+				<li class='has-sub '><a href='#'><span>Zip Codes</span></a>
+					<ul>
+						<li><a href='#'><span>92804</span></a></li>
+						<li><a href='#'><span>92604</span></a></li>
+					</ul>
+				</li>		
+			</ul>
+	</div>
+   
       <div id="map_canvas" style="width:70%; height: 600px"></div>
       <div>
          <input type="button" value="Refresh Map" onclick="location.reload(true)">
@@ -42,7 +103,23 @@
          </form>
       </div>
       
-      <ul id="sidenav"></ul>
+      <ul id="sidenav">
+		<li>
+		  <a href="#">Sushilicious
+			<span>1234 Jefferey Road Irvine California 92691 </span>
+		  </a>
+		 </li>
+		 <li>
+		  <a href="#">Peter Dentistry
+			<span>Blah blah </span>
+		  </a>
+		 </li>
+		 <li>
+			<a href="#">peter Coffee
+		  <span>Blah blah </span>
+		  </a>
+		</li>
+	</ul>
 
    </body>
 </html>
