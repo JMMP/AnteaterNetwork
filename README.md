@@ -16,6 +16,8 @@
 * Fixed [issue #5](https://github.com/JMMP/AnteaterNetwork/issues/5), added check to not display businesses without addresses on map
 * Fixed [issue #13](https://github.com/JMMP/AnteaterNetwork/issues/13), related to #5.
 * Map refocuses on UCI if there are no pins to show on map
+* Fixed [issue #6](https://github.com/JMMP/AnteaterNetwork/issues/6), implemented results box on the right side.
+* Fixed [issue #8](https://github.com/JMMP/AnteaterNetwork/issues/8), basic styling of almost all elements on page.
 
 ##### Version 5.0 October 26, 2012
 1. Added map styling from Patrick
@@ -49,3 +51,4 @@ at the same time
 * Auto zoom and center map on results
 * Display list of businesses even if they have no address
 * Custom map styling
+* Results box
