@@ -7,6 +7,7 @@ var filters = [
 ["name", ""],
 ["zipcode", ""]];
 var infowindow;
+var sideboxhtml = "";
 
 // Style Google Maps
 var markerImage = "images/marker_anteater_small.png";
@@ -34,8 +35,8 @@ var stylesArray = [{
 
 function loadMap() {
    var myOptions = {
-      center: new google.maps.LatLng(33.646259, -117.842056),
-      zoom: 12,
+      //center: new google.maps.LatLng(33.646259, -117.842056),
+      //zoom: 12,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       styles: stylesArray
    };
@@ -59,11 +60,21 @@ function populate(filter, input) {
       if (xmlhttp.readyState==4 && xmlhttp.status==200) {
          xmlDoc = xmlhttp.responseXML;
          clearMarkers();
+         sideboxhtml = "";
          var alumni = xmlDoc.getElementsByTagName("alumnus");
          for (i = 0; i < alumni.length; i++) {
-            
             createMarker(alumni[i]);
          }
+         
+         //  Create a new viewpoint bound
+         var bounds = new google.maps.LatLngBounds();
+         //  Go through each...
+         for (i = 0; i < markersLatLng.length; i++) {
+            //  And increase the bounds to take this point
+            bounds.extend (markersLatLng[i]);
+         }
+         //  Fit these bounds to the map
+         map.fitBounds (bounds);
       }
    }
    
@@ -83,19 +94,6 @@ function populate(filter, input) {
    
    xmlhttp.open("GET", "andb-connect.php?" + request, true);
    xmlhttp.send();
-   
-     
-   //zoom to fit all markers on map
-//  Make an array of the LatLng's of the markers you want to show
-//  Create a new viewpoint bound
-var bounds = new google.maps.LatLngBounds ();
-//  Go through each...
-for (var i = 0, LtLgLen = markersLatLng.length; i < LtLgLen; i++) {
-  //  And increase the bounds to take this point
-  bounds.extend (markersLatLng[i]);
-}
-//  Fit these bounds to the map
-map.fitBounds (bounds);
 }
 
    
@@ -117,9 +115,8 @@ function createMarker(alumni) {
    
    var point = new google.maps.LatLng(parseFloat(bus_lat), parseFloat(bus_lng));
    
-   //add marker position to markersLatLng
+   // Add marker position to array
    markersLatLng.push(point);
-   
    
    var marker = new google.maps.Marker({
       map: map,
@@ -146,6 +143,18 @@ function createMarker(alumni) {
    });
    
    markers.push(marker);
+   
+   
+   
+   // Also generate HTML list for the results list on the side
+   sideboxhtml +="<li> <a href='#'>" + bus_name + "<br/><span>" + bus_street1 + "<br />";
+   //if (bus_street2 != null || bus_street2 != "")
+   //   sideboxhtml += bus_street2 + "<br />";
+   sideboxhtml += bus_city + ", " + bus_state + " " + bus_zipcode + "<br />" + bus_phone + "</span> </a> </li>";
+   
+   var sidebox = document.getElementById("sidenav");
+   sidebox.innerHTML = sideboxhtml;  
+   
 }
 	  
 	  
@@ -156,6 +165,7 @@ function clearMarkers() {
       }
    }
    markers = [];
+   markersLatLng = [];
 }
 	  
 function codeAddress() {
