@@ -1,5 +1,6 @@
 var map;
 var markers = [];
+var markersLatLng = [];
 var xmlDoc;
 var filters = [
 ["city", ""],
@@ -83,15 +84,15 @@ function populate(filter, input) {
    xmlhttp.open("GET", "andb-connect.php?" + request, true);
    xmlhttp.send();
    
+     
    //zoom to fit all markers on map
 //  Make an array of the LatLng's of the markers you want to show
-var LatLngList = array (new google.maps.LatLng (52.537,-2.061), new google.maps.LatLng (52.564,-2.017));
 //  Create a new viewpoint bound
 var bounds = new google.maps.LatLngBounds ();
 //  Go through each...
-for (var i = 0, LtLgLen = LatLngList.length; i < LtLgLen; i++) {
+for (var i = 0, LtLgLen = markersLatLng.length; i < LtLgLen; i++) {
   //  And increase the bounds to take this point
-  bounds.extend (LatLngList[i]);
+  bounds.extend (markersLatLng[i]);
 }
 //  Fit these bounds to the map
 map.fitBounds (bounds);
@@ -115,6 +116,11 @@ function createMarker(alumni) {
    var bus_lng = alumni.getAttribute("Business_Lng");
    
    var point = new google.maps.LatLng(parseFloat(bus_lat), parseFloat(bus_lng));
+   
+   //add marker position to markersLatLng
+   markersLatLng.push(point);
+   
+   
    var marker = new google.maps.Marker({
       map: map,
       animation: google.maps.Animation.DROP,
