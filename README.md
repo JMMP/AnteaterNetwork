@@ -4,6 +4,10 @@
 
 - - -
 ### Changelog
+##### Version 7.0 November XX, 2012
+1. Fixed issue #21
+* Fixed issue #24
+
 
 ##### Version 6.0 October 29, 2012
 1. Updated README with Changelog
