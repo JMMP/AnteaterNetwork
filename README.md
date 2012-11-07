@@ -1,5 +1,4 @@
-# Anteater Network 7
-### [Current version](https://instdav.ics.uci.edu//~191grp10/7-seven/)
+# Anteater Network [7](https://instdav.ics.uci.edu//~191grp10/7-seven/)
 ### © 2012 Team JMMP in association with UCI Alumni Association, University of California, Irvine.
 ##### Jola Bolaji, Mark Chege, Melvin Chien, Patrick Chen
 
