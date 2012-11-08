@@ -8,6 +8,7 @@ var filters = [
 ["zipcode", ""]];
 var infowindow;
 var sideboxhtml = "";
+var pinDrop = false;
 
 // Style Google Maps
 var markerImage = "images/marker_anteater_small.png";
@@ -26,10 +27,10 @@ var stylesArray = [{
     {
         "saturation": 100
     },
-{
+    {
         "weight": 0.3
     },
-{
+    {
         "hue": "#002bff"
     }
     ]
@@ -46,7 +47,7 @@ var stylesArray = [{
     {
         "saturation": 100
     },
-{
+    {
         "hue": "#ffe500"
     }
     ]
@@ -70,6 +71,13 @@ function loadMap() {
 function populate(filter, input) {
     var xmlhttp;
     var i;
+    
+    // Only have drop animation when all pins are being showed for first time
+    if (filter == "")
+        pinDrop = true;
+    else
+        pinDrop = false;
+    
     if (window.XMLHttpRequest) {
         xmlhttp = new XMLHttpRequest();
     } else {
@@ -151,11 +159,16 @@ function createMarker(alumni) {
 
         var marker = new google.maps.Marker({
             map: map,
-            animation: google.maps.Animation.DROP,
             position: point,
             icon: markerImage,
             title: bus_name
         });
+        
+        // Do not have any animation when filtering
+        if (pinDrop)
+            marker.setAnimation(google.maps.Animation.DROP);
+        else
+            marker.setAnimation();
 
 
         var contentString = "<div id='infoWindow'>" +
@@ -179,8 +192,6 @@ function createMarker(alumni) {
 
     // Also generate HTML list for the results list on the side
     sideboxhtml +="<li> <a href='#'>" + bus_name + "<br/><span>" + bus_street1 + "<br />";
-    //if (bus_street2 != null || bus_street2 != "")
-    //   sideboxhtml += bus_street2 + "<br />";
     sideboxhtml += bus_city + ", " + bus_state + " " + bus_zipcode + "<br />" + bus_phone + "</span> </a> </li>";
 
     var sidebox = document.getElementById("sidenav");
@@ -199,6 +210,7 @@ function clearMarkers() {
     markersLatLng = [];
 }
 
+// Incomplete
 function codeAddress() {
     var address;
     geocoder.geocode(address, function(results, status) {

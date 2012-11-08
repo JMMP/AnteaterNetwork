@@ -46,7 +46,6 @@ if (!empty($_GET)) {
    }
 }
 
-
 $result = mysql_query($query . $request);
 if (!$result) {
    die('Invalid query: ' . mysql_error());

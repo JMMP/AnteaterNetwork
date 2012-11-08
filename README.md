@@ -4,10 +4,12 @@
 
 - - -
 ### Changelog
-##### Version 7.0 November XX, 2012
+##### Version 7.0 November 8, 2012
 1. Fixed [issue #21](https://github.com/JMMP/AnteaterNetwork/issues/21), added JMMP logo and slogan to header and created footer
 * Fixed [issue #24](https://github.com/JMMP/AnteaterNetwork/issues/24), Rancho San Margarita had wrong value in HTML form.
 * Added Github Page at [http://jmmp.github.com/AnteaterNetwork](http://jmmp.github.com/AnteaterNetwork)
+* Fixed [issue #37](https://github.com/JMMP/AnteaterNetwork/issues/37), turned off animation for pins except on first populate.
+* Fixed [issue #20](https://github.com/JMMP/AnteaterNetwork/issues/20), text searches are case insensitive.
 
 
 ##### Version 6.0 October 29, 2012
