@@ -4,12 +4,16 @@
 
 - - -
 ### Changelog
-##### Version 7.0 November 8, 2012
+##### Version 7.0 November 14, 2012
 1. Fixed [issue #21](https://github.com/JMMP/AnteaterNetwork/issues/21), added JMMP logo and slogan to header and created footer
 * Fixed [issue #24](https://github.com/JMMP/AnteaterNetwork/issues/24), Rancho San Margarita had wrong value in HTML form.
 * Added Github Page at [http://jmmp.github.com/AnteaterNetwork](http://jmmp.github.com/AnteaterNetwork)
 * Fixed [issue #37](https://github.com/JMMP/AnteaterNetwork/issues/37), turned off animation for pins except on first populate.
 * Fixed [issue #20](https://github.com/JMMP/AnteaterNetwork/issues/20), text searches are case insensitive.
+* Fixed [issue #16](https://github.com/JMMP/AnteaterNetwork/issues/16), fixed filter menu moving up and down.
+* Fixed [issue #29](https://github.com/JMMP/AnteaterNetwork/issues/29), moved results box to left side.
+* Fixed [issue #32](https://github.com/JMMP/AnteaterNetwork/issues/32), removed Filter By.
+* Fixed [issue #30](https://github.com/JMMP/AnteaterNetwork/issues/30), moved text boxes into drop down menus.
 
 
 ##### Version 6.0 October 29, 2012
@@ -17,7 +21,7 @@
 * Started using Github Issues
 * Fixed [issue #1](https://github.com/JMMP/AnteaterNetwork/issues/1)
 * Facebook, Google Plus, Twitter, and LinkedIn integrated in 5-fivevariant
-* Fixed [issue #10] (https://github.com/JMMP/AnteaterNetwork/issues/10), zoomed and centered map on markers
+* Fixed [issue #10](https://github.com/JMMP/AnteaterNetwork/issues/10), zoomed and centered map on markers
 * Added basic results list that updates on filter changes
 * Fixed [issue #2](https://github.com/JMMP/AnteaterNetwork/issues/2), updated map colours to be more neutral
 * Fixed [issue #5](https://github.com/JMMP/AnteaterNetwork/issues/5), added check to not display businesses without addresses on map
