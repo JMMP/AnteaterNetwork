@@ -53,12 +53,24 @@ var stylesArray = [{
     ]
 }];
 
+
 function loadMap() {
     var myOptions = {
         center: new google.maps.LatLng(33.646259, -117.842056),
         zoom: 12,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
-        styles: stylesArray
+        styles: stylesArray,
+		
+		panControl: true,
+		panControlOptions: {
+			position: google.maps.ControlPosition.TOP_RIGHT
+			},
+		zoomControl: true,
+		zoomControlOptions: {
+			style: google.maps.ZoomControlStyle.LARGE,
+			position: google.maps.ControlPosition.TOP_RIGHT
+			}
+		
     };
 
     map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
