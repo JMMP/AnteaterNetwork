@@ -1,9 +1,13 @@
-# Anteater Network [7](https://instdav.ics.uci.edu//~191grp10/7-seven/)
+# Anteater Network [8](https://instdav.ics.uci.edu//~191grp10/8-eight/)
 ### © 2012 Team JMMP in association with UCI Alumni Association, University of California, Irvine.
 ##### Jola Bolaji, Mark Chege, Melvin Chien, Patrick Chen
 
 - - -
 ### Changelog
+##### Version 8.0 November 22, 2012
+1. Something
+
+
 ##### Version 7.0 November 14, 2012
 1. Fixed [issue #21](https://github.com/JMMP/AnteaterNetwork/issues/21), added JMMP logo and slogan to header and created footer
 * Fixed [issue #24](https://github.com/JMMP/AnteaterNetwork/issues/24), Rancho San Margarita had wrong value in HTML form.
@@ -15,7 +19,12 @@
 * Fixed [issue #32](https://github.com/JMMP/AnteaterNetwork/issues/32), removed Filter By.
 * Fixed [issue #30](https://github.com/JMMP/AnteaterNetwork/issues/30), moved text boxes into drop down menus.
 * Made main JavaScript code more modular.
-* Set up initial QUnit JavaScript unit tests.
+* Fixed [issue #40](https://github.com/JMMP/AnteaterNetwork/issues/40), skipping PHP unit tests.
+* Fixed [issue #41](https://github.com/JMMP/AnteaterNetwork/issues/41), set up initial QUnit JavaScript unit tests.
+* Fixed [issue #42](https://github.com/JMMP/AnteaterNetwork/issues/42), skipping user interface tests.
+* Fixed [issue #26](https://github.com/JMMP/AnteaterNetwork/issues/26), moved zoom controls to right side of map.
+* Fixed [issue #44](https://github.com/JMMP/AnteaterNetwork/issues/44), drop down menus show above map.
+
 
 
 ##### Version 6.0 October 29, 2012
