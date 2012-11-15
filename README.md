@@ -14,6 +14,8 @@
 * Fixed [issue #29](https://github.com/JMMP/AnteaterNetwork/issues/29), moved results box to left side.
 * Fixed [issue #32](https://github.com/JMMP/AnteaterNetwork/issues/32), removed Filter By.
 * Fixed [issue #30](https://github.com/JMMP/AnteaterNetwork/issues/30), moved text boxes into drop down menus.
+* Made main JavaScript code more modular.
+* Set up initial QUnit JavaScript unit tests.
 
 
 ##### Version 6.0 October 29, 2012
