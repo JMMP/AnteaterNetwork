@@ -1,6 +1,6 @@
-# Anteater Network [8](https://instdav.ics.uci.edu//~191grp10/8-eight/)
-### © 2012 Team JMMP in association with UCI Alumni Association, University of California, Irvine.
-##### Jola Bolaji, Mark Chege, Melvin Chien, Patrick Chen
+# Anteater Network [8](https://instdav.ics.uci.edu//~191grp10/8-eight/) [T](https://instdav.ics.uci.edu//~191grp10/8-eight/qunit/)
+### © 2012 Team JMMP, Jola Bolaji, Mark Chege, Melvin Chien, Patrick Chen.
+### In association with UCI Alumni Association, University of California, Irvine.
 
 - - -
 ### Changelog
