@@ -1,4 +1,4 @@
-# Anteater Network [8](https://instdav.ics.uci.edu//~191grp10/8-eight/) [T](https://instdav.ics.uci.edu//~191grp10/8-eight/qunit/)
+# [Anteater Network](http://jmmp.github.com/AnteaterNetwork) [8](https://instdav.ics.uci.edu//~191grp10/8-eight/) [T](https://instdav.ics.uci.edu//~191grp10/8-eight/qunit/)
 ### © 2012 JMMP (Jola Bolaji, Mark Chege, Melvin Chien, Patrick Chen)
 ##### In association with UCI Alumni Association, University of California, Irvine.
 
