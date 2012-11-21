@@ -10,6 +10,7 @@ var filters = [
 var infowindow;
 var sideboxhtml = "";
 var pinDrop = false;
+var phpFile = "andb-connect.php";
 
 // Custom marker image
 var markerImage = "images/marker_anteater_small.png";
@@ -80,20 +81,18 @@ function populate(filter, input) {
         sideboxhtml = "";
         var alumni = parseXML(xmlDoc);
         for (i in alumni) {
-            var marker = createMarker(alumni[i]);
-            if (marker)
-                markers.push(marker);
+            createMarker(alumni[i]);
         }
     });
     
     setBounds();
-    
+    setFilter(filter, input);
     sendXMLHttpRequest(getRequest(filter, input));
 }
 
 
 function sendXMLHttpRequest(request) {
-    xmlhttp.open("GET", "andb-connect.php?" + request, true);
+    xmlhttp.open("GET", phpFile + request, true);
     xmlhttp.send();
 }
 
@@ -149,11 +148,30 @@ function setBounds() {
 }
 
 
-function getRequest(filter, input) {
+function setFilter(filter, input) {
     for (i in filters) {
         if (filters[i][0] == filter)
             filters[i][1] = input;
     }
+}
+
+
+function resetFilter(filter) {
+     for (i in filters) {
+        if (filters[i][0] == filter)
+            filters[i][1] = "";
+    }
+}
+
+
+function resetFilters() {
+    for (i in filters) {
+        filters[i][1] = "";
+    }
+}
+
+
+function getRequest() {
 
     var request = "";
     for (i in filters) {
@@ -228,6 +246,7 @@ function createMarker(alumni) {
             infowindow.open(map, marker);
         });
 
+        markers.push(marker);
         return(marker);
     }
     
@@ -263,11 +282,4 @@ function codeAddress() {
     });
 }
 
-function resetFilters() {
-    clearMarkers();
-    for (i in filters) {
-        filters[i][1] = "";
-    }
-    populate("", "");
-}
 
