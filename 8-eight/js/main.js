@@ -87,12 +87,12 @@ function populate(filter, input) {
     
     setBounds();
     setFilter(filter, input);
-    sendXMLHttpRequest(getRequest(filter, input));
+    sendXMLHttpRequest(getRequest(filter, input), true);
 }
 
 
-function sendXMLHttpRequest(request) {
-    xmlhttp.open("GET", phpFile + request, true);
+function sendXMLHttpRequest(request, asynchronous) {
+    xmlhttp.open("GET", phpFile + request, asynchronous);
     xmlhttp.send();
 }
 
@@ -249,11 +249,7 @@ function createMarker(alumni) {
         markers.push(marker);
         return(marker);
     }
-    
     return false;
-
-    
-
 }
 
 

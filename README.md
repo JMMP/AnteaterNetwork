@@ -13,7 +13,7 @@
 * Updated Anteater Network logo to include slogan, position and size is yet to be adjusted.
 * Progress towards [issue #9](https://github.com/JMMP/AnteaterNetwork/issues/9)
 * Fixed [issue #22](https://github.com/JMMP/AnteaterNetwork/issues/22), added tab to hide and show results box.
-* Fixed [issue #46](https://github.com/JMMP/AnteaterNetwork/issues/46), added feature based QUnit JavaScript unit tests.
+* Progress on [issue #46](https://github.com/JMMP/AnteaterNetwork/issues/46), added feature based QUnit JavaScript unit tests.
 
 ##### Version 7.0 November 14, 2012
 1. Fixed [issue #21](https://github.com/JMMP/AnteaterNetwork/issues/21), added JMMP logo and slogan to header and created footer
