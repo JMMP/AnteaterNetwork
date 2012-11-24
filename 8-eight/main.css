@@ -139,7 +139,7 @@ li.form input[type=text], li.form input[type=password], li.form textarea {
     float: right;
 }
 #cssmenu ul.main {
-    position: absolute;
+    position: fixed;
     float: left;
     top: 80px;
     background: rgb(45,56,58);
@@ -413,7 +413,6 @@ ul#sidenav {
 }*/
 
 ul#sidenav{
-position: fixed;
 	padding: 0;
 	float: left;
 	left: 20px;
@@ -449,7 +448,7 @@ background-color: transparent;
 }
 
 ::-webkit-scrollbar-track-piece  {
-background-color: yellow;/*#3b3b3b;*/
+background-color: #2740E0;/*#3b3b3b;*/
 -webkit-border-radius: 6px;
 }
 
