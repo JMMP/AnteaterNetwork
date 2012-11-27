@@ -10,7 +10,7 @@ var filters = [
 var infowindow;
 var sideboxhtml = "";
 var pinDrop = false;
-var phpFile = "andb-connect.php";
+var phpFile = "andb-connect.php?";
 
 // Custom marker image
 var markerImage = "images/marker_anteater_small.png";
@@ -52,7 +52,7 @@ function loadMap(divID) {
         zoom: 12,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         styles: stylesArray,
-		
+
         panControl: true,
         panControlOptions: {
             position: google.maps.ControlPosition.TOP_RIGHT
@@ -62,7 +62,7 @@ function loadMap(divID) {
             style: google.maps.ZoomControlStyle.LARGE,
             position: google.maps.ControlPosition.TOP_RIGHT
         }
-		
+
     };
 
     map = new google.maps.Map(document.getElementById(divID), myOptions);
@@ -73,7 +73,6 @@ function loadMap(divID) {
 
 
 function populate(filter, input) {
-    
     createXMLHttpRequest(function() {
         updatePinDrop(filter);
         xmlDoc = xmlhttp.responseXML;
@@ -84,10 +83,10 @@ function populate(filter, input) {
             createMarker(alumni[i]);
         }
     });
-    
+
     setBounds();
     setFilter(filter, input);
-    sendXMLHttpRequest(getRequest(filter, input), true);
+    sendXMLHttpRequest(getRequest(), true);
 }
 
 
@@ -118,7 +117,7 @@ function updatePinDrop(filter) {
     // This occurs on first load and on filter reset
     if (filter == "")
         pinDrop = true;
-    else 
+    else
         pinDrop = false;
 }
 
@@ -157,7 +156,7 @@ function setFilter(filter, input) {
 
 
 function resetFilter(filter) {
-     for (i in filters) {
+    for (i in filters) {
         if (filters[i][0] == filter)
             filters[i][1] = "";
     }
@@ -172,7 +171,6 @@ function resetFilters() {
 
 
 function getRequest() {
-
     var request = "";
     for (i in filters) {
         if (filters[i][1] != "") {
@@ -201,13 +199,12 @@ function createMarker(alumni) {
     var bus_lat = alumni.getAttribute("Business_Lat");
     var bus_lng = alumni.getAttribute("Business_Lng");
 
-
     // Generate HTML list for the results list on the side
     sideboxhtml +="<li> <a href='#'>" + bus_name + "<br/><span>" + bus_street1 + "<br />";
     sideboxhtml += bus_city + ", " + bus_state + " " + bus_zipcode + "<br />" + bus_phone + "</span> </a> </li>";
     var sidebox = document.getElementById("sidenav");
     sidebox.innerHTML = sideboxhtml;
-    
+
     // Catch businesses with no latitude or longitude
     // Don't show these on the map but still list them in the results box
     if (bus_lat != "" || bus_lng != "") {
@@ -222,7 +219,7 @@ function createMarker(alumni) {
             icon: markerImage,
             title: bus_name
         });
-        
+
         // Do not have any animation when filtering
         if (pinDrop)
             marker.setAnimation(google.maps.Animation.DROP);
@@ -236,6 +233,8 @@ function createMarker(alumni) {
         " (" + school_code + ", " + class_year + ")<br />" + bus_title + "<br />" + bus_name + "<br />" +
         bus_street1 + "<br />" + bus_city + ", " + bus_state + " " + bus_zipcode +
         "<br />" + bus_phone + "<br />";
+        
+        contentString += "<br /><a href='http://maps.google.com/maps?daddr=" + point.toUrlValue() + "' target ='_blank'>Get Directions</a>";
 
 
         google.maps.event.addListener(marker, "click", function() {
@@ -278,4 +277,14 @@ function codeAddress() {
     });
 }
 
-
+// Catch enter presses on main page
+function enter_pressed(e){
+    var keycode;
+    if (window.event)
+        keycode = window.event.keyCode;
+    else if (e)
+        keycode = e.which;
+    else
+        return false;
+    return (keycode == 13);
+}

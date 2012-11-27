@@ -113,7 +113,6 @@ module("Markers", {
 */
 
 
-
 module("Markers", {
     setup: function() {
         createXMLHttpRequest(function () {
@@ -133,6 +132,7 @@ module("Markers", {
         markers = [];
         xmlhttp = null;
         xmlDoc = null;
+        phpFile = "andb-connect.php?";
         ok(true, "Teardown");
     }
 });
@@ -153,14 +153,14 @@ test("Create one marker", function() {
 
 })
 
-test("Create all markers", function() {
+test("Create random markers", function() {
     var alumni = parseXML(xmlDoc);
-    var numMarkers = alumni.length;
+    var numMarkers = Math.floor(Math.random() * alumni.length);
     // Each marker created will have 2 tests
     // in addition to setup, teardown, and one from array length
     expect(numMarkers * 2 + 3);
 
-    for (; numMarkers > 0; numMarkers--) {
+    for (var n = numMarkers; n > 0; n--) {
         var i = Math.floor(Math.random() * alumni.length);
         var marker = createMarker(alumni[i]);
         var latlng = new google.maps.LatLng(parseFloat(alumni[i].getAttribute("Business_Lat")),
@@ -170,7 +170,7 @@ test("Create all markers", function() {
         deepEqual(title, marker.getTitle(), "Title of business #" + i);
     }
 
-    equal(alumni.length, markers.length, "Markers array length");
+    equal(numMarkers, markers.length, "Markers array length");
 });
 
 
@@ -255,3 +255,21 @@ test("Create requests (multiple filters)", function() {
 });
 
 
+
+module("Search", {
+    setup: function() {
+        loadMap("qunit-fixture");
+        populate('', '');
+        var $fixture = $("#qunit-fixture");
+        $fixture.append("<ul id='sidenav'></ul>");
+        ok(true, "Setup");
+    }
+});
+
+
+
+test("Search by Business Name", function() {
+    expect(3);
+    strictEqual(typeof xmlDoc, "object", "xmlDoc is an object");
+    ok(markers.length > 0, "Markers made");
+})
