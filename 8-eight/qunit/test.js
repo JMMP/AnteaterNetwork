@@ -97,20 +97,6 @@ test("Parse XML", function() {
 
 });
 
-/*
- * Module attempting to use PHP
- * DOES NOT WORK
-module("Markers", {
-    setup: function() {
-        phpFile = "http://instdav.ics.uci.edu/~191grp10/8-eight/andb-connect.php";
-        loadMap("qunit-fixture");
-        var $fixture = $("#qunit-fixture");
-        $fixture.append("<ul id='sidenav'></ul>");
-        populate("", "");
-        ok(true, "setup");
-    }
-});
-*/
 
 
 module("Markers", {
@@ -253,23 +239,3 @@ test("Create requests (multiple filters)", function() {
     request = getRequest();
     equal(request, "city=Irvine&zipcode=92617")
 });
-
-
-
-module("Search", {
-    setup: function() {
-        loadMap("qunit-fixture");
-        populate('', '');
-        var $fixture = $("#qunit-fixture");
-        $fixture.append("<ul id='sidenav'></ul>");
-        ok(true, "Setup");
-    }
-});
-
-
-
-test("Search by Business Name", function() {
-    expect(3);
-    strictEqual(typeof xmlDoc, "object", "xmlDoc is an object");
-    ok(markers.length > 0, "Markers made");
-})
