@@ -2,6 +2,8 @@ html {
     font-size: 100%;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 body, ul, li, p, h1, h2, h3, h4, h5, h6 {
@@ -137,7 +139,7 @@ li.form input[type=text], li.form input[type=password], li.form textarea {
     float: right;
 }
 #cssmenu ul.main {
-    position: absolute;
+    position: fixed;
     float: left;
     top: 80px;
     background: rgb(45,56,58);
@@ -391,6 +393,10 @@ div#note {
     width: 100%;
     height: 500px;
     margin-top: 135px;
+
+}
+.slide-out-div{
+	z-index: 1;
 }
 
 
@@ -407,26 +413,51 @@ ul#sidenav {
 }*/
 
 ul#sidenav{
-    position: fixed;
-    padding: 0;
-    float: left;
-    left: 20px;
-    width: 200px;
-    height: 400px;
-    top: 25%;
-    margin-left: 10px;
-    background: #2740E0 /*#0FA1E0*/;
-    border-bottom: 5px solid #0FA1E0;
-    border-top: 5px solid #0FA1E0;
-    border-left: 5px solid #0FA1E0;
-    border-right: 5px solid #0FA1E0;
-    font-size: 1.2em;
-    list-style: none;
-    overflow: scroll;
-    overflow-x: hidden;
-    opacity: .85;
-    border-radius: 10px;
-    border: 3px solid black;
+	padding: 0;
+	float: left;
+	left: 20px;
+	width: 200px;
+	height: 400px;
+	top: 25%;
+	margin-left: 10px;
+	background: #2740E0 /*#0FA1E0*/;
+	border-bottom: 5px solid #0FA1E0;
+	border-top: 5px solid #0FA1E0;
+	border-left: 5px solid #0FA1E0;
+	border-right: 5px solid #0FA1E0;
+	font-size: 1.2em;
+	list-style: none;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	opacity: .85;
+	border-radius: 10px;
+	border: 3px solid black;
+	
+}
+
+::-webkit-scrollbar {
+width: 10px;
+height: 10px;
+}
+
+::-webkit-scrollbar-button:start:decrement,
+::-webkit-scrollbar-button:end:increment  {
+height: 30px;
+display: block;
+background-color: transparent;
+}
+
+::-webkit-scrollbar-track-piece  {
+background-color: #2740E0;/*#3b3b3b;*/
+-webkit-border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:vertical {
+width: 10px;
+height: 10px;
+background-color: #000066/*#666;*/;
+border: 1px solid black; /*#eee;*/
+-webkit-border-radius: 6px;
 }
 
 #statement{

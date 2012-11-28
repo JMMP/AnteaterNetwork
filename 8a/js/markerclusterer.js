@@ -692,7 +692,7 @@ function MarkerClusterer(map, opt_markers, opt_options) {
 
   this.gridSize_ = opt_options.gridSize || 60;
   this.minClusterSize_ = opt_options.minimumClusterSize || 2;
-  this.maxZoom_ = opt_options.maxZoom || null;
+  this.maxZoom_ = opt_options.maxZoom || 12;
   this.styles_ = opt_options.styles || [];
   this.title_ = opt_options.title || "";
   this.zoomOnClick_ = true;
@@ -1315,7 +1315,8 @@ MarkerClusterer.prototype.removeMarker_ = function (marker) {
  */
 MarkerClusterer.prototype.clearMarkers = function () {
   this.resetViewport_(true);
-  this.markers_ = [];
+  this.clusters_ = [];
+  //this.markers_ = [];
 };
 
 
