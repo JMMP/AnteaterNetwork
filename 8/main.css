@@ -434,7 +434,7 @@ ul#sidenav{
 	border: 3px solid black;
 	
 }
-
+/*
 ::-webkit-scrollbar {
 width: 10px;
 height: 10px;
@@ -448,9 +448,9 @@ background-color: transparent;
 }
 
 ::-webkit-scrollbar-track-piece  {
-background-color: #2740E0;/*#3b3b3b;*/
+background-color: #2740E0;/*#3b3b3b;
 -webkit-border-radius: 6px;
-}
+}*/
 
 ::-webkit-scrollbar-thumb:vertical {
 width: 10px;
