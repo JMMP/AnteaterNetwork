@@ -224,18 +224,18 @@ test("Reset all filters", function() {
 
 });
 
-test("Create requests (multiple filters)", function() {
+test("Create requests from multiple filters", function() {
     expect(5);
 
     var request = getRequest();
-    equal(request, "city=Irvine&name=Me&zipcode=92617")
+    equal(request, "city=Irvine&name=Me&zipcode=92617", "City, name and zipcode");
 
     resetFilter("city");
     request = getRequest();
-    equal(request, "name=Me&zipcode=92617")
+    equal(request, "name=Me&zipcode=92617", "Name and zipcode");
 
     resetFilter("name");
     setFilter("city", "Irvine");
     request = getRequest();
-    equal(request, "city=Irvine&zipcode=92617")
+    equal(request, "city=Irvine&zipcode=92617", "City and zipcode");
 });
