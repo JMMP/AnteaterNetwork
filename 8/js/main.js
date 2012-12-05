@@ -10,7 +10,6 @@ var filters = [
 var infowindow;
 var sideboxhtml = "";
 var pinDrop = false;
-var phpFile = "andb-connect.php?";
 
 // Custom marker image
 var markerImage = "images/marker_anteater_small.png";
@@ -67,7 +66,7 @@ function loadMap(divID) {
 
     map = new google.maps.Map(document.getElementById(divID), myOptions);
 
-//var geocoder = new google.maps.Geocoder();
+    //var geocoder = new google.maps.Geocoder();
 
 }
 
@@ -86,12 +85,12 @@ function populate(filter, input) {
 
     setBounds();
     setFilter(filter, input);
-    sendXMLHttpRequest(getRequest(), true);
+    sendXMLHttpRequest("getAlumni.php" + getRequest(), true);
 }
 
 
 function sendXMLHttpRequest(request, asynchronous) {
-    xmlhttp.open("GET", phpFile + request, asynchronous);
+    xmlhttp.open("GET", request, asynchronous);
     xmlhttp.send();
 }
 
@@ -171,7 +170,7 @@ function resetFilters() {
 
 
 function getRequest() {
-    var request = "";
+    var request = "?";
     for (i in filters) {
         if (filters[i][1] != "") {
             if (request != "")
@@ -184,24 +183,67 @@ function getRequest() {
 
 
 function createMarker(alumni) {
-    var first_name = alumni.getAttribute("First_Name");
-    var last_name = alumni.getAttribute("Last_Name");
-    var class_year = alumni.getAttribute("Class_Year");
-    var school_code = alumni.getAttribute("School_Code");
-    var bus_title = alumni.getAttribute("Business_Title");
-    var bus_name = alumni.getAttribute("Business_Name");
-    var bus_street1 = alumni.getAttribute("Business_Street1");
-    var bus_street2 = alumni.getAttribute("Business_Street2");
-    var bus_city = alumni.getAttribute("Business_City");
-    var bus_state = alumni.getAttribute("Business_State");
-    var bus_zipcode = alumni.getAttribute("Business_Zipcode");
-    var bus_phone = alumni.getAttribute("Business_Phone");
-    var bus_lat = alumni.getAttribute("Business_Lat");
-    var bus_lng = alumni.getAttribute("Business_Lng");
+    
+    sideboxhtml += "<li> <a>";
+    var bus_lat = "";
+    var bus_lng = "";
+    var bus_name = "";
+    
+    var contentString = "<div id='infoWindow'>";
+    
+    if (alumni.hasAttribute("Business_Name")) {
+        bus_name = alumni.getAttribute("Business_Name");
+        sideboxhtml += bus_name + "<br/>";
+        contentString += "<h2 id='firstHeading' class='firstHeading'>" + bus_name + "</h2>";
+    }
+    
+    contentString += "<div id='bodyContent'>";
+    
+    if (alumni.hasAttribute("First_Name") && alumni.hasAttribute("Last_Name")) {
+        var first_name = alumni.getAttribute("First_Name");
+        var last_name = alumni.getAttribute("Last_Name");
+        contentString += first_name + " " + last_name  + "<br />";
+    }
+    
+    if (alumni.hasAttribute("Business_Street1")) {
+        var bus_street1 = alumni.getAttribute("Business_Street1");
+        sideboxhtml += bus_street1 + "<br />";
+        contentString += bus_street1 + "<br />";
+    }
+    
+    if (alumni.hasAttribute("Business_City") && alumni.hasAttribute("Business_State")) {
+        var bus_city = alumni.getAttribute("Business_City");
+        var bus_state = alumni.getAttribute("Business_State");
+        sideboxhtml += bus_city + ", " + bus_state;
+        contentString += bus_city + ", " + bus_state;
+    }
+    
+    if (alumni.hasAttribute("Business_Zipcode")) {
+        var bus_zipcode = alumni.getAttribute("Business_Zipcode");
+        sideboxhtml += " " + bus_zipcode;
+        contentString += " " + bus_zipcode;
+    }
+    
+    sideboxhtml += "<br />";
+    contentString += "<br />";
+    
+    if (alumni.hasAttribute("Business_Phone")) {
+        var bus_phone = alumni.getAttribute("Business_Phone");
+        sideboxhtml += bus_phone;
+        contentString += bus_phone + "<br />";
+    }
+    
+    if (alumni.hasAttribute("Business_Lat") && alumni.hasAttribute("Business_Lng")) {
+        bus_lat = alumni.getAttribute("Business_Lat");
+        bus_lng = alumni.getAttribute("Business_Lng");
+    }
+    
+    sideboxhtml += "</span></a></li>";
+    
+    //var class_year = alumni.getAttribute("Class_Year");
+    //var school_code = alumni.getAttribute("School_Code");
 
     // Generate HTML list for the results list on the side
-    sideboxhtml +="<li> <a href='#'>" + bus_name + "<br/><span>" + bus_street1 + "<br />";
-    sideboxhtml += bus_city + ", " + bus_state + " " + bus_zipcode + "<br />" + bus_phone + "</span> </a> </li>";
     var sidebox = document.getElementById("sidenav");
     sidebox.innerHTML = sideboxhtml;
 
@@ -225,17 +267,8 @@ function createMarker(alumni) {
             marker.setAnimation(google.maps.Animation.DROP);
         else
             marker.setAnimation();
-
-
-        var contentString = "<div id='infoWindow'>" +
-        "<h2 id='firstHeading' class='firstHeading'>" + bus_name + "</h2>" +
-        "<div id='bodyContent'>" + "" + first_name + " " + last_name +
-        " (" + school_code + ", " + class_year + ")<br />" + bus_title + "<br />" + bus_name + "<br />" +
-        bus_street1 + "<br />" + bus_city + ", " + bus_state + " " + bus_zipcode +
-        "<br />" + bus_phone + "<br />";
         
-        contentString += "<br /><a href='http://maps.google.com/maps?daddr=" + point.toUrlValue() + "' target ='_blank'>Get Directions</a>";
-
+        contentString += "<a href='http://maps.google.com/maps?daddr=" + point.toUrlValue() + "' target ='_blank'>Get Directions</a>";
 
         google.maps.event.addListener(marker, "click", function() {
             if (infowindow) infowindow.close();
@@ -278,7 +311,7 @@ function codeAddress() {
 }
 
 // Catch enter presses on main page
-function enter_pressed(e){
+function enter_pressed(e) {
     var keycode;
     if (window.event)
         keycode = window.event.keyCode;
@@ -287,4 +320,12 @@ function enter_pressed(e){
     else
         return false;
     return (keycode == 13);
+}
+
+function getMenu(menu) {
+    createXMLHttpRequest(function() {
+        document.getElementById("submenu_city").innerHTML = xmlhttp.responseText;
+    });
+
+    sendXMLHttpRequest("getMenu.php?menu=" + menu, false);
 }

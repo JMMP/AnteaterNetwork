@@ -107,9 +107,8 @@ module("Markers", {
 
         // Data taken from MySQL database and put into an XML
         // with special characters removed (see issue #51 on GitHub)
-        phpFile = "test.xml";
         // XMLHttpRequest must be handled synchronously (false)
-        sendXMLHttpRequest("", false);
+        sendXMLHttpRequest("test.xml", false);
         var $fixture = $("#qunit-fixture");
         $fixture.append("<ul id='sidenav'></ul>");
         ok(true, "Setup");
@@ -118,7 +117,6 @@ module("Markers", {
         markers = [];
         xmlhttp = null;
         xmlDoc = null;
-        phpFile = "andb-connect.php?";
         ok(true, "Teardown");
     }
 });

@@ -6,7 +6,7 @@
 
 - - -
 ### Changelog
-##### Version 8.0 November 28, 2012
+##### Version 8.0 December 5, 2012
 1. Fixed [issue #48](https://github.com/JMMP/AnteaterNetwork/issues/48), map is clickable again.
 * Added social network logos for Facebook, Twitter, and Google Plus.
 * Various CSS changes and fixes.
@@ -21,7 +21,10 @@
 * Fixed [issue #31](https://github.com/JMMP/AnteaterNetwork/issues/31), changed "Name" to "Business Name".
 * Fixed [issue #52](https://github.com/JMMP/AnteaterNetwork/issues/52), added link to get directions in info windows.
 * Fixed [issue #46](https://github.com/JMMP/AnteaterNetwork/issues/46), completed feature based QUnit JavaScript unit tests.
-* Fixed [issue #53](https://github.com/JMMP/AnteaterNetwork/issues/46), added LinkedIn button.
+* Fixed [issue #53](https://github.com/JMMP/AnteaterNetwork/issues/53), added LinkedIn button.
+* Fixed [issue #39](https://github.com/JMMP/AnteaterNetwork/issues/39), implemented larger database.
+* Fixed [issue #12](https://github.com/JMMP/AnteaterNetwork/issues/12), city menu auto populates from database.
+* Fixed [issue #18](https://github.com/JMMP/AnteaterNetwork/issues/12), results box is sorted alphabetically by business name.
 
 
 ##### Version 7.0 November 14, 2012

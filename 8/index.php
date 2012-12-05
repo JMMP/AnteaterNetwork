@@ -8,11 +8,8 @@
         <script src="js/ajax.js"></script>
         <script src="js/switch.js"></script>
         <script src="js/jquery-1.8.2.min.js"></script>
-
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDjfKwuT7W5o7YSTt6wHmeDaEhgIxuOUoI&sensor=true"></script>
         <script src="js/main.js"></script>
-
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js" type="text/javascript"></script>
         <script src="js/jqueryPullTab.js"></script>
         <script>
             $(function(){
@@ -31,7 +28,7 @@
 
         </script>
     </head>
-    <body onload="loadMap('map_canvas'); populate('', '')">
+    <body onload="getMenu('city'); loadMap('map_canvas'); populate('', '')">
         <div class="banner">
             <a href="http://www.alumni.uci.edu"><img alt="Link to Alumni Home Page"  src="images/an_logo.png" height="60"/></a>
             <div id="logos">
@@ -69,8 +66,9 @@
                             <li><a href='#'><span>Consultant</span></a></li>
                         </ul>
                     </li>
-                    <li><a href="#">City</a>
-                        <ul class="submenu">
+                    <li><a onclick="populate('city', '')">City</a>
+                        <ul id="submenu_city" class="submenu">
+                            <!--
                             <li><a onclick="populate('city', 'Anaheim')"><span>Anaheim</span></a></li>
                             <li><a onclick="populate('city', 'Costa Mesa')"><span>Costa Mesa</span></a></li>
                             <li><a onclick="populate('city', 'Fountain Valley')"><span>Fountain Valley</span></a></li>
@@ -80,7 +78,7 @@
                             <li><a onclick="populate('city', 'Laguna Hills')"><span>Laguna Hills</span></a></li>
                             <li><a onclick="populate('city', 'Newport Beach')"><span>Newport Beach</span></a></li>
                             <li><a onclick="populate('city', 'Racho Santa Margarito')"><span>Rancho Santa Margarita</span></a></li>
-                            <li><a onclick="populate('city', 'Santa Ana')"><span>Santa Ana</span></a></li>
+                            <li><a onclick="populate('city', 'Santa Ana')"><span>Santa Ana</span></a></li>-->
                         </ul>
                     </li>
 					
