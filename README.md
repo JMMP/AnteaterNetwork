@@ -24,7 +24,8 @@
 * Fixed [issue #53](https://github.com/JMMP/AnteaterNetwork/issues/53), added LinkedIn button.
 * Fixed [issue #39](https://github.com/JMMP/AnteaterNetwork/issues/39), implemented larger database.
 * Fixed [issue #12](https://github.com/JMMP/AnteaterNetwork/issues/12), city menu auto populates from database.
-* Fixed [issue #18](https://github.com/JMMP/AnteaterNetwork/issues/12), results box is sorted alphabetically by business name.
+* Fixed [issue #18](https://github.com/JMMP/AnteaterNetwork/issues/18), results box is sorted alphabetically by business name
+* Fixed [issue #62](https://github.com/JMMP/AnteaterNetwork/issues/62), missing information will not be displayed.
 
 
 ##### Version 7.0 November 14, 2012
