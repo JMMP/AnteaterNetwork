@@ -170,7 +170,7 @@ function resetFilters() {
 
 
 function getRequest() {
-    var request = "?";
+    var request = "";
     for (i in filters) {
         if (filters[i][1] != "") {
             if (request != "")
@@ -178,7 +178,7 @@ function getRequest() {
             request += filters[i][0] + "=" + filters[i][1];
         }
     }
-    return request;
+    return "?" + request;
 }
 
 
