@@ -435,10 +435,6 @@ ul#sidenav{
 	
 }
 
-.firstHeading{
-	background: blue;
-}
-
 ::-webkit-scrollbar {
 width: 10px;
 height: 10px;
