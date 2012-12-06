@@ -28,12 +28,12 @@
     </head>
     <body onload="getMenu('city'); loadMap('map_canvas'); populate('', '')">
         <div class="banner">
-            <a href="http://www.alumni.uci.edu"><img alt="Link to Alumni Home Page"  src="images/an_logo.png" height="60"/></a>
+            <a href="http://www.alumni.uci.edu"><img alt="Anteater Network"  src="images/an_logo.png" height="60"/></a><div id="infobox"></div>
             <div id="logos">
-                <a href="http://www.alumni.uci.edu" target="_blank"><img src="images/facebook_logo.png" width="40px"/>
-                <a href="https://twitter.com/UCIAA" target="_blank"><img src="images/twitter_logo.png" width="40px"/>
-                <a href="https://plus.google.com/117331387039000132685/about" target="_blank"><img src="images/google_plus_logo.png" width="40px"/>
-				<a href="http://www.linkedin.com/pub/uci-alumni-association/15/81/7b" target="_blank"><img src="images/linkedin_logo.png" width="40px"/></a>
+                <a href="http://www.alumni.uci.edu" target="_blank"><img src="images/facebook_logo.png" width="40px"/></a>
+                <a href="https://twitter.com/UCIAA" target="_blank"><img src="images/twitter_logo.png" width="40px"/></a>
+                <a href="https://plus.google.com/117331387039000132685/about" target="_blank"><img src="images/google_plus_logo.png" width="40px"/></a>
+                <a href="http://www.linkedin.com/pub/uci-alumni-association/15/81/7b" target="_blank"><img src="images/linkedin_logo.png" width="40px"/></a>
             </div>
         </div>
         <div id="wrapper">
@@ -79,8 +79,8 @@
                             <li><a onclick="populate('city', 'Santa Ana')"><span>Santa Ana</span></a></li>-->
                         </ul>
                     </li>
-					
-					<li class="fr"><a href="http://www.alumni.uci.edu/connect/update-info.php" target="_blank">Update Info</a>
+
+                    <li class="fr"><a href="http://www.alumni.uci.edu/connect/update-info.php" target="_blank">Update Info</a>
                         <ul class="submenu_right"></ul>
                     </li>
 
@@ -126,9 +126,9 @@
         <div class="slide-out-div"><a class="handle">Pull</a><ul id="sidenav"></ul></div>
 
         <div id="map_canvas">
-            <noscript><b>JavaScript must be enabled in order for you to use Google Maps.</b> 
-            However, it seems JavaScript is either disabled or not supported by your browser. 
-            To view Google Maps, enable JavaScript by changing your browser options, and then 
+            <noscript><b>JavaScript must be enabled in order for you to use Google Maps.</b>
+            However, it seems JavaScript is either disabled or not supported by your browser.
+            To view Google Maps, enable JavaScript by changing your browser options, and then
             try again.
             </noscript>
         </div>
@@ -138,61 +138,3 @@
         </div>
     </body>
 </html>
-
-
-<!--Facebook
-    <iframe src='//www.facebook.com/plugins/like.
-    php?href=https%3A%2F%2Finstdav.ics.uci.edu%2F%7E191grp10%2F5-fivevariant%2F&amp;
-    send=false&amp;layout=button_count&amp;width=60&amp;show_faces=false&amp;action=like&amp;
-    colorscheme=light&amp;font&amp;height=21' scrolling='no' frameborder='0' style='border:none;
-    overflow:hidden; width:75px; height:21px;' allowTransparency='true'></iframe>
-
-    <div id="fb-root"></div>
-      <script>(function(d, s, id) {
-        var js, fjs = d.getElementzsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-        fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));</script>
-</li>-->
-
-
-<!--Google+
-    <div class="g-plusone" data-size="medium" data-annotation="none" data-href="https://instdav.ics.uci.edu/~191grp10/5-fivevariant/"></div>
-
-     <script type="text/javascript">
-        (function() {
-            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-            po.src = 'https://apis.google.com/js/plusone.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-        })();
-      </script>
-</li>-->
-
-
-<!--Twitter
-    <a href="https://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a>
-
-    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-
-</li>-->
-
-<!--
-<li>
-LinkedIn
-    <script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
-    <script type="IN/Share" data-url="https://instdav.ics.uci.edu/~191grp10/5-fivevariant/"></script>
-
-</li>
--->
-
-<!--
-<div>
-   <input type="button" value="Refresh Map" onclick="location.reload(true)">
-   <input type="button" value="Reset Markers" onclick="clearMarkers()">
-   <input type="button" value="MySQL to XML" onclick="parent.location='ANGetXML.php'">
-</div>
--->
-
-

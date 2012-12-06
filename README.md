@@ -7,7 +7,8 @@
 - - -
 ### Changelog
 ##### Version 9.0 December 10, 2012
-1. 
+1. Fixed [issue #45](https://github.com/JMMP/AnteaterNetwork/issues/45), added buffer of ±0.003 degrees to latitude and longitude of each pin.
+1. Fixed [issue #33](https://github.com/JMMP/AnteaterNetwork/issues/33), map stays in place when there are no markers to display.
 
 
 ##### Version 8.0 December 5, 2012

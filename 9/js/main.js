@@ -10,6 +10,7 @@ var filters = [
 var infowindow;
 var sideboxhtml = "";
 var pinDrop = false;
+var latlngBuffer = 0.003;
 
 // Custom marker image
 var markerImage = "images/marker_anteater_small.png";
@@ -66,7 +67,7 @@ function loadMap(divID) {
 
     map = new google.maps.Map(document.getElementById(divID), myOptions);
 
-    //var geocoder = new google.maps.Geocoder();
+//var geocoder = new google.maps.Geocoder();
 
 }
 
@@ -123,26 +124,6 @@ function updatePinDrop(filter) {
 
 function parseXML(xml) {
     return xml.getElementsByTagName("alumnus");
-}
-
-
-function setBounds() {
-    //  Create a new viewpoint bound
-    var bounds = new google.maps.LatLngBounds();
-
-    // If array is empty, focus map around UCI
-    if (markersLatLng.length == 0) {
-        markersLatLng.push(new google.maps.LatLng(33.70095,-117.710438));
-        markersLatLng.push(new google.maps.LatLng(33.576899,-117.978916));
-    }
-
-    // Increase bounds for each marker
-    for (i in markersLatLng) {
-        bounds.extend(markersLatLng[i]);
-    }
-
-    // Fit bounds to the map
-    map.fitBounds(bounds);
 }
 
 
@@ -251,9 +232,12 @@ function createMarker(alumni) {
     // Don't show these on the map but still list them in the results box
     if (bus_lat != "" || bus_lng != "") {
         var point = new google.maps.LatLng(parseFloat(bus_lat), parseFloat(bus_lng));
-
+        var pointBufferedNE = new google.maps.LatLng(parseFloat(bus_lat) + latlngBuffer, parseFloat(bus_lng) + latlngBuffer);
+        var pointBufferedSW = new google.maps.LatLng(parseFloat(bus_lat) - latlngBuffer, parseFloat(bus_lng) - latlngBuffer);
+        
         // Add marker position to array
-        markersLatLng.push(point);
+        markersLatLng.push(pointBufferedNE);
+        markersLatLng.push(pointBufferedSW);
 
         var marker = new google.maps.Marker({
             map: map,
@@ -282,6 +266,27 @@ function createMarker(alumni) {
         return(marker);
     }
     return false;
+}
+
+
+function setBounds() {
+    if (markers.length == 0) {
+        // If there are no markers to show, don't move map and give an alert or error instead
+        document.getElementById("infobox").innerHTML = "No markers to display!";
+        return false;    
+    } else {
+        document.getElementById("infobox").innerHTML = "";
+        //  Create a new viewpoint bound
+        var bounds = new google.maps.LatLngBounds();
+        // Increase bounds for each marker
+        for (i in markersLatLng) {
+            bounds.extend(markersLatLng[i]);
+        }
+    
+        // Fit bounds to the map
+        map.fitBounds(bounds);
+        return true;
+    }
 }
 
 
