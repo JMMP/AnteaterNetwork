@@ -9,6 +9,7 @@
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDjfKwuT7W5o7YSTt6wHmeDaEhgIxuOUoI&sensor=true"></script>
         <script src="js/main.js"></script>
         <script src="js/jqueryPullTab.js"></script>
+        <script src="js/markerclusterer.js"></script>        
         <script>
             $(function(){
                 $('.slide-out-div').tabSlideOut({
@@ -65,20 +66,14 @@
                         </ul>
                     </li>
                     <li><a onclick="populate('city', '')">City</a>
-                        <ul id="submenu_city" class="submenu">
-                            <!--
-                            <li><a onclick="populate('city', 'Anaheim')"><span>Anaheim</span></a></li>
-                            <li><a onclick="populate('city', 'Costa Mesa')"><span>Costa Mesa</span></a></li>
-                            <li><a onclick="populate('city', 'Fountain Valley')"><span>Fountain Valley</span></a></li>
-                            <li><a onclick="populate('city', 'Garden Grove')"><span>Garden Grove</span></a></li>
-                            <li><a onclick="populate('city', 'Irvine')"><span>Irvine</span></a></li>
-                            <li><a onclick="populate('city', 'Laguna Beach')"><span>Laguna Beach</span></a></li>
-                            <li><a onclick="populate('city', 'Laguna Hills')"><span>Laguna Hills</span></a></li>
-                            <li><a onclick="populate('city', 'Newport Beach')"><span>Newport Beach</span></a></li>
-                            <li><a onclick="populate('city', 'Racho Santa Margarito')"><span>Rancho Santa Margarita</span></a></li>
-                            <li><a onclick="populate('city', 'Santa Ana')"><span>Santa Ana</span></a></li>-->
-                        </ul>
+                        <ul id="submenu_city" class="submenu"></ul>
                     </li>
+                    <li><a>Toggle Clusters</a>
+                        <ul class="submenu">
+                            <li><a onclick="clusterMarkers()">Clusters On</a></li>
+                            <li><a onclick="clearClusters()">Clusters Off</a></li>
+                        </ul>
+                    </li>   
 
                     <li class="fr"><a href="http://www.alumni.uci.edu/connect/update-info.php" target="_blank">Update Info</a>
                         <ul class="submenu_right"></ul>

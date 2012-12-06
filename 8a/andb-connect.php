@@ -24,7 +24,7 @@ if (!$db_selected) {
 
 // Select all the rows in the markers table
 
-$query = "SELECT * FROM AN_Alumni";
+$query = "SELECT * FROM AN_Alumni_New";
 $request = "";
 
 if (!empty($_GET)) {

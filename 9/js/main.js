@@ -1,4 +1,5 @@
 var map;
+var mc;
 var markers = [];
 var markersLatLng = [];
 var xmlhttp;
@@ -66,7 +67,7 @@ function loadMap(divID) {
     };
 
     map = new google.maps.Map(document.getElementById(divID), myOptions);
-
+    mc = new MarkerClusterer(map);
 //var geocoder = new google.maps.Geocoder();
 
 }
@@ -333,4 +334,21 @@ function getMenu(menu) {
     });
 
     sendXMLHttpRequest("getMenu.php?menu=" + menu, false);
+}
+
+
+function clusterMarkers() {
+   clearMarkers();
+   mc.addMarkers(markers);
+}
+
+
+function clearClusters() {
+    mc.clearMarkers();
+}
+
+
+function resetCluster() {
+    mc.clearMarkers();
+    mc.addMarkers(markers);    
 }
