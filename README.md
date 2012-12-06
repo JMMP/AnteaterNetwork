@@ -1,11 +1,15 @@
 ![Anteater Network](http://i.imgur.com/4oVj3.png)
-# Anteater Network [8](https://instdav.ics.uci.edu//~191grp10/8/)
+# Anteater Network [9](https://instdav.ics.uci.edu//~191grp10/9/)
 ### © 2012 JMMP (Jola Bolaji, Mark Chege, Melvin Chien, Patrick Chen). In association with UCI Alumni Association, University of California, Irvine.
 
-[Home](http://jmmp.github.com/AnteaterNetwork) | [Version 8](https://instdav.ics.uci.edu/~191grp10/8/) | [Test Suite](https://instdav.ics.uci.edu/~191grp10/8/qunit/) | [GitHub](https://github.com/jmmp/AnteaterNetwork)
+[Home](http://jmmp.github.com/AnteaterNetwork) | [Version 9](https://instdav.ics.uci.edu/~191grp10/9/) | [Test Suite](https://instdav.ics.uci.edu/~191grp10/9/qunit/) | [GitHub](https://github.com/jmmp/AnteaterNetwork)
 
 - - -
 ### Changelog
+##### Version 9.0 December 10, 2012
+1. 
+
+
 ##### Version 8.0 December 5, 2012
 1. Fixed [issue #48](https://github.com/JMMP/AnteaterNetwork/issues/48), map is clickable again.
 * Added social network logos for Facebook, Twitter, and Google Plus.
