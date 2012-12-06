@@ -13,9 +13,9 @@
             $(function(){
                 $('.slide-out-div').tabSlideOut({
                     tabHandle: '.handle',                              //class of the element that will be your tab
-                    pathToTabImage: 'images/pull_tab.png',          //path to the image for the tab (optionaly can be set using css)
-                    imageHeight: '112px',  							//height of tab image
-                    imageWidth: '215px',                               //width of tab image
+                    pathToTabImage: 'images/tab_show.png',          //path to the image for the tab (optionaly can be set using css)
+                    imageHeight: '70px',  							//height of tab image
+                    imageWidth: '30px',                               //width of tab image
                     tabLocation: 'left',                               //side of screen where tab lives, top, right, bottom, or left
                     speed: 300,                                        //speed of animation
                     action: 'click',                                   //options: 'click' or 'hover', action to trigger animation
