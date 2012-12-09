@@ -74,6 +74,7 @@ function loadMap(divID) {
 
 
 function populate(filter, input) {
+    setFilter(filter, input);
     createXMLHttpRequest(function() {
         updatePinDrop(filter);
         xmlDoc = xmlhttp.responseXML;
@@ -85,8 +86,7 @@ function populate(filter, input) {
         }
     });
 
-    setBounds();
-    setFilter(filter, input);
+    setBounds();    
     sendXMLHttpRequest("getAlumni.php" + getRequest(), true);
 }
 
@@ -348,7 +348,7 @@ function clearClusters() {
 }
 
 
-function resetCluster() {
+function resetClusters() {
     mc.clearMarkers();
     mc.addMarkers(markers);    
 }
