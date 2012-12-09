@@ -10,11 +10,13 @@
     
         $('.slide-out-div').tabSlideOut({
                 tabHandle: '.handle',                         //class of the element that will be your tab -doesnt have to be an anchor
-                pathToTabImage: 'images/contact_tab.gif',     //relative path to the image for the tab *required*
-                imageHeight: '133px',                         //height of tab image *required*
-                imageWidth: '44px',                           //width of tab image *required*    
+                pathToTabImage: 'images/contact_tab.gif',     //relative path to the image for the tab
+                imageHeight: '133px',                         //height of tab image
+                imageWidth: '44px',                           //width of tab image   
         });
 
+    or you can leave out these options
+    and set the image properties using css
     
 */
 
@@ -30,7 +32,8 @@
             leftPos: '20px',
             fixedPosition: false,
             positioning: 'absolute',
-            pathToTabImage: null,
+            pathToTabImageOpen: null,
+            pathToTabImageClose: null,
             imageHeight: null,
             imageWidth: null,
             onLoadSlideOut: false                       
@@ -53,11 +56,11 @@
         
         //set initial tabHandle css
         
-        if (settings.pathToTabImage != null) {
+        if (settings.pathToTabImageOpen != null && settings.pathToTabImageClose != null) {
             settings.tabHandle.css({
-            'background' : 'url('+settings.pathToTabImage+') no-repeat',
-            'width' : settings.imageWidth,
-            'height': settings.imageHeight
+                'background' : 'url('+settings.pathToTabImageClose+') no-repeat',
+                'width' : settings.imageWidth,
+                'height': settings.imageHeight
             });
         }
         
@@ -75,26 +78,39 @@
 
         
         var properties = {
-                    containerWidth: parseInt(obj.outerWidth(), 10) + 'px',
-                    containerHeight: parseInt(obj.outerHeight(), 10) + 'px',
-                    tabWidth: parseInt(settings.tabHandle.outerWidth(), 10) + 'px',
-                    tabHeight: parseInt(settings.tabHandle.outerHeight(), 10) + 'px'
-                };
+            containerWidth: parseInt(obj.outerWidth(), 10) + 'px',
+            containerHeight: parseInt(obj.outerHeight(), 10) + 'px',
+            tabWidth: parseInt(settings.tabHandle.outerWidth(), 10) + 'px',
+            tabHeight: parseInt(settings.tabHandle.outerHeight(), 10) + 'px'
+        };
 
         //set calculated css
         if(settings.tabLocation === 'top' || settings.tabLocation === 'bottom') {
-            obj.css({'left' : settings.leftPos});
-            settings.tabHandle.css({'right' : 0});
+            obj.css({
+                'left' : settings.leftPos
+                });
+            settings.tabHandle.css({
+                'right' : 0
+            });
         }
         
         if(settings.tabLocation === 'top') {
-            obj.css({'top' : '-' + properties.containerHeight});
-            settings.tabHandle.css({'bottom' : '-' + properties.tabHeight});
+            obj.css({
+                'top' : '-' + properties.containerHeight
+                });
+            settings.tabHandle.css({
+                'bottom' : '-' + properties.tabHeight
+                });
         }
 
         if(settings.tabLocation === 'bottom') {
-            obj.css({'bottom' : '-' + properties.containerHeight, 'position' : 'fixed'});
-            settings.tabHandle.css({'top' : '-' + properties.tabHeight});
+            obj.css({
+                'bottom' : '-' + properties.containerHeight, 
+                'position' : 'fixed'
+            });
+            settings.tabHandle.css({
+                'top' : '-' + properties.tabHeight
+                });
             
         }
         
@@ -104,17 +120,27 @@
                 'top' : settings.topPos
             });
             
-            settings.tabHandle.css({'top' : 10});
+            settings.tabHandle.css({
+                'top' : 0
+            });
         }
         
         if(settings.tabLocation === 'left') {
-            obj.css({ 'left': '-' + properties.containerWidth});
-            settings.tabHandle.css({'right' : '-' + properties.tabWidth});
+            obj.css({
+                'left': '-' + properties.containerWidth
+                });
+            settings.tabHandle.css({
+                'right' : '-' + properties.tabWidth
+                });
         }
 
         if(settings.tabLocation === 'right') {
-            obj.css({ 'right': '-' + properties.containerWidth});
-            settings.tabHandle.css({'left' : '-' + properties.tabWidth});
+            obj.css({
+                'right': '-' + properties.containerWidth
+                });
+            settings.tabHandle.css({
+                'left' : '-' + properties.tabWidth
+                });
             
             $('html').css('overflow-x', 'hidden');
         }
@@ -126,29 +152,53 @@
         });
         
         var slideIn = function() {
+            settings.tabHandle.css({
+                'background' : 'url('+settings.pathToTabImageClose+') no-repeat'
+            });
+        
             
             if (settings.tabLocation === 'top') {
-                obj.animate({top:'-' + properties.containerHeight}, settings.speed).removeClass('open');
+                obj.animate({
+                    top:'-' + properties.containerHeight
+                    }, settings.speed).removeClass('open');
             } else if (settings.tabLocation === 'left') {
-                obj.animate({left: '-' + properties.containerWidth}, settings.speed).removeClass('open');
+                obj.animate({
+                    left: '-' + properties.containerWidth
+                    }, settings.speed).removeClass('open');
             } else if (settings.tabLocation === 'right') {
-                obj.animate({right: '-' + properties.containerWidth}, settings.speed).removeClass('open');
+                obj.animate({
+                    right: '-' + properties.containerWidth
+                    }, settings.speed).removeClass('open');
             } else if (settings.tabLocation === 'bottom') {
-                obj.animate({bottom: '-' + properties.containerHeight}, settings.speed).removeClass('open');
+                obj.animate({
+                    bottom: '-' + properties.containerHeight
+                    }, settings.speed).removeClass('open');
             }    
             
         };
         
         var slideOut = function() {
+            settings.tabHandle.css({
+                'background' : 'url('+settings.pathToTabImageOpen+') no-repeat'
+            });
+        
             
             if (settings.tabLocation == 'top') {
-                obj.animate({top:'-3px'},  settings.speed).addClass('open');
+                obj.animate({
+                    top:'-3px'
+                },  settings.speed).addClass('open');
             } else if (settings.tabLocation == 'left') {
-                obj.animate({left:'-3px'},  settings.speed).addClass('open');
+                obj.animate({
+                    left:'-3px'
+                },  settings.speed).addClass('open');
             } else if (settings.tabLocation == 'right') {
-                obj.animate({right:'-3px'},  settings.speed).addClass('open');
+                obj.animate({
+                    right:'-3px'
+                },  settings.speed).addClass('open');
             } else if (settings.tabLocation == 'bottom') {
-                obj.animate({bottom:'-3px'},  settings.speed).addClass('open');
+                obj.animate({
+                    bottom:'-3px'
+                },  settings.speed).addClass('open');
             }
         };
 
@@ -184,12 +234,12 @@
                     slideIn();
                 });
                 
-                settings.tabHandle.click(function(event){
-                    if (obj.hasClass('open')) {
-                        slideIn();
-                    }
-                });
-                clickScreenToClose();
+            settings.tabHandle.click(function(event){
+                if (obj.hasClass('open')) {
+                    slideIn();
+                }
+            });
+            clickScreenToClose();
                 
         };
         

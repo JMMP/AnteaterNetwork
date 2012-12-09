@@ -10,6 +10,7 @@
 1. Added buffer of ±0.003 degrees to latitude and longitude of each pin. Fixed [issue #45](https://github.com/JMMP/AnteaterNetwork/issues/45).
 * Map stays in place when there are no markers to display. Fixed [issue #33](https://github.com/JMMP/AnteaterNetwork/issues/33).
 * Implemented marker clusterer. Fixed [issue #9](https://github.com/JMMP/AnteaterNetwork/issues/9).
+* Adjusted pull tab code to use two different images on open and close. Fixed [issue #65](https://github.com/JMMP/AnteaterNetwork/issues/65).
 
 ##### Version 8.0 December 5, 2012
 1. Map is clickable again. Fixed [issue #48](https://github.com/JMMP/AnteaterNetwork/issues/48).

@@ -12,13 +12,15 @@ var infowindow;
 var sideboxhtml = "";
 var pinDrop = false;
 var latlngBuffer = 0.003;
+var clusters = false;
+
 
 // Custom marker image
 var markerImage = "images/marker_anteater_small.png";
 
 // Style Google Maps
 // https://developers.google.com/maps/documentation/javascript/styling
-var stylesArray = [{
+var mapStyles = [{
     "featureType": "water",
     "stylers": [{
         "lightness": 14
@@ -52,7 +54,7 @@ function loadMap(divID) {
         center: new google.maps.LatLng(33.646259, -117.842056),
         zoom: 12,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
-        styles: stylesArray,
+        styles: mapStyles,
 
         panControl: true,
         panControlOptions: {
@@ -301,6 +303,22 @@ function clearMarkers() {
     markersLatLng = [];
 }
 
+
+function hideMarkers() {
+    for (i in markers) {
+        markers[i].setVisible(false);
+    }
+}
+
+
+function showMarkers() {
+    for (i in markers) {
+        markers[i].setVisible(true);
+        markers[i].setMap(map);
+    }
+}
+
+
 // Incomplete
 function codeAddress() {
     var address;
@@ -337,18 +355,14 @@ function getMenu(menu) {
 }
 
 
-function clusterMarkers() {
-   clearMarkers();
-   mc.addMarkers(markers);
-}
-
-
-function clearClusters() {
-    mc.clearMarkers();
-}
-
-
-function resetClusters() {
-    mc.clearMarkers();
-    mc.addMarkers(markers);    
+function toggleClusters() {
+    if (clusters) {
+        showMarkers();
+        mc.clearMarkers();
+        clusters = false;
+    } else {
+        mc.addMarkers(markers);
+        hideMarkers();
+        clusters = true;
+    }   
 }
