@@ -58,7 +58,7 @@
         
         if (settings.pathToTabImageOpen != null && settings.pathToTabImageClose != null) {
             settings.tabHandle.css({
-                'background' : 'url('+settings.pathToTabImageClose+') no-repeat',
+                'background' : 'url('+settings.pathToTabImageOpen+') no-repeat',
                 'width' : settings.imageWidth,
                 'height': settings.imageHeight
             });
@@ -153,7 +153,7 @@
         
         var slideIn = function() {
             settings.tabHandle.css({
-                'background' : 'url('+settings.pathToTabImageClose+') no-repeat'
+                'background' : 'url('+settings.pathToTabImageOpen+') no-repeat'
             });
         
             
@@ -179,7 +179,7 @@
         
         var slideOut = function() {
             settings.tabHandle.css({
-                'background' : 'url('+settings.pathToTabImageOpen+') no-repeat'
+                'background' : 'url('+settings.pathToTabImageClose+') no-repeat'
             });
         
             

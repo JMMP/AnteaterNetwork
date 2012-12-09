@@ -11,6 +11,8 @@
 * Map stays in place when there are no markers to display. Fixed [issue #33](https://github.com/JMMP/AnteaterNetwork/issues/33).
 * Implemented marker clusterer. Fixed [issue #9](https://github.com/JMMP/AnteaterNetwork/issues/9).
 * Adjusted pull tab code to use two different images on open and close. Fixed [issue #65](https://github.com/JMMP/AnteaterNetwork/issues/65).
+* Added a second XMLHttpRequest object. Fixed [issue #60](https://github.com/JMMP/AnteaterNetwork/issues/60).
+* Clicking a business in the results box will fit the marker to the screen and open the info window. Fixed [issue #66](https://github.com/JMMP/AnteaterNetwork/issues/66).
 
 ##### Version 8.0 December 5, 2012
 1. Map is clickable again. Fixed [issue #48](https://github.com/JMMP/AnteaterNetwork/issues/48).

@@ -2,17 +2,18 @@ var map;
 var mc;
 var markers = [];
 var markersLatLng = [];
-var xmlhttp;
+var xmlhttpMarkers;
 var xmlDoc;
+var xmlhttpMenus;
 var filters = [
 ["city", ""],
 ["name", ""],
 ["zipcode", ""]];
-var infowindow;
-var sideboxhtml = "";
+var sidenav;
 var pinDrop = false;
 var latlngBuffer = 0.003;
 var clusters = false;
+var infoWindow;
 
 
 // Custom marker image
@@ -48,8 +49,8 @@ var mapStyles = [{
     }]
 }];
 
-
 function loadMap(divID) {
+    
     var myOptions = {
         center: new google.maps.LatLng(33.646259, -117.842056),
         zoom: 12,
@@ -70,63 +71,52 @@ function loadMap(divID) {
 
     map = new google.maps.Map(document.getElementById(divID), myOptions);
     mc = new MarkerClusterer(map);
+    sidenav = document.getElementById("sidenav");
+    google.maps.event.addListenerOnce(map, 'tilesloaded', function(){
+        getMenu('city');
+        populate('', '');
+    });
 //var geocoder = new google.maps.Geocoder();
 
 }
 
-
 function populate(filter, input) {
+    var start = new Date();
     setFilter(filter, input);
+    sidenav.innerHTML = "";
+    clearMarkers();
     createXMLHttpRequest(function() {
-        updatePinDrop(filter);
-        xmlDoc = xmlhttp.responseXML;
-        clearMarkers();
-        sideboxhtml = "";
-        var alumni = parseXML(xmlDoc);
-        for (i in alumni) {
+        //pinDrop = true;
+        xmlDoc = xmlhttpMarkers.responseXML;
+        var alumni = xmlDoc.getElementsByTagName("alumnus");
+        for (i = 0; i < alumni.length; i++) {
             createMarker(alumni[i]);
-        }
+        }        
+        setBounds();
     });
-
-    setBounds();    
-    sendXMLHttpRequest("getAlumni.php" + getRequest(), true);
-}
-
-
-function sendXMLHttpRequest(request, asynchronous) {
-    xmlhttp.open("GET", request, asynchronous);
-    xmlhttp.send();
+    
+    xmlhttpMarkers.open("GET", "getAlumni.php" + getRequest(), true);
+    xmlhttpMarkers.send();
+    var finish = new Date();
+    document.getElementById("timetaken").innerHTML = finish - start;
+    
 }
 
 
 function createXMLHttpRequest(callback) {
     if (window.XMLHttpRequest) {
         // IE7+, Firefox, Chrome, Opera, Safari
-        xmlhttp = new XMLHttpRequest();
+        xmlhttpMarkers = new XMLHttpRequest();
     } else {
         // IE6, IE5
-        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        xmlhttpMarkers = new ActiveXObject("Microsoft.XMLHTTP");
     }
-    xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+    
+    xmlhttpMarkers.onreadystatechange = function() {
+        if (xmlhttpMarkers.readyState == 4 && xmlhttpMarkers.status == 200) {
             callback();
         }
     };
-}
-
-
-function updatePinDrop(filter) {
-    // Set drop animation if there is no filter
-    // This occurs on first load and on filter reset
-    if (filter == "")
-        pinDrop = true;
-    else
-        pinDrop = false;
-}
-
-
-function parseXML(xml) {
-    return xml.getElementsByTagName("alumnus");
 }
 
 
@@ -167,76 +157,79 @@ function getRequest() {
 
 
 function createMarker(alumni) {
+    var sideListing = document.createElement("LI");
+    var sideItem = document.createElement("A");
+    var sideDetails = document.createElement("SPAN");
+    var sideHTML = "";
+    var busLat = "";
+    var busLng = "";
+    var busName = "";
     
-    sideboxhtml += "<li> <a>";
-    var bus_lat = "";
-    var bus_lng = "";
-    var bus_name = "";
-    
-    var contentString = "<div id='infoWindow'>";
+    var infoHTML = "<div class='infoWindow'>";
     
     if (alumni.hasAttribute("Business_Name")) {
-        bus_name = alumni.getAttribute("Business_Name");
-        sideboxhtml += bus_name + "<br/>";
-        contentString += "<h2 id='firstHeading' class='firstHeading'>" + bus_name + "</h2>";
+        busName = alumni.getAttribute("Business_Name");
+        sideItem.innerHTML = busName;
+        infoHTML += "<h2 id='firstHeading' class='firstHeading'>" + busName + "</h2>";
     }
     
-    contentString += "<div id='bodyContent'>";
+    infoHTML += "<div id='bodyContent'>";
     
     if (alumni.hasAttribute("First_Name") && alumni.hasAttribute("Last_Name")) {
-        var first_name = alumni.getAttribute("First_Name");
-        var last_name = alumni.getAttribute("Last_Name");
-        contentString += first_name + " " + last_name  + "<br />";
+        var firstName = alumni.getAttribute("First_Name");
+        var lastName = alumni.getAttribute("Last_Name");
+        infoHTML += firstName + " " + lastName  + "<br />";
     }
     
     if (alumni.hasAttribute("Business_Street1")) {
-        var bus_street1 = alumni.getAttribute("Business_Street1");
-        sideboxhtml += bus_street1 + "<br />";
-        contentString += bus_street1 + "<br />";
+        var busStreet1 = alumni.getAttribute("Business_Street1");
+        sideHTML += busStreet1 + "<br />";
+        infoHTML += busStreet1 + "<br />";
     }
     
     if (alumni.hasAttribute("Business_City") && alumni.hasAttribute("Business_State")) {
-        var bus_city = alumni.getAttribute("Business_City");
-        var bus_state = alumni.getAttribute("Business_State");
-        sideboxhtml += bus_city + ", " + bus_state;
-        contentString += bus_city + ", " + bus_state;
+        var busCity = alumni.getAttribute("Business_City");
+        var busState = alumni.getAttribute("Business_State");
+        sideHTML += busCity + ", " + busState;
+        infoHTML += busCity + ", " + busState;
     }
     
     if (alumni.hasAttribute("Business_Zipcode")) {
-        var bus_zipcode = alumni.getAttribute("Business_Zipcode");
-        sideboxhtml += " " + bus_zipcode;
-        contentString += " " + bus_zipcode;
+        var busZipcode = alumni.getAttribute("Business_Zipcode");
+        sideHTML += " " + busZipcode;
+        infoHTML += " " + busZipcode;
     }
     
-    sideboxhtml += "<br />";
-    contentString += "<br />";
+    sideHTML += "<br />";
+    infoHTML += "<br />";
     
     if (alumni.hasAttribute("Business_Phone")) {
-        var bus_phone = alumni.getAttribute("Business_Phone");
-        sideboxhtml += bus_phone;
-        contentString += bus_phone + "<br />";
+        var busPhone = alumni.getAttribute("Business_Phone");
+        sideHTML += busPhone;
+        infoHTML += busPhone + "<br />";
     }
     
     if (alumni.hasAttribute("Business_Lat") && alumni.hasAttribute("Business_Lng")) {
-        bus_lat = alumni.getAttribute("Business_Lat");
-        bus_lng = alumni.getAttribute("Business_Lng");
+        busLat = alumni.getAttribute("Business_Lat");
+        busLng = alumni.getAttribute("Business_Lng");
     }
     
-    sideboxhtml += "</span></a></li>";
+    sideDetails.innerHTML = sideHTML;
+    sideItem.appendChild(sideDetails);
     
     //var class_year = alumni.getAttribute("Class_Year");
     //var school_code = alumni.getAttribute("School_Code");
 
     // Generate HTML list for the results list on the side
-    var sidebox = document.getElementById("sidenav");
-    sidebox.innerHTML = sideboxhtml;
+    sideListing.appendChild(sideItem);
+    sidenav.appendChild(sideListing);
 
     // Catch businesses with no latitude or longitude
     // Don't show these on the map but still list them in the results box
-    if (bus_lat != "" || bus_lng != "") {
-        var point = new google.maps.LatLng(parseFloat(bus_lat), parseFloat(bus_lng));
-        var pointBufferedNE = new google.maps.LatLng(parseFloat(bus_lat) + latlngBuffer, parseFloat(bus_lng) + latlngBuffer);
-        var pointBufferedSW = new google.maps.LatLng(parseFloat(bus_lat) - latlngBuffer, parseFloat(bus_lng) - latlngBuffer);
+    if (busLat != "" || busLng != "") {
+        var point = new google.maps.LatLng(parseFloat(busLat), parseFloat(busLng));
+        var pointBufferedNE = new google.maps.LatLng(parseFloat(busLat) + latlngBuffer, parseFloat(busLng) + latlngBuffer);
+        var pointBufferedSW = new google.maps.LatLng(parseFloat(busLat) - latlngBuffer, parseFloat(busLng) - latlngBuffer);
         
         // Add marker position to array
         markersLatLng.push(pointBufferedNE);
@@ -246,7 +239,7 @@ function createMarker(alumni) {
             map: map,
             position: point,
             icon: markerImage,
-            title: bus_name
+            title: busName
         });
 
         // Do not have any animation when filtering
@@ -255,33 +248,36 @@ function createMarker(alumni) {
         else
             marker.setAnimation();
         
-        contentString += "<a href='http://maps.google.com/maps?daddr=" + point.toUrlValue() + "' target ='_blank'>Get Directions</a>";
+        infoHTML += "<a href='http://maps.google.com/maps?daddr=" + point.toUrlValue() + "' target ='_blank'>Get Directions</a>";
 
-        google.maps.event.addListener(marker, "click", function() {
-            if (infowindow) infowindow.close();
-            infowindow = new google.maps.InfoWindow({
-                content: contentString
-            });
-            infowindow.open(map, marker);
-        });
-
+        google.maps.event.addListener(marker, "click", busClick(infoHTML, marker));
+        google.maps.event.addDomListener(sideItem, "click", busClick(infoHTML, marker));
         markers.push(marker);
         return(marker);
     }
     return false;
 }
 
+function busClick(html, marker) {
+    return function() {
+        if (infoWindow)
+            infoWindow.close();
+        infoWindow = new google.maps.InfoWindow();
+        infoWindow.setContent(html);
+        infoWindow.open(map, marker);
+    }
+}
 
 function setBounds() {
     if (markers.length == 0) {
         // If there are no markers to show, don't move map and give an alert or error instead
-        document.getElementById("infobox").innerHTML = "No markers to display!";
         return false;    
     } else {
         document.getElementById("infobox").innerHTML = "";
         //  Create a new viewpoint bound
         var bounds = new google.maps.LatLngBounds();
         // Increase bounds for each marker
+        
         for (i in markersLatLng) {
             bounds.extend(markersLatLng[i]);
         }
@@ -347,11 +343,22 @@ function enter_pressed(e) {
 }
 
 function getMenu(menu) {
-    createXMLHttpRequest(function() {
-        document.getElementById("submenu_city").innerHTML = xmlhttp.responseText;
-    });
-
-    sendXMLHttpRequest("getMenu.php?menu=" + menu, false);
+    if (window.XMLHttpRequest) {
+        // IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttpMenus = new XMLHttpRequest();
+    } else {
+        // IE6, IE5
+        xmlhttpMenus = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    
+    xmlhttpMenus.onreadystatechange = function() {
+        if (xmlhttpMenus.readyState == 4 && xmlhttpMenus.status == 200) {
+            document.getElementById("submenu_city").innerHTML = xmlhttpMenus.responseText;
+        }
+    };
+    
+    xmlhttpMenus.open("GET", "getMenu.php?menu=" + menu, true);
+    xmlhttpMenus.send();
 }
 
 
