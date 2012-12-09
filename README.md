@@ -11,8 +11,12 @@
 * Map stays in place when there are no markers to display. Fixed [issue #33](https://github.com/JMMP/AnteaterNetwork/issues/33).
 * Implemented marker clusterer. Fixed [issue #9](https://github.com/JMMP/AnteaterNetwork/issues/9).
 * Adjusted pull tab code to use two different images on open and close. Fixed [issue #65](https://github.com/JMMP/AnteaterNetwork/issues/65).
+* City menu and markers now populate after the map is loaded, rather than at the same time. City menu also populates at the same time as markers populate to prevent stalling the page. Fixed [issue #67](https://github.com/JMMP/AnteaterNetwork/issues/67).
 * Added a second XMLHttpRequest object. Fixed [issue #60](https://github.com/JMMP/AnteaterNetwork/issues/60).
 * Clicking a business in the results box will fit the marker to the screen and open the info window. Fixed [issue #66](https://github.com/JMMP/AnteaterNetwork/issues/66).
+* Changed a for in loop to a standard for loop as it was not parsing through the array correctly. Fixed [issue #55](https://github.com/JMMP/AnteaterNetwork/issues/55).
+* Added a debug table at the bottom of the page.
+* Added a response timer in milliseconds which updates on every populate call.
 
 ##### Version 8.0 December 5, 2012
 1. Map is clickable again. Fixed [issue #48](https://github.com/JMMP/AnteaterNetwork/issues/48).
