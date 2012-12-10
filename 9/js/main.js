@@ -14,7 +14,7 @@ var pinDrop = false;
 var latlngBuffer = 0.003;
 var clusters = false;
 var infoWindow;
-
+var gc;
 
 // Custom marker image
 var markerImage = "images/marker_anteater_small.png";
@@ -50,7 +50,7 @@ var mapStyles = [{
 }];
 
 function loadMap(divID) {
-    
+
     var myOptions = {
         center: new google.maps.LatLng(33.646259, -117.842056),
         zoom: 12,
@@ -76,7 +76,7 @@ function loadMap(divID) {
         getMenu('city');
         populate('', '');
     });
-//var geocoder = new google.maps.Geocoder();
+//gc = new google.maps.Geocoder();
 
 }
 
@@ -91,15 +91,21 @@ function populate(filter, input) {
         var alumni = xmlDoc.getElementsByTagName("alumnus");
         for (i = 0; i < alumni.length; i++) {
             createMarker(alumni[i]);
-        }        
+        }
+        if (clusters) {
+            clusters = false;
+            toggleClusters();
+        }
         setBounds();
     });
-    
+
     xmlhttpMarkers.open("GET", "getAlumni.php" + getRequest(), true);
     xmlhttpMarkers.send();
-    var finish = new Date();
-    document.getElementById("timetaken").innerHTML = finish - start;
-    
+    google.maps.event.addListenerOnce(map, 'tilesloaded', function(){
+        var finish = new Date();
+        document.getElementById("timetaken").innerHTML = finish - start;
+    });
+
 }
 
 
@@ -111,7 +117,7 @@ function createXMLHttpRequest(callback) {
         // IE6, IE5
         xmlhttpMarkers = new ActiveXObject("Microsoft.XMLHTTP");
     }
-    
+
     xmlhttpMarkers.onreadystatechange = function() {
         if (xmlhttpMarkers.readyState == 4 && xmlhttpMarkers.status == 200) {
             callback();
@@ -164,73 +170,76 @@ function createMarker(alumni) {
     var busLat = "";
     var busLng = "";
     var busName = "";
-    
+
     var infoHTML = "<div class='infoWindow'>";
-    
+
     if (alumni.hasAttribute("Business_Name")) {
         busName = alumni.getAttribute("Business_Name");
         sideItem.innerHTML = busName;
         infoHTML += "<h2 id='firstHeading' class='firstHeading'>" + busName + "</h2>";
     }
-    
+
     infoHTML += "<div id='bodyContent'>";
-    
+
     if (alumni.hasAttribute("First_Name") && alumni.hasAttribute("Last_Name")) {
         var firstName = alumni.getAttribute("First_Name");
         var lastName = alumni.getAttribute("Last_Name");
         infoHTML += firstName + " " + lastName  + "<br />";
     }
-    
+
     if (alumni.hasAttribute("Business_Street1")) {
         var busStreet1 = alumni.getAttribute("Business_Street1");
         sideHTML += busStreet1 + "<br />";
         infoHTML += busStreet1 + "<br />";
     }
-    
+
     if (alumni.hasAttribute("Business_City") && alumni.hasAttribute("Business_State")) {
         var busCity = alumni.getAttribute("Business_City");
         var busState = alumni.getAttribute("Business_State");
         sideHTML += busCity + ", " + busState;
         infoHTML += busCity + ", " + busState;
     }
-    
+
     if (alumni.hasAttribute("Business_Zipcode")) {
         var busZipcode = alumni.getAttribute("Business_Zipcode");
         sideHTML += " " + busZipcode;
         infoHTML += " " + busZipcode;
     }
-    
+
     sideHTML += "<br />";
     infoHTML += "<br />";
-    
+
     if (alumni.hasAttribute("Business_Phone")) {
         var busPhone = alumni.getAttribute("Business_Phone");
         sideHTML += busPhone;
         infoHTML += busPhone + "<br />";
     }
-    
+
     if (alumni.hasAttribute("Business_Lat") && alumni.hasAttribute("Business_Lng")) {
         busLat = alumni.getAttribute("Business_Lat");
         busLng = alumni.getAttribute("Business_Lng");
     }
-    
+
     sideDetails.innerHTML = sideHTML;
     sideItem.appendChild(sideDetails);
-    
-    //var class_year = alumni.getAttribute("Class_Year");
-    //var school_code = alumni.getAttribute("School_Code");
 
     // Generate HTML list for the results list on the side
     sideListing.appendChild(sideItem);
     sidenav.appendChild(sideListing);
 
+    //var point = codeAddress(busStreet1 + ", " + busCity + ", " + busState);  // Geocoding
+
     // Catch businesses with no latitude or longitude
     // Don't show these on the map but still list them in the results box
     if (busLat != "" || busLng != "") {
+        //if (point) {  // Geocoding
         var point = new google.maps.LatLng(parseFloat(busLat), parseFloat(busLng));
+        //busLat = point.lat();  // Geocoding
+        //busLng = point.lng();  // Geocoding
+
         var pointBufferedNE = new google.maps.LatLng(parseFloat(busLat) + latlngBuffer, parseFloat(busLng) + latlngBuffer);
         var pointBufferedSW = new google.maps.LatLng(parseFloat(busLat) - latlngBuffer, parseFloat(busLng) - latlngBuffer);
-        
+
         // Add marker position to array
         markersLatLng.push(pointBufferedNE);
         markersLatLng.push(pointBufferedSW);
@@ -247,7 +256,7 @@ function createMarker(alumni) {
             marker.setAnimation(google.maps.Animation.DROP);
         else
             marker.setAnimation();
-        
+
         infoHTML += "<a href='http://maps.google.com/maps?daddr=" + point.toUrlValue() + "' target ='_blank'>Get Directions</a>";
 
         google.maps.event.addListener(marker, "click", busClick(infoHTML, marker));
@@ -272,16 +281,15 @@ function setBounds() {
     if (markers.length == 0) {
         // If there are no markers to show, don't move map and give an alert or error instead
         alert("No markers to show");
-        return false;    
+        return false;
     } else {
         //  Create a new viewpoint bound
         var bounds = new google.maps.LatLngBounds();
         // Increase bounds for each marker
-        
         for (i in markersLatLng) {
             bounds.extend(markersLatLng[i]);
         }
-    
+        
         // Fit bounds to the map
         map.fitBounds(bounds);
         return true;
@@ -315,19 +323,19 @@ function showMarkers() {
 }
 
 
-// Incomplete
-function codeAddress() {
-    var address;
-    geocoder.geocode(address, function(results, status) {
+function codeAddress(input) {
+    var gcrequest = {
+        address: input,
+        region: "US"
+    };
+    gc.geocode(gcrequest, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
-            var marker = new google.maps.Marker({
-                map: map,
-                position: results[0].geomtery.location
-            });
+            return results[0].geometry.location;
         } else {
-            if (debug) alert("Geocode was note successful: " + status);
+            alert(input + "\n" + "Geocode was note successful: " + status);
         }
     });
+    return false;
 }
 
 // Catch enter presses on main page
@@ -350,26 +358,25 @@ function getMenu(menu) {
         // IE6, IE5
         xmlhttpMenus = new ActiveXObject("Microsoft.XMLHTTP");
     }
-    
+
     xmlhttpMenus.onreadystatechange = function() {
         if (xmlhttpMenus.readyState == 4 && xmlhttpMenus.status == 200) {
             document.getElementById("submenu_city").innerHTML = xmlhttpMenus.responseText;
         }
     };
-    
+
     xmlhttpMenus.open("GET", "getMenu.php?menu=" + menu, true);
     xmlhttpMenus.send();
 }
 
 
 function toggleClusters() {
+    mc.clearMarkers();
     if (clusters) {
         showMarkers();
-        mc.clearMarkers();
         clusters = false;
     } else {
         mc.addMarkers(markers);
-        hideMarkers();
         clusters = true;
-    }   
+    }
 }
