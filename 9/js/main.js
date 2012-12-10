@@ -280,7 +280,7 @@ function busClick(html, marker) {
 function setBounds() {
     if (markers.length == 0) {
         // If there are no markers to show, don't move map and give an alert or error instead
-        document.getElementById("debug").innerHTML = "No markers to display!"
+        document.getElementById("debug").innerHTML = "No markers to display!";
         return false;
     } else {
         //  Create a new viewpoint bound
@@ -289,9 +289,10 @@ function setBounds() {
         for (i in markersLatLng) {
             bounds.extend(markersLatLng[i]);
         }
-        
+
         // Fit bounds to the map
         map.fitBounds(bounds);
+        document.getElementById("debug").innerHTML = "";
         return true;
     }
 }
