@@ -403,6 +403,18 @@ div#note {
 	z-index: 1;
 }
 
+.infoWindow{
+    float: left;
+    top: 2px;
+    color: #aaaaaa;
+    font-family: Comic Sans Ms, Palatino, Georgia, cursive;
+    font-size: 12px;
+    margin: 2px;
+    font-style: italic;
+    text-align: center;
+	border-radius: 10px;
+    align: left;
+}
 
 /*****THIS IS THE SIDE MENU ON THE MAP*****/
 /*
