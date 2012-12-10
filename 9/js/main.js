@@ -280,7 +280,7 @@ function busClick(html, marker) {
 function setBounds() {
     if (markers.length == 0) {
         // If there are no markers to show, don't move map and give an alert or error instead
-        alert("No markers to show");
+        document.getElementById("debug").innerHTML = "No markers to display!"
         return false;
     } else {
         //  Create a new viewpoint bound
