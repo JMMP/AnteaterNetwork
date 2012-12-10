@@ -406,7 +406,7 @@ div#note {
 .infoWindow{
     float: left;
     top: 2px;
-    color: #aaaaaa;
+    color: black;
     font: normal 11px Arial, sans-serif;
     font-size: 12px;
     margin: 2px;
