@@ -17,6 +17,7 @@
 * Changed a for in loop to a standard for loop as it was not parsing through the array correctly. Fixed [issue #55](https://github.com/JMMP/AnteaterNetwork/issues/55).
 * Added a debug table at the bottom of the page.
 * Added a response timer in milliseconds which updates on every populate call.
+* Marker clusters update whenever filters are being applied. Fixed [issue #64](https://github.com/JMMP/AnteaterNetwork/issues/64).
 
 ##### Version 8.0 December 5, 2012
 1. Map is clickable again. Fixed [issue #48](https://github.com/JMMP/AnteaterNetwork/issues/48).
