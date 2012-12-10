@@ -407,7 +407,7 @@ div#note {
     float: left;
     top: 2px;
     color: #aaaaaa;
-    font-family: Comic Sans Ms, Palatino, Georgia, cursive;
+    font: normal 11px Arial, sans-serif;
     font-size: 12px;
     margin: 2px;
     font-style: italic;
