@@ -1,6 +1,6 @@
 <?php
 
-require("secure.php");
+require("../../secure.php");
 
 $connection = mysql_connect($ip, $username, $password);
 if (!$connection) {

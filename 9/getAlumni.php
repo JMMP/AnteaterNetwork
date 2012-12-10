@@ -1,6 +1,6 @@
 <?php
 
-require("secure.php");
+require("../../secure.php");
 
 // Start XML file, create parent node
 
