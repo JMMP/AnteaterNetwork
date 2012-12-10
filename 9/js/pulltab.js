@@ -121,7 +121,7 @@
             });
             
             settings.tabHandle.css({
-                'top' : 0
+                'top' : 10
             });
         }
         
