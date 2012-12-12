@@ -1,36 +1,47 @@
 ![Anteater Network](http://i.imgur.com/4oVj3.png)
-# Anteater Network [9](https://instdav.ics.uci.edu//~191grp10/9/)
+# Anteater Network [10](https://instdav.ics.uci.edu//~191grp10/10/)
 ### © 2012 JMMP (Jola Bolaji, Mark Chege, Melvin Chien, Patrick Chen). In association with UCI Alumni Association, University of California, Irvine.
 
-[Home](http://jmmp.github.com/AnteaterNetwork) | [Version 9](https://instdav.ics.uci.edu/~191grp10/9/) | [Test Suite](https://instdav.ics.uci.edu/~191grp10/9/qunit/) | [GitHub](https://github.com/jmmp/AnteaterNetwork)
+[Home](http://jmmp.github.com/AnteaterNetwork) | [Version 10](https://instdav.ics.uci.edu/~191grp10/10/) | [Test Suite](https://instdav.ics.uci.edu/~191grp10/10/qunit/) | [GitHub](https://github.com/jmmp/AnteaterNetwork)
 
 - - -
 ### Changelog
-##### Version 9.0 December 10, 2012
-1. Fixed [issue #45](https://github.com/JMMP/AnteaterNetwork/issues/45), added buffer of ±0.003 degrees to latitude and longitude of each pin.
-1. Fixed [issue #33](https://github.com/JMMP/AnteaterNetwork/issues/33), map stays in place when there are no markers to display.
+##### Version 10.0 January XX, 2012
+1. 
 
+##### Version 9.0 December 10, 2012
+1. Added buffer of ±0.003 degrees to latitude and longitude of each pin. Fixed [issue #45](https://github.com/JMMP/AnteaterNetwork/issues/45).
+* Map stays in place when there are no markers to display. Fixed [issue #33](https://github.com/JMMP/AnteaterNetwork/issues/33).
+* Implemented marker clusterer. Fixed [issue #9](https://github.com/JMMP/AnteaterNetwork/issues/9).
+* Adjusted pull tab code to use two different images on open and close. Fixed [issue #65](https://github.com/JMMP/AnteaterNetwork/issues/65).
+* City menu and markers now populate after the map is loaded, rather than at the same time. City menu also populates at the same time as markers populate to prevent stalling the page. Fixed [issue #67](https://github.com/JMMP/AnteaterNetwork/issues/67).
+* Added a second XMLHttpRequest object. Fixed [issue #60](https://github.com/JMMP/AnteaterNetwork/issues/60).
+* Clicking a business in the results box will fit the marker to the screen and open the info window. Fixed [issue #66](https://github.com/JMMP/AnteaterNetwork/issues/66).
+* Changed a for in loop to a standard for loop as it was not parsing through the array correctly. Fixed [issue #55](https://github.com/JMMP/AnteaterNetwork/issues/55).
+* Added a debug table at the bottom of the page.
+* Added a response timer in milliseconds which updates on every populate call.
+* Marker clusters update whenever filters are being applied. Fixed [issue #64](https://github.com/JMMP/AnteaterNetwork/issues/64).
 
 ##### Version 8.0 December 5, 2012
-1. Fixed [issue #48](https://github.com/JMMP/AnteaterNetwork/issues/48), map is clickable again.
+1. Map is clickable again. Fixed [issue #48](https://github.com/JMMP/AnteaterNetwork/issues/48).
 * Added social network logos for Facebook, Twitter, and Google Plus.
 * Various CSS changes and fixes.
 * Updated Anteater Network logo to include slogan, position and size is yet to be adjusted.
-* Progress towards [issue #9](https://github.com/JMMP/AnteaterNetwork/issues/9)
-* Fixed [issue #22](https://github.com/JMMP/AnteaterNetwork/issues/22), added tab to hide and show results box.
+* Progress towards [issue #9](https://github.com/JMMP/AnteaterNetwork/issues/9).
+* Added tab to hide and show results box. Fixed [issue #22](https://github.com/JMMP/AnteaterNetwork/issues/22).
 * Progress on [issue #46](https://github.com/JMMP/AnteaterNetwork/issues/46), added feature based QUnit JavaScript unit tests.
-* Fixed [issue #11](https://github.com/JMMP/AnteaterNetwork/issues/11), pressing Enter no longer refreshes page.
-* Fixed [issue #36](https://github.com/JMMP/AnteaterNetwork/issues/36), zipcode search uses button or Enter key.
+* Pressing Enter no longer refreshes page. Fixed [issue #11](https://github.com/JMMP/AnteaterNetwork/issues/11).
+* Zipcode search uses button or Enter key. Fixed [issue #36](https://github.com/JMMP/AnteaterNetwork/issues/36).
 * Updated GitHub page <http://jmmp.github.com/AnteaterNetwork>.
-* Fixed [issue #28](https://github.com/JMMP/AnteaterNetwork/issues/28), replaced text box values with placeholders.
-* Fixed [issue #31](https://github.com/JMMP/AnteaterNetwork/issues/31), changed "Name" to "Business Name".
-* Fixed [issue #52](https://github.com/JMMP/AnteaterNetwork/issues/52), added link to get directions in info windows.
-* Fixed [issue #46](https://github.com/JMMP/AnteaterNetwork/issues/46), completed feature based QUnit JavaScript unit tests.
-* Fixed [issue #53](https://github.com/JMMP/AnteaterNetwork/issues/53), added LinkedIn button.
-* Fixed [issue #39](https://github.com/JMMP/AnteaterNetwork/issues/39), implemented larger database.
-* Fixed [issue #12](https://github.com/JMMP/AnteaterNetwork/issues/12), city menu auto populates from database.
-* Fixed [issue #18](https://github.com/JMMP/AnteaterNetwork/issues/18), results box is sorted alphabetically by business name
-* Fixed [issue #62](https://github.com/JMMP/AnteaterNetwork/issues/62), missing information will not be displayed.
+* Replaced text box values with placeholders. Fixed [issue #28](https://github.com/JMMP/AnteaterNetwork/issues/28).
+* Changed "Name" to "Business Name". Fixed [issue #31](https://github.com/JMMP/AnteaterNetwork/issues/31).
+* Added link to get directions in info windows. Fixed [issue #52](https://github.com/JMMP/AnteaterNetwork/issues/52).
+* Completed feature based QUnit JavaScript unit tests. Fixed [issue #46](https://github.com/JMMP/AnteaterNetwork/issues/46).
+* Added LinkedIn button. Fixed [issue #53](https://github.com/JMMP/AnteaterNetwork/issues/53).
+* Implemented larger database. Fixed [issue #39](https://github.com/JMMP/AnteaterNetwork/issues/39).
+* City menu auto populates from database. Fixed [issue #12](https://github.com/JMMP/AnteaterNetwork/issues/12).
+* Results box is sorted alphabetically by business name. Fixed [issue #18](https://github.com/JMMP/AnteaterNetwork/issues/18).
+* Missing information will not be displayed. Fixed [issue #62](https://github.com/JMMP/AnteaterNetwork/issues/62).
 
 
 ##### Version 7.0 November 14, 2012
