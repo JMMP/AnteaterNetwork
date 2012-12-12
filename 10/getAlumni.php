@@ -1,6 +1,6 @@
 <?php
 
-require("andb-login.php");
+require("../../secure.php");
 
 // Start XML file, create parent node
 
@@ -24,7 +24,7 @@ if (!$db_selected) {
 
 // Select all the rows in the markers table
 
-$query = "SELECT * FROM AN_Alumni";
+$query = "SELECT * FROM `AN_Alumni_New`";
 $request = "";
 
 if (!empty($_GET)) {
@@ -32,19 +32,21 @@ if (!empty($_GET)) {
    if (!empty($_GET["city"])) {
       if ($request != "")
          $request .= " AND ";
-      $request .= "Business_City = '" . $_GET["city"] . "'";
+      $request .= "`Business_City` = '" . $_GET["city"] . "'";
    }
    if (!empty($_GET["name"])) {
       if ($request != "")
          $request .= " AND ";
-      $request .= "Business_Name LIKE '" . $_GET["name"] . "%'";
+      $request .= "`Business_Name` LIKE '" . $_GET["name"] . "%'";
    }
    if (!empty($_GET["zipcode"])) {
       if ($request != "")
          $request .= " AND ";
-      $request .= "Business_Zipcode = '" . $_GET["zipcode"] . "'";
+      $request .= "`Business_Zipcode` = '" . $_GET["zipcode"] . "'";
    }
 }
+
+$request .= " ORDER BY `Business_Name`";
 
 $result = mysql_query($query . $request);
 if (!$result) {
@@ -78,4 +80,6 @@ while ($row = @mysql_fetch_assoc($result)) {
 }
 
 echo $xmlDoc->saveXML();
+
+mysql_close($connection);
 ?>
