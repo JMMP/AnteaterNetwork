@@ -5,6 +5,27 @@
 [Home](http://jmmp.github.com/AnteaterNetwork) | [Version 10](https://instdav.ics.uci.edu/~191grp10/10/) | [Test Suite](https://instdav.ics.uci.edu/~191grp10/10/qunit/) | [GitHub](https://github.com/jmmp/AnteaterNetwork)
 
 - - -
+### Features
+##### Interface
+1. Hide-able results list
+* Auto populating menus
+* Supports online businesses
+* Custom CSS styling
+* Filter by searching
+
+##### Google Maps
+* Auto focus on search
+* Google Maps directions
+* Marker clusterers
+* Buffer zone around results
+
+##### Social Media Integration
+1. Twitter
+* Facebook
+* LinkedIn
+* Google+
+
+
 ### Changelog
 ##### Version 10.0 January XX, 2012
 1. 
