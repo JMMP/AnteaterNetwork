@@ -2,25 +2,34 @@
 # Anteater Network [10](https://instdav.ics.uci.edu//~191grp10/10/) Beta
 ### © 2012 JMMP (Jola Bolaji, Mark Chege, Melvin Chien, Patrick Chen). In association with UCI Alumni Association, University of California, Irvine.
 
-[Home](http://jmmp.github.com/AnteaterNetwork) | [Version 10](https://instdav.ics.uci.edu/~191grp10/10/) | [Test Suite](https://instdav.ics.uci.edu/~191grp10/10/qunit/) | [GitHub](https://github.com/jmmp/AnteaterNetwork)
+[Version 10](https://instdav.ics.uci.edu/~191grp10/10/) | [Test Suite](https://instdav.ics.uci.edu/~191grp10/10/qunit/) | [GitHub](https://github.com/jmmp/AnteaterNetwork)
 
 - - -
 ### Features
-##### Interface
-1. Hide-able results list
-* Auto populating menus
-* Supports online businesses
-* Custom CSS styling
-* Filter by searching
+##### Interface 60%
+* Hide-able results list
+* _Automatic populating menus_
+* Support online businesses
+* _Custom CSS styling_
+* Filter by city
+* _Filter by business type_
+* Search by business name
+* _Search by zipcode_
+* _Update My Information form_
 
-##### Google Maps
-* Auto focus on search
+##### Google Maps 90%
+* _Auto focus on search_
 * Google Maps directions
 * Marker clusterers
 * Buffer zone around results
 
-##### Social Media Integration
-1. Twitter
+##### Back End 25%
+* _Full UCI alumni database_
+* _Automatic merging of old and new databases_
+
+
+##### Social Media 90%
+* Twitter
 * Facebook
 * LinkedIn
 * Google+
