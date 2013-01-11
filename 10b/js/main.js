@@ -73,7 +73,6 @@ function loadMap(divID) {
     mc = new MarkerClusterer(map);
     sidenav = document.getElementById("sidenav");
     google.maps.event.addListenerOnce(map, 'tilesloaded', function(){
-        getMenu('city');
         populate('', '');
     });
 //gc = new google.maps.Geocoder();
@@ -101,6 +100,7 @@ function populate(filter, input) {
 
     xmlhttpMarkers.open("GET", "getAlumni.php" + getRequest(), true);
     xmlhttpMarkers.send();
+    getMenu('city');
     google.maps.event.addListenerOnce(map, 'tilesloaded', function(){
         var finish = new Date();
         document.getElementById("timetaken").innerHTML = finish - start;
@@ -280,9 +280,10 @@ function busClick(html, marker) {
 function setBounds() {
     if (markers.length == 0) {
         // If there are no markers to show, don't move map and give an alert or error instead
-        document.getElementById("debug").innerHTML = "No markers to display!";
+        document.getElementById("alert").innerHTML = "<div class='alert alert-error'><h4 class='alert-heading'>No markers to display!</h4><p>Try another filter or clear all the current filters.</p></div>";
         return false;
     } else {
+        document.getElementById("alert").innerHTML = "";
         //  Create a new viewpoint bound
         var bounds = new google.maps.LatLngBounds();
         // Increase bounds for each marker
@@ -381,3 +382,10 @@ function toggleClusters() {
         clusters = true;
     }
 }
+
+$( document ).ready( function() {
+     $( '.dropdown-menu > li' ).click( function() {
+         $( '.dropdown-menu' ).children('li').removeClass();
+         $( this ).addClass( 'active' );
+     });
+ });
