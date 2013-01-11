@@ -32,8 +32,6 @@ if (!$result) {
 }
 
 while ($row = mysql_fetch_array($result)) {
-    //echo "<li><a onclick = 'populate(" . $request . ", " . $row[$column] . ")'><span>" . $row[$column] . "</span></a></li>";
-
     echo "<li><a onclick=\"populate(" . "'" . $request . "', " . "'" . $row[$column] . "'" . ")\"><span>" . $row[$column] . "</span></a></li>";
 }
 
