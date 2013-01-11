@@ -364,6 +364,10 @@ function getMenu(menu) {
     xmlhttpMenus.onreadystatechange = function() {
         if (xmlhttpMenus.readyState == 4 && xmlhttpMenus.status == 200) {
             document.getElementById("submenu_city").innerHTML = xmlhttpMenus.responseText;
+            $( '#submenu_city > li' ).click( function() {
+         $( '#submenu_city' ).children('li').removeClass();
+         $( this ).addClass( 'active' );
+     });
         }
     };
 
@@ -383,9 +387,9 @@ function toggleClusters() {
     }
 }
 
-$( document ).ready( function() {
-     $( '.dropdown-menu > li' ).click( function() {
-         $( '.dropdown-menu' ).children('li').removeClass();
+$( window ).ready( function() {
+     $( '#submenu_types > li' ).click( function() {
+         $( '#submenu_types' ).children('li').removeClass();
          $( this ).addClass( 'active' );
      });
  });
