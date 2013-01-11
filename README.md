@@ -37,7 +37,9 @@
 
 ### Changelog
 ##### Version 10.0 January XX, 2012
-1. 
+1. Fixed some bugs related the order scripts were loaded
+* Removed header
+* Implemented [Bootstrap](http://twitter.github.com/bootstrap/)
 
 ##### Version 9.0 December 10, 2012
 1. Added buffer of ±0.003 degrees to latitude and longitude of each pin. Fixed [issue #45](https://github.com/JMMP/AnteaterNetwork/issues/45).
