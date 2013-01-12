@@ -1,6 +1,6 @@
 ![Anteater Network](http://i.imgur.com/4oVj3.png)
 # Anteater Network [10](https://instdav.ics.uci.edu//~191grp10/10/) Beta
-### © 2012 JMMP (Jola Bolaji, Mark Chege, Melvin Chien, Patrick Chen). In association with UCI Alumni Association, University of California, Irvine.
+### © 2013 JMMP (Jola Bolaji, Mark Chege, Melvin Chien, Patrick Chen). In association with UCI Alumni Association, University of California, Irvine.
 
 [Version 10](https://instdav.ics.uci.edu/~191grp10/10/) | [Test Suite](https://instdav.ics.uci.edu/~191grp10/10/qunit/) | [GitHub](https://github.com/jmmp/AnteaterNetwork)
 
@@ -26,6 +26,7 @@
 ##### Back End 25%
 * _Full UCI alumni database_
 * _Automatic merging of old and new databases_
+* Deploy on live server
 
 
 ##### Social Media 90%
@@ -40,6 +41,8 @@
 1. Fixed some bugs related the order scripts were loaded
 * Removed header
 * Implemented [Bootstrap](http://twitter.github.com/bootstrap/)
+* Added new logo to navigation menu
+* Fixed spacing issues
 
 ##### Version 9.0 December 10, 2012
 1. Added buffer of ±0.003 degrees to latitude and longitude of each pin. Fixed [issue #45](https://github.com/JMMP/AnteaterNetwork/issues/45).
