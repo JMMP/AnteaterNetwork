@@ -13,8 +13,8 @@
     <div class="container">
         <div class="navbar navbar-inverse navbar-static-top">
             <div class="navbar-inner">
-                <a class="brand" href="#">Anteater Network</a>
                 <ul class="nav">
+                    <img class="pull-left" src="images/an_logo.png"></img>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             Businesses
@@ -36,7 +36,6 @@
                             <li><a href="#">Other</a></li>
                         </ul>
                     </li>
-                    <li class="divider-vertical"></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             City
@@ -45,11 +44,9 @@
                         <ul id="submenu_city" class="dropdown-menu">
                         </ul>
                     </li>
-                    <li class="divider-vertical"></li>
                     <li>
                         <a onclick="toggleClusters()" href="#">Toggle Clusters</a>
-                    </li>   
-                    <li class="divider-vertical"></li>
+                    </li>
                     <li>
                         <form class="navbar-search" method="GET" onsubmit="return false;">
                             <input type="text" placeholder="Enter Business Name" onkeyup="populate('name', this.value)" onKeyPress="if(enter_pressed(event)){ populate('name', this.value) }">
@@ -61,11 +58,9 @@
                             <input type="text" placeholder="Enter Zipcode" onKeyPress="if(enter_pressed(event)){ populate('zipcode', this.value) }">
                         </form>
                     </li>
-                    <li class="divider-vertical"></li>
                     <li>
                         <a href="#" onclick="resetFilters(); populate('', '')">Clear Filters</a>
                     </li>
-                    <li class="divider-vertical"></li>      
                     <li>
                         <a href="http://www.alumni.uci.edu/connect/update-info.php" target="_blank">Update Info</a>
                     </li>
