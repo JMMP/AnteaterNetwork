@@ -107,6 +107,14 @@ ul#sidenav li a:hover span {
   margin: 1px 2px;
 }
 
+/* http://www.eichefam.net/?p=4395 */
+.dropdown-menu {
+  max-height: 350px;  
+  overflow:  hidden;
+  overflow-y:  auto;
+  z-index: 2;
+}
+
 .alert {
     margin: 0;
 }
@@ -121,6 +129,11 @@ ul#sidenav li a:hover span {
     text-align: center;
     border-radius: 10px;
     align: left;
+}
+
+h6 {
+  margin-top: 3px;
+  margin-bottom: 3px;
 }
 
 .footer h6 {

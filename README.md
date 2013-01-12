@@ -26,7 +26,7 @@
 ##### Back End 25%
 * _Full UCI alumni database_
 * _Automatic merging of old and new databases_
-* Deploy on live server
+* _Deploy on live server_
 
 
 ##### Social Media 90%
