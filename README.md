@@ -43,6 +43,7 @@
 * Implemented [Bootstrap](http://twitter.github.com/bootstrap/)
 * Added new logo to navigation menu
 * Fixed spacing issues
+* Fixed never ending drop down menus
 
 ##### Version 9.0 December 10, 2012
 1. Added buffer of ±0.003 degrees to latitude and longitude of each pin. Fixed [issue #45](https://github.com/JMMP/AnteaterNetwork/issues/45).
