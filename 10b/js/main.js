@@ -49,7 +49,7 @@ var mapStyles = [{
     }]
 }];
 
-function loadMap(divID) {
+function loadMap(mapID, sidenavID) {
 
     var myOptions = {
         center: new google.maps.LatLng(33.646259, -117.842056),
@@ -69,9 +69,9 @@ function loadMap(divID) {
 
     };
 
-    map = new google.maps.Map(document.getElementById(divID), myOptions);
+    map = new google.maps.Map(document.getElementById(mapID), myOptions);
     mc = new MarkerClusterer(map);
-    sidenav = document.getElementById("sidenav");
+    sidenav = document.getElementById(sidenavID);
     google.maps.event.addListenerOnce(map, 'tilesloaded', function(){
         populate('', '');
     });
@@ -371,7 +371,7 @@ function getMenu(menu) {
         }
     };
 
-    xmlhttpMenus.open("GET", "getMenu.php?menu=" + menu, true);
+    xmlhttpMenus.open("GET", "../getMenu.php?menu=" + menu, true);
     xmlhttpMenus.send();
 }
 
