@@ -148,9 +148,10 @@ at the same time
 
 ### Resources
 VPN: <http://www.oit.uci.edu/security/vpn.html>  
-Folder (Windows): \\\\samba.ics.uci.edu\191grp10  
-Folder (Mac): smb://samba.ics.uci.edu/191grp10  
+[Windows](http://www.ics.uci.edu/computing/account/mapdrive_win.php): \\\\samba.ics.uci.edu\191grp10  
+[Mac](http://www.ics.uci.edu/computing/account/mapdrive_mac.php): smb://samba.ics.uci.edu/191grp10  
 Username: UCI-ICS\username  
+[Log in with SSH](http://www.ics.uci.edu/computing/linux/hosts.php)
 
 ##### Facebook Like Button
 <https://developers.facebook.com/docs/reference/plugins/like/>
