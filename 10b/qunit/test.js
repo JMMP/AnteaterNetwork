@@ -10,7 +10,10 @@
 
 module("Google", {
     setup: function() {
-        loadMap("qunit-fixture");
+        var $fixture = $('#qunit-fixture');
+        $fixture.append("<div id='map_canvas'></div>");
+        $fixture.append("<div id='sidenav'></div>");
+        loadMap("map_canvas", "sidenav");
         ok(true, "Setup");
     }
 });
@@ -36,25 +39,10 @@ test("Load Google Maps object", function() {
     });
 });
 
-
-module("Other");
-
-
 test("Create XML HTTP Request", function() {
-    expect(1);
-
-    createXMLHttpRequest(ok(true, "XML HTTP request created"));
-});
-
-
-
-test("Update pin drop", function() {
     expect(2);
 
-    updatePinDrop("");
-    equal(pinDrop, true, "Pin drop enabled");
-    updatePinDrop("Irvine");
-    equal(pinDrop, false, "Pin drop disabled");
+    createXMLHttpRequest(ok(true, "XML HTTP request created"));
 });
 
 
@@ -86,8 +74,6 @@ module("XML", {
 
 test("Parse XML", function() {
     expect(4);
-
-
 
     var alumni = parseXML(xmlDoc);
 
