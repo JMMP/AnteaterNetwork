@@ -9,7 +9,7 @@
     <script src="js/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDjfKwuT7W5o7YSTt6wHmeDaEhgIxuOUoI&sensor=true"></script>
 </head>
-<body onload="loadMap('map_canvas'); populate('city', '');">
+<body onload="loadMap('map_canvas', 'sidenav'); populate('city', '');">
     <div class="container">
         <div class="navbar navbar-inverse navbar-static-top">
             <div class="navbar-inner">
@@ -29,7 +29,7 @@
                             <li><a href="#">Local Services</a></li>
                             <li><a href="#">Health and Medical</a></li>
                             <li><a href="#">Education</a></li>
-                            <li><a href="#">Public Services</a></li>                                
+                            <li><a href="#">Public Services</a></li>
                             <li><a href="#">Media</a></li>
                             <li><a href="#">Science and Technology</a></li>
                             <li><a href="#">Personal Business</a></li>
@@ -55,7 +55,7 @@
                     <li class="divider-vertical"></li>
                     <li>
                         <form class="navbar-search" method="GET" onsubmit="return false;">
-                            <input type="text" placeholder="Enter Zip Code" onKeyPress="if(enter_pressed(event)){ populate('zipcode', this.value) }">
+                            <input type="text" placeholder="Enter Zipcode" onKeyPress="if(enter_pressed(event)){ populate('zipcode', this.value) }">
                         </form>
                     </li>
                     <li>
@@ -80,7 +80,6 @@
             </noscript>
         </div>
     </div>
-
     <div class="footer">
         <h6>&copy 2012 Team JMMP in association with UCI Alumni Association, University of California, Irvine.</h6>
         <span class="label label-important">Response Time: <span id="timetaken">0</span> ms</span>
@@ -105,7 +104,6 @@
             fixedPosition: false                               //options: true makes it stick(fixed position) on scroll
         });
     });
-
 </script>
 </body>
 </html>
