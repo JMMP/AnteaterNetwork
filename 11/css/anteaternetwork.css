@@ -1,0 +1,16 @@
+footer {
+  padding-top: 15px;
+}
+
+footer > a {
+  color: #000000;
+  font-size: 1.6em;
+}
+
+footer > a:hover {
+  color: #000000;
+}
+
+footer [class^="icon-fontello-"] {
+  padding-right: 16px;
+}
