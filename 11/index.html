@@ -3,13 +3,12 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Anteater Network</title>
-
   <link href="css/bootstrap.css" rel="stylesheet" media="screen">
+  <link href="css/bootstrap-switch.css" rel="stylesheet" media="screen">
   <link href="css/fontello.css" rel="stylesheet" media="screen">
   <link href="css/anteaternetwork.css" rel="stylesheet" media="screen">
 </head>
 <body>
-
   <div class="navbar navbar-inverse navbar-static-top">
     <div class="navbar-inner">
       <div class="container">
@@ -24,6 +23,10 @@
               City <b class="caret"></b>
             </a>
             <ul class="dropdown-menu" id="js-menu-city" role="menu">
+              <li>
+                <a href="" onclick="resetFilter('city')">Clear</a>
+              </li>
+              <li class="divider"></li>
             </ul>
           </li>
           <li class="dropdown">
@@ -34,11 +37,24 @@
             </ul>
           </li>
           <li>
-            <a href="" onclick="">
+            <form class="navbar-form" onsubmit="return false">
+              <input class="input-medium" type="search" placeholder="Search" onKeyPress="if(enter_pressed(event)){ populate('zipcode', this.value) }">
+              <input class="input-mini" type="text" pattern="\d*" min="0" max="99999" placeholder="Zip Code" onKeyPress="if(enter_pressed(event)){ populate('zipcode', this.value) }">
+            </form>
           </li>
           <li>
+            <a>Clusters
+              <div class="switch switch-mini" id="js-toggle-clusters">
+                <input type="checkbox">
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="http://www.alumni.uci.edu/connect/update-info.php" target="_blank">Update Info</a>
           </li>
         </ul>
+
+        
       </div>
     </div>
   </div>
@@ -54,6 +70,7 @@
   </footer>
   <script src="js/jquery.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery.switch.js"></script>
   <script src="js/anteaternetwork.js"></script>
 </body>
 </html>
