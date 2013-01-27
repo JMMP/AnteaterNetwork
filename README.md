@@ -162,7 +162,12 @@ Username: UCI-ICS\username
 
 [jquery-ui-map](http://code.google.com/p/jquery-ui-map/)  
 [Gmap3](http://gmap3.net/)  
-[gmaps.js](http://hpneo.github.com/gmaps/)
+[gmaps.js](http://hpneo.github.com/gmaps/)  
+[Initialize Google Map in AngularJS](http://stackoverflow.com/questions/11180750/initialize-google-map-in-angularjs)  
+[Google Maps for AngularJS](http://nlaplante.github.com/angular-google-maps/)  
+[3 Reasons to Choose AngularJS](http://net.tutsplus.com/tutorials/javascript-ajax/3-reasons-to-choose-angularjs-for-your-next-project/)
+[Async Tasks With JQuery Promises](http://net.tutsplus.com/tutorials/JavaScript-ajax/wrangle-async-tasks-with-jquery-promises/)
+[JQuery Deferred Object](http://api.jquery.com/category/deferred-object/)
 
 ##### Facebook Like Button
 <https://developers.facebook.com/docs/reference/plugins/like/>
