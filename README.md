@@ -158,7 +158,11 @@ VPN: <http://www.oit.uci.edu/security/vpn.html>
 [Windows](http://www.ics.uci.edu/computing/account/mapdrive_win.php): \\\\samba.ics.uci.edu\191grp10  
 [Mac](http://www.ics.uci.edu/computing/account/mapdrive_mac.php): smb://samba.ics.uci.edu/191grp10  
 Username: UCI-ICS\username  
-[Log in with SSH](http://www.ics.uci.edu/computing/linux/hosts.php)
+[Log in with SSH](http://www.ics.uci.edu/computing/linux/hosts.php)  
+
+[jquery-ui-map](http://code.google.com/p/jquery-ui-map/)  
+[Gmap3](http://gmap3.net/)  
+[gmaps.js](http://hpneo.github.com/gmaps/)
 
 ##### Facebook Like Button
 <https://developers.facebook.com/docs/reference/plugins/like/>
