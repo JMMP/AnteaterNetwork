@@ -15,6 +15,21 @@ var latlngBuffer = 0.003;
 var clusters = false;
 var infoWindow;
 var gc;
+var infobox = new InfoBox({
+    content: document.getElementById("infobox"),
+    disableAutoPan: false,
+    maxWidth: 150,
+    pixelOffset: new google.maps.Size(-140, 0),
+    zIndex: null,
+    boxStyle: {
+                background: "url('http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/examples/tipbox.gif') no-repeat",
+                opacity: 0.75,
+                width: "280px"
+        },
+    closeBoxMargin: "12px 4px 2px 2px",
+    closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif",
+    infoBoxClearance: new google.maps.Size(1, 1)
+});
 
 // Custom marker image
 var markerImage = "images/marker_anteater_small.png";
@@ -171,7 +186,7 @@ function createMarker(alumni) {
     var busLng = "";
     var busName = "";
 
-    var infoHTML = "<div class='infoWindow'>";
+    var infoHTML = "<div class='infobox-wrapper'>";
 
     if (alumni.hasAttribute("Business_Name")) {
         busName = alumni.getAttribute("Business_Name");
@@ -179,7 +194,7 @@ function createMarker(alumni) {
         infoHTML += "<h2 id='firstHeading' class='firstHeading'>" + busName + "</h2>";
     }
 
-    infoHTML += "<div id='bodyContent'>";
+    infoHTML += "<div id='infobox'>";
 
     if (alumni.hasAttribute("First_Name") && alumni.hasAttribute("Last_Name")) {
         var firstName = alumni.getAttribute("First_Name");
@@ -259,8 +274,10 @@ function createMarker(alumni) {
 
         infoHTML += "<a href='http://maps.google.com/maps?daddr=" + point.toUrlValue() + "' target ='_blank'>Get Directions</a>";
 
-        google.maps.event.addListener(marker, "click", busClick(infoHTML, marker));
-        google.maps.event.addDomListener(sideItem, "click", busClick(infoHTML, marker));
+        google.maps.event.addListener(marker, "click", boxClick(infoHTML, marker), infobox.open(map, this) );
+			//infobox.open(map, this);
+			
+        google.maps.event.addDomListener(sideItem, "click", boxClick(infoHTML, marker));
         markers.push(marker);
         return(marker);
     }
@@ -274,6 +291,16 @@ function busClick(html, marker) {
         infoWindow = new google.maps.InfoWindow();
         infoWindow.setContent(html);
         infoWindow.open(map, marker);
+    }
+}
+
+function boxClick(html, marker) {
+    return function() {
+        if (infobox)
+            infobox.close();
+        infobox = new google.maps.infobox();
+        infobox.setContent(html);
+        infobox.open(map, marker);
     }
 }
 
