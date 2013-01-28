@@ -1,6 +1,7 @@
 var map;
 var markers = [];
 var markersLatLng = [];
+var xmlhttp;
 var xmlDoc;
 var filters = [
 ["city", ""],
@@ -10,126 +11,159 @@ var infowindow;
 var sideboxhtml = "";
 var pinDrop = false;
 
-// Style Google Maps
+// Custom marker image
 var markerImage = "images/marker_anteater_small.png";
 
+// Style Google Maps
 // https://developers.google.com/maps/documentation/javascript/styling
 var stylesArray = [{
     "featureType": "water",
-    "stylers": [
-    {
+    "stylers": [{
         "lightness": 14
-    }
-    ]
-},{
+    }]
+}, {
     "featureType": "road",
-    "stylers": [
-    {
+    "stylers": [{
         "saturation": 100
-    },
-    {
+    }, {
         "weight": 0.3
-    },
-    {
+    }, {
         "hue": "#002bff"
-    }
-    ]
-},{
+    }]
+}, {
     "featureType": "landscape",
-    "stylers": [
-    {
+    "stylers": [{
         "hue": "#00ff44"
-    }
-    ]
-},{
+    }]
+}, {
     "featureType": "poi.school",
-    "stylers": [
-    {
+    "stylers": [{
         "saturation": 100
-    },
-    {
+    }, {
         "hue": "#ffe500"
-    }
-    ]
+    }]
 }];
 
-function loadMap() {
+
+function loadMap(divID) {
     var myOptions = {
         center: new google.maps.LatLng(33.646259, -117.842056),
         zoom: 12,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
-        styles: stylesArray
+        styles: stylesArray,
+		
+        panControl: true,
+        panControlOptions: {
+            position: google.maps.ControlPosition.TOP_RIGHT
+        },
+        zoomControl: true,
+        zoomControlOptions: {
+            style: google.maps.ZoomControlStyle.LARGE,
+            position: google.maps.ControlPosition.TOP_RIGHT
+        }
+		
     };
 
-    map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+    map = new google.maps.Map(document.getElementById(divID), myOptions);
 
-    var geocoder = new google.maps.Geocoder();
+//var geocoder = new google.maps.Geocoder();
 
 }
 
 
 function populate(filter, input) {
-    var xmlhttp;
-    var i;
     
-    // Only have drop animation when all pins are being showed for first time
-    if (filter == "")
-        pinDrop = true;
-    else
-        pinDrop = false;
+    createXMLHttpRequest(function() {
+        updatePinDrop(filter);
+        xmlDoc = xmlhttp.responseXML;
+        clearMarkers();
+        sideboxhtml = "";
+        var alumni = parseXML(xmlDoc);
+        for (i in alumni) {
+            var marker = createMarker(alumni[i]);
+            if (marker)
+                markers.push(marker);
+        }
+    });
     
+    setBounds();
+    
+    sendXMLHttpRequest(getRequest(filter, input));
+}
+
+
+function sendXMLHttpRequest(request) {
+    xmlhttp.open("GET", "andb-connect.php?" + request, true);
+    xmlhttp.send();
+}
+
+
+function createXMLHttpRequest(callback) {
     if (window.XMLHttpRequest) {
+        // IE7+, Firefox, Chrome, Opera, Safari
         xmlhttp = new XMLHttpRequest();
     } else {
+        // IE6, IE5
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
     xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-            xmlDoc = xmlhttp.responseXML;
-            clearMarkers();
-            sideboxhtml = "";
-            var alumni = xmlDoc.getElementsByTagName("alumnus");
-            for (i = 0; i < alumni.length; i++) {
-                createMarker(alumni[i]);
-            }
-
-            //  Create a new viewpoint bound
-            var bounds = new google.maps.LatLngBounds();
-
-
-            // If array is empty, focus map around UCI
-            if (markersLatLng.length == 0) {
-                markersLatLng.push(new google.maps.LatLng(33.70095,-117.710438));
-                markersLatLng.push(new google.maps.LatLng(33.576899,-117.978916));
-            }
-
-            //  Go through each...
-            for (i = 0; i < markersLatLng.length; i++) {
-                //  And increase the bounds to take this point
-                bounds.extend(markersLatLng[i]);
-            }
-
-            // Fit these bounds to the map
-            map.fitBounds (bounds);
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            callback();
         }
+    };
+}
+
+
+function updatePinDrop(filter) {
+    // Set drop animation if there is no filter
+    // This occurs on first load and on filter reset
+    if (filter == "")
+        pinDrop = true;
+    else 
+        pinDrop = false;
+}
+
+
+function parseXML(xml) {
+    return xml.getElementsByTagName("alumnus");
+}
+
+
+function setBounds() {
+    //  Create a new viewpoint bound
+    var bounds = new google.maps.LatLngBounds();
+
+    // If array is empty, focus map around UCI
+    if (markersLatLng.length == 0) {
+        markersLatLng.push(new google.maps.LatLng(33.70095,-117.710438));
+        markersLatLng.push(new google.maps.LatLng(33.576899,-117.978916));
     }
 
-    for (i = 0; i < filters.length; i++) {
+    // Increase bounds for each marker
+    for (i in markersLatLng) {
+        bounds.extend(markersLatLng[i]);
+    }
+
+    // Fit bounds to the map
+    map.fitBounds(bounds);
+}
+
+
+function getRequest(filter, input) {
+    for (i in filters) {
         if (filters[i][0] == filter)
             filters[i][1] = input;
     }
 
     var request = "";
-    for (i = 0; i < filters.length; i++) {
+    for (i in filters) {
         if (filters[i][1] != "") {
             if (request != "")
                 request += "&";
             request += filters[i][0] + "=" + filters[i][1];
         }
     }
-
-    xmlhttp.open("GET", "andb-connect.php?" + request, true);
-    xmlhttp.send();
+    return request;
 }
 
 
@@ -149,6 +183,13 @@ function createMarker(alumni) {
     var bus_lat = alumni.getAttribute("Business_Lat");
     var bus_lng = alumni.getAttribute("Business_Lng");
 
+
+    // Generate HTML list for the results list on the side
+    sideboxhtml +="<li> <a href='#'>" + bus_name + "<br/><span>" + bus_street1 + "<br />";
+    sideboxhtml += bus_city + ", " + bus_state + " " + bus_zipcode + "<br />" + bus_phone + "</span> </a> </li>";
+    var sidebox = document.getElementById("sidenav");
+    sidebox.innerHTML = sideboxhtml;
+    
     // Catch businesses with no latitude or longitude
     // Don't show these on the map but still list them in the results box
     if (bus_lat != "" || bus_lng != "") {
@@ -187,15 +228,12 @@ function createMarker(alumni) {
             infowindow.open(map, marker);
         });
 
-        markers.push(marker);
+        return(marker);
     }
+    
+    return false;
 
-    // Also generate HTML list for the results list on the side
-    sideboxhtml +="<li> <a href='#'>" + bus_name + "<br/><span>" + bus_street1 + "<br />";
-    sideboxhtml += bus_city + ", " + bus_state + " " + bus_zipcode + "<br />" + bus_phone + "</span> </a> </li>";
-
-    var sidebox = document.getElementById("sidenav");
-    sidebox.innerHTML = sideboxhtml;
+    
 
 }
 
@@ -225,10 +263,11 @@ function codeAddress() {
     });
 }
 
-function reloadMap() {
-    map = null;
-    markers = null;
-    request = "";
-    loadScripts();
+function resetFilters() {
+    clearMarkers();
+    for (i in filters) {
+        filters[i][1] = "";
+    }
+    populate("", "");
 }
 
