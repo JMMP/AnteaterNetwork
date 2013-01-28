@@ -1,0 +1,48 @@
+<businesses>
+ <business>
+  <id>1</id>
+  <alumni_id>145236</alumni_id>
+  <name>PlusThirty</name>
+  <industry>Entertainment</industry>
+  <street_1>26101 Magic Mountain Parkway</street_1>
+  <street_2></street_2>
+  <city>Valencia</city>
+  <state>California</state>
+  <country>USA</country>
+  <zip_code>91355</zip_code>
+  <latitude>34.4203697</latitude>
+  <longitude>-118.5900965</longitude>
+  <description>We make roller coasters!</description>
+  <website>http://www.terrismc.info</website>
+  <phone_number>3479039003</phone_number>
+  <email>vein@terrismc.info</email>
+  <has_discounts>False</has_discounts>
+  <discounts></discounts>
+  <show_business>True</show_business>
+  <date_created>1338044096006</date_created>
+  <date_modified>1338314381203</date_modified>
+ </business>
+ <business>
+  <id>2</id>
+  <alumni_id>1568779</alumni_id>
+  <name>Stark Industries</name>
+  <industry>Government</industry>
+  <street_1>115 Aldrich Hall</street_1>
+  <street_2></street_2>
+  <city>Irvine</city>
+  <state>California</state>
+  <country>USA</country>
+  <zip_code>92697</zip_code>
+  <latitude>33.6484169</latitude>
+  <longitude>-117.8411251</longitude>
+  <description>Exploding hamburgers.</description>
+  <website>http://oit.uci.edu</website>
+  <phone_number>9498242222</phone_number>
+  <email>oit@uci.edu</email>
+  <has_discounts>True</has_discounts>
+  <discounts>50\% off all burgers with code \&apos;ANTEATERMISSILES\&apos;!</discounts>
+  <show_business>True</show_business>
+  <date_created>1332586825683</date_created>
+  <date_modified>1336448842126</date_modified>
+ </business>
+</businesses>
