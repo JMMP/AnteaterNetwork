@@ -25,3 +25,16 @@ footer [class^="icon-fontello-"] {
   box-shadow: 0px 5px 20px #ccc;
   margin: 0 auto 10px;
 }
+
+/* http://www.eichefam.net/?p=4395 */
+[id^="js-menu-"] {
+  max-height: 350px;  
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+#js-sidenav {
+  max-height: 542px;  
+  overflow: hidden;
+  overflow-y: auto;
+}
