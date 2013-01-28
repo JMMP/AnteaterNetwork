@@ -1,9 +1,9 @@
 ![Anteater Network](http://i.imgur.com/4oVj3.png)
 ![JMMP](http://i.imgur.com/lw4AT.png)
-# Anteater Network [10](https://instdav.ics.uci.edu//~191grp10/10/) Beta
+# Anteater Network [11](https://instdav.ics.uci.edu//~191grp10/11/) Beta
 ### © 2013 JMMP (Jola Bolaji, Mark Chege, Melvin Chien, Patrick Chen) in association with UCI Alumni Association, University of California, Irvine.
 
-[Version 10](https://instdav.ics.uci.edu/~191grp10/10/) | [Test Suite](https://instdav.ics.uci.edu/~191grp10/10/qunit/) | [GitHub](https://github.com/jmmp/AnteaterNetwork)
+[Version 11](https://instdav.ics.uci.edu/~191grp10/11/) | [Test Suite](https://instdav.ics.uci.edu/~191grp10/11/qunit/) | [GitHub](https://github.com/jmmp/AnteaterNetwork)
 
 - - -
 ### Features
@@ -165,9 +165,9 @@ Username: UCI-ICS\username
 [gmaps.js](http://hpneo.github.com/gmaps/)  
 [Initialize Google Map in AngularJS](http://stackoverflow.com/questions/11180750/initialize-google-map-in-angularjs)  
 [Google Maps for AngularJS](http://nlaplante.github.com/angular-google-maps/)  
-[3 Reasons to Choose AngularJS](http://net.tutsplus.com/tutorials/javascript-ajax/3-reasons-to-choose-angularjs-for-your-next-project/)
-[Async Tasks With JQuery Promises](http://net.tutsplus.com/tutorials/JavaScript-ajax/wrangle-async-tasks-with-jquery-promises/)
-[JQuery Deferred Object](http://api.jquery.com/category/deferred-object/)
+[3 Reasons to Choose AngularJS](http://net.tutsplus.com/tutorials/javascript-ajax/3-reasons-to-choose-angularjs-for-your-next-project/)  
+[Async Tasks With JQuery Promises](http://net.tutsplus.com/tutorials/JavaScript-ajax/wrangle-async-tasks-with-jquery-promises/)  
+[JQuery Deferred Object](http://api.jquery.com/category/deferred-object/)  
 
 ##### Facebook Like Button
 <https://developers.facebook.com/docs/reference/plugins/like/>
