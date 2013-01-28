@@ -1,13 +1,56 @@
 ![Anteater Network](http://i.imgur.com/4oVj3.png)
-# Anteater Network [10](https://instdav.ics.uci.edu//~191grp10/10/)
-### © 2012 JMMP (Jola Bolaji, Mark Chege, Melvin Chien, Patrick Chen). In association with UCI Alumni Association, University of California, Irvine.
+![JMMP](http://i.imgur.com/lw4AT.png)
+# Anteater Network [10](https://instdav.ics.uci.edu//~191grp10/10/) Beta
+### © 2013 JMMP (Jola Bolaji, Mark Chege, Melvin Chien, Patrick Chen) in association with UCI Alumni Association, University of California, Irvine.
 
-[Home](http://jmmp.github.com/AnteaterNetwork) | [Version 10](https://instdav.ics.uci.edu/~191grp10/10/) | [Test Suite](https://instdav.ics.uci.edu/~191grp10/10/qunit/) | [GitHub](https://github.com/jmmp/AnteaterNetwork)
+[Version 10](https://instdav.ics.uci.edu/~191grp10/10/) | [Test Suite](https://instdav.ics.uci.edu/~191grp10/10/qunit/) | [GitHub](https://github.com/jmmp/AnteaterNetwork)
 
 - - -
+### Features
+##### Interface 60%
+* Hide-able results list
+* _Automatic populating menus_
+* Support online businesses
+* _Custom CSS styling_
+* Filter by city
+* _Filter by business type_
+* Search by business name
+* _Search by zipcode_
+* _Update My Information form_
+
+##### Google Maps 90%
+* _Auto focus on search_
+* Google Maps directions
+* Marker clusterers
+* Buffer zone around results
+
+##### Back End 25%
+* _Full UCI alumni database_
+* _Automatic merging of old and new databases_
+* _Deploy on live server_
+
+
+##### Social Media 90%
+* Twitter
+* Facebook
+* LinkedIn
+* Google+
+
+
 ### Changelog
-##### Version 10.0 January XX, 2012
-1. 
+##### Version 11.0 January 25, 2013
+1. Rebuilt Anteater Network again, from bottom up.
+2. Added social network icons by Brandico from [Fontello](http://fontello.com/).
+3. Added switches from [bootstrap-switch](https://github.com/nostalgiaz/bootstrap-switch).
+
+##### Version 10.0 January 25, 2013
+1. Fixed some bugs related the order scripts were loaded
+* Removed header
+* Implemented [Bootstrap](http://twitter.github.com/bootstrap/)
+* Added new logo to navigation menu
+* Fixed spacing issues
+* Fixed never ending drop down menus
+* Updated QUnit tests
 
 ##### Version 9.0 December 10, 2012
 1. Added buffer of ±0.003 degrees to latitude and longitude of each pin. Fixed [issue #45](https://github.com/JMMP/AnteaterNetwork/issues/45).
@@ -112,9 +155,19 @@ at the same time
 
 ### Resources
 VPN: <http://www.oit.uci.edu/security/vpn.html>  
-Folder (Windows): \\\\samba.ics.uci.edu\191grp10  
-Folder (Mac): smb://samba.ics.uci.edu/191grp10  
+[Windows](http://www.ics.uci.edu/computing/account/mapdrive_win.php): \\\\samba.ics.uci.edu\191grp10  
+[Mac](http://www.ics.uci.edu/computing/account/mapdrive_mac.php): smb://samba.ics.uci.edu/191grp10  
 Username: UCI-ICS\username  
+[Log in with SSH](http://www.ics.uci.edu/computing/linux/hosts.php)  
+
+[jquery-ui-map](http://code.google.com/p/jquery-ui-map/)  
+[Gmap3](http://gmap3.net/)  
+[gmaps.js](http://hpneo.github.com/gmaps/)  
+[Initialize Google Map in AngularJS](http://stackoverflow.com/questions/11180750/initialize-google-map-in-angularjs)  
+[Google Maps for AngularJS](http://nlaplante.github.com/angular-google-maps/)  
+[3 Reasons to Choose AngularJS](http://net.tutsplus.com/tutorials/javascript-ajax/3-reasons-to-choose-angularjs-for-your-next-project/)
+[Async Tasks With JQuery Promises](http://net.tutsplus.com/tutorials/JavaScript-ajax/wrangle-async-tasks-with-jquery-promises/)
+[JQuery Deferred Object](http://api.jquery.com/category/deferred-object/)
 
 ##### Facebook Like Button
 <https://developers.facebook.com/docs/reference/plugins/like/>
