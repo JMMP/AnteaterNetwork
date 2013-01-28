@@ -1,13 +1,6 @@
-
 <?php
 
-// Anteater Network
-// (C) 2012 Team JMMP
-// Jola Bolaji, Mark Chege, Melvin Chien, Patrick Chen
-// instdav.ics.uci.edu/phpmyadmin
-// inmotionhosting.com/support/edu/website-design/using-php-and-mysql/grab-all-comments-from-database
-
-require("ANConnect.php");
+require("andb-login.php");
 
 // Start XML file, create parent node
 
