@@ -1,0 +1,199 @@
+/***SEARCH***/
+
+div.banner {
+  width: auto;
+  height: 76px;
+/*  background-color: transparent; */
+   background-color: #ffffff;
+}
+
+img.banner_position {
+  width: 454px;
+  height: 76px;
+  display: block;
+  float: left;
+}
+
+div#searchContainer {
+  float: right;
+  margin-top: 8px;
+  background-color: #000033;
+}
+
+div.searchCol {
+  float: left;
+}
+
+.searchCorner {
+  width: 8px;
+  height: 8px;
+  line-height: 8px;
+ /* background-image: url(../images/searchCorners_000033.png);  */
+ /* behavior: url(/scripts/iepngfix_v2.htc); */
+  background-repeat: no-repeat;
+}
+
+.searchEnd {
+  width: 8px;
+  height: 1.8em;
+  background-color: #000033; /* #002244; */
+}
+
+#searchCenterCol {
+  background-color: #000033; /* #002244; */
+}
+
+.searchVspacer {
+  float: left;
+  clear: both;
+  height: 8px;
+  line-height: 8px;
+}
+
+#searchContent {
+  float: left;
+  clear: both;
+  height: 1.8em;
+  color: #FFFFFF;
+}
+
+#searchTL {
+  background-position: top left;
+}
+
+#searchBL {
+  background-position: bottom left;
+}
+
+#searchTR {
+  background-position: top right;
+}
+
+#searchBR {
+  background-position: bottom right;
+}
+
+#QuickLink {
+  float: left;
+  height: 1.65em;
+  margin-top: .15em;
+  border: .15em inset #CCCCCC;
+  color: #333333;
+}
+
+#Search {
+  float: left;
+  margin-top: .15em;
+}
+
+.searchRadio {
+  display: block;
+  float: left;
+  margin: .25em .2em 0 1em;
+}
+
+#searchContent p {
+  float: left;
+  height: 1.3em;
+  margin-top: .25em;
+  padding: 0;
+  font-weight: bold;
+}
+
+/*****HORIZONTAL NAVIGATION******/
+div.globalNav15 {
+  width: 100%;
+  margin: 0px 0px 7px 0px;
+  padding-bottom: 5px;
+  background-color:#FFCCOO /*#000033; *//* #002244; */
+  border-bottom: thin solid #FFFFFF; /* medium solid #FFFFFF; */
+  font-weight: bold;
+  text-align: center;
+}  
+
+.globalNav15 a, .globalNav15 a:visited, .globalNav15 a:link  { 
+  margin: 2px 12px;
+  padding: 0 5px;
+  border-right:#000033 1px solid;
+  border-left:#000033 1px solid;
+  margin: 0px 20px 0px 20px;
+  text-decoration: none;
+  color:#FFF;
+}
+
+.globalNav15 a:hover{
+  /* background-color: #23476A; */
+  font-weight: bold;
+  text-decoration: none;
+  color: #F8DD73; /* #FFDC5F; */
+  border-right:#FFF 1px solid;
+  border-left:#FFF 1px solid;
+  margin: 0px 20px 0px 20px;
+}
+*/
+
+/* additional styles for global nav in [ul] format */
+
+.globalNav15 ul { list-style: none; }
+.globalNav15 li { display: inline; }
+
+.globalNavTop {
+  width: 960px;
+  height: 5px;
+  line-height: 5px;
+  background-image: url(../images/hNavTop_000033.png);
+  background-repeat: no-repeat;
+  behavior: url(/scripts/iepngfix.htc);
+  margin: 0;
+  padding: 0;
+}
+
+/***containersSideBarIndex****/
+
+#containerSidebarColorIndex {
+	text-align: left;
+	width: 960px;
+	background-color: #000033 /*#FFF; /* WHITE for index */
+	min-height:500px;
+	height:auto!important;
+	height:500px; 
+}
+
+/* ... containerSidebarColor ............................................................................. */
+
+#containerSidebarColor {	
+	text-align: left;
+	width: 960px;
+	background-color:#000033;/* BLUE for sub-page */
+	min-height:500px;
+	height:auto!important;
+	height:500px; 
+}
+
+/* ... containerMenuContentColor ............................................................................. */
+
+#containerMenuContentColor {
+margin-left: 14px;
+  text-align: left;
+  float: left; 
+  width: 710px; /* ONE PX SMALLER */
+  color: #000000;
+  background-color: #002244 ;/* #FFF;*/
+  min-height: 500px;
+  height: auto !important;
+  height: 500px;
+
+}
+
+#map{
+	float: left;
+	width: 180px;
+	border-left: 2px solid #FF0000;
+	border-bottom: 2px solid #FF0000;
+  
+}
+
+
+
+
+

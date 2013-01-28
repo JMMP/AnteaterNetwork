@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Anteater Network</title>
+        <!--<link rel="stylesheet" type="text/css" href="anStyles.css">
+        <script type="text/javascript" src="slideMenuJQuery.js"></script>
+        <link href="UA/alumni/favicon.ico" rel="shortcut icon"/>
+        <link rel="stylesheet" type="text/css" href="mapMenuTop.css">
+        <link rel="stylesheet" type="text/css" href="uciaaMenuLeft.css">
+        <link rel="stylesheet" type="text/css" href="mapMenuRight.css">
+        <link rel="stylesheet" type="text/css" href="uciaaBackground.css"><html>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<style type="text/css">
+html { height: 100% }
+body { height: 100%; margin: 0; padding: 0 }
+#map_canvas { height: 100% }
+</style>-->
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDjfKwuT7W5o7YSTt6wHmeDaEhgIxuOUoI&sensor=true">
+        </script>
+        <script type="text/javascript">
+            var map;
+            function initialize() {
+                var mapOptions = {
+                    center: new google.maps.LatLng(33.646, -117.842),
+                    zoom: 8,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+                
+                
+                downloadUrl("anCore.php", function(data) {
+                    var xml = data.responseXML;
+                    var alumni = xmlDoc.getElementsByTagName("alumnus");
+                    for (var i = 0; i < alumni.length; i++) {
+                        var first_name = alumni[i].getAttribute("First_Name");
+                        var last_name = alumni[i].getAttribute("Last_Name");
+                        var bus_name = alumni[i].getAttribute("Business_Name");
+                        var bus_lat = alumni[i].getAttribute("Business_Lat");
+                        var bus_lng = alumni[i].getAttribute("Business_Lng");
+                        var point = new google.maps.LatLng(parseFloat(alumni[i].getAttribute("Business_Lat")), parseFloat(alumni[i].getAttribute("Business_Lng")));
+                        var marker = new google.maps.Marker({
+                            map: map,
+                            position: point
+                        });
+                    }
+                });
+            }
+
+            function downloadUrl (url, callback) {
+                var request = window.AciveXObject ? new ActiveXObject('Microsoft.XMLHTTP') : new XMLHttpRequest;
+                request.onreadystatechange = function() {
+                    if (request.readyState == 4) {
+                        request.onreadystatechange = function () {};
+                        callback(request, request.status);
+                    }
+                };
+
+                request.open('GET', url, true);
+                request.send(null);
+            }
+            
+            
+        </script>
+    </head>
+    
+    <body onLoad="initialize()">
+        <div id="map_canvas" style="width: 100%; height: 100%">maps</div>     
+    </body>
+</html>
