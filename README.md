@@ -38,10 +38,11 @@
 
 
 ### Changelog
-##### Version 11.0 January 25, 2013
+##### Version 11.0 January XX, 2013
 1. Rebuilt Anteater Network again, from bottom up.
 2. Added social network icons by Brandico from [Fontello](http://fontello.com/).
 3. Added switches from [bootstrap-switch](https://github.com/nostalgiaz/bootstrap-switch).
+4. Restructure repository, so that we are using GitHub how it should be used!
 
 ##### Version 10.0 January 25, 2013
 1. Fixed some bugs related the order scripts were loaded

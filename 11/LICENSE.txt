@@ -1,6 +1,0 @@
-css/fontello.css
-    Brandico (C) 2012 by Vitaly Puzrin
-    Author:    Crowdsourced, for Fontello project
-    License:   SIL (http://scripts.sil.org/OFL)
-
-
