@@ -1,137 +1,109 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-        <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-        <title>Anteater Network</title>
-        <link rel="stylesheet" href="main.css">
-    </head>
-    <body onload="loadMap('map_canvas');">
-        <!--<div class="banner">
-            <a href="http://www.alumni.uci.edu"><img alt="Anteater Network"  src="images/an_logo.png" height="60"/></a>
-            <div id="logos">
-                <a href="http://www.alumni.uci.edu" target="_blank"><img src="images/facebook_logo.png" width="40px"/></a>
-                <a href="https://twitter.com/UCIAA" target="_blank"><img src="images/twitter_logo.png" width="40px"/></a>
-                <a href="https://plus.google.com/117331387039000132685/about" target="_blank"><img src="images/google_plus_logo.png" width="40px"/></a>
-                <a href="http://www.linkedin.com/pub/uci-alumni-association/15/81/7b" target="_blank"><img src="images/linkedin_logo.png" width="40px"/></a>
-            </div>
-        </div>-->
-        <div id="wrapper">
-            <div id="cssmenu">
-                <ul class="main">
-                    <li><a href="#">Businesses</a>
-                        <ul class="submenu">
-                            <li><a href="#">Food and Restaurants</a></li>  
-							<li><a href="#">Shopping</a></li>
-							<li><a href="#">Arts and Entertainment</a></li>
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <title>Anteater Network</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDjfKwuT7W5o7YSTt6wHmeDaEhgIxuOUoI&sensor=true"></script>
+</head>
+<body onload="loadMap('map_canvas', 'sidenav'); populate('city', '');">
+    <div class="container">
+        <div class="navbar navbar-inverse navbar-static-top">
+            <div class="navbar-inner">
+                <ul class="nav">
+                    <img class="pull-left" src="images/an_logo.png"></img>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Businesses
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu" id="submenu_types">
+                            <li><a href="#">Food and Restaurants</a></li>
+                            <li><a href="#">Shopping</a></li>
+                            <li><a href="#">Arts and Entertainment</a></li>
                             <li><a href="#">Professional Services</a></li>
-							<li><a href="#">Financial Services</a></li>
-							<li><a href="#">Local Services</a></li>  
+                            <li><a href="#">Financial Services</a></li>
+                            <li><a href="#">Local Services</a></li>
                             <li><a href="#">Health and Medical</a></li>
-							<li><a href="#">Education</a></li>
-							<li><a href="#">Public Services</a></li>								
+                            <li><a href="#">Education</a></li>
+                            <li><a href="#">Public Services</a></li>
                             <li><a href="#">Media</a></li>
-							<li><a href="#">Science and Technology</a></li>
-							<li><a href="#">Personal Business</a></li>
-							<li><a href="#">Other</a></li>
-                        </ul>
-
-                    </li>
-                    <!--
-					<li><a href="#">Profession</a>
-                        <ul class="submenu">
-                            <li><a href='#'><span>Lawyer</span></a></li>
-                            <li><a href='#'><span>Consultant</span></a></li>
+                            <li><a href="#">Science and Technology</a></li>
+                            <li><a href="#">Personal Business</a></li>
+                            <li><a href="#">Other</a></li>
                         </ul>
                     </li>
-					-->
-                    <li><a onclick="populate('city', '')">City</a>
-                        <ul id="submenu_city" class="submenu"></ul>
-                    </li>
-                    <li><a onclick="toggleClusters()">Toggle Clusters</a>
-                    </li>   
-
-                    <li class="fr"><a href="http://www.alumni.uci.edu/connect/update-info.php" target="_blank">Update Info</a>
-                        <ul class="submenu_right"></ul>
-                    </li>
-
-
-                    <li class="fr"><a href="#" onclick="resetFilters(); populate('', '')">Clear Filters</a></li>
-                    <li class="fr"><a href="#">Search</a>
-                        <ul class="submenu_right">
-                            <li class="form">
-                                <form onsubmit="return false;">
-                                    <input class="search" type="text" name="search" placeholder="Search..."/>
-                                    <button class="searchbtn" type="submit" name="search">Submit</button>
-                                </form>
-                            </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            City
+                            <b class="caret"></b>
+                        </a>
+                        <ul id="submenu_city" class="dropdown-menu">
                         </ul>
                     </li>
-
-                    <li class="fr"><a>Search By Zipcode</a>
-                        <ul class="submenu_right">
-                            <li class="form">
-                                <form method="GET" action="" onsubmit="return false;">
-                                    <input class="search" type="text" id="zipcode" placeholder="Enter zipcode" onKeyPress="if(enter_pressed(event)){ populate('zipcode', this.value) }">
-                                    <button class="searchbtn" type="submit" form="zipcode" onclick="populate('zipcode', document.getElementById('zipcode').value)">Submit</button>
-                                </form>
-                            </li>
-                        </ul>
+                    <li>
+                        <a onclick="toggleClusters()" href="#">Toggle Clusters</a>
                     </li>
-
-                    <li class="fr"><a>Search By Business Name</a>
-                        <ul class="submenu_right">
-                            <li class="form">
-                                <form method="GET" action="" onsubmit="return false;">
-                                    <input type="text" placeholder="Enter business name" onkeyup="populate('name', this.value)"
-                                           onKeyPress="if(enter_pressed(event)){ populate('zipcode', this.value) }">
-                                </form>
-                            </li>
-                        </ul>
+                    <li>
+                        <form class="navbar-search" method="GET" onsubmit="return false;">
+                            <input type="text" placeholder="Enter Business Name" onkeyup="populate('name', this.value)" onKeyPress="if(enter_pressed(event)){ populate('name', this.value) }">
+                        </form>
                     </li>
-
+                    <li class="divider-vertical"></li>
+                    <li>
+                        <form class="navbar-search" method="GET" onsubmit="return false;">
+                            <input type="text" placeholder="Enter Zipcode" onKeyPress="if(enter_pressed(event)){ populate('zipcode', this.value) }">
+                        </form>
+                    </li>
+                    <li>
+                        <a href="#" onclick="resetFilters(); populate('', '')">Clear Filters</a>
+                    </li>
+                    <li>
+                        <a href="http://www.alumni.uci.edu/connect/update-info.php" target="_blank">Update Info</a>
+                    </li>
                 </ul>
             </div>
         </div>
-
-        <div class="slide-out-div"><a class="handle">Pull</a><ul id="sidenav"></ul></div>
-
+    </div>
+    <div class="slide-out-div"><a class="handle">Pull</a><ul id="sidenav"></ul></div>
+    <div class="container" id="alert">
+    </div>
+    <div class="container">
         <div id="map_canvas">
             <noscript><b>JavaScript must be enabled in order for you to use Google Maps.</b>
-            However, it seems JavaScript is either disabled or not supported by your browser.
-            To view Google Maps, enable JavaScript by changing your browser options, and then
-            try again.
+                However, it seems JavaScript is either disabled or not supported by your browser.
+                To view Google Maps, enable JavaScript by changing your browser options, and then
+                try again.
             </noscript>
         </div>
-
-        <div class="footer">
-            <h6>&copy 2012 Team JMMP in association with UCI Alumni Association, University of California, Irvine. </h6>
-        </div>
-        <span>Response Time: <span id="timetaken"></span> ms</span>
-        <table id="debug"></table>
-        <script src="js/jquery-1.8.3.min.js"></script>
-        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDjfKwuT7W5o7YSTt6wHmeDaEhgIxuOUoI&sensor=true"></script>
-        <script src="js/infobox.js"></script>
-		<script src="js/main.js"></script>
-        <script src="js/pulltab.js"></script>
-        <script src="js/markerclusterer.js"></script>    
-		
-        <script>
-            $(function(){
-                $('.slide-out-div').tabSlideOut({
-                    tabHandle: '.handle',                              //class of the element that will be your tab
-                    pathToTabImageOpen: 'images/tab_show.png',          //path to the image for the tab (optionaly can be set using css)
-                    pathToTabImageClose: 'images/tab_hide.png',
-                    imageHeight: '70px',                            //height of tab image
-                    imageWidth: '30px',                               //width of tab image
-                    tabLocation: 'left',                               //side of screen where tab lives, top, right, bottom, or left
-                    speed: 300,                                        //speed of animation
-                    action: 'click',                                   //options: 'click' or 'hover', action to trigger animation
-                    topPos: '160px',                                   //position from the top
-                    fixedPosition: false                               //options: true makes it stick(fixed position) on scroll
-                });
-            });
-
-        </script>
-    </body>
+    </div>
+    <div class="footer">
+        <h6>&copy 2012 Team JMMP in association with UCI Alumni Association, University of California, Irvine.</h6>
+        <span class="label label-important">Response Time: <span id="timetaken">0</span> ms</span>
+    </div>
+    <table id="debug"></table>
+    <script src="js/pulltab.js"></script>
+    <script src="js/markerclusterer.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+    $(function(){
+        $('.slide-out-div').tabSlideOut({
+            tabHandle: '.handle',                              //class of the element that will be your tab
+            pathToTabImageOpen: 'images/tab_show.png',          //path to the image for the tab (optionaly can be set using css)
+            pathToTabImageClose: 'images/tab_hide.png',
+            imageHeight: '70px',                            //height of tab image
+            imageWidth: '30px',                               //width of tab image
+            tabLocation: 'left',                               //side of screen where tab lives, top, right, bottom, or left
+            speed: 300,                                        //speed of animation
+            action: 'click',                                   //options: 'click' or 'hover', action to trigger animation
+            topPos: '160px',                                   //position from the top
+            fixedPosition: false                               //options: true makes it stick(fixed position) on scroll
+        });
+    });
+</script>
+</body>
 </html>
