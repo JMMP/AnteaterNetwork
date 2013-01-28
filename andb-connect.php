@@ -26,7 +26,6 @@ if (!$db_selected) {
 
 $query = "SELECT * FROM AN_Alumni";
 $request = "";
-$count = count($_GET);
 
 if (!empty($_GET)) {
    $query .= " WHERE ";
@@ -46,9 +45,7 @@ if (!empty($_GET)) {
       $request .= "Business_Zipcode = '" . $_GET["zipcode"] . "'";
    }
 }
-  
-   
-   
+
 $result = mysql_query($query . $request);
 if (!$result) {
    die('Invalid query: ' . mysql_error());
