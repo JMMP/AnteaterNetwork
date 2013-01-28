@@ -42,6 +42,8 @@
 1. Rebuilt Anteater Network again, from bottom up.
 2. Added social network icons by Brandico from [Fontello](http://fontello.com/).
 3. Added switches from [bootstrap-switch](https://github.com/nostalgiaz/bootstrap-switch).
+4. Added [gmaps.js](http://hpneo.github.com/gmaps/).
+5. Added code from 10.3 for basic functionality.
 
 ##### Version 10.0 January 25, 2013
 1. Fixed some bugs related the order scripts were loaded
