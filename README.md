@@ -4,6 +4,7 @@
 ### © 2013 JMMP (Jola Bolaji, Mark Chege, Melvin Chien, Patrick Chen) in association with UCI Alumni Association, University of California, Irvine.
 
 [Version 11](https://instdav.ics.uci.edu/~191grp10/11/) | [Test Suite](https://instdav.ics.uci.edu/~191grp10/11/qunit/) | [GitHub](https://github.com/jmmp/AnteaterNetwork)
+[Features](#features) | [Changelog](#changelog) | [Resources](#resources)
 
 - - -
 ### Features
@@ -37,8 +38,9 @@
 * Google+
 
 
+
 ### Changelog
-##### Version 11.0 January 25, 2013
+##### Version 11.0 January XX, 2013
 1. Rebuilt Anteater Network again, from bottom up.
 2. Added social network icons by Brandico from [Fontello](http://fontello.com/).
 3. Added switches from [bootstrap-switch](https://github.com/nostalgiaz/bootstrap-switch).
@@ -144,17 +146,6 @@ at the same time
 1. Prototype
 
 
-### Working Features
-1. Reset markers
-* Search by city dropdown
-* Search by zip code
-* Multiple filters (hardcoded)
-* Auto zoom and center map on results
-* Display list of businesses even if they have no address
-* Custom map styling
-* Results box
-
-
 ### Resources
 VPN: <http://www.oit.uci.edu/security/vpn.html>  
 [Windows](http://www.ics.uci.edu/computing/account/mapdrive_win.php): \\\\samba.ics.uci.edu\191grp10  
@@ -170,6 +161,8 @@ Username: UCI-ICS\username
 [3 Reasons to Choose AngularJS](http://net.tutsplus.com/tutorials/javascript-ajax/3-reasons-to-choose-angularjs-for-your-next-project/)  
 [Async Tasks With JQuery Promises](http://net.tutsplus.com/tutorials/JavaScript-ajax/wrangle-async-tasks-with-jquery-promises/)  
 [JQuery Deferred Object](http://api.jquery.com/category/deferred-object/)  
+[bootstrap-tour](https://github.com/sorich87/bootstrap-tour)  
+[bootstrap-switch](https://github.com/nostalgiaz/bootstrap-switch)  
 
 ##### Facebook Like Button
 <https://developers.facebook.com/docs/reference/plugins/like/>

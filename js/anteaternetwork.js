@@ -1,18 +1,47 @@
 var map;
 var markerImage;
 var mapStyles;
+var mc;
+var markersLatLng = [];
+
+//                                                                                              
+//                                                                                              
+//   
+//     _,gggggg,_                             ,ggg,         ,gg                                 
+//   ,d8P""d8P"Y8b,    ,dPYb,         8I     dP""Y8a       ,8P                                  
+//  ,d8'   Y8   "8b,dP IP'`Yb         8I     Yb, `88       d8'                                  
+//  d8'    `Ybaaad88P' I8  8I         8I      `"  88       88                                   
+//  8P       `""""Y8   I8  8'         8I          88       88                                   
+//  8b            d8   I8 dP    ,gggg,8I          I8       8I     ,gggg,gg   ,gggggg,    ,g,    
+//  Y8,          ,8P   I8dP    dP"  "Y8I          `8,     ,8'    dP"  "Y8I   dP""""8I   ,8'8,   
+//  `Y8,        ,8P'   I8P    i8'    ,8I           Y8,   ,8P    i8'    ,8I  ,8'    8I  ,8'  Yb  
+//   `Y8b,,__,,d8P'   ,d8b,_ ,d8,   ,d8b,           Yb,_,dP    ,d8,   ,d8b,,dP     Y8,,8'_   8) 
+//     `"Y8888P"'     8P'"Y88P"Y8888P"`Y8            "Y8P"     P"Y8888P"`Y88P      `Y8P' "YY8P8P
+//                                                                                              
+//                                                                                              
+//                                                                                              
+
+
+
+var xmlhttpMarkers;
+var xmlDoc;
+var xmlhttpMenus;
+var filters = [
+["city", ""],
+["name", ""],
+["zipcode", ""]];
+var sidenavID = "js-sidenav";
+var pinDrop = false;
+var latlngBuffer = 0.003;
+var clusters = false;
+var infoWindow;
+var gc;
 
 $(document).ready( function() {
   loadMap();
-  populate('', '');
-  $('#js-toggle-clusters').on('switch-change', function (e, data) {
-    var $el = $(data.el);
-    var value = data.value;
-    console.log(e, $el, value);
-  });
-  $( '#js-menu-type > li' ).click( function() {
-    $( '#js-menu-type' ).children('li').removeClass();
-    $( this ).addClass( 'active' );
+  populate("", "");
+  $("#js-toggle-clusters").on("switch-change", function (e, data) {
+    toggleClusters(data.value);
   });
 });
 
@@ -69,31 +98,13 @@ function loadMap() {
     },
     panControl: false,
     scaleControl: false,
-    styles: mapStyles
-    // markerClusterer: function(map) {
-    //   return new MarkerClusterer(map);
-    // }
+    styles: mapStyles,
+    markerClusterer: function(map) {
+      return mc = new MarkerClusterer(map);
+    }
   });
+  getMenu("city");
 };
-
-
-
-var mc;
-var markers = [];
-var markersLatLng = [];
-var xmlhttpMarkers;
-var xmlDoc;
-var xmlhttpMenus;
-var filters = [
-["city", ""],
-["name", ""],
-["zipcode", ""]];
-var sidenavID = "js-sidenav";
-var pinDrop = false;
-var latlngBuffer = 0.003;
-var clusters = false;
-var infoWindow;
-var gc;
 
 
 function populate(filter, input) {
@@ -112,15 +123,58 @@ function populate(filter, input) {
       clusters = false;
       toggleClusters();
     }
-    setBounds();
+    map.fitLatLngBounds(markersLatLng);
   });
 
   xmlhttpMarkers.open("GET", "getAlumni.php" + getRequest(), true);
   xmlhttpMarkers.send();
-  getMenu('city');
 
 }
 
+
+function hasMarkers() {
+  if (true) {
+    document.getElementById("js-alert").innerHTML = "<div class='alert alert-error'><h4 class='alert-heading'>No results found!</h4></div>";
+    return false;
+  } else {
+    document.getElementById("js-alert").innerHTML = "";
+  }
+}
+
+function clearMarkers() {
+  map.removeMarkers();
+  mc.clearMarkers();
+  markersLatLng = [];
+}
+
+function toggleClusters(enable) {
+  if (enable) {
+    mc.addMarkers(map.markers);
+  } else {
+    mc.clearMarkers();
+    for (i in map.markers) {
+     map.markers[i].setVisible(true);
+     map.markers[i].setMap(map.map);
+   }
+ }
+}
+
+//
+//
+//
+//     _,gggggg,_                                 ,gggg,                                    
+//   ,d8P""d8P"Y8b,    ,dPYb,         8I        ,88"""Y8b,                      8I          
+//  ,d8'   Y8   "8b,dP IP'`Yb         8I       d8"     `Y8                      8I          
+//  d8'    `Ybaaad88P' I8  8I         8I      d8'   8b  d8                      8I          
+//  8P       `""""Y8   I8  8'         8I     ,8I    "Y88P'                      8I          
+//  8b            d8   I8 dP    ,gggg,8I     I8'             ,ggggg,      ,gggg,8I   ,ggg,  
+//  Y8,          ,8P   I8dP    dP"  "Y8I     d8             dP"  "Y8ggg  dP"  "Y8I  i8" "8i 
+//  `Y8,        ,8P'   I8P    i8'    ,8I     Y8,           i8'    ,8I   i8'    ,8I  I8, ,8I 
+//   `Y8b,,__,,d8P'   ,d8b,_ ,d8,   ,d8b,    `Yba,,_____, ,d8,   ,d8'  ,d8,   ,d8b, `YbadP' 
+//     `"Y8888P"'     8P'"Y88P"Y8888P"`Y8      `"Y8888888 P"Y8888P"    P"Y8888P"`Y8888P"Y888
+//
+//
+//
 
 function createXMLHttpRequest(callback) {
   if (window.XMLHttpRequest) {
@@ -282,51 +336,7 @@ function busClick(html, marker) {
   }
 }
 
-function setBounds() {
-  if (markers.length == 0) {
-    // If there are no markers to show, don't move map and give an alert or error instead
-    document.getElementById("js-alert").innerHTML = "<div class='alert alert-error'><h4 class='alert-heading'>No results found!</h4></div>";
-    return false;
-  } else {
-    document.getElementById("js-alert").innerHTML = "";
-    //  Create a new viewpoint bound
-    var bounds = new google.maps.LatLngBounds();
-    // Increase bounds for each marker
-    for (i in markersLatLng) {
-      bounds.extend(markersLatLng[i]);
-    }
 
-    // Fit bounds to the map
-    map.fitBounds(bounds);
-    return true;
-  }
-}
-
-
-function clearMarkers() {
-  if (markers) {
-    for (i in markers) {
-      markers[i].setMap(null);
-    }
-  }
-  markers = [];
-  markersLatLng = [];
-}
-
-
-function hideMarkers() {
-  for (i in markers) {
-    markers[i].setVisible(false);
-  }
-}
-
-
-function showMarkers() {
-  for (i in markers) {
-    markers[i].setVisible(true);
-    markers[i].setMap(map);
-  }
-}
 
 
 function codeAddress(input) {
@@ -369,10 +379,10 @@ function getMenu(menu) {
   xmlhttpMenus.onreadystatechange = function() {
 
     if (xmlhttpMenus.readyState == 4 && xmlhttpMenus.status == 200) {
-      document.getElementById("js-menu-city").innerHTML = xmlhttpMenus.responseText;
-      $( '#js-menu-city > li' ).click( function() {
-        $( '#js-menu-city' ).children('li').removeClass();
-        $( this ).addClass( 'active' );
+      $("#js-menu-city").html(xmlhttpMenus.responseText);
+      $("#js-menu-city > li").click( function() {
+        $("#js-menu-city").children("li").removeClass();
+        $(this).addClass("active");
       });
     }
   };
@@ -381,14 +391,3 @@ function getMenu(menu) {
   xmlhttpMenus.send();
 }
 
-
-function toggleClusters() {
-  mc.clearMarkers();
-  if (clusters) {
-    showMarkers();
-    clusters = false;
-  } else {
-    mc.addMarkers(markers);
-    clusters = true;
-  }
-}
