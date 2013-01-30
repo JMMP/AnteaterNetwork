@@ -48,6 +48,7 @@
 5. Added code from 10.3 for basic functionality.
 6. Added map zooming / focusing.
 7. Added marker clusterer.
+8. Fixed results list.
 
 ##### Version 10.0 January 25, 2013
 1. Fixed some bugs related the order scripts were loaded

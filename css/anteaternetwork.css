@@ -38,7 +38,7 @@ footer [class^="icon-fontello-"] {
 }
 
 #js-sidenav-inner {
-  max-height: 574px;  
+  height: 574px;  
   overflow: hidden;
   overflow-y: auto;
 }

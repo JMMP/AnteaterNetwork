@@ -110,6 +110,7 @@ function loadMap() {
 function populate(filter, input) {
   setFilter(filter, input);
   sidenav = document.getElementById(sidenavID);
+  sidenav.innerHTML = "";
   clearMarkers();
   createXMLHttpRequest(function() {
     //pinDrop = true;
@@ -285,14 +286,12 @@ function createXMLHttpRequest(callback) {
   };
 }
 
-
 function setFilter(filter, input) {
   for (i in filters) {
     if (filters[i][0] == filter)
       filters[i][1] = input;
   }
 }
-
 
 function resetFilter(filter) {
   for (i in filters) {
@@ -301,13 +300,11 @@ function resetFilter(filter) {
   }
 }
 
-
 function resetFilters() {
   for (i in filters) {
     filters[i][1] = "";
   }
 }
-
 
 function getRequest() {
   var request = "";
@@ -321,9 +318,6 @@ function getRequest() {
   return "?" + request;
 }
 
-
-
-
 function busClick(html, marker) {
   return function() {
     if (infoWindow)
@@ -333,9 +327,6 @@ function busClick(html, marker) {
     infoWindow.open(map, marker);
   }
 }
-
-
-
 
 function codeAddress(input) {
   var gcrequest = {
@@ -352,20 +343,7 @@ function codeAddress(input) {
   return false;
 }
 
-// Catch enter presses on main page
-function enter_pressed(e) {
-  var keycode;
-  if (window.event)
-    keycode = window.event.keyCode;
-  else if (e)
-    keycode = e.which;
-  else
-    return false;
-  return (keycode == 13);
-}
-
 function getMenu(menu) {
-
   if (window.XMLHttpRequest) {
     // IE7+, Firefox, Chrome, Opera, Safari
     xmlhttpMenus = new XMLHttpRequest();
@@ -375,7 +353,6 @@ function getMenu(menu) {
   }
 
   xmlhttpMenus.onreadystatechange = function() {
-
     if (xmlhttpMenus.readyState == 4 && xmlhttpMenus.status == 200) {
       $("#js-menu-city").html(xmlhttpMenus.responseText);
       $("#js-menu-city > li").click( function() {
