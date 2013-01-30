@@ -1,6 +1,7 @@
 body {
   font-family: 'Helvetica', Arial, sans-serif;
 }
+
 footer {
   padding-top: 15px;
 }
@@ -18,15 +19,6 @@ footer [class^="icon-fontello-"] {
   padding-right: 16px;
 }
 
-#map_canvas {
-  height: 600px;
-  -moz-box-shadow: 0px 5px 20px #ccc;
-  -webkit-box-shadow: 0px 5px 20px #ccc;
-  box-shadow: 0px 5px 20px #ccc;
-  margin: 0 auto 10px;
-}
-
-/* http://www.eichefam.net/?p=4395 */
 [id^="js-menu-"] {
   max-height: 350px;  
   overflow: hidden;
@@ -35,10 +27,14 @@ footer [class^="icon-fontello-"] {
 
 #js-sidenav {
   background-color: #e8e8e8;
+  height: 600px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
 }
 
 #js-sidenav-inner {
-  height: 574px;  
+  max-height: 574px;
   overflow: hidden;
   overflow-y: auto;
 }
@@ -51,4 +47,21 @@ footer [class^="icon-fontello-"] {
   border-bottom: 1px solid #f7f7f7;
   padding-top: 5px;
   padding-bottom: 5px;
+}
+
+#map_canvas {
+  height: 600px;
+  -moz-box-shadow: 0px 5px 20px #ccc;
+  -webkit-box-shadow: 0px 5px 20px #ccc;
+  box-shadow: 0px 5px 20px #ccc;
+}
+
+.row-fluid {
+  margin-top: 9px;
+  margin-bottom: 10px;
+}
+
+[class^="span"] {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }

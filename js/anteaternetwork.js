@@ -211,7 +211,7 @@ function createMarker(alumni) {
     markersLatLng.push(pointBufferedSW);
     infoHTML += "<a href='http://maps.google.com/maps?daddr=" + point.toUrlValue() + "' target ='_blank'>Get Directions</a>";
 
-    map.addMarker({
+    var marker = map.addMarker({
       lat: busLat,
       lng: busLng,
       icon: markerImage,
@@ -220,7 +220,11 @@ function createMarker(alumni) {
         content: infoHTML
       }
     });
-    return true;
+    $(sideListing).click(function() {
+      marker.infoWindow.open();
+    });
+
+    return marker;
   }
   return false;
 }
