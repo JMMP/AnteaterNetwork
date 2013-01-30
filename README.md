@@ -8,7 +8,7 @@
 
 - - -
 ### Features
-##### Interface 60%
+##### Interface 70%
 * Hide-able results list
 * _Automatic populating menus_
 * Support online businesses
@@ -19,7 +19,7 @@
 * _Search by zipcode_
 * _Update My Information form_
 
-##### Google Maps 90%
+##### Map 80%
 * _Auto focus on search_
 * Google Maps directions
 * Marker clusterers
