@@ -1,13 +1,14 @@
 ![Anteater Network](http://i.imgur.com/4oVj3.png)
 ![JMMP](http://i.imgur.com/lw4AT.png)
-# Anteater Network [10](https://instdav.ics.uci.edu//~191grp10/10/) Beta
+# Anteater Network [11](https://instdav.ics.uci.edu//~191grp10/11/) Beta
 ### © 2013 JMMP (Jola Bolaji, Mark Chege, Melvin Chien, Patrick Chen) in association with UCI Alumni Association, University of California, Irvine.
 
-[Version 10](https://instdav.ics.uci.edu/~191grp10/10/) | [Test Suite](https://instdav.ics.uci.edu/~191grp10/10/qunit/) | [GitHub](https://github.com/jmmp/AnteaterNetwork)
+[Version 11](https://instdav.ics.uci.edu/~191grp10/11/) | [Test Suite](https://instdav.ics.uci.edu/~191grp10/11/qunit/) | [GitHub](https://github.com/jmmp/AnteaterNetwork)  
+[Features](#features) | [Changelog](#changelog) | [Resources](#resources)
 
 - - -
 ### Features
-##### Interface 60%
+##### Interface 70%
 * Hide-able results list
 * _Automatic populating menus_
 * Support online businesses
@@ -18,7 +19,7 @@
 * _Search by zipcode_
 * _Update My Information form_
 
-##### Google Maps 90%
+##### Map 80%
 * _Auto focus on search_
 * Google Maps directions
 * Marker clusterers
@@ -37,11 +38,17 @@
 * Google+
 
 
+
 ### Changelog
-##### Version 11.0 January 25, 2013
+##### Version 11.0 January XX, 2013
 1. Rebuilt Anteater Network again, from bottom up.
 2. Added social network icons by Brandico from [Fontello](http://fontello.com/).
 3. Added switches from [bootstrap-switch](https://github.com/nostalgiaz/bootstrap-switch).
+4. Added [gmaps.js](http://hpneo.github.com/gmaps/).
+5. Added code from 10.3 for basic functionality.
+6. Added map zooming / focusing.
+7. Added marker clusterer.
+8. Fixed results list.
 
 ##### Version 10.0 January 25, 2013
 1. Fixed some bugs related the order scripts were loaded
@@ -142,17 +149,6 @@ at the same time
 1. Prototype
 
 
-### Working Features
-1. Reset markers
-* Search by city dropdown
-* Search by zip code
-* Multiple filters (hardcoded)
-* Auto zoom and center map on results
-* Display list of businesses even if they have no address
-* Custom map styling
-* Results box
-
-
 ### Resources
 VPN: <http://www.oit.uci.edu/security/vpn.html>  
 [Windows](http://www.ics.uci.edu/computing/account/mapdrive_win.php): \\\\samba.ics.uci.edu\191grp10  
@@ -165,9 +161,11 @@ Username: UCI-ICS\username
 [gmaps.js](http://hpneo.github.com/gmaps/)  
 [Initialize Google Map in AngularJS](http://stackoverflow.com/questions/11180750/initialize-google-map-in-angularjs)  
 [Google Maps for AngularJS](http://nlaplante.github.com/angular-google-maps/)  
-[3 Reasons to Choose AngularJS](http://net.tutsplus.com/tutorials/javascript-ajax/3-reasons-to-choose-angularjs-for-your-next-project/)
-[Async Tasks With JQuery Promises](http://net.tutsplus.com/tutorials/JavaScript-ajax/wrangle-async-tasks-with-jquery-promises/)
-[JQuery Deferred Object](http://api.jquery.com/category/deferred-object/)
+[3 Reasons to Choose AngularJS](http://net.tutsplus.com/tutorials/javascript-ajax/3-reasons-to-choose-angularjs-for-your-next-project/)  
+[Async Tasks With JQuery Promises](http://net.tutsplus.com/tutorials/JavaScript-ajax/wrangle-async-tasks-with-jquery-promises/)  
+[JQuery Deferred Object](http://api.jquery.com/category/deferred-object/)  
+[bootstrap-tour](https://github.com/sorich87/bootstrap-tour)  
+[bootstrap-switch](https://github.com/nostalgiaz/bootstrap-switch)  
 
 ##### Facebook Like Button
 <https://developers.facebook.com/docs/reference/plugins/like/>
