@@ -38,14 +38,14 @@
           </li>
           <li>
             <form class="navbar-form" onsubmit="return false">
-              <input class="input-medium" type="search" placeholder="Search" onKeyPress="if(enterPressed(event)){ populate('zipcode', this.value) }">
+              <input class="input-medium" type="search" placeholder="Search" onKeyPress="if(enterPressed(event)){ populate('name', this.value) }">
               <input class="input-mini" type="text" pattern="\d*" min="0" max="99999" placeholder="Zip Code" onKeyPress="if(enterPressed(event)){ populate('zipcode', this.value) }">
             </form>
           </li>
           <li>
             <a>Clusters
-              <div class="switch switch-mini" id="js-toggle-clusters" checked="checked">
-                <input type="checkbox">
+              <div class="switch switch-mini" id="js-toggle-clusters">
+                <input type="checkbox" checked="true">
               </div>
             </a>
           </li>
@@ -59,9 +59,11 @@
   <div class="container-fluid">
     <div class="row-fluid">
       <div class="span3">
-        <div id="js-alert"></div>
         <ul class="nav nav-list" id="js-sidenav">
           <li class="nav-header">Results</li>
+          <div id="js-noresults" class='alert alert-error'><h4 class='alert-heading'>No results found!</h4></div>
+          <div id="js-sidenav-inner">
+          </div>
         </ul>
       </div>
       <div class="span9 pull-right" id="map_canvas">

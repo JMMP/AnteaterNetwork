@@ -30,7 +30,7 @@ var filters = [
 ["city", ""],
 ["name", ""],
 ["zipcode", ""]];
-var sidenavID = "js-sidenav";
+var sidenavID = "js-sidenav-inner";
 var pinDrop = false;
 var latlngBuffer = 0.003;
 var clusters = false;
@@ -110,7 +110,6 @@ function loadMap() {
 function populate(filter, input) {
   setFilter(filter, input);
   sidenav = document.getElementById(sidenavID);
-  sidenav.innerHTML = "<li class='nav-header'>Results</li>";
   clearMarkers();
   createXMLHttpRequest(function() {
     //pinDrop = true;
@@ -119,11 +118,7 @@ function populate(filter, input) {
     for (i = 0; i < alumni.length; i++) {
       createMarker(alumni[i]);
     }
-    if (clusters) {
-      clusters = false;
-      toggleClusters();
-    }
-    map.fitLatLngBounds(markersLatLng);
+    setBounds();
   });
 
   xmlhttpMarkers.open("GET", "getAlumni.php" + getRequest(), true);
@@ -132,14 +127,112 @@ function populate(filter, input) {
 }
 
 
-function hasMarkers() {
-  if (true) {
-    document.getElementById("js-alert").innerHTML = "<div class='alert alert-error'><h4 class='alert-heading'>No results found!</h4></div>";
-    return false;
+function createMarker(alumni) {
+  var sideListing = document.createElement("LI");
+  var sideItem = document.createElement("A");
+  var sideDetails = document.createElement("SPAN");
+  var sideHTML = "";
+  var busLat = "";
+  var busLng = "";
+  var busName = "";
+
+  var infoHTML = "<div class='infoWindow'>";
+
+  if (alumni.hasAttribute("Business_Name")) {
+    busName = alumni.getAttribute("Business_Name");
+    sideItem.innerHTML = busName + "<br />";
+    infoHTML += "<h2 id='firstHeading' class='firstHeading'>" + busName + "</h2>";
+  }
+
+  infoHTML += "<div id='bodyContent'>";
+
+  if (alumni.hasAttribute("First_Name") && alumni.hasAttribute("Last_Name")) {
+    var firstName = alumni.getAttribute("First_Name");
+    var lastName = alumni.getAttribute("Last_Name");
+    infoHTML += firstName + " " + lastName  + "<br />";
+  }
+
+  if (alumni.hasAttribute("Business_Street1")) {
+    var busStreet1 = alumni.getAttribute("Business_Street1");
+    sideHTML += busStreet1 + "<br />";
+    infoHTML += busStreet1 + "<br />";
+  }
+
+  if (alumni.hasAttribute("Business_City") && alumni.hasAttribute("Business_State")) {
+    var busCity = alumni.getAttribute("Business_City");
+    var busState = alumni.getAttribute("Business_State");
+    sideHTML += busCity + ", " + busState;
+    infoHTML += busCity + ", " + busState;
+  }
+
+  if (alumni.hasAttribute("Business_Zipcode")) {
+    var busZipcode = alumni.getAttribute("Business_Zipcode");
+    sideHTML += " " + busZipcode;
+    infoHTML += " " + busZipcode;
+  }
+
+  sideHTML += "<br />";
+  infoHTML += "<br />";
+
+  if (alumni.hasAttribute("Business_Phone")) {
+    var busPhone = alumni.getAttribute("Business_Phone");
+    sideHTML += busPhone;
+    infoHTML += busPhone + "<br />";
+  }
+
+  if (alumni.hasAttribute("Business_Lat") && alumni.hasAttribute("Business_Lng")) {
+    busLat = alumni.getAttribute("Business_Lat");
+    busLng = alumni.getAttribute("Business_Lng");
+  }
+
+  sideDetails.innerHTML = sideHTML;
+  sideItem.appendChild(sideDetails);
+
+  // Generate HTML list for the results list on the side
+  sideListing.appendChild(sideItem);
+  sidenav.appendChild(sideListing);
+
+  //var point = codeAddress(busStreet1 + ", " + busCity + ", " + busState);  // Geocoding
+
+  // Catch businesses with no latitude or longitude
+  // Don't show these on the map but still list them in the results box
+  if (busLat != "" || busLng != "") {
+    //if (point) {  // Geocoding
+      var point = new google.maps.LatLng(parseFloat(busLat), parseFloat(busLng));
+    //busLat = point.lat();  // Geocoding
+    //busLng = point.lng();  // Geocoding
+
+    var pointBufferedNE = new google.maps.LatLng(parseFloat(busLat) + latlngBuffer, parseFloat(busLng) + latlngBuffer);
+    var pointBufferedSW = new google.maps.LatLng(parseFloat(busLat) - latlngBuffer, parseFloat(busLng) - latlngBuffer);
+
+    // Add marker position to array
+    markersLatLng.push(pointBufferedNE);
+    markersLatLng.push(pointBufferedSW);
+    infoHTML += "<a href='http://maps.google.com/maps?daddr=" + point.toUrlValue() + "' target ='_blank'>Get Directions</a>";
+
+    map.addMarker({
+      lat: busLat,
+      lng: busLng,
+      icon: markerImage,
+      title: busName,
+      infoWindow: {
+        content: infoHTML
+      }
+    });
+    return true;
+  }
+  return false;
+}
+
+function setBounds() {
+  if (map.markers.length != 0) {
+    $("#js-noresults").hide();
+    map.fitLatLngBounds(markersLatLng);
   } else {
-    document.getElementById("js-alert").innerHTML = "";
+    $("#js-noresults").show();
   }
 }
+
 
 function clearMarkers() {
   map.removeMarkers();
@@ -229,102 +322,7 @@ function getRequest() {
 }
 
 
-function createMarker(alumni) {
-  var sideListing = document.createElement("LI");
-  var sideItem = document.createElement("A");
-  var sideDetails = document.createElement("SPAN");
-  var sideHTML = "";
-  var busLat = "";
-  var busLng = "";
-  var busName = "";
 
-  var infoHTML = "<div class='infoWindow'>";
-
-  if (alumni.hasAttribute("Business_Name")) {
-    busName = alumni.getAttribute("Business_Name");
-    sideItem.innerHTML = busName;
-    infoHTML += "<h2 id='firstHeading' class='firstHeading'>" + busName + "</h2>";
-  }
-
-  infoHTML += "<div id='bodyContent'>";
-
-  if (alumni.hasAttribute("First_Name") && alumni.hasAttribute("Last_Name")) {
-    var firstName = alumni.getAttribute("First_Name");
-    var lastName = alumni.getAttribute("Last_Name");
-    infoHTML += firstName + " " + lastName  + "<br />";
-  }
-
-  if (alumni.hasAttribute("Business_Street1")) {
-    var busStreet1 = alumni.getAttribute("Business_Street1");
-    sideHTML += busStreet1 + "<br />";
-    infoHTML += busStreet1 + "<br />";
-  }
-
-  if (alumni.hasAttribute("Business_City") && alumni.hasAttribute("Business_State")) {
-    var busCity = alumni.getAttribute("Business_City");
-    var busState = alumni.getAttribute("Business_State");
-    sideHTML += busCity + ", " + busState;
-    infoHTML += busCity + ", " + busState;
-  }
-
-  if (alumni.hasAttribute("Business_Zipcode")) {
-    var busZipcode = alumni.getAttribute("Business_Zipcode");
-    sideHTML += " " + busZipcode;
-    infoHTML += " " + busZipcode;
-  }
-
-  sideHTML += "<br />";
-  infoHTML += "<br />";
-
-  if (alumni.hasAttribute("Business_Phone")) {
-    var busPhone = alumni.getAttribute("Business_Phone");
-    sideHTML += busPhone;
-    infoHTML += busPhone + "<br />";
-  }
-
-  if (alumni.hasAttribute("Business_Lat") && alumni.hasAttribute("Business_Lng")) {
-    busLat = alumni.getAttribute("Business_Lat");
-    busLng = alumni.getAttribute("Business_Lng");
-  }
-
-  sideDetails.innerHTML = sideHTML;
-  sideItem.appendChild(sideDetails);
-
-  // Generate HTML list for the results list on the side
-  sideListing.appendChild(sideItem);
-  sidenav.appendChild(sideListing);
-
-  //var point = codeAddress(busStreet1 + ", " + busCity + ", " + busState);  // Geocoding
-
-  // Catch businesses with no latitude or longitude
-  // Don't show these on the map but still list them in the results box
-  if (busLat != "" || busLng != "") {
-    //if (point) {  // Geocoding
-      var point = new google.maps.LatLng(parseFloat(busLat), parseFloat(busLng));
-    //busLat = point.lat();  // Geocoding
-    //busLng = point.lng();  // Geocoding
-
-    var pointBufferedNE = new google.maps.LatLng(parseFloat(busLat) + latlngBuffer, parseFloat(busLng) + latlngBuffer);
-    var pointBufferedSW = new google.maps.LatLng(parseFloat(busLat) - latlngBuffer, parseFloat(busLng) - latlngBuffer);
-
-    // Add marker position to array
-    markersLatLng.push(pointBufferedNE);
-    markersLatLng.push(pointBufferedSW);
-    infoHTML += "<a href='http://maps.google.com/maps?daddr=" + point.toUrlValue() + "' target ='_blank'>Get Directions</a>";
-
-    map.addMarker({
-      lat: busLat,
-      lng: busLng,
-      icon: markerImage,
-      title: busName,
-      infoWindow: {
-        content: infoHTML
-      }
-    });
-    return true;
-  }
-  return false;
-}
 
 function busClick(html, marker) {
   return function() {

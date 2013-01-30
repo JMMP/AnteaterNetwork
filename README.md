@@ -3,7 +3,7 @@
 # Anteater Network [11](https://instdav.ics.uci.edu//~191grp10/11/) Beta
 ### © 2013 JMMP (Jola Bolaji, Mark Chege, Melvin Chien, Patrick Chen) in association with UCI Alumni Association, University of California, Irvine.
 
-[Version 11](https://instdav.ics.uci.edu/~191grp10/11/) | [Test Suite](https://instdav.ics.uci.edu/~191grp10/11/qunit/) | [GitHub](https://github.com/jmmp/AnteaterNetwork)
+[Version 11](https://instdav.ics.uci.edu/~191grp10/11/) | [Test Suite](https://instdav.ics.uci.edu/~191grp10/11/qunit/) | [GitHub](https://github.com/jmmp/AnteaterNetwork)  
 [Features](#features) | [Changelog](#changelog) | [Resources](#resources)
 
 - - -
@@ -46,6 +46,8 @@
 3. Added switches from [bootstrap-switch](https://github.com/nostalgiaz/bootstrap-switch).
 4. Added [gmaps.js](http://hpneo.github.com/gmaps/).
 5. Added code from 10.3 for basic functionality.
+6. Added map zooming / focusing.
+7. Added marker clusterer.
 
 ##### Version 10.0 January 25, 2013
 1. Fixed some bugs related the order scripts were loaded

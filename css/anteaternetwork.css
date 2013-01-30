@@ -34,7 +34,21 @@ footer [class^="icon-fontello-"] {
 }
 
 #js-sidenav {
-  max-height: 542px;  
+  background-color: #e8e8e8;
+}
+
+#js-sidenav-inner {
+  max-height: 574px;  
   overflow: hidden;
   overflow-y: auto;
+}
+
+#js-sidenav-inner a {
+  cursor: pointer;
+}
+
+#js-sidenav-inner > li {
+  border-bottom: 1px solid #f7f7f7;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
