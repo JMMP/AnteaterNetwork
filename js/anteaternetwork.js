@@ -1,3 +1,18 @@
+//
+//
+//   ,ggg, ,ggggggg,                              ,ggg,         ,gg                             
+//  dP""Y8,8P"""""Y8b                            dP""Y8a       ,8P                              
+//  Yb, `8dP'     `88                            Yb, `88       d8'                              
+//   `"  88'       88                             `"  88       88                               
+//       88        88                                 88       88                               
+//       88        88   ,ggg,   gg    gg    gg        I8       8I ,gggg,gg   ,gggggg,    ,g,    
+//       88        88  i8" "8i  I8    I8    88bg      `8,     ,8'dP"  "Y8I   dP""""8I   ,8'8,   
+//       88        88  I8, ,8I  I8    I8    8I         Y8,   ,8Pi8'    ,8I  ,8'    8I  ,8'  Yb  
+//       88        Y8, `YbadP' ,d8,  ,d8,  ,8I          Yb,_,dP,d8,   ,d8b,,dP     Y8,,8'_   8) 
+//       88        `Y8888P"Y888P""Y88P""Y88P"            "Y8P" P"Y8888P"`Y88P      `Y8P' "YY8P8P
+//                                                                                              
+//
+
 var map;
 var markerImage;
 var mapStyles;
@@ -11,9 +26,9 @@ var sidenavID = "#js-sidenav-inner";
 var menuCityID = "#js-menu-city";
 var noresultsID = "#js-noresults";
 var toggleClustersID = "#js-toggle-clusters";
+var loadingID = "#js-loading-overlay";
 var markerBuffer = 0.003;
 
-//                                                                                              
 //                                                                                              
 //   
 //     _,gggggg,_                             ,ggg,         ,gg                                 
@@ -28,15 +43,27 @@ var markerBuffer = 0.003;
 //     `"Y8888P"'     8P'"Y88P"Y8888P"`Y8            "Y8P"     P"Y8888P"`Y88P      `Y8P' "YY8P8P
 //                                                                                              
 //                                                                                              
-//                                                                                              
-
-
 
 var xmlhttpMarkers;
 var xmlDoc;
 var xmlhttpMenus;
 var infoWindow;
 var gc;
+
+//
+//
+//   ,ggg, ,ggggggg,                                  ,gggg,                                 
+//  dP""Y8,8P"""""Y8b                               ,88"""Y8b,                   8I          
+//  Yb, `8dP'     `88                              d8"     `Y8                   8I          
+//   `"  88'       88                             d8'   8b  d8                   8I          
+//       88        88                            ,8I    "Y88P'                   8I          
+//       88        88   ,ggg,   gg    gg    gg   I8'            ,ggggg,    ,gggg,8I   ,ggg,  
+//       88        88  i8" "8i  I8    I8    88bg d8            dP"  "Y8gggdP"  "Y8I  i8" "8i 
+//       88        88  I8, ,8I  I8    I8    8I   Y8,          i8'    ,8I i8'    ,8I  I8, ,8I 
+//       88        Y8, `YbadP' ,d8,  ,d8,  ,8I   `Yba,,_____,,d8,   ,d8',d8,   ,d8b, `YbadP' 
+//       88        `Y8888P"Y888P""Y88P""Y88P"      `"Y8888888P"Y8888P"  P"Y8888P"`Y8888P"Y888
+//                                                                                           
+//                                                                                           
 
 $(document).ready( function() {
   loadMap();
@@ -59,6 +86,7 @@ function enterPressed(e) {
 }
 
 function loadMap() {
+  $(loadingID).show();
   markerImage = "images/marker_anteater_small.png";
   mapStyles = [{
     "featureType": "water",
@@ -105,6 +133,7 @@ function loadMap() {
     }
   });
   getMenu("city");
+  $(loadingID).fadeOut();
 };
 
 function populate() {
@@ -112,6 +141,7 @@ function populate() {
 }
 
 function populate(filter, input) {
+  $(loadingID).show();
   setFilter(filter, input);
   $(sidenavID).html("");
   clearMarkers();
@@ -314,11 +344,13 @@ function createXMLHttpRequest(callback) {
   xmlhttpMarkers.onreadystatechange = function() {
     if (xmlhttpMarkers.readyState == 4 && xmlhttpMarkers.status == 200) {
       callback();
+      $(loadingID).fadeOut();
     }
   };
 }
 
 function getMenu(menu) {
+  $(loadingID).show();
   if (window.XMLHttpRequest) {
     // IE7+, Firefox, Chrome, Opera, Safari
     xmlhttpMenus = new XMLHttpRequest();
@@ -337,7 +369,7 @@ function getMenu(menu) {
           $(this).addClass("active");
         });
       }
-      
+      $(loadingID).fadeOut();
     }
   };
 
