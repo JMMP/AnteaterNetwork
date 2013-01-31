@@ -30,7 +30,6 @@
 * _Automatic merging of old and new databases_
 * _Deploy on live server_
 
-
 ##### Social Media 90%
 * Twitter
 * Facebook
@@ -56,6 +55,8 @@
 13. Fixed results list highlighting when marker is clicked.
 14. Added loading bar. Fixed [issue #71](https://github.com/JMMP/AnteaterNetwork/issues/71).
 15. Fixed loading bar transparency.
+16. Input boxes are cleared when filters are cleared. Fixed [issue #89](https://github.com/JMMP/AnteaterNetwork/issues/89).
+17. Driving directions use full addresses rather than coordinates. Fixed [issue #90](https://github.com/JMMP/AnteaterNetwork/issues/90).
 
 ##### Version 10.0 January 25, 2013
 1. Fixed some bugs related the order scripts were loaded

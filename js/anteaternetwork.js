@@ -190,7 +190,7 @@ function createMarker(alumni) {
     busName = alumni.getAttribute("Business_Name");
     sideItem.innerHTML = "<strong>" + busName + "</strong><br />";
     infoHTML += "<h2 id='firstHeading' class='firstHeading'>" + busName + "</h2>";
-    address += busName + ",";
+    address += busName + ", ";
   }
 
   infoHTML += "<div id='bodyContent'>";
@@ -205,7 +205,7 @@ function createMarker(alumni) {
     var busStreet1 = alumni.getAttribute("Business_Street1");
     sideHTML += busStreet1 + "<br />";
     infoHTML += busStreet1 + "<br />";
-    address += busStreet1 + ",";
+    address += busStreet1 + ", ";
   }
 
   if (alumni.hasAttribute("Business_City") && alumni.hasAttribute("Business_State")) {
@@ -220,7 +220,7 @@ function createMarker(alumni) {
     var busZipcode = alumni.getAttribute("Business_Zipcode");
     sideHTML += " " + busZipcode;
     infoHTML += " " + busZipcode;
-    address += " " + busZipcode;
+    address += ", " + busZipcode;
   }
 
   sideHTML += "<br />";
@@ -260,7 +260,7 @@ function createMarker(alumni) {
     // Add marker position to array
     markersLatLng.push(pointBufferedNE);
     markersLatLng.push(pointBufferedSW);
-    infoHTML += "<a href='http://maps.google.com/maps?daddr=" + stringToUrl(address) + "' target ='_blank'>Get Directions</a>";
+    infoHTML += "<a href='http://maps.google.com/maps?daddr=" + address.replace(" ", "+") + "' target ='_blank'>Get Directions</a>";
 
     var marker = map.addMarker({
       lat: busLat,
@@ -318,15 +318,6 @@ function toggleClusters(enable) {
    $(sidenavID).children("li").removeClass();
    map.hideInfoWindows();
  }
-}
-
-function stringToUrl(text) {
-  var delimitedString = text.split(" ");
-  var url = "";
-  for (i in delimitedString) {
-    url += delimitedString[i] + "+"
-  }
-  return url;
 }
 
 
