@@ -3,7 +3,7 @@
 # Anteater Network [11](http://instdav.ics.uci.edu//~191grp10/AnteaterNetwork/) Beta
 ### © 2013 JMMP (Jola Bolaji, Mark Chege, Melvin Chien, Patrick Chen) in association with UCI Alumni Association, University of California, Irvine.
 
-[Version 11](http://instdav.ics.uci.edu//~191grp10/AnteaterNetwork/) | [Test Suite](http://instdav.ics.uci.edu//~191grp10/AnteaterNetwork/qunit/) | [GitHub](http://github.com/jmmp/AnteaterNetwork)  
+[Version 11](http://instdav.ics.uci.edu//~191grp10/AnteaterNetwork/) | [Test Suite](http://instdav.ics.uci.edu//~191grp10/AnteaterNetwork/qunit/) | [GitHub](http://git.io/antnet)  
 [Features](#features) | [Changelog](#changelog) | [Resources](#resources)
 
 - - -

@@ -15,39 +15,31 @@
         <ul class="nav">
           <li>
             <a class="brand" href="http://jmmp.github.com/AnteaterNetwork" target="_blank">
-              <img src="images/anteaternetwork_logo_short.png" width="77"></img>
+              <img src="images/anteaternetwork_logo_short.png" width="77" />
             </a>
           </li>
           <li class="dropdown">
-            <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="">
+            <a class="dropdown-toggle" data-toggle="dropdown">
               City <b class="caret"></b>
             </a>
-            <ul class="dropdown-menu" id="js-menu-city" role="menu">
-              <li>
-                <a href="" onclick="resetFilter('city')">Clear</a>
-              </li>
-              <li class="divider"></li>
+            <ul class="dropdown-menu" id="js-menu-city">
             </ul>
           </li>
-          <!--<li class="dropdown">
-            <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="">
-              Type <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu" id="js-menu-type" role="menu">
-            </ul>
-          </li>-->
           <li>
             <form class="navbar-form" onsubmit="return false">
-              <input class="input-medium" type="search" placeholder="Search" onKeyPress="if(enterPressed(event)){ populate('name', this.value) }">
-              <input class="input-mini" type="text" pattern="\d*" min="0" max="99999" placeholder="Zip Code" onKeyPress="if(enterPressed(event)){ populate('zipcode', this.value) }">
+              <input class="input-medium" type="text" placeholder="Search" onKeyPress="if(enterPressed(event)){ populate('name', this.value) }">
+              <input class="input-mini" type="text" pattern="\d*" placeholder="Zip Code" onKeyPress="if(enterPressed(event)){ populate('zipcode', this.value) }" />
             </form>
           </li>
           <li>
             <a>Clusters
               <div class="switch switch-mini" id="js-toggle-clusters">
-                <input type="checkbox" checked="true">
+                <input type="checkbox" checked="checked" />
               </div>
             </a>
+          </li>
+          <li>
+            <a onclick="clearFilters(); populate();">Clear Filters</a>
           </li>
           <li>
             <a href="http://www.alumni.uci.edu/connect/update-info.php" target="_blank">Update Info</a>
@@ -62,8 +54,8 @@
         <ul class="nav nav-list" id="js-sidenav">
           <li class="nav-header">Results</li>
           <li id="js-noresults" class='alert alert-error'><h4 class='alert-heading'>No results found!</h4></li>
-          <div id="js-sidenav-inner">
-          </div>
+          <li id="js-sidenav-inner">
+          </li>
         </ul>
       </div>
       <div class="span9 pull-right" id="map_canvas">
@@ -71,16 +63,24 @@
     </div>
   </div>
   <footer class="container-fluid">
-    <a href="http://github.com/JMMP" target="_blank"><img src="images/jmmp_logo.png" width="30"></img></a>
-    <a href="http://alumni.uci.edu" target="_blank"><img src="images/uciaa_logo.png" width="91"></img></a>
+    <a href="http://github.com/JMMP" target="_blank"><img src="images/jmmp_logo.png" width="30" /></a>
+    <a href="http://alumni.uci.edu" target="_blank"><img src="images/uciaa_logo.png" width="91" /></a>
     <a href="http://facebook.com/uciaa" target="_blank"><i class="icon-fontello-facebook"></i></a>
     <a href="http://linkedin.com/groups?gid=28617" target="_blank"><i class="icon-fontello-linkedin"></i></a>
     <a href="http://plus.google.com/117331387039000132685/" target="_blank"><i class="icon-fontello-googleplus"></i></a>
     <a href="http://twitter.com/UCIAA" target="_blank"><i class="icon-fontello-twitter"></i></a>
     <a href="http://github.com/JMMP/AnteaterNetwork" target="_blank"><i class="icon-fontello-github"></i></a>
-    <p><small>&copy 2013 Team JMMP in association with UCI Alumni Association, University of California, Irvine.</small></p>
+    <p><small>&copy; 2013 Team JMMP in association with UCI Alumni Association, University of California, Irvine.</small></p>
   </footer>
   <script src="js/jquery.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDjfKwuT7W5o7YSTt6wHmeDaEhgIxuOUoI&amp;sensor=true"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery.switch.js"></script>
+  <script src="js/gmaps.js"></script>
+  <script src="js/markerclusterer.js"></script>
+  <script src="js/anteaternetwork.js"></script>
+</body>
+</html>query.min.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDjfKwuT7W5o7YSTt6wHmeDaEhgIxuOUoI&sensor=true"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/jquery.switch.js"></script>

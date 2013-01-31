@@ -3,6 +3,12 @@ var markerImage;
 var mapStyles;
 var mc;
 var markersLatLng = [];
+var filters = [
+["city", ""],
+["name", ""],
+["zipcode", ""]];
+var sidenavID = "js-sidenav-inner";
+var markerBuffer = 0.003;
 
 //                                                                                              
 //                                                                                              
@@ -26,20 +32,12 @@ var markersLatLng = [];
 var xmlhttpMarkers;
 var xmlDoc;
 var xmlhttpMenus;
-var filters = [
-["city", ""],
-["name", ""],
-["zipcode", ""]];
-var sidenavID = "js-sidenav-inner";
-var pinDrop = false;
-var latlngBuffer = 0.003;
-var clusters = false;
 var infoWindow;
 var gc;
 
 $(document).ready( function() {
   loadMap();
-  populate("", "");
+  populate();
   $("#js-toggle-clusters").on("switch-change", function (e, data) {
     toggleClusters(data.value);
   });
@@ -106,6 +104,9 @@ function loadMap() {
   getMenu("city");
 };
 
+function populate() {
+  populate("", "");
+}
 
 function populate(filter, input) {
   setFilter(filter, input);
@@ -124,9 +125,22 @@ function populate(filter, input) {
 
   xmlhttpMarkers.open("GET", "getAlumni.php" + getRequest(), true);
   xmlhttpMarkers.send();
-
 }
 
+function setFilter(filter, input) {
+  for (i in filters) {
+    if (filters[i][0] == filter)
+      filters[i][1] = input;
+  }
+}
+
+function clearFilters() {
+  for (i in filters) {
+    filters[i][1] = "";
+  }
+  $("[id^='js-menu-']").children("li").removeClass();
+  populate();
+}
 
 function createMarker(alumni) {
   var sideListing = document.createElement("LI");
@@ -203,8 +217,8 @@ function createMarker(alumni) {
     //busLat = point.lat();  // Geocoding
     //busLng = point.lng();  // Geocoding
 
-    var pointBufferedNE = new google.maps.LatLng(parseFloat(busLat) + latlngBuffer, parseFloat(busLng) + latlngBuffer);
-    var pointBufferedSW = new google.maps.LatLng(parseFloat(busLat) - latlngBuffer, parseFloat(busLng) - latlngBuffer);
+    var pointBufferedNE = new google.maps.LatLng(parseFloat(busLat) + markerBuffer, parseFloat(busLng) + markerBuffer);
+    var pointBufferedSW = new google.maps.LatLng(parseFloat(busLat) - markerBuffer, parseFloat(busLng) - markerBuffer);
 
     // Add marker position to array
     markersLatLng.push(pointBufferedNE);
@@ -221,7 +235,8 @@ function createMarker(alumni) {
       }
     });
     $(sideListing).click(function() {
-      marker.infoWindow.open();
+      map.hideInfoWindows();
+      marker.infoWindow.open(map, marker);
     });
 
     return marker;
@@ -290,24 +305,31 @@ function createXMLHttpRequest(callback) {
   };
 }
 
-function setFilter(filter, input) {
-  for (i in filters) {
-    if (filters[i][0] == filter)
-      filters[i][1] = input;
+function getMenu(menu) {
+  if (window.XMLHttpRequest) {
+    // IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttpMenus = new XMLHttpRequest();
+  } else {
+    // IE6, IE5
+    xmlhttpMenus = new ActiveXObject("Microsoft.XMLHTTP");
   }
-}
 
-function resetFilter(filter) {
-  for (i in filters) {
-    if (filters[i][0] == filter)
-      filters[i][1] = "";
-  }
-}
+  xmlhttpMenus.onreadystatechange = function() {
+    if (xmlhttpMenus.readyState == 4 && xmlhttpMenus.status == 200) {
+      if (menu == "city") {
+        $("#js-menu-city").html(xmlhttpMenus.responseText);
+        $("#js-menu-city").prepend("<li class=\"active\"><a onclick=\"populate('city', '')\">None</a></li><li class=\"divider\"></li>");
+        $("#js-menu-city > li").click( function() {
+          $("#js-menu-city").children("li").removeClass();
+          $(this).addClass("active");
+        });
+      }
+      
+    }
+  };
 
-function resetFilters() {
-  for (i in filters) {
-    filters[i][1] = "";
-  }
+  xmlhttpMenus.open("GET", "getMenu.php?menu=" + menu, true);
+  xmlhttpMenus.send();
 }
 
 function getRequest() {
@@ -320,16 +342,6 @@ function getRequest() {
     }
   }
   return "?" + request;
-}
-
-function busClick(html, marker) {
-  return function() {
-    if (infoWindow)
-      infoWindow.close();
-    infoWindow = new google.maps.InfoWindow();
-    infoWindow.setContent(html);
-    infoWindow.open(map, marker);
-  }
 }
 
 function codeAddress(input) {
@@ -346,27 +358,3 @@ function codeAddress(input) {
   });
   return false;
 }
-
-function getMenu(menu) {
-  if (window.XMLHttpRequest) {
-    // IE7+, Firefox, Chrome, Opera, Safari
-    xmlhttpMenus = new XMLHttpRequest();
-  } else {
-    // IE6, IE5
-    xmlhttpMenus = new ActiveXObject("Microsoft.XMLHTTP");
-  }
-
-  xmlhttpMenus.onreadystatechange = function() {
-    if (xmlhttpMenus.readyState == 4 && xmlhttpMenus.status == 200) {
-      $("#js-menu-city").html(xmlhttpMenus.responseText);
-      $("#js-menu-city > li").click( function() {
-        $("#js-menu-city").children("li").removeClass();
-        $(this).addClass("active");
-      });
-    }
-  };
-
-  xmlhttpMenus.open("GET", "getMenu.php?menu=" + menu, true);
-  xmlhttpMenus.send();
-}
-
