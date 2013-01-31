@@ -55,6 +55,7 @@
 12. Fixed dropdown listing highlighting when clicked.
 13. Fixed results list highlighting when marker is clicked.
 14. Added loading bar. Fixed [issue #71](https://github.com/JMMP/AnteaterNetwork/issues/71).
+15. Fixed loading bar transparency.
 
 ##### Version 10.0 January 25, 2013
 1. Fixed some bugs related the order scripts were loaded

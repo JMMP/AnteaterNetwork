@@ -134,7 +134,6 @@ function loadMap() {
     }
   });
   getMenu("city");
-  $(loadingID).fadeOut();
 };
 
 function populate() {
@@ -351,7 +350,6 @@ function createXMLHttpRequest(callback) {
 }
 
 function getMenu(menu) {
-  $(loadingID).show();
   if (window.XMLHttpRequest) {
     // IE7+, Firefox, Chrome, Opera, Safari
     xmlhttpMenus = new XMLHttpRequest();
@@ -370,7 +368,6 @@ function getMenu(menu) {
           $(this).addClass("active");
         });
       }
-      $(loadingID).fadeOut();
     }
   };
 
