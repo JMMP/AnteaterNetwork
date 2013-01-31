@@ -27,8 +27,8 @@
           </li>
           <li>
             <form class="navbar-form" onsubmit="return false">
-              <input class="input-medium" type="text" placeholder="Search" onKeyPress="if(enterPressed(event)){ populate('name', this.value) }">
-              <input class="input-mini" type="text" pattern="\d*" placeholder="Zip Code" onKeyPress="if(enterPressed(event)){ populate('zipcode', this.value) }" />
+              <input class="input-medium" id="js-input-name" type="text" placeholder="Search" onKeyPress="if(enterPressed(event)){ populate('name', this.value) }">
+              <input class="input-mini"  id="js-input-zipcode"type="text" pattern="\d*" placeholder="Zip Code" onKeyPress="if(enterPressed(event)){ populate('zipcode', this.value) }" />
             </form>
           </li>
           <li>
@@ -85,4 +85,4 @@
   <script src="js/markerclusterer.js"></script>
   <script src="js/anteaternetwork.js"></script>
 </body>
-</html>tml>
+</html>
