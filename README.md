@@ -48,7 +48,12 @@
 5. Added code from 10.3 for basic functionality.
 6. Added map zooming / focusing.
 7. Added marker clusterer.
-8. Fixed results list.
+8. Fixed results list display problems.
+9. Added button for clearing all filters.
+10. Fixed filters not clearing.
+11. Fixed info windows opening when listing is clicked.
+12. Fixed dropdown listing highlighting when clicked.
+13. Fixed results list highlighting when marker is clicked.
 
 ##### Version 10.0 January 25, 2013
 1. Fixed some bugs related the order scripts were loaded
