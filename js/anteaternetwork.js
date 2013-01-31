@@ -22,6 +22,7 @@ var filters = [
 ["city", ""],
 ["name", ""],
 ["zipcode", ""]];
+var mapID = "#js-map";
 var sidenavID = "#js-sidenav-inner";
 var menuCityID = "#js-menu-city";
 var noresultsID = "#js-noresults";
@@ -65,7 +66,7 @@ var gc;
 //                                                                                           
 //                                                                                           
 
-$(document).ready( function() {
+$(document).ready(function() {
   loadMap();
   populate();
   $(toggleClustersID).on("switch-change", function (e, data) {
@@ -117,7 +118,7 @@ function loadMap() {
   }];
 
   map = new GMaps({
-    el: "#map_canvas",
+    el: mapID,
     lat: 33.646259,
     lng: -117.842056,
     zoomControl: true,
