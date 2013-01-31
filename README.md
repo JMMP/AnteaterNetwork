@@ -57,6 +57,8 @@
 15. Fixed loading bar transparency.
 16. Input boxes are cleared when filters are cleared. Fixed [issue #89](https://github.com/JMMP/AnteaterNetwork/issues/89).
 17. Driving directions use full addresses rather than coordinates. Fixed [issue #90](https://github.com/JMMP/AnteaterNetwork/issues/90).
+18. Fixed rounded corners of loading bar.
+19. Removed max image widths. Fixed [issue #88](https://github.com/JMMP/AnteaterNetwork/issues/88).
 
 ##### Version 10.0 January 25, 2013
 1. Fixed some bugs related the order scripts were loaded
