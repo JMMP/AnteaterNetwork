@@ -1,9 +1,9 @@
 ![Anteater Network](http://i.imgur.com/4oVj3.png)
 ![JMMP](http://i.imgur.com/lw4AT.png)
-# Anteater Network [11](https://instdav.ics.uci.edu//~191grp10/11/) Beta
+# Anteater Network [11](http://instdav.ics.uci.edu//~191grp10/AnteaterNetwork/) Beta
 ### © 2013 JMMP (Jola Bolaji, Mark Chege, Melvin Chien, Patrick Chen) in association with UCI Alumni Association, University of California, Irvine.
 
-[Version 11](https://instdav.ics.uci.edu/~191grp10/11/) | [Test Suite](https://instdav.ics.uci.edu/~191grp10/11/qunit/) | [GitHub](https://github.com/jmmp/AnteaterNetwork)  
+[Version 11](http://instdav.ics.uci.edu//~191grp10/AnteaterNetwork/) | [Test Suite](http://instdav.ics.uci.edu//~191grp10/AnteaterNetwork/qunit/) | [GitHub](http://git.io/antnet)  
 [Features](#features) | [Changelog](#changelog) | [Resources](#resources)
 
 - - -
@@ -48,7 +48,12 @@
 5. Added code from 10.3 for basic functionality.
 6. Added map zooming / focusing.
 7. Added marker clusterer.
-8. Fixed results list.
+8. Fixed results list display problems.
+9. Added button for clearing all filters.
+10. Fixed filters not clearing.
+11. Fixed info windows opening when listing is clicked.
+12. Fixed dropdown listing highlighting when clicked.
+13. Fixed results list highlighting when marker is clicked.
 
 ##### Version 10.0 January 25, 2013
 1. Fixed some bugs related the order scripts were loaded
