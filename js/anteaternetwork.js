@@ -7,7 +7,10 @@ var filters = [
 ["city", ""],
 ["name", ""],
 ["zipcode", ""]];
-var sidenavID = "js-sidenav-inner";
+var sidenavID = "#js-sidenav-inner";
+var menuCityID = "#js-menu-city";
+var noresultsID = "#js-noresults";
+var toggleClustersID = "#js-toggle-clusters";
 var markerBuffer = 0.003;
 
 //                                                                                              
@@ -38,7 +41,7 @@ var gc;
 $(document).ready( function() {
   loadMap();
   populate();
-  $("#js-toggle-clusters").on("switch-change", function (e, data) {
+  $(toggleClustersID).on("switch-change", function (e, data) {
     toggleClusters(data.value);
   });
 });
@@ -110,11 +113,9 @@ function populate() {
 
 function populate(filter, input) {
   setFilter(filter, input);
-  sidenav = document.getElementById(sidenavID);
-  sidenav.innerHTML = "";
+  $(sidenavID).html("");
   clearMarkers();
   createXMLHttpRequest(function() {
-    //pinDrop = true;
     xmlDoc = xmlhttpMarkers.responseXML;
     var alumni = xmlDoc.getElementsByTagName("alumnus");
     for (i = 0; i < alumni.length; i++) {
@@ -205,7 +206,7 @@ function createMarker(alumni) {
 
   // Generate HTML list for the results list on the side
   sideListing.appendChild(sideItem);
-  sidenav.appendChild(sideListing);
+  $(sidenavID).append(sideListing);
 
   //var point = codeAddress(busStreet1 + ", " + busCity + ", " + busState);  // Geocoding
 
@@ -234,9 +235,19 @@ function createMarker(alumni) {
         content: infoHTML
       }
     });
+
+    // Open info window when listing is clicked and highlight it
     $(sideListing).click(function() {
+      $(sidenavID).children("li").removeClass();
+      $(sideListing).addClass("active");
       map.hideInfoWindows();
       marker.infoWindow.open(map, marker);
+    });
+
+    // Highlight listing when marker is clicked
+    google.maps.event.addListener(marker, 'click', function() {
+      $(sidenavID).children("li").removeClass();
+      $(sideListing).addClass("active");
     });
 
     return marker;
@@ -246,13 +257,12 @@ function createMarker(alumni) {
 
 function setBounds() {
   if (map.markers.length != 0) {
-    $("#js-noresults").hide();
+    $(noresultsID).hide();
     map.fitLatLngBounds(markersLatLng);
   } else {
-    $("#js-noresults").show();
+    $(noresultsID).show();
   }
 }
-
 
 function clearMarkers() {
   map.removeMarkers();
@@ -264,13 +274,16 @@ function toggleClusters(enable) {
   if (enable) {
     mc.addMarkers(map.markers);
   } else {
-    mc.clearMarkers();
+    mc.clearMarkers();    
     for (i in map.markers) {
      map.markers[i].setVisible(true);
      map.markers[i].setMap(map.map);
    }
+   $(sidenavID).children("li").removeClass();
+   map.hideInfoWindows();
  }
 }
+
 
 //
 //
@@ -317,10 +330,10 @@ function getMenu(menu) {
   xmlhttpMenus.onreadystatechange = function() {
     if (xmlhttpMenus.readyState == 4 && xmlhttpMenus.status == 200) {
       if (menu == "city") {
-        $("#js-menu-city").html(xmlhttpMenus.responseText);
-        $("#js-menu-city").prepend("<li class=\"active\"><a onclick=\"populate('city', '')\">None</a></li><li class=\"divider\"></li>");
-        $("#js-menu-city > li").click( function() {
-          $("#js-menu-city").children("li").removeClass();
+        $(menuCityID).html(xmlhttpMenus.responseText);
+        $(menuCityID).prepend("<li class=\"active\"><a onclick=\"populate('city', '')\">None</a></li><li class=\"divider\"></li>");
+        $(menuCityID).children("li").click( function() {
+          $(menuCityID).children("li").removeClass();
           $(this).addClass("active");
         });
       }
