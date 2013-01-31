@@ -27,8 +27,8 @@
           </li>
           <li>
             <form class="navbar-form" onsubmit="return false">
-              <input class="input-medium" type="text" placeholder="Search" onKeyPress="if(enterPressed(event)){ populate('name', this.value) }">
-              <input class="input-mini" type="text" pattern="\d*" placeholder="Zip Code" onKeyPress="if(enterPressed(event)){ populate('zipcode', this.value) }" />
+              <input class="input-medium" id="js-input-name" type="text" placeholder="Search" onKeyPress="if(enterPressed(event)){ populate('name', this.value) }">
+              <input class="input-mini"  id="js-input-zipcode"type="text" pattern="\d*" placeholder="Zip Code" onKeyPress="if(enterPressed(event)){ populate('zipcode', this.value) }" />
             </form>
           </li>
           <li>
@@ -48,6 +48,11 @@
       </div>
     </div>
   </div>
+  <div id="js-loading-overlay">
+      <div class="progress progress-striped active" id="js-loading-bar">
+        <div class="bar" style="width: 100%"></div>
+      </div>
+  </div>
   <div class="container-fluid">
     <div class="row-fluid">
       <div class="span3">
@@ -58,7 +63,7 @@
           </ul>
         </ul>
       </div>
-      <div class="span9 pull-right" id="map_canvas">
+      <div class="span9 pull-right" id="js-map">
       </div>
     </div>
   </div>

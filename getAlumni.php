@@ -79,6 +79,7 @@ while ($row = @mysql_fetch_assoc($result)) {
    $newnode->setAttribute("Business_Lng", $row['Business_Lng']);
 }
 
+
 echo $xmlDoc->saveXML();
 
 mysql_close($connection);
