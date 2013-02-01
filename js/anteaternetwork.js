@@ -72,6 +72,12 @@ $(document).ready(function() {
   $(toggleClustersID).on("switch-change", function (e, data) {
     toggleClusters(data.value);
   });
+  $("[id^=tooltip-]").tooltip({
+    delay: {
+      show: 600,
+      hide: 100
+    }
+  });
 });
 
 // Catch enter presses on main page

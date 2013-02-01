@@ -32,17 +32,17 @@
             </form>
           </li>
           <li>
-            <a>Clusters
+            <a id="tooltip-clusters" rel="tooltip" title="Groups pins together by location" data-placement="bottom">Clusters
               <div class="switch switch-mini" id="js-toggle-clusters">
                 <input type="checkbox" checked="checked" />
               </div>
             </a>
           </li>
           <li>
-            <a onclick="clearFilters(); populate();">Clear Filters</a>
+            <a id="tooltip-clear" rel="tooltip" title="Resets the map" data-placement="bottom" onclick="clearFilters(); populate();">Clear Filters</a>
           </li>
           <li>
-            <a href="http://www.alumni.uci.edu/connect/update-info.php" target="_blank">Update Info</a>
+            <a id="tooltip-clear" rel="tooltip" title="Add or fix your business details" data-placement="bottom" href="http://www.alumni.uci.edu/connect/update-info.php" target="_blank" >Update Info</a>
           </li>
         </ul>
       </div>
@@ -85,4 +85,4 @@
   <script src="js/markerclusterer.js"></script>
   <script src="js/anteaternetwork.js"></script>
 </body>
-</html>/html>
+</html>

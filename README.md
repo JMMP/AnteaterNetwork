@@ -59,6 +59,8 @@
 17. Driving directions use full addresses rather than coordinates. Fixed [issue #90](https://github.com/JMMP/AnteaterNetwork/issues/90).
 18. Fixed rounded corners of loading bar.
 19. Removed max image widths. Fixed [issue #88](https://github.com/JMMP/AnteaterNetwork/issues/88).
+20. Added QUnit JavaScript testing. Fixed [issue #79](https://github.com/JMMP/AnteaterNetwork/issues/79).
+21. Added tooltip help over buttons. Fixed [issue #82](https://github.com/JMMP/AnteaterNetwork/issues/82).
 
 ##### Version 10.0 January 25, 2013
 1. Fixed some bugs related the order scripts were loaded
