@@ -1,6 +1,8 @@
 <?php
-require ("getAlumni.php?debug=true");
-echo "Test";
+require ("getAlumni.php");
+echo($connection);
+
+?>
 if ($connection) {
   echo "Test 1: Connection successful.";
 } else {

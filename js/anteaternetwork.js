@@ -13,7 +13,7 @@
 //                                                                                              
 //
 
-var map;
+var gmap;
 var markerImage;
 var mapStyles;
 var mc;
@@ -117,7 +117,7 @@ function loadMap() {
     }]
   }];
 
-  map = new GMaps({
+  gmap = new GMaps({
     el: mapID,
     lat: 33.646259,
     lng: -117.842056,
@@ -262,7 +262,7 @@ function createMarker(alumni) {
     markersLatLng.push(pointBufferedSW);
     infoHTML += "<a href='http://maps.google.com/maps?daddr=" + address.replace(" ", "+") + "' target ='_blank'>Get Directions</a>";
 
-    var marker = map.addMarker({
+    var marker = gmap.addMarker({
       lat: busLat,
       lng: busLng,
       icon: markerImage,
@@ -276,8 +276,8 @@ function createMarker(alumni) {
     $(sideListing).click(function() {
       $(sidenavID).children("li").removeClass();
       $(sideListing).addClass("active");
-      map.hideInfoWindows();
-      marker.infoWindow.open(map, marker);
+      gmap.hideInfoWindows();
+      marker.infoWindow.open(gmap, marker);
     });
 
     // Highlight listing when marker is clicked
@@ -292,31 +292,31 @@ function createMarker(alumni) {
 }
 
 function setBounds() {
-  if (map.markers.length != 0) {
+  if (gmap.markers.length != 0) {
     $(noresultsID).hide();
-    map.fitLatLngBounds(markersLatLng);
+    gmap.fitLatLngBounds(markersLatLng);
   } else {
     $(noresultsID).show();
   }
 }
 
 function clearMarkers() {
-  map.removeMarkers();
+  gmap.removeMarkers();
   mc.clearMarkers();
   markersLatLng = [];
 }
 
 function toggleClusters(enable) {
   if (enable) {
-    mc.addMarkers(map.markers);
+    mc.addMarkers(gmap.markers);
   } else {
     mc.clearMarkers();    
-    for (i in map.markers) {
-     map.markers[i].setVisible(true);
-     map.markers[i].setMap(map.map);
+    for (i in gmap.markers) {
+     gmap.markers[i].setVisible(true);
+     gmap.markers[i].setMap(gmap.map);
    }
    $(sidenavID).children("li").removeClass();
-   map.hideInfoWindows();
+   gmap.hideInfoWindows();
  }
 }
 
