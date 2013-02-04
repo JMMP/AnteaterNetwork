@@ -1,19 +1,11 @@
-//
-//
-//   ,ggg, ,ggggggg,                              ,ggg,         ,gg                             
-//  dP""Y8,8P"""""Y8b                            dP""Y8a       ,8P                              
-//  Yb, `8dP'     `88                            Yb, `88       d8'                              
-//   `"  88'       88                             `"  88       88                               
-//       88        88                                 88       88                               
-//       88        88   ,ggg,   gg    gg    gg        I8       8I ,gggg,gg   ,gggggg,    ,g,    
-//       88        88  i8" "8i  I8    I8    88bg      `8,     ,8'dP"  "Y8I   dP""""8I   ,8'8,   
-//       88        88  I8, ,8I  I8    I8    8I         Y8,   ,8Pi8'    ,8I  ,8'    8I  ,8'  Yb  
-//       88        Y8, `YbadP' ,d8,  ,d8,  ,8I          Yb,_,dP,d8,   ,d8b,,dP     Y8,,8'_   8) 
-//       88        `Y8888P"Y888P""Y88P""Y88P"            "Y8P" P"Y8888P"`Y88P      `Y8P' "YY8P8P
-//                                                                                              
-//
+/*
+ * Anteater Network v11.3
+ * http://git.io/antnet
+ *
+ * Copyright 2013 JMMP
+ */
 
-var map;
+var gmap;
 var markerImage;
 var mapStyles;
 var mc;
@@ -22,55 +14,52 @@ var filters = [
 ["city", ""],
 ["name", ""],
 ["zipcode", ""]];
+var xmlhttpMarkers;
+var xmlhttpMenus;
 var mapID = "#js-map";
-var sidenavID = "#js-sidenav-inner";
+var resultsID = "#js-results";
+var resultsInnerID = "#js-results-inner";
+var resultsHideID = "#js-results-hide";
+var resultsShowID = "#js-results-show";
 var menuCityID = "#js-menu-city";
 var noresultsID = "#js-noresults";
 var toggleClustersID = "#js-toggle-clusters";
 var loadingID = "#js-loading-overlay";
-var markerBuffer = 0.003;
-
-//                                                                                              
-//   
-//     _,gggggg,_                             ,ggg,         ,gg                                 
-//   ,d8P""d8P"Y8b,    ,dPYb,         8I     dP""Y8a       ,8P                                  
-//  ,d8'   Y8   "8b,dP IP'`Yb         8I     Yb, `88       d8'                                  
-//  d8'    `Ybaaad88P' I8  8I         8I      `"  88       88                                   
-//  8P       `""""Y8   I8  8'         8I          88       88                                   
-//  8b            d8   I8 dP    ,gggg,8I          I8       8I     ,gggg,gg   ,gggggg,    ,g,    
-//  Y8,          ,8P   I8dP    dP"  "Y8I          `8,     ,8'    dP"  "Y8I   dP""""8I   ,8'8,   
-//  `Y8,        ,8P'   I8P    i8'    ,8I           Y8,   ,8P    i8'    ,8I  ,8'    8I  ,8'  Yb  
-//   `Y8b,,__,,d8P'   ,d8b,_ ,d8,   ,d8b,           Yb,_,dP    ,d8,   ,d8b,,dP     Y8,,8'_   8) 
-//     `"Y8888P"'     8P'"Y88P"Y8888P"`Y8            "Y8P"     P"Y8888P"`Y88P      `Y8P' "YY8P8P
-//                                                                                              
-//                                                                                              
-
-var xmlhttpMarkers;
-var xmlDoc;
-var xmlhttpMenus;
-var infoWindow;
-var gc;
-
-//
-//
-//   ,ggg, ,ggggggg,                                  ,gggg,                                 
-//  dP""Y8,8P"""""Y8b                               ,88"""Y8b,                   8I          
-//  Yb, `8dP'     `88                              d8"     `Y8                   8I          
-//   `"  88'       88                             d8'   8b  d8                   8I          
-//       88        88                            ,8I    "Y88P'                   8I          
-//       88        88   ,ggg,   gg    gg    gg   I8'            ,ggggg,    ,gggg,8I   ,ggg,  
-//       88        88  i8" "8i  I8    I8    88bg d8            dP"  "Y8gggdP"  "Y8I  i8" "8i 
-//       88        88  I8, ,8I  I8    I8    8I   Y8,          i8'    ,8I i8'    ,8I  I8, ,8I 
-//       88        Y8, `YbadP' ,d8,  ,d8,  ,8I   `Yba,,_____,,d8,   ,d8',d8,   ,d8b, `YbadP' 
-//       88        `Y8888P"Y888P""Y88P""Y88P"      `"Y8888888P"Y8888P"  P"Y8888P"`Y8888P"Y888
-//                                                                                           
-//                                                                                           
+var markerBuffer = 0.0035;
+// var gc; OLD
 
 $(document).ready(function() {
   loadMap();
   populate();
+
   $(toggleClustersID).on("switch-change", function (e, data) {
     toggleClusters(data.value);
+  });
+
+  $("[rel=tooltip]").tooltip({
+    delay: {
+      show: 600,
+      hide: 200
+    }
+  });
+
+  $(resultsHideID).click(function(e) {
+    $(resultsID).hide("drop", function() {
+      $(resultsID).removeClass("span3");
+      $(mapID).attr("class", "span12");
+      $(mapID).css("margin-left", 0);
+      $(resultsShowID).show();
+      gmap.refresh();
+    });
+  });
+
+  $(resultsShowID).click(function(e) {
+    $(resultsShowID).hide("drop");
+    $(resultsID).addClass("span3");
+    $(mapID).attr("class", "span9");
+    $(mapID).css("margin-left", "");
+    $(resultsID).show("slide");
+    gmap.refresh();
   });
 });
 
@@ -117,7 +106,7 @@ function loadMap() {
     }]
   }];
 
-  map = new GMaps({
+  gmap = new GMaps({
     el: mapID,
     lat: 33.646259,
     lng: -117.842056,
@@ -143,10 +132,10 @@ function populate() {
 function populate(filter, input) {
   $(loadingID).show();
   setFilter(filter, input);
-  $(sidenavID).html("");
+  $(resultsInnerID).html("");
   clearMarkers();
   createXMLHttpRequest(function() {
-    xmlDoc = xmlhttpMarkers.responseXML;
+    var xmlDoc = xmlhttpMarkers.responseXML;
     var alumni = xmlDoc.getElementsByTagName("alumnus");
     for (i = 0; i < alumni.length; i++) {
       createMarker(alumni[i]);
@@ -242,7 +231,7 @@ function createMarker(alumni) {
 
   // Generate HTML list for the results list on the side
   sideListing.appendChild(sideItem);
-  $(sidenavID).append(sideListing);
+  $(resultsInnerID).append(sideListing);
 
   //var point = codeAddress(busStreet1 + ", " + busCity + ", " + busState);  // Geocoding
 
@@ -262,7 +251,7 @@ function createMarker(alumni) {
     markersLatLng.push(pointBufferedSW);
     infoHTML += "<a href='http://maps.google.com/maps?daddr=" + address.replace(" ", "+") + "' target ='_blank'>Get Directions</a>";
 
-    var marker = map.addMarker({
+    var marker = gmap.addMarker({
       lat: busLat,
       lng: busLng,
       icon: markerImage,
@@ -274,15 +263,15 @@ function createMarker(alumni) {
 
     // Open info window when listing is clicked and highlight it
     $(sideListing).click(function() {
-      $(sidenavID).children("li").removeClass();
+      $(resultsInnerID).children("li").removeClass();
       $(sideListing).addClass("active");
-      map.hideInfoWindows();
-      marker.infoWindow.open(map, marker);
+      gmap.hideInfoWindows();
+      marker.infoWindow.open(gmap, marker);
     });
 
     // Highlight listing when marker is clicked
     google.maps.event.addListener(marker, 'click', function() {
-      $(sidenavID).children("li").removeClass();
+      $(resultsInnerID).children("li").removeClass();
       $(sideListing).addClass("active");
     });
 
@@ -292,31 +281,31 @@ function createMarker(alumni) {
 }
 
 function setBounds() {
-  if (map.markers.length != 0) {
+  if (gmap.markers.length != 0) {
     $(noresultsID).hide();
-    map.fitLatLngBounds(markersLatLng);
+    gmap.fitLatLngBounds(markersLatLng);
   } else {
     $(noresultsID).show();
   }
 }
 
 function clearMarkers() {
-  map.removeMarkers();
+  gmap.removeMarkers();
   mc.clearMarkers();
   markersLatLng = [];
 }
 
 function toggleClusters(enable) {
   if (enable) {
-    mc.addMarkers(map.markers);
+    mc.addMarkers(gmap.markers);
   } else {
     mc.clearMarkers();    
-    for (i in map.markers) {
-     map.markers[i].setVisible(true);
-     map.markers[i].setMap(map.map);
+    for (i in gmap.markers) {
+     gmap.markers[i].setVisible(true);
+     gmap.markers[i].setMap(gmap.map);
    }
-   $(sidenavID).children("li").removeClass();
-   map.hideInfoWindows();
+   $(resultsInnerID).children("li").removeClass();
+   gmap.hideInfoWindows();
  }
 }
 

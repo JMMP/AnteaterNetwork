@@ -5,6 +5,7 @@
   <title>Anteater Network</title>
   <link href="css/bootstrap.css" rel="stylesheet" media="screen">
   <link href="css/bootstrap-switch.css" rel="stylesheet" media="screen">
+  <link href="css/jquery-ui.custom.css" rel="stylesheet" media="screen">
   <link href="css/fontello.css" rel="stylesheet" media="screen">
   <link href="css/anteaternetwork.css" rel="stylesheet" media="screen">
 </head>
@@ -32,38 +33,41 @@
             </form>
           </li>
           <li>
-            <a>Clusters
+            <a id="tooltip-clusters" rel="tooltip" title="Groups pins together by location" data-placement="bottom">Clusters
               <div class="switch switch-mini" id="js-toggle-clusters">
                 <input type="checkbox" checked="checked" />
               </div>
             </a>
           </li>
           <li>
-            <a onclick="clearFilters(); populate();">Clear Filters</a>
+            <a rel="tooltip" title="Resets the map" data-placement="bottom" onclick="clearFilters(); populate();">Clear Filters</a>
           </li>
           <li>
-            <a href="http://www.alumni.uci.edu/connect/update-info.php" target="_blank">Update Info</a>
+            <a rel="tooltip" title="Add or fix your business details" data-placement="bottom" href="http://www.alumni.uci.edu/connect/update-info.php" target="_blank">Update Info</a>
           </li>
         </ul>
       </div>
     </div>
   </div>
   <div id="js-loading-overlay">
-      <div class="progress progress-striped active" id="js-loading-bar">
-        <div class="bar" style="width: 100%"></div>
-      </div>
-  </div>
+    <div class="progress progress-striped active" id="js-loading-bar">
+      <div class="bar" style="width: 100%"></div>
+    </div>
+  </div>  
   <div class="container-fluid">
     <div class="row-fluid">
-      <div class="span3">
-        <ul class="nav" id="js-sidenav">
-          <li class="nav-header">Results</li>
+      <div id="js-results-show" class="nav-header">
+        <a>Show</a>
+      </div>
+      <div class="span3" id="js-results">
+        <ul class="nav" id="js-results-list">
+          <li class="nav-header">Results<a id="js-results-hide" class="pull-right">Hide</a></li>
           <li id="js-noresults" class='alert alert-error'><h4 class='alert-heading'>No results found!</h4></li>
-          <ul class="nav nav-list"  id="js-sidenav-inner">
+          <ul class="nav nav-list"  id="js-results-inner">
           </ul>
         </ul>
       </div>
-      <div class="span9 pull-right" id="js-map">
+      <div class="span9" id="js-map">
       </div>
     </div>
   </div>
@@ -81,6 +85,7 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDjfKwuT7W5o7YSTt6wHmeDaEhgIxuOUoI&amp;sensor=true"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/jquery.switch.js"></script>
+  <script src="js/jquery-ui.custom.min.js"></script>
   <script src="js/gmaps.js"></script>
   <script src="js/markerclusterer.js"></script>
   <script src="js/anteaternetwork.js"></script>
