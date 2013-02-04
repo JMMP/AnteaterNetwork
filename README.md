@@ -1,10 +1,9 @@
 ![Anteater Network](http://i.imgur.com/4oVj3.png)
 ![JMMP](http://i.imgur.com/lw4AT.png)
-# Anteater Network [11](http://instdav.ics.uci.edu//~191grp10/AnteaterNetwork/) Beta
-### © 2013 JMMP (Jola Bolaji, Mark Chege, Melvin Chien, Patrick Chen) in association with UCI Alumni Association, University of California, Irvine.
+# Anteater Network [12.0](http://instdav.ics.uci.edu//~191grp10/AnteaterNetwork/) Beta
+### © 2013 [JMMP](https://github.com/JMMP) (Jola Bolaji, Mark Chege, Melvin Chien, Patrick Chen) in association with UCI Alumni Association, University of California, Irvine.
 
-[Version 11](http://instdav.ics.uci.edu//~191grp10/AnteaterNetwork/) | [Test Suite](http://instdav.ics.uci.edu//~191grp10/AnteaterNetwork/qunit/) | [GitHub](http://git.io/antnet)  
-[Features](#features) | [Changelog](#changelog) | [Resources](#resources)
+[Features](#features) | [Changelog](#changelog) | [Resources](#resources) | [License](#license)
 
 - - -
 ### Features
@@ -37,9 +36,11 @@
 * Google+
 
 
-
 ### Changelog
-##### Version 11.0 January XX, 2013
+##### Version 12.0 February XX, 2013
+1. 
+
+##### Version 11.0 February 3, 2013
 1. Rebuilt Anteater Network again, from bottom up.
 * Enable Bootstrap responsive features. Fixed [issue #77](https://github.com/JMMP/AnteaterNetwork/issues/77).
 * Added social network icons by Brandico from [Fontello](http://fontello.com/).
@@ -152,14 +153,6 @@ at the same time
 * Fixed markers' info windows not being closed automatically
 * Added more information inside info windows
 
-##### Version 4.0
-
-##### Version 3.0
-
-##### Version 2.0
-
-##### Version 1.0
-
 ##### Version 0.0 June 2012
 1. Prototype
 
@@ -221,3 +214,7 @@ var google_plus = "<div class='g-plusone' data-size='small' data-annotation='non
 
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 ````
+
+
+### License
+All files are Copyright 2013 [JMMP](https://github.com/JMMP) unless otherwise stated. Please ask for permission to use any of the contents by submitting an issue for this repository. Thank you!
