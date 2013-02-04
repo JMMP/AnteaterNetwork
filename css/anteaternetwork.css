@@ -1,3 +1,10 @@
+/*
+ * Anteater Network v11.3
+ * http://git.io/antnet
+ *
+ * Copyright 2013 JMMP
+ */
+
 body {
   font-family: 'Helvetica', Arial, sans-serif;
 }
@@ -23,6 +30,10 @@ footer [class^="icon-fontello-"] {
   padding-right: 16px;
 }
 
+img {
+  max-width: none;
+}
+
 [id^="js-menu-"] {
   max-height: 350px;  
   overflow: hidden;
@@ -30,9 +41,8 @@ footer [class^="icon-fontello-"] {
 }
 
 #js-loading-overlay {
-  display: none;
   position: fixed;
-  z-index: 9;
+  z-index: 2;
   width: 100%;
   height: 100%;
   background: rgba(255, 255, 255, 0.5);
@@ -41,10 +51,9 @@ footer [class^="icon-fontello-"] {
 }
 
 #js-loading-bar {
-  position: fixed;
-  z-index: 10;
+  position: relative;
   width: 40%;
-  top: 30%;
+  top: 40%;
   left: 30%;
 }
 
@@ -55,7 +64,11 @@ footer [class^="icon-fontello-"] {
   box-shadow: 0px 5px 20px #ccc;
 }
 
-#js-sidenav {
+#js-results {
+  margin-left: 0px;
+}
+
+#js-results-list {
   background-color: #e8e8e8;
   height: 600px;
   -webkit-border-radius: 4px;
@@ -63,16 +76,34 @@ footer [class^="icon-fontello-"] {
   border-radius: 4px;
 }
 
-#js-sidenav-inner {
+#js-results-inner {
   max-height: 574px;
   overflow: hidden;
   overflow-y: auto;
 }
 
-#js-sidenav-inner > li {
+#js-results-inner > li {
   border-bottom: 1px solid #f7f7f7;
   padding-top: 5px;
   padding-bottom: 5px;
+}
+
+#js-results-show {
+  display: none;
+  z-index: 1;
+  position: absolute;
+  left: 0px;
+  transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg); 
+  -o-transform: rotate(90deg);
+  background-color: rgba(255, 255, 255, 0.5);
+  margin: 27px 10px;
+}
+
+#js-results-show > a {
+  text-decoration: none;
 }
 
 .row-fluid {
@@ -83,4 +114,8 @@ footer [class^="icon-fontello-"] {
 [class^="span"] {
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.tooltip-inner {
+  background-color: rgba(0, 0, 0, 0.85);
 }
