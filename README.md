@@ -41,26 +41,29 @@
 ### Changelog
 ##### Version 11.0 January XX, 2013
 1. Rebuilt Anteater Network again, from bottom up.
-2. Added social network icons by Brandico from [Fontello](http://fontello.com/).
-3. Added switches from [bootstrap-switch](https://github.com/nostalgiaz/bootstrap-switch).
-4. Added [gmaps.js](http://hpneo.github.com/gmaps/).
-5. Added code from 10.3 for basic functionality.
-6. Added map zooming / focusing.
-7. Added marker clusterer.
-8. Fixed results list display problems.
-9. Added button for clearing all filters.
-10. Fixed filters not clearing.
-11. Fixed info windows opening when listing is clicked.
-12. Fixed dropdown listing highlighting when clicked.
-13. Fixed results list highlighting when marker is clicked.
-14. Added loading bar. Fixed [issue #71](https://github.com/JMMP/AnteaterNetwork/issues/71).
-15. Fixed loading bar transparency.
-16. Input boxes are cleared when filters are cleared. Fixed [issue #89](https://github.com/JMMP/AnteaterNetwork/issues/89).
-17. Driving directions use full addresses rather than coordinates. Fixed [issue #90](https://github.com/JMMP/AnteaterNetwork/issues/90).
-18. Fixed rounded corners of loading bar.
-19. Removed max image widths. Fixed [issue #88](https://github.com/JMMP/AnteaterNetwork/issues/88).
-20. Added QUnit JavaScript testing. Fixed [issue #79](https://github.com/JMMP/AnteaterNetwork/issues/79).
-21. Added tooltip help over buttons. Fixed [issue #82](https://github.com/JMMP/AnteaterNetwork/issues/82).
+* Enable Bootstrap responsive features. Fixed [issue #77](https://github.com/JMMP/AnteaterNetwork/issues/77).
+* Added social network icons by Brandico from [Fontello](http://fontello.com/).
+* Added switches from [bootstrap-switch](https://github.com/nostalgiaz/bootstrap-switch).
+* Added [gmaps.js](http://hpneo.github.com/gmaps/).
+* Added code from 10.3 for basic functionality.
+* Added map zooming / focusing.
+* Added marker clusterer.
+* Fixed results list display problems.
+* Added button for clearing all filters.
+* Fixed filters not clearing.
+* Fixed info windows opening when listing is clicked.
+* Fixed dropdown listing highlighting when clicked.
+* Fixed results list highlighting when marker is clicked.
+* Added loading bar. Fixed [issue #71](https://github.com/JMMP/AnteaterNetwork/issues/71).
+* Fixed loading bar transparency.
+* Input boxes are cleared when filters are cleared. Fixed [issue #89](https://github.com/JMMP/AnteaterNetwork/issues/89).
+* Driving directions use full addresses rather than coordinates. Fixed [issue #90](https://github.com/JMMP/AnteaterNetwork/issues/90).
+* Fixed rounded corners of loading bar.
+* Removed max image widths. Fixed [issue #88](https://github.com/JMMP/AnteaterNetwork/issues/88).
+* Added QUnit JavaScript testing. Fixed [issue #79](https://github.com/JMMP/AnteaterNetwork/issues/79).
+* Added tooltip help over buttons. Fixed [issue #82](https://github.com/JMMP/AnteaterNetwork/issues/82).
+* Added transparency to tooltips. Fixed [issue #92](https://github.com/JMMP/AnteaterNetwork/issues/92).
+* Added toggle to hide results list. Fixed [issue #94](https://github.com/JMMP/AnteaterNetwork/issues/94).
 
 ##### Version 10.0 January 25, 2013
 1. Fixed some bugs related the order scripts were loaded
