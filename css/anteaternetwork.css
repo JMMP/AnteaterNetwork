@@ -1,5 +1,5 @@
 /*
- * Anteater Network v11.3
+ * Anteater Network v12.0
  * http://git.io/antnet
  *
  * Copyright 2013 JMMP
