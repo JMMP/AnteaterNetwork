@@ -40,6 +40,8 @@
 ##### Version 12.0 February XX, 2013
 1. Added transparency to tooltips. Fixed [issue #92](https://github.com/JMMP/AnteaterNetwork/issues/92).
 * Added toggle to hide results list. Fixed [issue #94](https://github.com/JMMP/AnteaterNetwork/issues/94).
+* Added styling to infowindows. Fixed [issue #27](https://github.com/JMMP/AnteaterNetwork/issues/27).
+* Minor changes to Hide and Show buttons from user testing.
 
 ##### Version 11.0 February 3, 2013
 1. Rebuilt Anteater Network again, from bottom up.

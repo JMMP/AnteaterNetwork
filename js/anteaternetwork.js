@@ -5,27 +5,27 @@
  * Copyright 2013 JMMP
  */
 
-var gmap;
-var markerImage;
-var mapStyles;
-var mc;
-var markersLatLng = [];
-var filters = [
-["city", ""],
-["name", ""],
-["zipcode", ""]];
-var xmlhttpMarkers;
-var xmlhttpMenus;
-var mapID = "#js-map";
-var resultsID = "#js-results";
-var resultsInnerID = "#js-results-inner";
-var resultsHideID = "#js-results-hide";
-var resultsShowID = "#js-results-show";
-var menuCityID = "#js-menu-city";
-var noresultsID = "#js-noresults";
-var toggleClustersID = "#js-toggle-clusters";
-var loadingID = "#js-loading-overlay";
-var markerBuffer = 0.0035;
+ var gmap;
+ var markerImage;
+ var mapStyles;
+ var mc;
+ var markersLatLng = [];
+ var filters = [
+ ["city", ""],
+ ["name", ""],
+ ["zipcode", ""]];
+ var xmlhttpMarkers;
+ var xmlhttpMenus;
+ var mapID = "#js-map";
+ var resultsID = "#js-results";
+ var resultsInnerID = "#js-results-inner";
+ var resultsHideID = "#js-results-hide";
+ var resultsShowID = "#js-results-show";
+ var menuCityID = "#js-menu-city";
+ var noresultsID = "#js-noresults";
+ var toggleClustersID = "#js-toggle-clusters";
+ var loadingID = "#js-loading-overlay";
+ var markerBuffer = 0.0035;
 // var gc; OLD
 
 $(document).ready(function() {
@@ -46,9 +46,9 @@ $(document).ready(function() {
   $(resultsHideID).click(function(e) {
     $(resultsID).hide("drop", function() {
       $(resultsID).removeClass("span3");
-      $(mapID).attr("class", "span12");
-      $(mapID).css("margin-left", 0);
       $(resultsShowID).show();
+      $(mapID).css("margin-left", 0);
+      $(mapID).attr("class", "span12");
       gmap.refresh();
     });
   });
@@ -141,6 +141,7 @@ function populate(filter, input) {
       createMarker(alumni[i]);
     }
     setBounds();
+
   });
 
   xmlhttpMarkers.open("GET", "getAlumni.php" + getRequest(), true);
@@ -172,17 +173,17 @@ function createMarker(alumni) {
   var busLng = "";
   var busName = "";
 
-  var infoHTML = "<div class='infoWindow'>";
+  var infoHTML = "<div class='infoWindow-inner'>";
   var address = "";
 
   if (alumni.hasAttribute("Business_Name")) {
     busName = alumni.getAttribute("Business_Name");
     sideItem.innerHTML = "<strong>" + busName + "</strong><br />";
-    infoHTML += "<h2 id='firstHeading' class='firstHeading'>" + busName + "</h2>";
+    infoHTML += "<h2 class='infoWindow-heading'>" + busName + "</h2>";
     address += busName + ", ";
   }
 
-  infoHTML += "<div id='bodyContent'>";
+  infoHTML += "<div class='infoWindow-body'>";
 
   if (alumni.hasAttribute("First_Name") && alumni.hasAttribute("Last_Name")) {
     var firstName = alumni.getAttribute("First_Name");
