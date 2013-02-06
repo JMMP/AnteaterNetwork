@@ -1,32 +1,36 @@
 /*
- * Anteater Network v12.0
+ * Anteater Network v12.1
  * http://git.io/antnet
  *
  * Copyright 2013 JMMP
  */
 
-var gmap;
-var markerImage;
-var mapStyles;
-var mc;
-var markersLatLng = [];
-var filters = [
-["city", ""],
-["name", ""],
-["zipcode", ""]];
-var xmlhttpMarkers;
-var xmlhttpMenus;
-var mapID = "#js-map";
-var resultsID = "#js-results";
-var resultsInnerID = "#js-results-inner";
-var resultsHideID = "#js-results-hide";
-var resultsShowID = "#js-results-show";
-var menuCityID = "#js-menu-city";
-var noresultsID = "#js-noresults";
-var toggleClustersID = "#js-toggle-clusters";
-var loadingID = "#js-loading-overlay";
-var markerBuffer = 0.0035;
-// var gc; OLD
+ var gmap;
+ var markerImage;
+ var mapStyles;
+ var mc;
+ var markersLatLng = [];
+ var filters = [
+ ["city", ""],
+ ["name", ""],
+ ["zipcode", ""],
+ ["year", ""],
+ ["major", ""]];
+ var xmlhttpMarkers;
+ var xmlhttpMenus;
+ var mapID = "#js-map";
+ var resultsID = "#js-results";
+ var resultsInnerID = "#js-results-inner";
+ var resultsHideID = "#js-results-hide";
+ var resultsShowID = "#js-results-show";
+ var menuCityID = "#js-menu-city";
+ var menuYearID = "#js-menu-year";
+ var menuMajorID = "#js-menu-major";
+ var noresultsID = "#js-noresults";
+ var toggleClustersID = "#js-toggle-clusters";
+ var loadingID = "#js-loading-overlay";
+ var markerBuffer = 0.0035;
+// var gc; // OLD
 
 $(document).ready(function() {
   loadMap();
@@ -46,9 +50,9 @@ $(document).ready(function() {
   $(resultsHideID).click(function(e) {
     $(resultsID).hide("drop", function() {
       $(resultsID).removeClass("span3");
-      $(mapID).attr("class", "span12");
-      $(mapID).css("margin-left", 0);
       $(resultsShowID).show();
+      $(mapID).css("margin-left", 0);
+      $(mapID).attr("class", "span12");
       gmap.refresh();
     });
   });
@@ -123,7 +127,9 @@ function loadMap() {
     }
   });
   getMenu("city");
-};
+  // getMenu("year");
+  // getMenu("major");
+}
 
 function populate() {
   populate("", "");
@@ -171,18 +177,23 @@ function createMarker(alumni) {
   var busLat = "";
   var busLng = "";
   var busName = "";
+  var id = "";
 
-  var infoHTML = "<div class='infoWindow'>";
+  var infoHTML = "<div class='infoWindow-inner'>";
   var address = "";
+
+  if (alumni.hasAttribute("ID_Number")) {
+    id = alumni.getAttribute("Business_Name");
+  }
 
   if (alumni.hasAttribute("Business_Name")) {
     busName = alumni.getAttribute("Business_Name");
     sideItem.innerHTML = "<strong>" + busName + "</strong><br />";
-    infoHTML += "<h2 id='firstHeading' class='firstHeading'>" + busName + "</h2>";
+    infoHTML += "<h2 class='infoWindow-heading'>" + busName + "</h2>";
     address += busName + ", ";
   }
 
-  infoHTML += "<div id='bodyContent'>";
+  infoHTML += "<div class='infoWindow-body'>";
 
   if (alumni.hasAttribute("First_Name") && alumni.hasAttribute("Last_Name")) {
     var firstName = alumni.getAttribute("First_Name");
@@ -233,15 +244,15 @@ function createMarker(alumni) {
   sideListing.appendChild(sideItem);
   $(resultsInnerID).append(sideListing);
 
-  //var point = codeAddress(busStreet1 + ", " + busCity + ", " + busState);  // Geocoding
+  // Check for 0 latitude or longitude so that we don't re-geocode businesses that failed before
+  if ((busLat == "" || busLng == "") && (parseFloat(busLng) != 0 || parseFloat(busLng) != 0)) {
+    codeAddress(id, address);
+  }
 
   // Catch businesses with no latitude or longitude
   // Don't show these on the map but still list them in the results box
-  if (busLat != "" || busLng != "") {
-    //if (point) {  // Geocoding
-      var point = new google.maps.LatLng(parseFloat(busLat), parseFloat(busLng));
-    //busLat = point.lat();  // Geocoding
-    //busLng = point.lng();  // Geocoding
+  if ((busLat != "" || busLng != "") && (parseFloat(busLng) != 0 || parseFloat(busLng) != 0)) {
+    var point = new google.maps.LatLng(parseFloat(busLat), parseFloat(busLng));
 
     var pointBufferedNE = new google.maps.LatLng(parseFloat(busLat) + markerBuffer, parseFloat(busLng) + markerBuffer);
     var pointBufferedSW = new google.maps.LatLng(parseFloat(busLat) - markerBuffer, parseFloat(busLng) - markerBuffer);
@@ -263,7 +274,7 @@ function createMarker(alumni) {
 
     // Open info window when listing is clicked and highlight it
     $(sideListing).click(function() {
-      $(resultsInnerID).children("li").removeClass();
+      $(resultsInnerID).children("li").removeClass("active");
       $(sideListing).addClass("active");
       gmap.hideInfoWindows();
       marker.infoWindow.open(gmap, marker);
@@ -271,7 +282,7 @@ function createMarker(alumni) {
 
     // Highlight listing when marker is clicked
     google.maps.event.addListener(marker, 'click', function() {
-      $(resultsInnerID).children("li").removeClass();
+      $(resultsInnerID).children("li").removeClass("active");
       $(sideListing).addClass("active");
     });
 
@@ -307,6 +318,18 @@ function toggleClusters(enable) {
    $(resultsInnerID).children("li").removeClass();
    gmap.hideInfoWindows();
  }
+}
+
+function getRequest() {
+  var request = "";
+  for (i in filters) {
+    if (filters[i][1] != "") {
+      if (request != "")
+        request += "&";
+      request += filters[i][0] + "=" + filters[i][1];
+    }
+  }
+  return "?" + request;
 }
 
 
@@ -359,7 +382,21 @@ function getMenu(menu) {
         $(menuCityID).html(xmlhttpMenus.responseText);
         $(menuCityID).prepend("<li class=\"active\"><a onclick=\"populate('city', '')\">None</a></li><li class=\"divider\"></li>");
         $(menuCityID).children("li").click( function() {
-          $(menuCityID).children("li").removeClass();
+          $(menuCityID).children("li").removeClass("active");
+          $(this).addClass("active");
+        });
+      } else if (menu == "year") {
+        $(menuYearID).html(xmlhttpMenus.responseText);
+        $(menuYearID).prepend("<li class=\"active\"><a onclick=\"populate('year', '')\">None</a></li><li class=\"divider\"></li>");
+        $(menuYearID).children("li").click( function() {
+          $(menuYearID).children("li").removeClass("active");
+          $(this).addClass("active");
+        });
+      } else if (menu == "major") {
+        $(menuMajorID).html(xmlhttpMenus.responseText);
+        $(menuMajorID).prepend("<li class=\"active\"><a onclick=\"populate('major', '')\">None</a></li><li class=\"divider\"></li>");
+        $(menuMajorID).children("li").click( function() {
+          $(menuMajorID).children("li").removeClass("active");
           $(this).addClass("active");
         });
       }
@@ -368,31 +405,4 @@ function getMenu(menu) {
 
   xmlhttpMenus.open("GET", "getMenu.php?menu=" + menu, true);
   xmlhttpMenus.send();
-}
-
-function getRequest() {
-  var request = "";
-  for (i in filters) {
-    if (filters[i][1] != "") {
-      if (request != "")
-        request += "&";
-      request += filters[i][0] + "=" + filters[i][1];
-    }
-  }
-  return "?" + request;
-}
-
-function codeAddress(input) {
-  var gcrequest = {
-    address: input,
-    region: "US"
-  };
-  gc.geocode(gcrequest, function(results, status) {
-    if (status == google.maps.GeocoderStatus.OK) {
-      return results[0].geometry.location;
-    } else {
-      alert(input + "\n" + "Geocode was note successful: " + status);
-    }
-  });
-  return false;
 }

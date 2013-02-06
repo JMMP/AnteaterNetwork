@@ -1,6 +1,6 @@
 ![Anteater Network](http://i.imgur.com/4oVj3.png)
 ![JMMP](http://i.imgur.com/lw4AT.png)
-# Anteater Network [12.0](http://instdav.ics.uci.edu//~191grp10/AnteaterNetwork/) Beta
+# Anteater Network [12.1](http://instdav.ics.uci.edu//~191grp10/AnteaterNetwork/) Beta
 ### © 2013 [JMMP](https://github.com/JMMP) (Jola Bolaji, Mark Chege, Melvin Chien, Patrick Chen) in association with UCI Alumni Association, University of California, Irvine.
 
 [Features](#features) | [Changelog](#changelog) | [Resources](#resources) | [License](#license)
@@ -37,8 +37,20 @@
 
 
 ### Changelog
-##### Version 12.0 February XX, 2013
+##### Version 12.2 February XX, 2013
 1. 
+
+##### Version 12.1 February 6, 2013
+1. Fixed highlighting in results list. Fixed [issue #101](https://github.com/JMMP/AnteaterNetwork/issues/101).
+* Fixed highlighting in menus.
+* Changed order of navbar items.
+
+##### Version 12.0 February 6, 2013
+1. Added transparency to tooltips. Fixed [issue #92](https://github.com/JMMP/AnteaterNetwork/issues/92).
+* Added toggle to hide results list. Fixed [issue #94](https://github.com/JMMP/AnteaterNetwork/issues/94).
+* Added styling to infowindows. Fixed [issue #27](https://github.com/JMMP/AnteaterNetwork/issues/27).
+* Minor changes to Hide and Show buttons from user testing.
+* Added basic geocoding. Fixed [issue #81](https://github.com/JMMP/AnteaterNetwork/issues/81).
 
 ##### Version 11.0 February 3, 2013
 1. Rebuilt Anteater Network again, from bottom up.
@@ -63,8 +75,6 @@
 * Removed max image widths. Fixed [issue #88](https://github.com/JMMP/AnteaterNetwork/issues/88).
 * Added QUnit JavaScript testing. Fixed [issue #79](https://github.com/JMMP/AnteaterNetwork/issues/79).
 * Added tooltip help over buttons. Fixed [issue #82](https://github.com/JMMP/AnteaterNetwork/issues/82).
-* Added transparency to tooltips. Fixed [issue #92](https://github.com/JMMP/AnteaterNetwork/issues/92).
-* Added toggle to hide results list. Fixed [issue #94](https://github.com/JMMP/AnteaterNetwork/issues/94).
 
 ##### Version 10.0 January 25, 2013
 1. Fixed some bugs related the order scripts were loaded
