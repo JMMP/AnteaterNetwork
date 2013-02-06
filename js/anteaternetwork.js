@@ -13,7 +13,9 @@
  var filters = [
  ["city", ""],
  ["name", ""],
- ["zipcode", ""]];
+ ["zipcode", ""],
+ ["year", ""],
+ ["major", ""]];
  var xmlhttpMarkers;
  var xmlhttpMenus;
  var mapID = "#js-map";
@@ -22,6 +24,8 @@
  var resultsHideID = "#js-results-hide";
  var resultsShowID = "#js-results-show";
  var menuCityID = "#js-menu-city";
+ var menuYearID = "#js-menu-year";
+ var menuMajorID = "#js-menu-major";
  var noresultsID = "#js-noresults";
  var toggleClustersID = "#js-toggle-clusters";
  var loadingID = "#js-loading-overlay";
@@ -123,6 +127,8 @@ function loadMap() {
     }
   });
   getMenu("city");
+  // getMenu("year");
+  // getMenu("major");
 }
 
 function populate() {
@@ -376,7 +382,21 @@ function getMenu(menu) {
         $(menuCityID).html(xmlhttpMenus.responseText);
         $(menuCityID).prepend("<li class=\"active\"><a onclick=\"populate('city', '')\">None</a></li><li class=\"divider\"></li>");
         $(menuCityID).children("li").click( function() {
-          $(menuCityID).children("li").removeClass();
+          $(menuCityID).children("li").removeClass("active");
+          $(this).addClass("active");
+        });
+      } else if (menu == "year") {
+        $(menuYearID).html(xmlhttpMenus.responseText);
+        $(menuYearID).prepend("<li class=\"active\"><a onclick=\"populate('year', '')\">None</a></li><li class=\"divider\"></li>");
+        $(menuYearID).children("li").click( function() {
+          $(menuYearID).children("li").removeClass("active");
+          $(this).addClass("active");
+        });
+      } else if (menu == "major") {
+        $(menuMajorID).html(xmlhttpMenus.responseText);
+        $(menuMajorID).prepend("<li class=\"active\"><a onclick=\"populate('major', '')\">None</a></li><li class=\"divider\"></li>");
+        $(menuMajorID).children("li").click( function() {
+          $(menuMajorID).children("li").removeClass("active");
           $(this).addClass("active");
         });
       }

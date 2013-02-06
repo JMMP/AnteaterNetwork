@@ -119,6 +119,10 @@ img {
 	text-align: center;
 }
 
+.nav {
+  margin-bottom: 0px;
+}
+
 .row-fluid {
   margin-top: 9px;
   margin-bottom: 10px;

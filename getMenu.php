@@ -14,7 +14,7 @@ if (!$db_selected) {
     die('Can\'t use db : ' . mysql_error());
 }
 
-if (!empty($_GET["menu"])) {
+if (isset($_GET["menu"])) {
     $request = $_GET["menu"];
     if ($request == "city")
         $column = "Business_City";
@@ -22,7 +22,11 @@ if (!empty($_GET["menu"])) {
         $column = "Business_Zipcode";
     if ($request == "state")
         $column = "Business_State";
-}
+    if ($request == "year")
+        $column = "Class_Year";
+    if ($request == "major")
+        $column = "School_Code";
+} 
 
 $query = "SELECT DISTINCT `" . $column . "` FROM `AntNet_Alumni` ORDER BY `" . $column . "`";
 $result = mysql_query($query);
