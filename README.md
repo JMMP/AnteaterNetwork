@@ -37,7 +37,11 @@
 
 
 ### Changelog
-##### Version 12.0 February XX, 2013
+##### Version 12.1 February XX, 2013
+1. Fixed highlighting in results list. Fixed [issue #101](https://github.com/JMMP/AnteaterNetwork/issues/101).
+
+
+##### Version 12.0 February 6, 2013
 1. Added transparency to tooltips. Fixed [issue #92](https://github.com/JMMP/AnteaterNetwork/issues/92).
 * Added toggle to hide results list. Fixed [issue #94](https://github.com/JMMP/AnteaterNetwork/issues/94).
 * Added styling to infowindows. Fixed [issue #27](https://github.com/JMMP/AnteaterNetwork/issues/27).

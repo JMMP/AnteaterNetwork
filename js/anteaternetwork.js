@@ -184,6 +184,7 @@ function createMarker(alumni) {
     busName = alumni.getAttribute("Business_Name");
     sideItem.innerHTML = "<strong>" + busName + "</strong><br />";
     infoHTML += "<h2 class='infoWindow-heading'>" + busName + "</h2>";
+    address += busName + ", ";
   }
 
   infoHTML += "<div class='infoWindow-body'>";
@@ -253,7 +254,7 @@ function createMarker(alumni) {
     // Add marker position to array
     markersLatLng.push(pointBufferedNE);
     markersLatLng.push(pointBufferedSW);
-    infoHTML += "<a href='http://maps.google.com/maps?daddr=" + busName + ",+" + address.replace(" ", "+") + "' target ='_blank'>Get Directions</a>";
+    infoHTML += "<a href='http://maps.google.com/maps?daddr=" + address.replace(" ", "+") + "' target ='_blank'>Get Directions</a>";
 
     var marker = gmap.addMarker({
       lat: busLat,
@@ -267,7 +268,7 @@ function createMarker(alumni) {
 
     // Open info window when listing is clicked and highlight it
     $(sideListing).click(function() {
-      $(resultsInnerID).children("li").removeClass();
+      $(resultsInnerID).children("li").removeClass("active");
       $(sideListing).addClass("active");
       gmap.hideInfoWindows();
       marker.infoWindow.open(gmap, marker);
@@ -275,7 +276,7 @@ function createMarker(alumni) {
 
     // Highlight listing when marker is clicked
     google.maps.event.addListener(marker, 'click', function() {
-      $(resultsInnerID).children("li").removeClass();
+      $(resultsInnerID).children("li").removeClass("active");
       $(sideListing).addClass("active");
     });
 
@@ -323,36 +324,6 @@ function getRequest() {
     }
   }
   return "?" + request;
-}
-
-function codeAddress(id, address) {
-  GMaps.geocode({
-    address: address,
-    callback: function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        var latlng = results[0].geometry.location;
-        busLat = latlng.lat();
-        busLng = latlng.lng();
-      } else if (status == google.maps.GeocoderStatus.ZERO_RESULTS) {
-        busLat = 0;
-        busLng = 0;
-      } else if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) { 
-        setTimeout(codeAddress(id, address), 250);
-      } else {
-        alert("Geocode was not successful for the following reason: " + status);
-      }
-
-      $.ajax({
-        "url": "setLatLng.php",
-        "type": "POST",
-        "data": {
-          id: id,
-          lat: busLat,
-          lng: busLng
-        }
-      })
-    }
-  });
 }
 
 
