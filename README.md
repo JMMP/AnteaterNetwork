@@ -37,9 +37,13 @@
 
 
 ### Changelog
-##### Version 12.1 February XX, 2013
-1. Fixed highlighting in results list. Fixed [issue #101](https://github.com/JMMP/AnteaterNetwork/issues/101).
+##### Version 12.2 February XX, 2013
+1. 
 
+##### Version 12.1 February 6, 2013
+1. Fixed highlighting in results list. Fixed [issue #101](https://github.com/JMMP/AnteaterNetwork/issues/101).
+* Fixed highlighting in menus.
+* Changed order of navbar items.
 
 ##### Version 12.0 February 6, 2013
 1. Added transparency to tooltips. Fixed [issue #92](https://github.com/JMMP/AnteaterNetwork/issues/92).
