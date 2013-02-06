@@ -26,7 +26,7 @@
  var toggleClustersID = "#js-toggle-clusters";
  var loadingID = "#js-loading-overlay";
  var markerBuffer = 0.0035;
-// var gc; OLD
+// var gc; // OLD
 
 $(document).ready(function() {
   loadMap();
@@ -123,7 +123,7 @@ function loadMap() {
     }
   });
   getMenu("city");
-};
+}
 
 function populate() {
   populate("", "");
@@ -141,7 +141,6 @@ function populate(filter, input) {
       createMarker(alumni[i]);
     }
     setBounds();
-
   });
 
   xmlhttpMarkers.open("GET", "getAlumni.php" + getRequest(), true);
@@ -172,15 +171,19 @@ function createMarker(alumni) {
   var busLat = "";
   var busLng = "";
   var busName = "";
+  var id = "";
 
   var infoHTML = "<div class='infoWindow-inner'>";
   var address = "";
+
+  if (alumni.hasAttribute("ID_Number")) {
+    id = alumni.getAttribute("Business_Name");
+  }
 
   if (alumni.hasAttribute("Business_Name")) {
     busName = alumni.getAttribute("Business_Name");
     sideItem.innerHTML = "<strong>" + busName + "</strong><br />";
     infoHTML += "<h2 class='infoWindow-heading'>" + busName + "</h2>";
-    address += busName + ", ";
   }
 
   infoHTML += "<div class='infoWindow-body'>";
@@ -234,15 +237,15 @@ function createMarker(alumni) {
   sideListing.appendChild(sideItem);
   $(resultsInnerID).append(sideListing);
 
-  //var point = codeAddress(busStreet1 + ", " + busCity + ", " + busState);  // Geocoding
+  // Check for 0 latitude or longitude so that we don't re-geocode businesses that failed before
+  if ((busLat == "" || busLng == "") && (parseFloat(busLng) != 0 || parseFloat(busLng) != 0)) {
+    codeAddress(id, address);
+  }
 
   // Catch businesses with no latitude or longitude
   // Don't show these on the map but still list them in the results box
-  if (busLat != "" || busLng != "") {
-    //if (point) {  // Geocoding
-      var point = new google.maps.LatLng(parseFloat(busLat), parseFloat(busLng));
-    //busLat = point.lat();  // Geocoding
-    //busLng = point.lng();  // Geocoding
+  if ((busLat != "" || busLng != "") && (parseFloat(busLng) != 0 || parseFloat(busLng) != 0)) {
+    var point = new google.maps.LatLng(parseFloat(busLat), parseFloat(busLng));
 
     var pointBufferedNE = new google.maps.LatLng(parseFloat(busLat) + markerBuffer, parseFloat(busLng) + markerBuffer);
     var pointBufferedSW = new google.maps.LatLng(parseFloat(busLat) - markerBuffer, parseFloat(busLng) - markerBuffer);
@@ -250,7 +253,7 @@ function createMarker(alumni) {
     // Add marker position to array
     markersLatLng.push(pointBufferedNE);
     markersLatLng.push(pointBufferedSW);
-    infoHTML += "<a href='http://maps.google.com/maps?daddr=" + address.replace(" ", "+") + "' target ='_blank'>Get Directions</a>";
+    infoHTML += "<a href='http://maps.google.com/maps?daddr=" + busName + ",+" + address.replace(" ", "+") + "' target ='_blank'>Get Directions</a>";
 
     var marker = gmap.addMarker({
       lat: busLat,
@@ -308,6 +311,48 @@ function toggleClusters(enable) {
    $(resultsInnerID).children("li").removeClass();
    gmap.hideInfoWindows();
  }
+}
+
+function getRequest() {
+  var request = "";
+  for (i in filters) {
+    if (filters[i][1] != "") {
+      if (request != "")
+        request += "&";
+      request += filters[i][0] + "=" + filters[i][1];
+    }
+  }
+  return "?" + request;
+}
+
+function codeAddress(id, address) {
+  GMaps.geocode({
+    address: address,
+    callback: function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        var latlng = results[0].geometry.location;
+        busLat = latlng.lat();
+        busLng = latlng.lng();
+      } else if (status == google.maps.GeocoderStatus.ZERO_RESULTS) {
+        busLat = 0;
+        busLng = 0;
+      } else if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) { 
+        setTimeout(codeAddress(id, address), 250);
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+
+      $.ajax({
+        "url": "setLatLng.php",
+        "type": "POST",
+        "data": {
+          id: id,
+          lat: busLat,
+          lng: busLng
+        }
+      })
+    }
+  });
 }
 
 
@@ -369,31 +414,4 @@ function getMenu(menu) {
 
   xmlhttpMenus.open("GET", "getMenu.php?menu=" + menu, true);
   xmlhttpMenus.send();
-}
-
-function getRequest() {
-  var request = "";
-  for (i in filters) {
-    if (filters[i][1] != "") {
-      if (request != "")
-        request += "&";
-      request += filters[i][0] + "=" + filters[i][1];
-    }
-  }
-  return "?" + request;
-}
-
-function codeAddress(input) {
-  var gcrequest = {
-    address: input,
-    region: "US"
-  };
-  gc.geocode(gcrequest, function(results, status) {
-    if (status == google.maps.GeocoderStatus.OK) {
-      return results[0].geometry.location;
-    } else {
-      alert(input + "\n" + "Geocode was note successful: " + status);
-    }
-  });
-  return false;
 }

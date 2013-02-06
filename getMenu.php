@@ -24,7 +24,7 @@ if (!empty($_GET["menu"])) {
         $column = "Business_State";
 }
 
-$query = "SELECT DISTINCT `" . $column . "` FROM `AN_Alumni_New` ORDER BY `" . $column . "`";
+$query = "SELECT DISTINCT `" . $column . "` FROM `AntNet_Alumni` ORDER BY `" . $column . "`";
 $result = mysql_query($query);
 
 if (!$result) {
