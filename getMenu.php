@@ -1,4 +1,10 @@
 <?php
+/*
+ * Anteater Network v12.1
+ * http://git.io/antnet
+ *
+ * Copyright 2013 JMMP
+ */
 
 require("../../secure.php");
 
