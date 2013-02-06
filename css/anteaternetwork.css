@@ -1,5 +1,5 @@
 /*
- * Anteater Network v12.0
+ * Anteater Network v12.1
  * http://git.io/antnet
  *
  * Copyright 2013 JMMP
@@ -98,12 +98,29 @@ img {
   -moz-transform: rotate(90deg);
   -webkit-transform: rotate(90deg); 
   -o-transform: rotate(90deg);
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.8);
   margin: 27px 10px;
 }
 
 #js-results-show > a {
   text-decoration: none;
+}
+
+.infoWindow-heading {
+  background-color: #e8e8e8;
+  border-radius: 4px;
+	text-transform: uppercase;
+  padding: 10px 5px;
+  text-align: center;
+  
+}
+
+.infoWindow-body {
+	text-align: center;
+}
+
+.nav {
+  margin-bottom: 0px;
 }
 
 .row-fluid {
