@@ -104,7 +104,7 @@ if (!$selectResult) {
 }
 
 // Iterate through the rows, adding XML nodes for each
-header("Content-type: text/xml");
+header("Content-type:text/xml");
 while ($row = @mysql_fetch_assoc($selectResult)) {
    // Add to XML document node
    $node = $xmlDoc->createElement("alumnus");
@@ -131,7 +131,6 @@ while ($row = @mysql_fetch_assoc($selectResult)) {
 }
 
 echo $xmlDoc->saveXML();
-
 
 mysql_close($connection);
 ?>

@@ -9,9 +9,9 @@
 ### Features
 ##### Interface 70%
 * Hide-able results list
-* _Automatic populating menus_
+* Automatic populating menus
 * Support online businesses
-* _Custom CSS styling_
+* Custom CSS styling
 * Filter by city
 * _Filter by business type_
 * Search by business name
@@ -25,7 +25,7 @@
 * Buffer zone around results
 
 ##### Back End 25%
-* _Full UCI alumni database_
+* Full UCI alumni database
 * _Automatic merging of old and new databases_
 * _Deploy on live server_
 
@@ -38,7 +38,7 @@
 
 ### Changelog
 ##### Version 12.2 February XX, 2013
-1. 
+1. Converted XMLHttpRequests to use jQuery AJAX calls. Fixed [issue #99](https://github.com/JMMP/AnteaterNetwork/issues/99).
 
 ##### Version 12.1 February 6, 2013
 1. Fixed highlighting in results list. Fixed [issue #101](https://github.com/JMMP/AnteaterNetwork/issues/101).
