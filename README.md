@@ -41,6 +41,8 @@
 1. Converted XMLHttpRequests to use jQuery AJAX calls. Fixed [issue #99](https://github.com/JMMP/AnteaterNetwork/issues/99).
 * Added searching by school/major and class year.
 * Fixed filters for major and class year. Fixed [issue #109]https://github.com/JMMP/AnteaterNetwork/issues/109).
+* Coverted PHP MySQL API from [mysql](http://www.php.net/manual/en/book.mysql.php) to [mysqli](http://www.php.net/manual/en/book.mysqli.php). See [this](http://www.php.net/manual/en/mysqlinfo.api.choosing.php) for a comparison of the different MySQL APIs PHP offers.
+* Escaped special characters in strings for SQL statements sent to database. Fixed [issue #78]https://github.com/JMMP/AnteaterNetwork/issues/78).
 
 ##### Version 12.1 February 6, 2013
 1. Fixed highlighting in results list. Fixed [issue #101](https://github.com/JMMP/AnteaterNetwork/issues/101).
@@ -186,6 +188,7 @@ Username: UCI-ICS\username
 [JQuery Deferred Object](http://api.jquery.com/category/deferred-object/)  
 [bootstrap-tour](https://github.com/sorich87/bootstrap-tour)  
 [bootstrap-switch](https://github.com/nostalgiaz/bootstrap-switch)  
+[PHP MySQL Improved Extension](http://www.php.net/manual/en/book.mysqli.php)  
 
 ##### Facebook Like Button
 <https://developers.facebook.com/docs/reference/plugins/like/>

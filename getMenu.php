@@ -8,16 +8,9 @@
 
 require("../../secure.php");
 
-$connection = mysql_connect($ip, $username, $password);
-if (!$connection) {
-    die('Not connected : ' . mysql_error());
-}
-
-
-// Set the active MySQL database
-$db_selected = mysql_select_db($database, $connection);
-if (!$db_selected) {
-    die('Can\'t use db : ' . mysql_error());
+$mysqli = mysqli_connect($ip, $username, $password, $database);
+if (mysqli_connect_errno($mysqli)) {
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }
 
 if (isset($_GET["menu"])) {
@@ -35,16 +28,15 @@ if (isset($_GET["menu"])) {
 } 
 
 $query = "SELECT DISTINCT `" . $column . "` FROM `AntNet_Alumni` ORDER BY `" . $column . "`";
-$result = mysql_query($query);
+$result = mysqli_query($mysqli, $query);
 
 if (!$result) {
-    die('Invalid query: ' . mysql_error());
+    die('Invalid query: ' . mysqli_error());
 }
 
-while ($row = mysql_fetch_array($result)) {
+while ($row = mysqli_fetch_array($result)) {
     echo "<li><a onclick=\"populate(" . "'" . $filter . "', " . "'" . $row[$column] . "'" . ")\"><span>" . $row[$column] . "</span></a></li>";
 }
 
-mysql_close($connection);
-?>n);
+mysqli_close($mysqli);
 ?>
