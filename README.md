@@ -39,6 +39,8 @@
 ### Changelog
 ##### Version 12.2 February XX, 2013
 1. Converted XMLHttpRequests to use jQuery AJAX calls. Fixed [issue #99](https://github.com/JMMP/AnteaterNetwork/issues/99).
+* Added searching by school/major and class year.
+* Fixed filters for major and class year. Fixed [issue #109]https://github.com/JMMP/AnteaterNetwork/issues/109).
 
 ##### Version 12.1 February 6, 2013
 1. Fixed highlighting in results list. Fixed [issue #101](https://github.com/JMMP/AnteaterNetwork/issues/101).

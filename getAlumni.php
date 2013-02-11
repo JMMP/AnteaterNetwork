@@ -39,12 +39,22 @@ if (!empty($_GET) && !isset($_GET["geocode"])) {
    if (isset($_GET["name"])) {
       if ($selectRequest != "")
          $selectRequest .= " AND ";
-      $selectRequest .= "`Business_Name` LIKE '" . $_GET["name"] . "%'";
+      $selectRequest .= "`Business_Name` LIKE '%" . $_GET["name"] . "%'";
    }
    if (isset($_GET["zipcode"])) {
       if ($selectRequest != "")
          $selectRequest .= " AND ";
       $selectRequest .= "`Business_Zipcode` = '" . $_GET["zipcode"] . "'";
+   }
+   if (isset($_GET["major"])) {
+      if ($selectRequest != "")
+         $selectRequest .= " AND ";
+      $selectRequest .= "`School_Code` = '" . $_GET["major"] . "'";
+   }
+   if (isset($_GET["year"])) {
+      if ($selectRequest != "")
+         $selectRequest .= " AND ";
+      $selectRequest .= "`Class_Year` = '" . $_GET["year"] . "'";
    }
 }
 

@@ -203,7 +203,16 @@ function createMarker(alumni) {
   if (alumni.hasAttribute("First_Name") && alumni.hasAttribute("Last_Name")) {
     var firstName = alumni.getAttribute("First_Name");
     var lastName = alumni.getAttribute("Last_Name");
-    infoHTML += firstName + " " + lastName  + "<br />";
+    infoHTML += firstName + " " + lastName;
+    if (alumni.hasAttribute("Class_Year")) {
+      var year = alumni.getAttribute("Class_Year");
+      infoHTML += ", " + year;
+      if (alumni.hasAttribute("School_Code")) {
+        var school = alumni.getAttribute("School_Code");
+        infoHTML += " " + school;
+      }
+    }
+    infoHTML += "<br />";
   }
 
   if (alumni.hasAttribute("Business_Street1")) {

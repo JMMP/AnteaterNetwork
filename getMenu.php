@@ -21,16 +21,16 @@ if (!$db_selected) {
 }
 
 if (isset($_GET["menu"])) {
-    $request = $_GET["menu"];
-    if ($request == "city")
+    $filter = $_GET["menu"];
+    if ($filter == "city")
         $column = "Business_City";
-    if ($request == "zipcode")
+    if ($filter == "zipcode")
         $column = "Business_Zipcode";
-    if ($request == "state")
+    if ($filter == "state")
         $column = "Business_State";
-    if ($request == "year")
+    if ($filter == "year")
         $column = "Class_Year";
-    if ($request == "major")
+    if ($filter == "major")
         $column = "School_Code";
 } 
 
@@ -42,8 +42,9 @@ if (!$result) {
 }
 
 while ($row = mysql_fetch_array($result)) {
-    echo "<li><a onclick=\"populate(" . "'" . $request . "', " . "'" . $row[$column] . "'" . ")\"><span>" . $row[$column] . "</span></a></li>";
+    echo "<li><a onclick=\"populate(" . "'" . $filter . "', " . "'" . $row[$column] . "'" . ")\"><span>" . $row[$column] . "</span></a></li>";
 }
 
 mysql_close($connection);
+?>n);
 ?>
