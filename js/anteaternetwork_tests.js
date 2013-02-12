@@ -1,3 +1,10 @@
+/*
+ * Anteater Network v12.2
+ * http://git.io/antnet
+ *
+ * Copyright 2013 JMMP
+ */
+
 // http://qunitjs.com/cookbook/
 // http://msdn.microsoft.com/en-us/library/hh404088.aspx
 // http://benalman.com/talks/unit-testing-qunit.html

@@ -1,6 +1,6 @@
 <?php
 /*
- * Anteater Network v12.1
+ * Anteater Network v12.2
  * http://git.io/antnet
  *
  * Copyright 2013 JMMP
