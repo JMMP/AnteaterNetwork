@@ -23,8 +23,6 @@ var filters = [
 ["zipcode", ""],
 ["year", ""],
 ["major", ""]];
-var xmlhttpMarkers;
-var xmlhttpMenus;
 var mapID = "#js-map";
 var resultsID = "#js-results";
 var resultsInnerID = "#js-results-inner";
@@ -37,7 +35,6 @@ var noresultsID = "#js-noresults";
 var toggleClustersID = "#js-toggle-clusters";
 var loadingID = "#js-loading-overlay";
 var markerBuffer = 0.0035;
-// var gc; // OLD
 
 $(document).ready(function() {
   loadMap();
@@ -154,6 +151,7 @@ function populate(filter, input) {
       createMarker(alumni[i]);
     }
     setBounds();
+    checkResults();
     $(loadingID).fadeOut();
   });
 }
@@ -257,12 +255,7 @@ function createMarker(alumni) {
   // Generate HTML list for the results list on the side
   sideListing.appendChild(sideItem);
   $(resultsInnerID).append(sideListing);
-
-  // Check for 0 latitude or longitude so that we don't re-geocode businesses that failed before
-  if ((busLat == "" || busLng == "") && (parseFloat(busLng) != 0 || parseFloat(busLng) != 0)) {
-    codeAddress(id, address);
-  }
-
+  
   // Catch businesses with no latitude or longitude
   // Don't show these on the map but still list them in the results box
   if ((busLat != "" || busLng != "") && (parseFloat(busLng) != 0 || parseFloat(busLng) != 0)) {
@@ -306,9 +299,14 @@ function createMarker(alumni) {
 }
 
 function setBounds() {
-  if (gmap.markers.length != 0) {
-    $(noresultsID).hide();
+  if (markersLatLng.length != 0) {
     gmap.fitLatLngBounds(markersLatLng);
+  }
+}
+
+function checkResults() {
+  if ($(resultsInnerID).html != "") {
+    $(noresultsID).hide();    
   } else {
     $(noresultsID).show();
   }
