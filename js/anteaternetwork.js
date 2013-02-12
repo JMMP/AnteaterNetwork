@@ -1,5 +1,5 @@
 /*
- * Anteater Network v12.1
+ * Anteater Network v12.2
  * http://git.io/antnet
  *
  * Copyright 2013 JMMP
@@ -10,26 +10,33 @@
  var mapStyles;
  var mc;
  var markersLatLng = [];
- var filters = [
- ["city", ""],
- ["name", ""],
- ["zipcode", ""],
- ["year", ""],
- ["major", ""]];
- var xmlhttpMarkers;
- var xmlhttpMenus;
- var mapID = "#js-map";
- var resultsID = "#js-results";
- var resultsInnerID = "#js-results-inner";
- var resultsHideID = "#js-results-hide";
- var resultsShowID = "#js-results-show";
- var menuCityID = "#js-menu-city";
- var menuYearID = "#js-menu-year";
- var menuMajorID = "#js-menu-major";
- var noresultsID = "#js-noresults";
- var toggleClustersID = "#js-toggle-clusters";
- var loadingID = "#js-loading-overlay";
- var markerBuffer = 0.0035;
+ var filters2 = {
+  "city": "",
+  "name": "",
+  "zipcode": "",
+  "year": "",
+  "major": ""
+}
+var filters = [
+["city", ""],
+["name", ""],
+["zipcode", ""],
+["year", ""],
+["major", ""]];
+var xmlhttpMarkers;
+var xmlhttpMenus;
+var mapID = "#js-map";
+var resultsID = "#js-results";
+var resultsInnerID = "#js-results-inner";
+var resultsHideID = "#js-results-hide";
+var resultsShowID = "#js-results-show";
+var menuCityID = "#js-menu-city";
+var menuYearID = "#js-menu-year";
+var menuMajorID = "#js-menu-major";
+var noresultsID = "#js-noresults";
+var toggleClustersID = "#js-toggle-clusters";
+var loadingID = "#js-loading-overlay";
+var markerBuffer = 0.0035;
 // var gc; // OLD
 
 $(document).ready(function() {
@@ -127,8 +134,8 @@ function loadMap() {
     }
   });
   getMenu("city");
-  // getMenu("year");
-  // getMenu("major");
+  getMenu("year");
+  getMenu("major");
 }
 
 function populate() {
@@ -140,17 +147,15 @@ function populate(filter, input) {
   setFilter(filter, input);
   $(resultsInnerID).html("");
   clearMarkers();
-  createXMLHttpRequest(function() {
-    var xmlDoc = xmlhttpMarkers.responseXML;
-    var alumni = xmlDoc.getElementsByTagName("alumnus");
+
+  $.get("getAlumni.php" + getRequest(), {}, function(data, status) {
+    var alumni = data.getElementsByTagName("alumnus");
     for (i = 0; i < alumni.length; i++) {
       createMarker(alumni[i]);
     }
     setBounds();
+    $(loadingID).fadeOut();
   });
-
-  xmlhttpMarkers.open("GET", "getAlumni.php" + getRequest(), true);
-  xmlhttpMarkers.send();
 }
 
 function setFilter(filter, input) {
@@ -198,7 +203,16 @@ function createMarker(alumni) {
   if (alumni.hasAttribute("First_Name") && alumni.hasAttribute("Last_Name")) {
     var firstName = alumni.getAttribute("First_Name");
     var lastName = alumni.getAttribute("Last_Name");
-    infoHTML += firstName + " " + lastName  + "<br />";
+    infoHTML += firstName + " " + lastName;
+    if (alumni.hasAttribute("Class_Year")) {
+      var year = alumni.getAttribute("Class_Year");
+      infoHTML += ", " + year;
+      if (alumni.hasAttribute("School_Code")) {
+        var school = alumni.getAttribute("School_Code");
+        infoHTML += " " + school;
+      }
+    }
+    infoHTML += "<br />";
   }
 
   if (alumni.hasAttribute("Business_Street1")) {
@@ -333,76 +347,29 @@ function getRequest() {
 }
 
 
-//
-//
-//
-//     _,gggggg,_                                 ,gggg,                                    
-//   ,d8P""d8P"Y8b,    ,dPYb,         8I        ,88"""Y8b,                      8I          
-//  ,d8'   Y8   "8b,dP IP'`Yb         8I       d8"     `Y8                      8I          
-//  d8'    `Ybaaad88P' I8  8I         8I      d8'   8b  d8                      8I          
-//  8P       `""""Y8   I8  8'         8I     ,8I    "Y88P'                      8I          
-//  8b            d8   I8 dP    ,gggg,8I     I8'             ,ggggg,      ,gggg,8I   ,ggg,  
-//  Y8,          ,8P   I8dP    dP"  "Y8I     d8             dP"  "Y8ggg  dP"  "Y8I  i8" "8i 
-//  `Y8,        ,8P'   I8P    i8'    ,8I     Y8,           i8'    ,8I   i8'    ,8I  I8, ,8I 
-//   `Y8b,,__,,d8P'   ,d8b,_ ,d8,   ,d8b,    `Yba,,_____, ,d8,   ,d8'  ,d8,   ,d8b, `YbadP' 
-//     `"Y8888P"'     8P'"Y88P"Y8888P"`Y8      `"Y8888888 P"Y8888P"    P"Y8888P"`Y8888P"Y888
-//
-//
-//
-
-function createXMLHttpRequest(callback) {
-  if (window.XMLHttpRequest) {
-    // IE7+, Firefox, Chrome, Opera, Safari
-    xmlhttpMarkers = new XMLHttpRequest();
-  } else {
-    // IE6, IE5
-    xmlhttpMarkers = new ActiveXObject("Microsoft.XMLHTTP");
-  }
-
-  xmlhttpMarkers.onreadystatechange = function() {
-    if (xmlhttpMarkers.readyState == 4 && xmlhttpMarkers.status == 200) {
-      callback();
-      $(loadingID).fadeOut();
-    }
-  };
-}
-
 function getMenu(menu) {
-  if (window.XMLHttpRequest) {
-    // IE7+, Firefox, Chrome, Opera, Safari
-    xmlhttpMenus = new XMLHttpRequest();
-  } else {
-    // IE6, IE5
-    xmlhttpMenus = new ActiveXObject("Microsoft.XMLHTTP");
-  }
-
-  xmlhttpMenus.onreadystatechange = function() {
-    if (xmlhttpMenus.readyState == 4 && xmlhttpMenus.status == 200) {
-      if (menu == "city") {
-        $(menuCityID).html(xmlhttpMenus.responseText);
-        $(menuCityID).prepend("<li class=\"active\"><a onclick=\"populate('city', '')\">None</a></li><li class=\"divider\"></li>");
-        $(menuCityID).children("li").click( function() {
-          $(menuCityID).children("li").removeClass("active");
-          $(this).addClass("active");
-        });
-      } else if (menu == "year") {
-        $(menuYearID).html(xmlhttpMenus.responseText);
-        $(menuYearID).prepend("<li class=\"active\"><a onclick=\"populate('year', '')\">None</a></li><li class=\"divider\"></li>");
-        $(menuYearID).children("li").click( function() {
-          $(menuYearID).children("li").removeClass("active");
-          $(this).addClass("active");
-        });
-      } else if (menu == "major") {
-        $(menuMajorID).html(xmlhttpMenus.responseText);
-        $(menuMajorID).prepend("<li class=\"active\"><a onclick=\"populate('major', '')\">None</a></li><li class=\"divider\"></li>");
-        $(menuMajorID).children("li").click( function() {
-          $(menuMajorID).children("li").removeClass("active");
-          $(this).addClass("active");
-        });
-      }
+  $.get("getMenu.php?menu=" + menu, {}, function(data, status) {
+    if (menu == "city") {
+      $(menuCityID).html(data);
+      $(menuCityID).prepend("<li class=\"active\"><a onclick=\"populate('city', '')\">All</a></li><li class=\"divider\"></li>");
+      $(menuCityID).children("li").click( function() {
+        $(menuCityID).children("li").removeClass("active");
+        $(this).addClass("active");
+      });
+    } else if (menu == "year") {
+      $(menuYearID).html(data);
+      $(menuYearID).prepend("<li class=\"active\"><a onclick=\"populate('year', '')\">All</a></li><li class=\"divider\"></li>");
+      $(menuYearID).children("li").click( function() {
+        $(menuYearID).children("li").removeClass("active");
+        $(this).addClass("active");
+      });
+    } else if (menu == "major") {
+      $(menuMajorID).html(data);
+      $(menuMajorID).prepend("<li class=\"active\"><a onclick=\"populate('major', '')\">All</a></li><li class=\"divider\"></li>");
+      $(menuMajorID).children("li").click( function() {
+        $(menuMajorID).children("li").removeClass("active");
+        $(this).addClass("active");
+      });
     }
-  };
-
-  xmlhttpMenus.open("GET", "getMenu.php?menu=" + menu, true);
-  xmlhttpMenus.send();
+  });
 }
