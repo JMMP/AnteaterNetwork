@@ -1,6 +1,6 @@
 <?php
 /*
- * Anteater Network v12.1
+ * Anteater Network v12.2
  * http://git.io/antnet
  *
  * Copyright 2013 JMMP
@@ -14,15 +14,9 @@ $node = $xmlDoc->createElement("alumni");
 $parnode = $xmlDoc->appendChild($node);
 
 // Opens a connection to a MySQL server
-$connection = mysql_connect($ip, $username, $password);
-if (!$connection) {
-   die("Not connected : " . mysql_error());
-}
-
-// Set the active MySQL database
-$db_selected = mysql_select_db($database, $connection);
-if (!$db_selected) {
-   die("Can\'t use db : " . mysql_error());
+$mysqli = mysqli_connect($ip, $username, $password, $database);
+if (mysqli_connect_errno($mysqli)) {
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }
 
 // Select all the rows in the markers table
@@ -39,26 +33,36 @@ if (!empty($_GET) && !isset($_GET["geocode"])) {
    if (isset($_GET["name"])) {
       if ($selectRequest != "")
          $selectRequest .= " AND ";
-      $selectRequest .= "`Business_Name` LIKE '" . $_GET["name"] . "%'";
+      $selectRequest .= "`Business_Name` LIKE '%" . mysqli_escape_string($mysqli, $_GET["name"]) . "%'";
    }
    if (isset($_GET["zipcode"])) {
       if ($selectRequest != "")
          $selectRequest .= " AND ";
       $selectRequest .= "`Business_Zipcode` = '" . $_GET["zipcode"] . "'";
    }
+   if (isset($_GET["major"])) {
+      if ($selectRequest != "")
+         $selectRequest .= " AND ";
+      $selectRequest .= "`School_Code` = '" . $_GET["major"] . "'";
+   }
+   if (isset($_GET["year"])) {
+      if ($selectRequest != "")
+         $selectRequest .= " AND ";
+      $selectRequest .= "`Class_Year` = '" . $_GET["year"] . "'";
+   }
 }
 
 $selectRequest .= " ORDER BY `Business_Name`";
 
-$selectResult = mysql_query($selectQuery . $selectRequest);
+$selectResult = mysqli_query($mysqli, $selectQuery . $selectRequest);
 
 if (!$selectResult) {
-   die("Invalid query: " . mysql_error());
+   die("Invalid query: " . mysqli_error());
 }
 
 // Geocoding
 if ($_GET["geocode"] == "true") {
-   while ($row = @mysql_fetch_assoc($selectResult)) {
+   while ($row = mysqli_fetch_assoc($selectResult)) {
       if (is_null($row["Business_Lat"]) || $row["Business_Lat"] !== 0) {
          $id = $row["ID_Number"];
 
@@ -91,21 +95,21 @@ if ($_GET["geocode"] == "true") {
             die("Geocode was not successful for the following reason: " . $status);
          }
          $updateQuery = "UPDATE `AntNet_Alumni` SET `Business_Lat` = " . $lat . ", `Business_Lng` = " . $lng . " WHERE `ID_Number` = " . $id;
-         mysql_query($updateQuery);         
+         mysqli_query($mysqli, $updateQuery);         
       }
    }
    echo "All addresses geocoded!";
-}
 
-$selectResult = mysql_query($selectQuery . $selectRequest);
+   $selectResult = mysqli_query($mysqli, $selectQuery . $selectRequest);
 
-if (!$selectResult) {
-   die("Invalid query: " . mysql_error());
+   if (!$selectResult) {
+      die("Invalid query: " . mysqli_error());
+   }
 }
 
 // Iterate through the rows, adding XML nodes for each
-header("Content-type: text/xml");
-while ($row = @mysql_fetch_assoc($selectResult)) {
+header("Content-type:text/xml");
+while ($row = mysqli_fetch_assoc($selectResult)) {
    // Add to XML document node
    $node = $xmlDoc->createElement("alumnus");
    $newnode = $parnode->appendChild($node);
@@ -132,6 +136,5 @@ while ($row = @mysql_fetch_assoc($selectResult)) {
 
 echo $xmlDoc->saveXML();
 
-
-mysql_close($connection);
+mysqli_close($mysqli);
 ?>

@@ -1,11 +1,12 @@
 /*
- * Anteater Network v12.1
+ * Anteater Network v12.2
  * http://git.io/antnet
  *
  * Copyright 2013 JMMP
  */
 
 body {
+  background-color: #fefefe;
   font-family: 'Helvetica', Arial, sans-serif;
 }
 
@@ -107,9 +108,8 @@ img {
 }
 
 .infoWindow-heading {
-  background-color: #e8e8e8;
-  border-radius: 4px;
-	text-transform: uppercase;
+  /*background-color: #e8e8e8;*/
+  text-transform: uppercase;
   padding: 10px 5px;
   text-align: center;
   
@@ -117,6 +117,8 @@ img {
 
 .infoWindow-body {
 	text-align: center;
+	background-color: #e8e8e8;
+	border-radius: 4px;
 }
 
 .nav {
