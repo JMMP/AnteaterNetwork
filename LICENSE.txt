@@ -3,4 +3,4 @@ css/fontello.css
     Author:    Crowdsourced, for Fontello project
     License:   SIL (http://scripts.sil.org/OFL)
 
-
+All files are Copyright 2013 [JMMP](https://github.com/JMMP) unless otherwise stated. Please ask for permission to use any of the contents by submitting an issue for this repository at http://git.io/antnet. Thank you!

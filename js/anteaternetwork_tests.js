@@ -17,7 +17,8 @@
 function appendDivs() {
   var $fixture = $("#qunit-fixture");
   $fixture.append("<div id='js-map' style='width: 50%, height: 50px'></div>");
-  $fixture.append("<div id='js-sidenav-inner'><div id='js-menu-city'></div></div>");
+  $fixture.append("<ul id='sidenav'><div id='js-sidenav-inner'></div></ul>");
+  $fixture.append("<div id='js-menu-city'></div>");
 }
 
 
@@ -41,30 +42,17 @@ test("Load Google Maps object", function() {
   expect(2);
 
   stop();
-  // gmap.map?
-  google.maps.event.addListenerOnce(map.map, "tilesloaded", function() {
+  google.maps.event.addListenerOnce(gmap.map, "tilesloaded", function() {
     ok(true, "Maps loaded");
     start();
   });
 });
 
-
-module("XML HTTP");
-
-test("Create XML HTTP Request", function() {
-  expect(1);
-  createXMLHttpRequest(ok(true, "XML HTTP request created"));
-});
-
 module("Markers", {
   setup: function() {
+    $.holdReady(true);
     appendDivs();
-    createXMLHttpRequest(function () {
-      xmlDoc = xmlhttp.responseXML;
-    });
-
-    var $fixture = $("#qunit-fixture");
-    $fixture.append("<ul id='sidenav'></ul>");
+    $.holdReady(false);
     ok(true, "Setup");
   },
   teardown: function() {
@@ -77,15 +65,15 @@ module("Markers", {
 
 test("Count markers", function() {
   expect(4);
-  ok(map.markers != null, "Markers array exists");
-  ok(map.markers.length > 1, "Markers array length");
+  ok(gmap.markers != null, "Markers array exists");
+  ok(gmap.markers.length > 1, "Markers array length");
 });
 
 test("Validate markers", function() {
   expect(6);
   for (var n = 0; n < 2; n++) {
-    var i = Math.floor(Math.random() * map.markers.length);
-    var latlng = map.markers[i].getPosition();
+    var i = Math.floor(Math.random() * gmap.markers.length);
+    var latlng = gmap.markers[i].getPosition();
     equal(typeof latlng.lat(), "number", "Marker latitude is number");
     equal(typeof latlng.lng(), "number", "Marker longitude is number");
   }
@@ -96,7 +84,7 @@ test("Clear all markers", function() {
   expect(4);
   clearMarkers();
 
-  deepEqual([], map.markers, "Empty markers array");
+  deepEqual([], gmap.markers, "Empty markers array");
   deepEqual([], markersLatLng, "Empty markersLatLng array");
 });
 
