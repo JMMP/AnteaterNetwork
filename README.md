@@ -37,12 +37,19 @@
 
 
 ### Changelog
-##### Version 12.2 February XX, 2013
+##### Version 13.0 February XX, 2013
+1. 
+
+##### Version 12.2 February 12, 2013
 1. Converted XMLHttpRequests to use jQuery AJAX calls. Fixed [issue #99](https://github.com/JMMP/AnteaterNetwork/issues/99).
 * Added searching by school/major and class year.
 * Fixed filters for major and class year. Fixed [issue #109]https://github.com/JMMP/AnteaterNetwork/issues/109).
 * Coverted PHP MySQL API from [mysql](http://www.php.net/manual/en/book.mysql.php) to [mysqli](http://www.php.net/manual/en/book.mysqli.php). See [this](http://www.php.net/manual/en/mysqlinfo.api.choosing.php) for a comparison of the different MySQL APIs PHP offers.
-* Escaped special characters in strings for SQL statements sent to database. Fixed [issue #78]https://github.com/JMMP/AnteaterNetwork/issues/78).
+* Escaped special characters in strings for SQL statements sent to database. Fixed [issue #78](https://github.com/JMMP/AnteaterNetwork/issues/78).
+* Implemented sleep function to geocoding in order to avoid hitting Google's rate limit. Fixed [issue #108](https://github.com/JMMP/AnteaterNetwork/issues/108).
+* Move geocoding to separate file and clean up code. Fixed [issue #102](https://github.com/JMMP/AnteaterNetwork/issues/102).
+* Updated QUnit JavaScript unit tests.
+* Fixed [issue #113](https://github.com/JMMP/AnteaterNetwork/issues/113).
 
 ##### Version 12.1 February 6, 2013
 1. Fixed highlighting in results list. Fixed [issue #101](https://github.com/JMMP/AnteaterNetwork/issues/101).
