@@ -20,96 +20,50 @@ if (mysqli_connect_errno($mysqli)) {
 }
 
 // Select all the rows in the markers table
-$selectQuery = "SELECT * FROM `AntNet_Alumni`";
-$selectRequest = "";
+$query = "SELECT * FROM " . $table;
+$request = "";
 
 if (!empty($_GET) && !isset($_GET["geocode"])) {
-   $selectQuery .= " WHERE ";
+   $query .= " WHERE ";
    if (isset($_GET["city"])) {
-      if ($selectRequest != "")
-         $selectRequest .= " AND ";
-      $selectRequest .= "`Business_City` = '" . $_GET["city"] . "'";
+      if ($request != "")
+         $request .= " AND ";
+      $request .= "`Business_City` = '" . $_GET["city"] . "'";
    }
    if (isset($_GET["name"])) {
-      if ($selectRequest != "")
-         $selectRequest .= " AND ";
-      $selectRequest .= "`Business_Name` LIKE '%" . mysqli_escape_string($mysqli, $_GET["name"]) . "%'";
+      if ($request != "")
+         $request .= " AND ";
+      $request .= "`Business_Name` LIKE '%" . mysqli_escape_string($mysqli, $_GET["name"]) . "%'";
    }
    if (isset($_GET["zipcode"])) {
-      if ($selectRequest != "")
-         $selectRequest .= " AND ";
-      $selectRequest .= "`Business_Zipcode` = '" . $_GET["zipcode"] . "'";
+      if ($request != "")
+         $request .= " AND ";
+      $request .= "`Business_Zipcode` = '" . $_GET["zipcode"] . "'";
    }
    if (isset($_GET["major"])) {
-      if ($selectRequest != "")
-         $selectRequest .= " AND ";
-      $selectRequest .= "`School_Code` = '" . $_GET["major"] . "'";
+      if ($request != "")
+         $request .= " AND ";
+      $request .= "`School_Code` = '" . $_GET["major"] . "'";
    }
    if (isset($_GET["year"])) {
-      if ($selectRequest != "")
-         $selectRequest .= " AND ";
-      $selectRequest .= "`Class_Year` = '" . $_GET["year"] . "'";
+      if ($request != "")
+         $request .= " AND ";
+      $request .= "`Class_Year` = '" . $_GET["year"] . "'";
    }
 }
 
-$selectRequest .= " ORDER BY `Business_Name`";
+$request .= " ORDER BY `Business_Name`";
 
-$selectResult = mysqli_query($mysqli, $selectQuery . $selectRequest);
+$result = mysqli_query($mysqli, $query . $request);
 
-if (!$selectResult) {
+if (!$result) {
    die("Invalid query: " . mysqli_error());
 }
 
-// Geocoding
-if ($_GET["geocode"] == "true") {
-   while ($row = mysqli_fetch_assoc($selectResult)) {
-      if (is_null($row["Business_Lat"]) || $row["Business_Lat"] !== 0) {
-         $id = $row["ID_Number"];
-
-         // Build address
-         $address = $row["Business_Street1"];
-         if ($row["Business_City"] != "")
-            $address .= ", " . $row["Business_City"];
-         if ($row["Business_State"] != "")
-            $address .= ", " . $row["Business_State"];
-         if ($row["Business_Zipcode"] != "")
-            $address .= ", " . $row["Business_Zipcode"];
-         if ($row["Business_Country"] != "")
-            $address .= ", " . $row["Business_Country"];
-
-         // Geocode
-         $address = urlencode($address);
-         $geocodeURL = "http://maps.googleapis.com/maps/api/geocode/json?address=" . $address . "&sensor=false";
-         $geocodeResult = utf8_encode(file_get_contents($geocodeURL));
-         $geocodeResult = json_decode($geocodeResult, true);
-         $status = $geocodeResult["status"];
-         $location = $geocodeResult["results"][0]["geometry"]["location"];
-         if ($status == "OK") {
-            $lat = $location["lat"];
-            $lng = $location["lng"];
-         } else if ($status == "ZERO_RESULTS") {
-            echo $geocodeURL;
-            $lat = 0;
-            $lng = 0;
-         } else {
-            die("Geocode was not successful for the following reason: " . $status);
-         }
-         $updateQuery = "UPDATE `AntNet_Alumni` SET `Business_Lat` = " . $lat . ", `Business_Lng` = " . $lng . " WHERE `ID_Number` = " . $id;
-         mysqli_query($mysqli, $updateQuery);         
-      }
-   }
-   echo "All addresses geocoded!";
-
-   $selectResult = mysqli_query($mysqli, $selectQuery . $selectRequest);
-
-   if (!$selectResult) {
-      die("Invalid query: " . mysqli_error());
-   }
-}
 
 // Iterate through the rows, adding XML nodes for each
 header("Content-type:text/xml");
-while ($row = mysqli_fetch_assoc($selectResult)) {
+while ($row = mysqli_fetch_assoc($result)) {
    // Add to XML document node
    $node = $xmlDoc->createElement("alumnus");
    $newnode = $parnode->appendChild($node);

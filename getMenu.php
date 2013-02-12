@@ -27,7 +27,7 @@ if (isset($_GET["menu"])) {
         $column = "School_Code";
 } 
 
-$query = "SELECT DISTINCT `" . $column . "` FROM `AntNet_Alumni` ORDER BY `" . $column . "`";
+$query = "SELECT DISTINCT `" . $column . "` FROM " . $table . " ORDER BY `" . $column . "`";
 $result = mysqli_query($mysqli, $query);
 
 if (!$result) {
