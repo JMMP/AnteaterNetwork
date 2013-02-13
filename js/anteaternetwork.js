@@ -191,9 +191,13 @@ function createMarker(alumni) {
 
   if (alumni.hasAttribute("Business_Name")) {
     busName = alumni.getAttribute("Business_Name");
+    // Show "(No Title" if business does not have title and do not pass it to Google Maps directions
+    if (busName == "" || busName == " " || busName == "***")
+      busName = "(No Title)";
+    else
+      address += busName + ", ";
     sideItem.innerHTML = "<strong>" + busName + "</strong><br />";
     infoHTML += "<h2 class='infoWindow-heading'>" + busName + "</h2>";
-    address += busName + ", ";
   }
 
   infoHTML += "<div class='infoWindow-body'>";
