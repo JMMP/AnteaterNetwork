@@ -13,7 +13,7 @@ if (mysqli_connect_errno($mysqli)) {
   echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }
 
-if (isset($_GET["menu"])) {
+if (isset($_GET["menu"]) && preg_match("*[a-zA-Z]*", $_GET["menu"])) {
     $filter = $_GET["menu"];
     if ($filter == "city")
         $column = "Business_City";

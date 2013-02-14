@@ -40,6 +40,7 @@
 ##### Version 13.0 February XX, 2013
 1. Display "(No Title)" for businesses without a name. Fixed [issue #100](https://github.com/JMMP/AnteaterNetwork/issues/100).
 * Center map on USA on first load. Fixed [issue #115](https://github.com/JMMP/AnteaterNetwork/issues/115).
+* Implement PHP variable validation to prevent against SQL injections.
 
 ##### Version 12.2 February 12, 2013
 1. Converted XMLHttpRequests to use jQuery AJAX calls. Fixed [issue #99](https://github.com/JMMP/AnteaterNetwork/issues/99).

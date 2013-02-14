@@ -25,27 +25,27 @@ $request = "";
 
 if (!empty($_GET) && !isset($_GET["geocode"])) {
    $query .= " WHERE ";
-   if (isset($_GET["city"])) {
+   if (isset($_GET["city"]) && preg_match("*[a-zA-Z]*", $_GET["city"])) {
       if ($request != "")
          $request .= " AND ";
       $request .= "`Business_City` = '" . $_GET["city"] . "'";
    }
-   if (isset($_GET["name"])) {
+   if (isset($_GET["name"]) && preg_match("*[a-zA-Z]*", $_GET["name"])) {
       if ($request != "")
          $request .= " AND ";
       $request .= "`Business_Name` LIKE '%" . mysqli_escape_string($mysqli, $_GET["name"]) . "%'";
    }
-   if (isset($_GET["zipcode"])) {
+   if (isset($_GET["zipcode"]) && is_numeric($_GET["zipcode"])) {
       if ($request != "")
          $request .= " AND ";
       $request .= "`Business_Zipcode` = '" . $_GET["zipcode"] . "'";
    }
-   if (isset($_GET["major"])) {
+   if (isset($_GET["major"]) && preg_match("*[a-zA-Z]*", $_GET["major"])) {
       if ($request != "")
          $request .= " AND ";
       $request .= "`School_Code` = '" . $_GET["major"] . "'";
    }
-   if (isset($_GET["year"])) {
+   if (isset($_GET["year"]) && is_numeric($_GET["year"])) {
       if ($request != "")
          $request .= " AND ";
       $request .= "`Class_Year` = '" . $_GET["year"] . "'";
@@ -57,7 +57,7 @@ $request .= " ORDER BY `Business_Name`";
 $result = mysqli_query($mysqli, $query . $request);
 
 if (!$result) {
-   die("Invalid query: " . mysqli_error());
+   die("Invalid query: (" . $request . ") " . mysqli_error());
 }
 
 
