@@ -16,13 +16,8 @@
   "zipcode": "",
   "year": "",
   "major": ""
-}
-var filters = [
-["city", ""],
-["name", ""],
-["zipcode", ""],
-["year", ""],
-["major", ""]];
+};
+var filters = [["city", ""], ["name", ""], ["zipcode", ""], ["year", ""], ["major", ""]];
 var mapID = "#js-map";
 var resultsID = "#js-results";
 var resultsInnerID = "#js-results-inner";
@@ -35,6 +30,7 @@ var noresultsID = "#js-noresults";
 var toggleClustersID = "#js-toggle-clusters";
 var loadingID = "#js-loading-overlay";
 var markerBuffer = 0.0035;
+var firstLoad = true;
 
 $(document).ready(function() {
   loadMap();
@@ -51,24 +47,29 @@ $(document).ready(function() {
     }
   });
 
-  $(resultsHideID).click(function(e) {
-    $(resultsID).hide("drop", function() {
-      $(resultsID).removeClass("span3");
-      $(resultsShowID).show();
-      $(mapID).css("margin-left", 0);
-      $(mapID).attr("class", "span12");
-      gmap.refresh();
-    });
-  });
+  // $("#js-input-name2").select2({
+  //   multiple: true,
+  //   placeholder: "Search by name"
+  // });
 
-  $(resultsShowID).click(function(e) {
-    $(resultsShowID).hide("drop");
-    $(resultsID).addClass("span3");
-    $(mapID).attr("class", "span9");
-    $(mapID).css("margin-left", "");
-    $(resultsID).show("slide");
+$(resultsHideID).click(function(e) {
+  $(resultsID).hide("drop", function() {
+    $(resultsID).removeClass("span3");
+    $(resultsShowID).show();
+    $(mapID).css("margin-left", 0);
+    $(mapID).attr("class", "span12");
     gmap.refresh();
   });
+});
+
+$(resultsShowID).click(function(e) {
+  $(resultsShowID).hide("drop");
+  $(resultsID).addClass("span3");
+  $(mapID).attr("class", "span9");
+  $(mapID).css("margin-left", "");
+  $(resultsID).show("slide");
+  gmap.refresh();
+});
 });
 
 // Catch enter presses on main page
@@ -147,9 +148,8 @@ function populate(filter, input) {
 
   $.get("getAlumni.php" + getRequest(), {}, function(data, status) {
     var alumni = data.getElementsByTagName("alumnus");
-    for (i = 0; i < alumni.length; i++) {
+    for (i = 0; i < alumni.length; i++)
       createMarker(alumni[i]);
-    }
     setBounds();
     checkResults();
     $(loadingID).fadeOut();
@@ -164,11 +164,11 @@ function setFilter(filter, input) {
 }
 
 function clearFilters() {
-  for (i in filters) {
+  for (i in filters)
     filters[i][1] = "";
-  }
   $("[id^='js-menu-']").children("li").removeClass();
   $("[id^='js-input-'], textarea").val("");
+  firstLoad = true;
   populate();
 }
 
@@ -185,76 +185,75 @@ function createMarker(alumni) {
   var infoHTML = "<div class='infoWindow-inner'>";
   var address = "";
 
-  if (alumni.hasAttribute("ID_Number")) {
+  if (alumni.hasAttribute("ID_Number"))
     id = alumni.getAttribute("Business_Name");
-  }
 
   if (alumni.hasAttribute("Business_Name")) {
     busName = alumni.getAttribute("Business_Name");
     // Show "(No Title" if business does not have title and do not pass it to Google Maps directions
-    if (busName == "" || busName == " " || busName == "***")
-      busName = "(No Title)";
-    else
-      address += busName + ", ";
-    sideItem.innerHTML = "<strong>" + busName + "</strong><br />";
-    infoHTML += "<h2 class='infoWindow-heading'>" + busName + "</h2>";
-  }
-
-  infoHTML += "<div class='infoWindow-body'>";
-
-  if (alumni.hasAttribute("First_Name") && alumni.hasAttribute("Last_Name")) {
-    var firstName = alumni.getAttribute("First_Name");
-    var lastName = alumni.getAttribute("Last_Name");
-    infoHTML += firstName + " " + lastName;
-    if (alumni.hasAttribute("Class_Year")) {
-      var year = alumni.getAttribute("Class_Year");
-      infoHTML += ", " + year;
-      if (alumni.hasAttribute("School_Code")) {
-        var school = alumni.getAttribute("School_Code");
-        infoHTML += " " + school;
-      }
+      if (busName === "" || busName === " " || busName === "***")
+        busName = "(No Title)";
+      else
+        address += busName + ", ";
+      sideItem.innerHTML = "<strong>" + busName + "</strong><br />";
+      infoHTML += "<h2 class='infoWindow-heading'>" + busName + "</h2>";
     }
+
+    infoHTML += "<div class='infoWindow-body'>";
+
+    if (alumni.hasAttribute("First_Name") && alumni.hasAttribute("Last_Name")) {
+      var firstName = alumni.getAttribute("First_Name");
+      var lastName = alumni.getAttribute("Last_Name");
+      infoHTML += firstName + " " + lastName;
+      if (alumni.hasAttribute("Class_Year")) {
+        var year = alumni.getAttribute("Class_Year");
+        infoHTML += ", " + year;
+        if (alumni.hasAttribute("School_Code")) {
+          var school = alumni.getAttribute("School_Code");
+          infoHTML += " " + school;
+        }
+      }
+      infoHTML += "<br />";
+    }
+
+    if (alumni.hasAttribute("Business_Street1")) {
+      var busStreet1 = alumni.getAttribute("Business_Street1");
+      sideHTML += busStreet1 + "<br />";
+      infoHTML += busStreet1 + "<br />";
+      address += busStreet1 + ", ";
+    }
+
+    if (alumni.hasAttribute("Business_City") && alumni.hasAttribute("Business_State")) {
+      var busCity = alumni.getAttribute("Business_City");
+      var busState = alumni.getAttribute("Business_State");
+      sideHTML += busCity + ", " + busState;
+      infoHTML += busCity + ", " + busState;
+      address += busCity + ", " + busState;
+    }
+
+    if (alumni.hasAttribute("Business_Zipcode")) {
+      var busZipcode = alumni.getAttribute("Business_Zipcode");
+      sideHTML += " " + busZipcode;
+      infoHTML += " " + busZipcode;
+      address += ", " + busZipcode;
+    }
+
+    sideHTML += "<br />";
     infoHTML += "<br />";
-  }
 
-  if (alumni.hasAttribute("Business_Street1")) {
-    var busStreet1 = alumni.getAttribute("Business_Street1");
-    sideHTML += busStreet1 + "<br />";
-    infoHTML += busStreet1 + "<br />";
-    address += busStreet1 + ", ";
-  }
+    if (alumni.hasAttribute("Business_Phone")) {
+      var busPhone = alumni.getAttribute("Business_Phone");
+      sideHTML += busPhone;
+      infoHTML += busPhone + "<br />";
+    }
 
-  if (alumni.hasAttribute("Business_City") && alumni.hasAttribute("Business_State")) {
-    var busCity = alumni.getAttribute("Business_City");
-    var busState = alumni.getAttribute("Business_State");
-    sideHTML += busCity + ", " + busState;
-    infoHTML += busCity + ", " + busState;
-    address += busCity + ", " + busState;
-  }
+    if (alumni.hasAttribute("Business_Lat") && alumni.hasAttribute("Business_Lng")) {
+      busLat = alumni.getAttribute("Business_Lat");
+      busLng = alumni.getAttribute("Business_Lng");
+    }
 
-  if (alumni.hasAttribute("Business_Zipcode")) {
-    var busZipcode = alumni.getAttribute("Business_Zipcode");
-    sideHTML += " " + busZipcode;
-    infoHTML += " " + busZipcode;
-    address += ", " + busZipcode;
-  }
-
-  sideHTML += "<br />";
-  infoHTML += "<br />";
-
-  if (alumni.hasAttribute("Business_Phone")) {
-    var busPhone = alumni.getAttribute("Business_Phone");
-    sideHTML += busPhone;
-    infoHTML += busPhone + "<br />";
-  }
-
-  if (alumni.hasAttribute("Business_Lat") && alumni.hasAttribute("Business_Lng")) {
-    busLat = alumni.getAttribute("Business_Lat");
-    busLng = alumni.getAttribute("Business_Lng");
-  }
-
-  sideDetails.innerHTML = sideHTML;
-  sideItem.appendChild(sideDetails);
+    sideDetails.innerHTML = sideHTML;
+    sideItem.appendChild(sideDetails);
 
   // Generate HTML list for the results list on the side
   sideListing.appendChild(sideItem);
@@ -262,7 +261,7 @@ function createMarker(alumni) {
   
   // Catch businesses with no latitude or longitude
   // Don't show these on the map but still list them in the results box
-  if ((busLat != "" || busLng != "") && (parseFloat(busLng) != 0 || parseFloat(busLng) != 0)) {
+  if ((busLat !== "" || busLng !== "") && (parseFloat(busLng) !== 0 || parseFloat(busLng) !== 0)) {
     var point = new google.maps.LatLng(parseFloat(busLat), parseFloat(busLng));
 
     var pointBufferedNE = new google.maps.LatLng(parseFloat(busLat) + markerBuffer, parseFloat(busLng) + markerBuffer);
@@ -303,17 +302,27 @@ function createMarker(alumni) {
 }
 
 function setBounds() {
-  if (markersLatLng.length != 0) {
+  if (markersLatLng.length !== 0) {
+    // Set bounds to United States on first load
+    if (firstLoad) {
+      var firstLoadBoundNE = new google.maps.LatLng(45.460131, -71.367188);
+      var firstLoadBoundSW = new google.maps.LatLng(33.137551, -124.628906);
+      markersLatLng = [];
+      markersLatLng.push(firstLoadBoundNE);
+      markersLatLng.push(firstLoadBoundSW);
+      firstLoad = false;
+    }
     gmap.fitLatLngBounds(markersLatLng);
+    return true;
   }
+  return false;
 }
 
 function checkResults() {
-  if ($(resultsInnerID).html != "") {
+  if ($(resultsInnerID).html !== "")
     $(noresultsID).hide();    
-  } else {
+  else
     $(noresultsID).show();
-  }
 }
 
 function clearMarkers() {
@@ -328,19 +337,19 @@ function toggleClusters(enable) {
   } else {
     mc.clearMarkers();    
     for (i in gmap.markers) {
-     gmap.markers[i].setVisible(true);
-     gmap.markers[i].setMap(gmap.map);
-   }
-   $(resultsInnerID).children("li").removeClass();
-   gmap.hideInfoWindows();
- }
+      gmap.markers[i].setVisible(true);
+      gmap.markers[i].setMap(gmap.map);
+    }
+    $(resultsInnerID).children("li").removeClass();
+    gmap.hideInfoWindows();
+  }
 }
 
 function getRequest() {
   var request = "";
   for (i in filters) {
-    if (filters[i][1] != "") {
-      if (request != "")
+    if (filters[i][1] !== "") {
+      if (request !== "")
         request += "&";
       request += filters[i][0] + "=" + filters[i][1];
     }

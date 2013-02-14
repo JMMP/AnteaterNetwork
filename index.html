@@ -6,6 +6,7 @@
   <link href="css/bootstrap.css" rel="stylesheet" media="screen">
   <link href="css/bootstrap-switch.css" rel="stylesheet" media="screen">
   <link href="css/jquery-ui.custom.css" rel="stylesheet" media="screen">
+  <link href="css/select2.css" rel="stylesheet" media="screen">
   <link href="css/fontello.css" rel="stylesheet" media="screen">
   <link href="css/anteaternetwork.css" rel="stylesheet" media="screen">
 </head>
@@ -44,7 +45,14 @@
             <form class="navbar-form" onsubmit="return false">
               <input class="input-medium" id="js-input-name" type="text" placeholder="Search" onKeyPress="if(enterPressed(event)){ populate('name', this.value) }">
               <input class="input-mini"  id="js-input-zipcode"type="text" pattern="\d*" placeholder="Zip Code" onKeyPress="if(enterPressed(event)){ populate('zipcode', this.value) }" />
+              <!--<select id="js-input-name2">
+                <option value="AL">Alabama</option>
+                <option value="CA">California</option>
+              </select>-->
             </form>
+          </li>
+          <li>
+
           </li>
           <li>
             <a rel="tooltip" title="Resets the map" data-placement="bottom" onclick="clearFilters(); populate();">Clear Filters</a>
@@ -105,6 +113,7 @@
   <script src="js/jquery-ui.custom.min.js"></script>
   <script src="js/gmaps.js"></script>
   <script src="js/markerclusterer.js"></script>
+  <script src="js/select2.min.js"></script>
   <script src="js/anteaternetwork.js"></script>
 </body>
 </html>
