@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Anteater Network v13.0
  * http://git.io/antnet
@@ -14,28 +15,28 @@ if (mysqli_connect_errno($mysqli)) {
 }
 
 if (isset($_GET["menu"]) && preg_match("*[a-zA-Z]*", $_GET["menu"])) {
-    $filter = $_GET["menu"];
-    if ($filter == "city")
-        $column = "Business_City";
-    if ($filter == "zipcode")
-        $column = "Business_Zipcode";
-    if ($filter == "state")
-        $column = "Business_State";
-    if ($filter == "year")
-        $column = "Class_Year";
-    if ($filter == "major")
-        $column = "School_Code";
-} 
+  $filter = $_GET["menu"];
+  if ($filter == "city")
+    $column = "Business_City";
+  if ($filter == "zipcode")
+    $column = "Business_Zipcode";
+  if ($filter == "state")
+    $column = "Business_State";
+  if ($filter == "year")
+    $column = "Class_Year";
+  if ($filter == "major")
+    $column = "School_Code";
+}
 
 $query = "SELECT DISTINCT `" . $column . "` FROM " . $table . " ORDER BY `" . $column . "`";
 $result = mysqli_query($mysqli, $query);
 
 if (!$result) {
-    die('Invalid query: ' . mysqli_error());
+  die("Invalid query (" . $query . "): " . mysqli_error());
 }
 
 while ($row = mysqli_fetch_array($result)) {
-    echo "<li><a onclick=\"populate(" . "'" . $filter . "', " . "'" . $row[$column] . "'" . ")\"><span>" . $row[$column] . "</span></a></li>";
+  echo "<li><a onclick=\"populate(" . "'" . $filter . "', " . "'" . $row[$column] . "'" . ")\"><span>" . $row[$column] . "</span></a></li>";
 }
 
 mysqli_close($mysqli);

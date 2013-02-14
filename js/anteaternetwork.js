@@ -47,29 +47,28 @@ $(document).ready(function() {
     }
   });
 
-  // $("#js-input-name2").select2({
-  //   multiple: true,
-  //   placeholder: "Search by name"
-  // });
+  $("#js-input-name2").select2({
+    placeholder: "Search by state"
+  });
 
-$(resultsHideID).click(function(e) {
-  $(resultsID).hide("drop", function() {
-    $(resultsID).removeClass("span3");
-    $(resultsShowID).show();
-    $(mapID).css("margin-left", 0);
-    $(mapID).attr("class", "span12");
+  $(resultsHideID).click(function(e) {
+    $(resultsID).hide("drop", function() {
+      $(resultsID).removeClass("span3");
+      $(resultsShowID).show();
+      $(mapID).css("margin-left", 0);
+      $(mapID).attr("class", "span12");
+      gmap.refresh();
+    });
+  });
+
+  $(resultsShowID).click(function(e) {
+    $(resultsShowID).hide("drop");
+    $(resultsID).addClass("span3");
+    $(mapID).attr("class", "span9");
+    $(mapID).css("margin-left", "");
+    $(resultsID).show("slide");
     gmap.refresh();
   });
-});
-
-$(resultsShowID).click(function(e) {
-  $(resultsShowID).hide("drop");
-  $(resultsID).addClass("span3");
-  $(mapID).attr("class", "span9");
-  $(mapID).css("margin-left", "");
-  $(resultsID).show("slide");
-  gmap.refresh();
-});
 });
 
 // Catch enter presses on main page
@@ -146,7 +145,7 @@ function populate(filter, input) {
   $(resultsInnerID).html("");
   clearMarkers();
 
-  $.get("getAlumni.php" + getRequest(), {}, function(data, status) {
+  $.get("getAlumni.php?filters&" + getRequest(), {}, function(data, status) {
     var alumni = data.getElementsByTagName("alumnus");
     for (i = 0; i < alumni.length; i++)
       createMarker(alumni[i]);
@@ -190,9 +189,9 @@ function createMarker(alumni) {
 
   if (alumni.hasAttribute("Business_Name")) {
     busName = alumni.getAttribute("Business_Name");
-    // Show "(No Title" if business does not have title and do not pass it to Google Maps directions
+    // Do not show business if it does not have a name
       if (busName === "" || busName === " " || busName === "***")
-        busName = "(No Title)";
+        return false;
       else
         address += busName + ", ";
       sideItem.innerHTML = "<strong>" + busName + "</strong><br />";
@@ -354,7 +353,7 @@ function getRequest() {
       request += filters[i][0] + "=" + filters[i][1];
     }
   }
-  return "?" + request;
+  return request;
 }
 
 
