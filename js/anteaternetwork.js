@@ -48,7 +48,9 @@ $(document).ready(function() {
   });
 
   $("#js-input-name2").select2({
-    placeholder: "Search by state"
+    multiple: true,
+    placeholder: "Search by state",
+    tokenSeperators: [",", " "]
   });
 
   $(resultsHideID).click(function(e) {
