@@ -21,44 +21,51 @@ if (mysqli_connect_errno($mysqli)) {
 }
 
 // Select all the rows in the markers table
-$query = "SELECT * FROM " . $table;
+$query = "SELECT * FROM `" . $table . "`";
 $request = "";
 
 if (isset($_GET["filters"])) {
-  if (isset($_GET["city"]) && preg_match("*[a-zA-Z]*", $_GET["city"])) {
-    $request .= "`Business_City` = '" . $_GET["city"] . "'";
+  if (isset($_GET["search"]) && preg_match("%[a-zA-Z0-9\+\*\-\.\, ]*%", $_GET["search"])) {
+    // Get columns indexed by FULLTEXT
+    $query = "SELECT GROUP_CONCAT( DISTINCT column_name ) FROM information_schema.STATISTICS WHERE table_schema = '" . $database . "' AND table_name = '" . $table . "' AND index_type =  'FULLTEXT'";
+    $result = mysqli_fetch_assoc(mysqli_query($mysqli, $query));
+    $columns = $result["GROUP_CONCAT( DISTINCT column_name )"];
+    $query = "SELECT * FROM `" . $table . "` WHERE ";
+    $request = "MATCH(" . $columns . ") AGAINST ('" . mysqli_escape_string($mysqli, $_GET["search"]) . "' IN BOOLEAN MODE)";
+  } else {
+    if (isset($_GET["city"]) && preg_match("%[a-zA-Z ]*%", $_GET["city"])) {
+      $request .= "`Business_City` = '" . $_GET["city"] . "'";
+    }
+    if (isset($_GET["name"]) && preg_match("%[a-zA-Z ]*%", $_GET["name"])) {
+      if ($request !== "")
+        $request .= " AND ";
+      $request .= "`Business_Name` LIKE '%" . mysqli_escape_string($mysqli, $_GET["name"]) . "%'";
+    }
+    if (isset($_GET["zipcode"]) && preg_match("%[\d\-]*%", $_GET["zipcode"])) {
+      if ($request !== "")
+        $request .= " AND ";
+      $request .= "`Business_Zipcode` LIKE '" . $_GET["zipcode"] . "%'";
+    }
+    if (isset($_GET["major"]) && preg_match("%[a-zA-Z ]*%", $_GET["major"])) {
+      if ($request !== "")
+        $request .= " AND ";
+      $request .= "`School_Code` = '" . $_GET["major"] . "'";
+    }
+    if (isset($_GET["year"]) && is_numeric($_GET["year"])) {
+      if ($request !== "")
+        $request .= " AND ";
+      $request .= "`Class_Year` = '" . $_GET["year"] . "'";
+    }
+    if ($request != "")
+      $query .= " WHERE ";
+    $request .= " ORDER BY `Business_Name`";
   }
-  if (isset($_GET["name"]) && preg_match("*[a-zA-Z]*", $_GET["name"])) {
-    if ($request !== "")
-      $request .= " AND ";
-    $request .= "`Business_Name` LIKE '%" . mysqli_escape_string($mysqli, $_GET["name"]) . "%'";
-  }
-  if (isset($_GET["zipcode"]) && is_numeric($_GET["zipcode"])) {
-    if ($request !== "")
-      $request .= " AND ";
-    $request .= "`Business_Zipcode` LIKE '" . $_GET["zipcode"] . "%'";
-  }
-  if (isset($_GET["major"]) && preg_match("*[a-zA-Z]*", $_GET["major"])) {
-    if ($request !== "")
-      $request .= " AND ";
-    $request .= "`School_Code` = '" . $_GET["major"] . "'";
-  }
-  if (isset($_GET["year"]) && is_numeric($_GET["year"])) {
-    if ($request !== "")
-      $request .= " AND ";
-    $request .= "`Class_Year` = '" . $_GET["year"] . "'";
-  }
-  if ($request != "")
-    $query .= " WHERE ";
-  $request .= " ORDER BY `Business_Name`";
-
-  $result = mysqli_query($mysqli, $query . $request);
+  $result = mysqli_query($mysqli, $query . $request); 
 }
 
 if (!$result) {
   die("Invalid query (" . $query . $request . "): " . mysqli_error());
 }
-
 
 // Iterate through the rows, adding XML nodes for each
 header("Content-type:text/xml");

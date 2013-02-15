@@ -17,7 +17,7 @@ if (mysqli_connect_errno($mysqli)) {
 }
 
 // Send query to database
-$query = "SELECT * FROM " . $table;
+$query = "SELECT * FROM `" . $table . "`";
 $result = mysqli_query($mysqli, $query);
 
 if (!$result) {
@@ -67,7 +67,7 @@ while ($row = mysqli_fetch_assoc($result)) {
       } else {
          die("<p>Geocoded " . $count . " addresses. Geocode was not successful: " . $status . "</p>");
       }
-      $updateQuery = "UPDATE " . $table . " SET `Business_Lat` = " . $lat . ", `Business_Lng` = " . $lng . " WHERE `ID_Number` = " . $id;
+      $updateQuery = "UPDATE `" . $table . "` SET `Business_Lat` = " . $lat . ", `Business_Lng` = " . $lng . " WHERE `ID_Number` = " . $id;
       mysqli_query($mysqli, $updateQuery);
       $count++;
 

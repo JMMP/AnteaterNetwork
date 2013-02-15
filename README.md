@@ -41,6 +41,8 @@
 1. Display "(No Title)" for businesses without a name. Fixed [issue #100](https://github.com/JMMP/AnteaterNetwork/issues/100).
 * Center map on USA on first load. Fixed [issue #115](https://github.com/JMMP/AnteaterNetwork/issues/115).
 * Implement PHP variable validation to prevent against SQL injections.
+* Businesses without a name will not be displayed.
+* Added free search. Fixed [issue #68](https://github.com/JMMP/AnteaterNetwork/issues/68).
 
 ##### Version 12.2 February 12, 2013
 1. Converted XMLHttpRequests to use jQuery AJAX calls. Fixed [issue #99](https://github.com/JMMP/AnteaterNetwork/issues/99).
@@ -51,7 +53,7 @@
 * Implemented sleep function to geocoding in order to avoid hitting Google's rate limit. Fixed [issue #108](https://github.com/JMMP/AnteaterNetwork/issues/108).
 * Move geocoding to separate file and clean up code. Fixed [issue #102](https://github.com/JMMP/AnteaterNetwork/issues/102).
 * Updated QUnit JavaScript unit tests.
-* Fixed [issue #113](https://github.com/JMMP/AnteaterNetwork/issues/113).
+* Check for no results using the results list. Fixed [issue #113](https://github.com/JMMP/AnteaterNetwork/issues/113).
 
 ##### Version 12.1 February 6, 2013
 1. Fixed highlighting in results list. Fixed [issue #101](https://github.com/JMMP/AnteaterNetwork/issues/101).
@@ -198,6 +200,7 @@ Username: UCI-ICS\username
 [bootstrap-tour](https://github.com/sorich87/bootstrap-tour)  
 [bootstrap-switch](https://github.com/nostalgiaz/bootstrap-switch)  
 [PHP MySQL Improved Extension](http://www.php.net/manual/en/book.mysqli.php)  
+[Alternative Geocoder](http://datasciencetoolkit.org)
 
 ##### Facebook Like Button
 <https://developers.facebook.com/docs/reference/plugins/like/>

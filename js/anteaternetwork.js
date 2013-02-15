@@ -17,7 +17,7 @@
   "year": "",
   "major": ""
 };
-var filters = [["city", ""], ["name", ""], ["zipcode", ""], ["year", ""], ["major", ""]];
+var filters = [["city", ""], ["name", ""], ["zipcode", ""], ["year", ""], ["major", ""], ["search", ""]];
 var mapID = "#js-map";
 var resultsID = "#js-results";
 var resultsInnerID = "#js-results-inner";
@@ -190,69 +190,69 @@ function createMarker(alumni) {
   if (alumni.hasAttribute("Business_Name")) {
     busName = alumni.getAttribute("Business_Name");
     // Do not show business if it does not have a name
-      if (busName === "" || busName === " " || busName === "***")
-        return false;
-      else
-        address += busName + ", ";
-      sideItem.innerHTML = "<strong>" + busName + "</strong><br />";
-      infoHTML += "<h2 class='infoWindow-heading'>" + busName + "</h2>";
-    }
+    if (busName === "" || busName === " " || busName === "***")
+      return false;
+    else
+      address += busName + ", ";
+    sideItem.innerHTML = "<strong>" + busName + "</strong><br />";
+    infoHTML += "<h2 class='infoWindow-heading'>" + busName + "</h2>";
+  }
 
-    infoHTML += "<div class='infoWindow-body'>";
+  infoHTML += "<div class='infoWindow-body'>";
 
-    if (alumni.hasAttribute("First_Name") && alumni.hasAttribute("Last_Name")) {
-      var firstName = alumni.getAttribute("First_Name");
-      var lastName = alumni.getAttribute("Last_Name");
-      infoHTML += firstName + " " + lastName;
-      if (alumni.hasAttribute("Class_Year")) {
-        var year = alumni.getAttribute("Class_Year");
-        infoHTML += ", " + year;
-        if (alumni.hasAttribute("School_Code")) {
-          var school = alumni.getAttribute("School_Code");
-          infoHTML += " " + school;
-        }
+  if (alumni.hasAttribute("First_Name") && alumni.hasAttribute("Last_Name")) {
+    var firstName = alumni.getAttribute("First_Name");
+    var lastName = alumni.getAttribute("Last_Name");
+    infoHTML += firstName + " " + lastName;
+    if (alumni.hasAttribute("Class_Year")) {
+      var year = alumni.getAttribute("Class_Year");
+      infoHTML += ", " + year;
+      if (alumni.hasAttribute("School_Code")) {
+        var school = alumni.getAttribute("School_Code");
+        infoHTML += " " + school;
       }
-      infoHTML += "<br />";
     }
-
-    if (alumni.hasAttribute("Business_Street1")) {
-      var busStreet1 = alumni.getAttribute("Business_Street1");
-      sideHTML += busStreet1 + "<br />";
-      infoHTML += busStreet1 + "<br />";
-      address += busStreet1 + ", ";
-    }
-
-    if (alumni.hasAttribute("Business_City") && alumni.hasAttribute("Business_State")) {
-      var busCity = alumni.getAttribute("Business_City");
-      var busState = alumni.getAttribute("Business_State");
-      sideHTML += busCity + ", " + busState;
-      infoHTML += busCity + ", " + busState;
-      address += busCity + ", " + busState;
-    }
-
-    if (alumni.hasAttribute("Business_Zipcode")) {
-      var busZipcode = alumni.getAttribute("Business_Zipcode");
-      sideHTML += " " + busZipcode;
-      infoHTML += " " + busZipcode;
-      address += ", " + busZipcode;
-    }
-
-    sideHTML += "<br />";
     infoHTML += "<br />";
+  }
 
-    if (alumni.hasAttribute("Business_Phone")) {
-      var busPhone = alumni.getAttribute("Business_Phone");
-      sideHTML += busPhone;
-      infoHTML += busPhone + "<br />";
-    }
+  if (alumni.hasAttribute("Business_Street1")) {
+    var busStreet1 = alumni.getAttribute("Business_Street1");
+    sideHTML += busStreet1 + "<br />";
+    infoHTML += busStreet1 + "<br />";
+    address += busStreet1 + ", ";
+  }
 
-    if (alumni.hasAttribute("Business_Lat") && alumni.hasAttribute("Business_Lng")) {
-      busLat = alumni.getAttribute("Business_Lat");
-      busLng = alumni.getAttribute("Business_Lng");
-    }
+  if (alumni.hasAttribute("Business_City") && alumni.hasAttribute("Business_State")) {
+    var busCity = alumni.getAttribute("Business_City");
+    var busState = alumni.getAttribute("Business_State");
+    sideHTML += busCity + ", " + busState;
+    infoHTML += busCity + ", " + busState;
+    address += busCity + ", " + busState;
+  }
 
-    sideDetails.innerHTML = sideHTML;
-    sideItem.appendChild(sideDetails);
+  if (alumni.hasAttribute("Business_Zipcode")) {
+    var busZipcode = alumni.getAttribute("Business_Zipcode");
+    sideHTML += " " + busZipcode;
+    infoHTML += " " + busZipcode;
+    address += ", " + busZipcode;
+  }
+
+  sideHTML += "<br />";
+  infoHTML += "<br />";
+
+  if (alumni.hasAttribute("Business_Phone")) {
+    var busPhone = alumni.getAttribute("Business_Phone");
+    sideHTML += busPhone;
+    infoHTML += busPhone + "<br />";
+  }
+
+  if (alumni.hasAttribute("Business_Lat") && alumni.hasAttribute("Business_Lng")) {
+    busLat = alumni.getAttribute("Business_Lat");
+    busLng = alumni.getAttribute("Business_Lng");
+  }
+
+  sideDetails.innerHTML = sideHTML;
+  sideItem.appendChild(sideDetails);
 
   // Generate HTML list for the results list on the side
   sideListing.appendChild(sideItem);
@@ -346,11 +346,20 @@ function toggleClusters(enable) {
 
 function getRequest() {
   var request = "";
-  for (i in filters) {
-    if (filters[i][1] !== "") {
-      if (request !== "")
-        request += "&";
-      request += filters[i][0] + "=" + filters[i][1];
+  if (filters[5][1] !== "") {
+    var tokens = filters[5][1].split(" ");
+    for (i in tokens) {
+      request += "+" + tokens[i] + "* ";
+    }
+	request = filters[5][0] + "=" + encodeURIComponent(request);
+  } else {
+
+    for (i in filters) {
+      if (filters[i][1] !== "") {
+        if (request !== "")
+          request += "&";
+        request += filters[i][0] + "=" + filters[i][1];
+      }
     }
   }
   return request;
