@@ -1,6 +1,10 @@
 css/fontello.css
-    Brandico (C) 2012 by Vitaly Puzrin
+    Brandico Copyright 2012 Vitaly Puzrin
     Author:    Crowdsourced, for Fontello project
-    License:   SIL (http://scripts.sil.org/OFL)
+    License:   SIL Open Font License (http://scripts.sil.org/OFL)
+
+js/select2.min.js, css/select2.css, images/select2.png, images/select2x2.png, images/spinner.gif
+    Select2 Copyright 2012 Igor Vaynberg
+    License: Apache License (http://www.apache.org/licenses/LICENSE-2.0)
 
 All files are Copyright 2013 [JMMP](https://github.com/JMMP) unless otherwise stated. Please ask for permission to use any of the contents by submitting an issue for this repository at http://git.io/antnet. Thank you!

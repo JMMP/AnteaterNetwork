@@ -1,40 +1,30 @@
 /*
- * Anteater Network v12.2
+ * Anteater Network v13.1
  * http://git.io/antnet
  *
  * Copyright 2013 JMMP
  */
 
- var gmap;
- var markerImage;
- var mapStyles;
- var mc;
- var markersLatLng = [];
- var filters2 = {
-  "city": "",
-  "name": "",
-  "zipcode": "",
-  "year": "",
-  "major": ""
-}
-var filters = [
-["city", ""],
-["name", ""],
-["zipcode", ""],
-["year", ""],
-["major", ""]];
+var gmap;
+var markerImage;
+var mapStyles;
+var mc;
+var markersLatLng = [];
+var filters = [["city", ""], ["name", ""], ["year", ""], ["school", ""], ["category", ""], ["search", ""]];
 var mapID = "#js-map";
 var resultsID = "#js-results";
 var resultsInnerID = "#js-results-inner";
 var resultsHideID = "#js-results-hide";
 var resultsShowID = "#js-results-show";
 var menuCityID = "#js-menu-city";
+var menuCategoryID = "#js-menu-category";
 var menuYearID = "#js-menu-year";
-var menuMajorID = "#js-menu-major";
+var menuSchoolID = "#js-menu-school";
 var noresultsID = "#js-noresults";
 var toggleClustersID = "#js-toggle-clusters";
 var loadingID = "#js-loading-overlay";
 var markerBuffer = 0.0035;
+var firstLoad = true;
 
 $(document).ready(function() {
   loadMap();
@@ -49,6 +39,12 @@ $(document).ready(function() {
       show: 600,
       hide: 200
     }
+  });
+
+  $("#js-input-name2").select2({
+    multiple: true,
+    placeholder: "Search by state",
+    tokenSeperators: [",", " "]
   });
 
   $(resultsHideID).click(function(e) {
@@ -132,7 +128,8 @@ function loadMap() {
   });
   getMenu("city");
   getMenu("year");
-  getMenu("major");
+  getMenu("school");
+  getMenu("category");
 }
 
 function populate() {
@@ -145,11 +142,10 @@ function populate(filter, input) {
   $(resultsInnerID).html("");
   clearMarkers();
 
-  $.get("getAlumni.php" + getRequest(), {}, function(data, status) {
+  $.get("getAlumni.php?filters&" + getRequest(), {}, function(data, status) {
     var alumni = data.getElementsByTagName("alumnus");
-    for (i = 0; i < alumni.length; i++) {
+    for (i = 0; i < alumni.length; i++)
       createMarker(alumni[i]);
-    }
     setBounds();
     checkResults();
     $(loadingID).fadeOut();
@@ -164,9 +160,9 @@ function setFilter(filter, input) {
 }
 
 function clearFilters() {
-  for (i in filters) {
+  firstLoad = true;
+  for (i in filters)
     filters[i][1] = "";
-  }
   $("[id^='js-menu-']").children("li").removeClass();
   $("[id^='js-input-'], textarea").val("");
   populate();
@@ -185,15 +181,18 @@ function createMarker(alumni) {
   var infoHTML = "<div class='infoWindow-inner'>";
   var address = "";
 
-  if (alumni.hasAttribute("ID_Number")) {
+  if (alumni.hasAttribute("ID_Number"))
     id = alumni.getAttribute("Business_Name");
-  }
 
   if (alumni.hasAttribute("Business_Name")) {
     busName = alumni.getAttribute("Business_Name");
+    // Do not show business if it does not have a name
+    if (busName === "" || busName === " " || busName === "***")
+      return false;
+    else
+      address += busName + ", ";
     sideItem.innerHTML = "<strong>" + busName + "</strong><br />";
     infoHTML += "<h2 class='infoWindow-heading'>" + busName + "</h2>";
-    address += busName + ", ";
   }
 
   infoHTML += "<div class='infoWindow-body'>";
@@ -258,7 +257,7 @@ function createMarker(alumni) {
   
   // Catch businesses with no latitude or longitude
   // Don't show these on the map but still list them in the results box
-  if ((busLat != "" || busLng != "") && (parseFloat(busLng) != 0 || parseFloat(busLng) != 0)) {
+  if ((busLat !== "" || busLng !== "") && (parseFloat(busLng) !== 0 || parseFloat(busLng) !== 0)) {
     var point = new google.maps.LatLng(parseFloat(busLat), parseFloat(busLng));
 
     var pointBufferedNE = new google.maps.LatLng(parseFloat(busLat) + markerBuffer, parseFloat(busLng) + markerBuffer);
@@ -299,17 +298,27 @@ function createMarker(alumni) {
 }
 
 function setBounds() {
-  if (markersLatLng.length != 0) {
+  if (markersLatLng.length !== 0) {
+    // Set bounds to United States on first load
+    if (firstLoad) {
+      var firstLoadBoundNE = new google.maps.LatLng(45.460131, -71.367188);
+      var firstLoadBoundSW = new google.maps.LatLng(33.137551, -124.628906);
+      markersLatLng = [];
+      markersLatLng.push(firstLoadBoundNE);
+      markersLatLng.push(firstLoadBoundSW);
+      firstLoad = false;
+    }
     gmap.fitLatLngBounds(markersLatLng);
+    return true;
   }
+  return false;
 }
 
 function checkResults() {
-  if ($(resultsInnerID).html != "") {
+  if ($(resultsInnerID).html !== "")
     $(noresultsID).hide();    
-  } else {
+  else
     $(noresultsID).show();
-  }
 }
 
 function clearMarkers() {
@@ -324,24 +333,36 @@ function toggleClusters(enable) {
   } else {
     mc.clearMarkers();    
     for (i in gmap.markers) {
-     gmap.markers[i].setVisible(true);
-     gmap.markers[i].setMap(gmap.map);
-   }
-   $(resultsInnerID).children("li").removeClass();
-   gmap.hideInfoWindows();
- }
+      gmap.markers[i].setVisible(true);
+      gmap.markers[i].setMap(gmap.map);
+    }
+    $(resultsInnerID).children("li").removeClass();
+    gmap.hideInfoWindows();
+  }
 }
 
 function getRequest() {
   var request = "";
-  for (i in filters) {
-    if (filters[i][1] != "") {
-      if (request != "")
-        request += "&";
-      request += filters[i][0] + "=" + filters[i][1];
+  if (filters[5][1] !== "") {
+    var tokens = filters[5][1].split(" ");
+    for (i in tokens) {
+      if (i.charAt(0) === "-")
+        request += "-";
+      else
+        request += "+";
+      request += tokens[i] + "* ";
+    }
+    request = filters[5][0] + "=" + encodeURIComponent(request);
+  } else {
+    for (i in filters) {
+      if (filters[i][1] !== "") {
+        if (request !== "")
+          request += "&";
+        request += filters[i][0] + "=" + filters[i][1];
+      }
     }
   }
-  return "?" + request;
+  return request;
 }
 
 
@@ -361,11 +382,18 @@ function getMenu(menu) {
         $(menuYearID).children("li").removeClass("active");
         $(this).addClass("active");
       });
-    } else if (menu == "major") {
-      $(menuMajorID).html(data);
-      $(menuMajorID).prepend("<li class=\"active\"><a onclick=\"populate('major', '')\">All</a></li><li class=\"divider\"></li>");
-      $(menuMajorID).children("li").click( function() {
-        $(menuMajorID).children("li").removeClass("active");
+    } else if (menu == "school") {
+      $(menuSchoolID).html(data);
+      $(menuSchoolID).prepend("<li class=\"active\"><a onclick=\"populate('school', '')\">All</a></li><li class=\"divider\"></li>");
+      $(menuSchoolID).children("li").click( function() {
+        $(menuSchoolID).children("li").removeClass("active");
+        $(this).addClass("active");
+      });
+    } else if (menu == "category") {
+      $(menuCategoryID).html(data);
+      $(menuCategoryID).prepend("<li class=\"active\"><a onclick=\"populate('category', '')\">All</a></li><li class=\"divider\"></li>");
+      $(menuCategoryID).children("li").click( function() {
+        $(menuCategoryID).children("li").removeClass("active");
         $(this).addClass("active");
       });
     }

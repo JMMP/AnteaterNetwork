@@ -6,6 +6,7 @@
   <link href="css/bootstrap.css" rel="stylesheet" media="screen">
   <link href="css/bootstrap-switch.css" rel="stylesheet" media="screen">
   <link href="css/jquery-ui.custom.css" rel="stylesheet" media="screen">
+  <link href="css/select2.css" rel="stylesheet" media="screen">
   <link href="css/fontello.css" rel="stylesheet" media="screen">
   <link href="css/anteaternetwork.css" rel="stylesheet" media="screen">
 </head>
@@ -28,7 +29,14 @@
           </li>
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown">
-              Class Year <b class="caret"></b>
+              Category <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu" id="js-menu-category">
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown">
+              Year <b class="caret"></b>
             </a>
             <ul class="dropdown-menu" id="js-menu-year">
             </ul>
@@ -37,20 +45,23 @@
             <a class="dropdown-toggle" data-toggle="dropdown">
               Major <b class="caret"></b>
             </a>
-            <ul class="dropdown-menu" id="js-menu-major">
+            <ul class="dropdown-menu" id="js-menu-school">
             </ul>
           </li>
           <li>
             <form class="navbar-form" onsubmit="return false">
-              <input class="input-medium" id="js-input-name" type="text" placeholder="Search" onKeyPress="if(enterPressed(event)){ populate('name', this.value) }">
-              <input class="input-mini"  id="js-input-zipcode"type="text" pattern="\d*" placeholder="Zip Code" onKeyPress="if(enterPressed(event)){ populate('zipcode', this.value) }" />
+              <a rel="tooltip" title="Use minus (-) to exclude a search term!" data-placement="bottom">
+                <input class="input-medium" id="js-input-search" type="text" placeholder="Search" onKeyPress="if(enterPressed(event)){ populate('search', this.value) }" />
+                  <!--<select multiple class="populate" id="js-input-name2">
+                </select>-->
+              </a>
             </form>
           </li>
           <li>
-            <a rel="tooltip" title="Resets the map" data-placement="bottom" onclick="clearFilters(); populate();">Clear Filters</a>
+            <a rel="tooltip" title="Resets the map" data-placement="bottom" onclick="clearFilters();">Clear Filters</a>
           </li>
           <li>
-            <a id="tooltip-clusters" rel="tooltip" title="Groups pins together by location" data-placement="bottom">Clusters
+            <a rel="tooltip" title="Groups pins together by location" data-placement="bottom">Clusters
               <div class="switch switch-mini" id="js-toggle-clusters">
                 <input type="checkbox" checked="checked" />
               </div>
@@ -96,7 +107,7 @@
     <a href="http://plus.google.com/117331387039000132685/" target="_blank"><i class="icon-fontello-googleplus"></i></a>
     <a href="http://twitter.com/UCIAA" target="_blank"><i class="icon-fontello-twitter"></i></a>
     <a href="http://github.com/JMMP/AnteaterNetwork" target="_blank"><i class="icon-fontello-github"></i></a>
-    <p><small>&copy; 2013 Team JMMP in association with UCI Alumni Association, University of California, Irvine. <em>Version 12.2</em></small></p>
+    <p><small>&copy; 2013 Team JMMP in association with UCI Alumni Association, University of California, Irvine. <em>Version 13.1</em></small></p>
   </footer>
   <script src="js/jquery.min.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDjfKwuT7W5o7YSTt6wHmeDaEhgIxuOUoI&amp;sensor=true"></script>
@@ -105,6 +116,10 @@
   <script src="js/jquery-ui.custom.min.js"></script>
   <script src="js/gmaps.js"></script>
   <script src="js/markerclusterer.js"></script>
+  <script src="js/select2.min.js"></script>
+  <script src="js/anteaternetwork.js"></script>
+</body>
+</html>"></script>
   <script src="js/anteaternetwork.js"></script>
 </body>
 </html>
