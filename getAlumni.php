@@ -9,9 +9,11 @@
 
 require("../../secure.php");
 
-if (isset($_GET["debug"]))
-  $debug = $_GET["debug"];
-else
+if (isset($_GET["debug"])) {
+  $debug = true;
+  require_once("PhpConsole.php");
+  PhpConsole::start();
+} else
   $debug = false;
 
 // Start XML file, create parent node
@@ -22,7 +24,7 @@ $parnode = $xmlDoc->appendChild($node);
 // Opens a connection to a MySQL server
 $mysqli = mysqli_connect($ip, $username, $password, $database);
 if (mysqli_connect_errno($mysqli)) {
-  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  echo "Failed to connect to MySQL: " . mysqli_connect_error($mysqli);
 }
 
 // Select all the rows in the markers table
@@ -30,6 +32,7 @@ $query = "SELECT * FROM `" . $table . "`";
 $request = "";
 
 if (isset($_GET["filters"])) {
+  global $result;
   if (isset($_GET["search"]) && preg_match("%[a-zA-Z0-9\+\*\-\.\, ]*%", $_GET["search"])) {
     // Get columns indexed by FULLTEXT
     $query = "SELECT GROUP_CONCAT( DISTINCT column_name ) FROM information_schema.STATISTICS WHERE table_schema = '" . $database . "' AND table_name = '" . $table . "' AND index_type =  'FULLTEXT'";
@@ -74,7 +77,7 @@ if ($debug)
   echo "<p>Results Query: " . $query . $request . "</p>";
 
 if (!$result) {
-  die("Invalid query: " . mysqli_error());
+  die("Invalid query: " . mysqli_error($mysqli));
 }
 
 if (!$debug) {

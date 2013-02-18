@@ -385,6 +385,13 @@ function getMenu(menu) {
         $(menuSchoolID).children("li").removeClass("active");
         $(this).addClass("active");
       });
+    } else if (menu == "category") {
+      $(menuCategoryID).html(data);
+      $(menuCategoryID).prepend("<li class=\"active\"><a onclick=\"populate('category', '')\">All</a></li><li class=\"divider\"></li>");
+      $(menuCategoryID).children("li").click( function() {
+        $(menuCategoryID).children("li").removeClass("active");
+        $(this).addClass("active");
+      });
     }
   });
 }

@@ -7,9 +7,14 @@
  * Copyright 2013 JMMP
  */
 
-require_once("PhpConsole.php");
-PhpConsole::start();
 require("../../secure.php");
+
+if (isset($_GET["debug"])) {
+  $debug = true;
+  require_once("PhpConsole.php");
+  PhpConsole::start();
+} else
+  $debug = false;
 
 $categories = array(
   array(
@@ -52,7 +57,7 @@ $categories = array(
     "children" => array()),
   array(
     "id"       => 5,
-    "label"    => "Trade & Natural Reources",
+    "label"    => "Trade & Natural Resources",
     "children" => array(
       array(
         "id"       => 52,
@@ -187,10 +192,11 @@ array(
 
 $mysqli = mysqli_connect($ip, $username, $password, $database);
 if (mysqli_connect_errno($mysqli)) {
-  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  echo "Failed to connect to MySQL: " . mysqli_connect_error($mysqli);
 }
 
 if (isset($_GET["menu"]) && preg_match("%[a-zA-Z]*%", $_GET["menu"])) {
+  global $column;
   $filter = $_GET["menu"];
   if ($filter == "city")
     $column = "Business_City";
@@ -210,35 +216,70 @@ $query = "SELECT DISTINCT `" . $column . "` FROM `" . $table . "` ORDER BY `" . 
 $result = mysqli_query($mysqli, $query);
 
 if (!$result) {
-  die("Invalid query (" . $query . "): " . mysqli_error());
+  die("Invalid query (" . $query . "): " . mysqli_error($mysqli));
 }
 
-while ($row = mysqli_fetch_array($result)) {
-  $tag = $row[$column];
-  // Convert category numbers to readable strings
-  if ($filter == "category") {
+if ($filter == "category") {
+  $labels = array();
+  while ($row = mysqli_fetch_array($result)) {
     $category = $row[$column];
     if ($category == "") {
       break;
     } else if ($category == "RES") {
-      $tag = "Research";
+      $labels[] = "Research";
     } else {
-      getCategory($category, $categories);
+      if (strlen($category) < 4)
+        $category *= pow(10, 4 - strlen($category));
+      $labels[] = getCategory($category, $categories, 0);
     }
   }
-  echo "<li><a onclick=\"populate(" . "'" . $filter . "', " . "'" . $row[$column] . "'" . ")\"><span>" . $tag . "</span></a></li>";
+  $labels = array_unique($labels);
+  sort($labels);
+  foreach ($labels as $tag) {
+    echo "<li><a onclick=\"populate(" . "'" . $filter . "', " . "'" . $row[$column] . "'" . ")\"><span>" . $tag . "</span></a></li>";
+  }
+} else {
+  while ($row = mysqli_fetch_array($result)) {
+    echo "<li><a onclick=\"populate(" . "'" . $filter . "', " . "'" . $row[$column] . "'" . ")\"><span>" . $row[$column] . "</span></a></li>";
+  }
 }
 
 mysqli_close($mysqli);
 
-function getCategory($cat, $cats) {
-  global $categories;
-  if (strlen($cat) < 4)
-    $cat *= pow(10, 4 - strlen($cat));
-  substr($cat, 0, 1);
+function getCategory($cat, $cats, $depth) {
+  global $debug, $label;
+  $id = intval(substr($cat, 0, ++$depth));
+  if ($debug) {
+    //var_dump($cats);
+    echo "<p>Category: " . $cat . " ";
+    echo "Truncated ID: " . $id . " ";
+    echo "Depth: " . $depth . "</p>";
+  }
+  foreach ($cats as $array) {
+    if ($debug) {
+      //var_dump($array);
+    }
+    if ($id == $array["id"]) {
+      if ($debug) {
+        echo "<p>Array ID Match: " . $array["id"] . " Label Match: " . $array["label"] . "</p>";
+      }
+      $label = $array["label"];
+      if ($array["children"] == null) {
+        if ($debug)
+          echo "<p>No children left.</p>";
+        return $label;
+      } else {
+        if ($debug) {
+          echo "<p>Continuing on with array: ";
+          //var_dump($array);
+          echo "</p>";
+        }
+        return getCategory($cat, $array["children"], $depth);
+      }
+    }
+  }
+  if ($debug)
+    echo "<p>Could not find match.</p>";
+  return $label;
 }
-?><a onclick=\"populate(" . "'" . $filter . "', " . "'" . $row[$column] . "'" . ")\"><span>" . $tag . "</span></a></li>";
-}
-
-mysqli_close($mysqli);
 ?>
