@@ -1,6 +1,6 @@
 ![Anteater Network](http://i.imgur.com/4oVj3.png)
 ![JMMP](http://i.imgur.com/lw4AT.png)
-# Anteater Network [12.1](http://instdav.ics.uci.edu//~191grp10/AnteaterNetwork/) Beta
+# Anteater Network [13.0](http://instdav.ics.uci.edu//~191grp10/AnteaterNetwork/) Beta
 ### © 2013 [JMMP](https://github.com/JMMP) (Jola Bolaji, Mark Chege, Melvin Chien, Patrick Chen) in association with UCI Alumni Association, University of California, Irvine.
 
 [Features](#features) | [Changelog](#changelog) | [Resources](#resources) | [License](#license)
@@ -37,8 +37,23 @@
 
 
 ### Changelog
-##### Version 13.0 February XX, 2013
+##### Version 13.1 February XX, 2013
 1. 
+
+##### Version 13.0 February 18, 2013
+1. Display "(No Title)" for businesses without a name. Fixed [issue #100](https://github.com/JMMP/AnteaterNetwork/issues/100).
+* Center map on USA on first load. Fixed [issue #115](https://github.com/JMMP/AnteaterNetwork/issues/115).
+* Implement PHP variable validation to prevent against SQL injections.
+* Businesses without a name will not be displayed.
+* Added free search. Fixed [issue #68](https://github.com/JMMP/AnteaterNetwork/issues/68).
+* Fixed check for first load of web page. Fixed [issue #118](https://github.com/JMMP/AnteaterNetwork/issues/118).
+* Removed populate from Clear Filters button. Fixed [issue #116](https://github.com/JMMP/AnteaterNetwork/issues/116).
+* Use boolean mode for full-text searching. Fixed [issue #117](https://github.com/JMMP/AnteaterNetwork/issues/117).
+* Added negate operator to free search to allow for certain terms to be excluded.
+* Convert school codes to full school names. Fixed [issue #110](https://github.com/JMMP/AnteaterNetwork/issues/110).
+* Added tooltip for excluding search terms.
+* Removed zip code search.
+* Implemented business categories filter. Fixed [issue #120](https://github.com/JMMP/AnteaterNetwork/issues/120).
 
 ##### Version 12.2 February 12, 2013
 1. Converted XMLHttpRequests to use jQuery AJAX calls. Fixed [issue #99](https://github.com/JMMP/AnteaterNetwork/issues/99).
@@ -49,7 +64,7 @@
 * Implemented sleep function to geocoding in order to avoid hitting Google's rate limit. Fixed [issue #108](https://github.com/JMMP/AnteaterNetwork/issues/108).
 * Move geocoding to separate file and clean up code. Fixed [issue #102](https://github.com/JMMP/AnteaterNetwork/issues/102).
 * Updated QUnit JavaScript unit tests.
-* Fixed [issue #113](https://github.com/JMMP/AnteaterNetwork/issues/113).
+* Check for no results using the results list. Fixed [issue #113](https://github.com/JMMP/AnteaterNetwork/issues/113).
 
 ##### Version 12.1 February 6, 2013
 1. Fixed highlighting in results list. Fixed [issue #101](https://github.com/JMMP/AnteaterNetwork/issues/101).
@@ -196,6 +211,7 @@ Username: UCI-ICS\username
 [bootstrap-tour](https://github.com/sorich87/bootstrap-tour)  
 [bootstrap-switch](https://github.com/nostalgiaz/bootstrap-switch)  
 [PHP MySQL Improved Extension](http://www.php.net/manual/en/book.mysqli.php)  
+[Alternative Geocoder](http://datasciencetoolkit.org)
 
 ##### Facebook Like Button
 <https://developers.facebook.com/docs/reference/plugins/like/>
