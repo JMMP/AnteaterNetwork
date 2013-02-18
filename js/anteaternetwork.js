@@ -5,27 +5,21 @@
  * Copyright 2013 JMMP
  */
 
- var gmap;
- var markerImage;
- var mapStyles;
- var mc;
- var markersLatLng = [];
- var filters2 = {
-  "city": "",
-  "name": "",
-  "zipcode": "",
-  "year": "",
-  "major": ""
-};
-var filters = [["city", ""], ["name", ""], ["zipcode", ""], ["year", ""], ["major", ""], ["search", ""]];
+var gmap;
+var markerImage;
+var mapStyles;
+var mc;
+var markersLatLng = [];
+var filters = [["city", ""], ["name", ""], ["zipcode", ""], ["year", ""], ["school", ""], ["category", ""], ["search", ""]];
 var mapID = "#js-map";
 var resultsID = "#js-results";
 var resultsInnerID = "#js-results-inner";
 var resultsHideID = "#js-results-hide";
 var resultsShowID = "#js-results-show";
 var menuCityID = "#js-menu-city";
+var menuCategoryID = "#js-menu-category";
 var menuYearID = "#js-menu-year";
-var menuMajorID = "#js-menu-major";
+var menuSchoolID = "#js-menu-school";
 var noresultsID = "#js-noresults";
 var toggleClustersID = "#js-toggle-clusters";
 var loadingID = "#js-loading-overlay";
@@ -134,7 +128,8 @@ function loadMap() {
   });
   getMenu("city");
   getMenu("year");
-  getMenu("major");
+  getMenu("school");
+  getMenu("category");
 }
 
 function populate() {
@@ -165,11 +160,11 @@ function setFilter(filter, input) {
 }
 
 function clearFilters() {
+  firstLoad = true;
   for (i in filters)
     filters[i][1] = "";
   $("[id^='js-menu-']").children("li").removeClass();
   $("[id^='js-input-'], textarea").val("");
-  firstLoad = true;
   populate();
 }
 
@@ -348,14 +343,13 @@ function toggleClusters(enable) {
 
 function getRequest() {
   var request = "";
-  if (filters[5][1] !== "") {
-    var tokens = filters[5][1].split(" ");
+  if (filters[6][1] !== "") {
+    var tokens = filters[6][1].split(" ");
     for (i in tokens) {
       request += "+" + tokens[i] + "* ";
     }
-	request = filters[5][0] + "=" + encodeURIComponent(request);
+    request = filters[6][0] + "=" + encodeURIComponent(request);
   } else {
-
     for (i in filters) {
       if (filters[i][1] !== "") {
         if (request !== "")
@@ -384,11 +378,11 @@ function getMenu(menu) {
         $(menuYearID).children("li").removeClass("active");
         $(this).addClass("active");
       });
-    } else if (menu == "major") {
-      $(menuMajorID).html(data);
-      $(menuMajorID).prepend("<li class=\"active\"><a onclick=\"populate('major', '')\">All</a></li><li class=\"divider\"></li>");
-      $(menuMajorID).children("li").click( function() {
-        $(menuMajorID).children("li").removeClass("active");
+    } else if (menu == "school") {
+      $(menuSchoolID).html(data);
+      $(menuSchoolID).prepend("<li class=\"active\"><a onclick=\"populate('school', '')\">All</a></li><li class=\"divider\"></li>");
+      $(menuSchoolID).children("li").click( function() {
+        $(menuSchoolID).children("li").removeClass("active");
         $(this).addClass("active");
       });
     }

@@ -6,14 +6,17 @@
  * Copyright 2013 JMMP
  */
 
-$debug = true;
+if (isset($_GET["debug"]))
+  $debug = $_GET["debug"];
+else
+  $debug = false;
 
 require("../../secure.php");
 
 // Opens a connection to a MySQL server
 $mysqli = mysqli_connect($ip, $username, $password, $database);
 if (mysqli_connect_errno($mysqli)) {
- echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }
 
 // Send query to database
@@ -77,7 +80,7 @@ while ($row = mysqli_fetch_assoc($result)) {
    }
 }
 
-if ($debug)
-   echo "<p>Gecoded " . $count . " addresses!</p>";
+echo "<p>Gecoded " . $count . " addresses!</p>";
 mysqli_close($mysqli);
+?>se($mysqli);
 ?>

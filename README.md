@@ -43,6 +43,8 @@
 * Implement PHP variable validation to prevent against SQL injections.
 * Businesses without a name will not be displayed.
 * Added free search. Fixed [issue #68](https://github.com/JMMP/AnteaterNetwork/issues/68).
+* Fixed check for first load of web page. Fixed [issue #118](https://github.com/JMMP/AnteaterNetwork/issues/118).
+* Removed populate from Clear Filters button. Fixed [issue #116](https://github.com/JMMP/AnteaterNetwork/issues/116).
 
 ##### Version 12.2 February 12, 2013
 1. Converted XMLHttpRequests to use jQuery AJAX calls. Fixed [issue #99](https://github.com/JMMP/AnteaterNetwork/issues/99).

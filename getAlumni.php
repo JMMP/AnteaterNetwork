@@ -9,6 +9,11 @@
 
 require("../../secure.php");
 
+if (isset($_GET["debug"]))
+  $debug = $_GET["debug"];
+else
+  $debug = false;
+
 // Start XML file, create parent node
 $xmlDoc = new DOMDocument("1.0");
 $node = $xmlDoc->createElement("alumni");
@@ -28,6 +33,8 @@ if (isset($_GET["filters"])) {
   if (isset($_GET["search"]) && preg_match("%[a-zA-Z0-9\+\*\-\.\, ]*%", $_GET["search"])) {
     // Get columns indexed by FULLTEXT
     $query = "SELECT GROUP_CONCAT( DISTINCT column_name ) FROM information_schema.STATISTICS WHERE table_schema = '" . $database . "' AND table_name = '" . $table . "' AND index_type =  'FULLTEXT'";
+    if ($debug)
+      echo "<p>Column Query: " . $query . "</p>";
     $result = mysqli_fetch_assoc(mysqli_query($mysqli, $query));
     $columns = $result["GROUP_CONCAT( DISTINCT column_name )"];
     $query = "SELECT * FROM `" . $table . "` WHERE ";
@@ -63,38 +70,42 @@ if (isset($_GET["filters"])) {
   $result = mysqli_query($mysqli, $query . $request); 
 }
 
+if ($debug)
+  echo "<p>Results Query: " . $query . $request . "</p>";
+
 if (!$result) {
-  die("Invalid query (" . $query . $request . "): " . mysqli_error());
+  die("Invalid query: " . mysqli_error());
 }
 
+if (!$debug) {
 // Iterate through the rows, adding XML nodes for each
-header("Content-type:text/xml");
-while ($row = mysqli_fetch_assoc($result)) {
+  header("Content-type:text/xml");
+  while ($row = mysqli_fetch_assoc($result)) {
   // Add to XML document node
-  $node = $xmlDoc->createElement("alumnus");
-  $newnode = $parnode->appendChild($node);
-  $newnode->setAttribute("ID_Number", $row["ID_Number"]);
-  $newnode->setAttribute("Last_Name", $row["Last_Name"]);
-  $newnode->setAttribute("First_Name", $row["First_Name"]);
-  $newnode->setAttribute("Class_Year", $row["Class_Year"]);
-  $newnode->setAttribute("School_Code", $row["School_Code"]);
-  $newnode->setAttribute("Business_Title", $row["Business_Title"]);
-  $newnode->setAttribute("Business_Name", $row["Business_Name"]);
-  $newnode->setAttribute("Business_Field", $row["Business_Field"]);
-  $newnode->setAttribute("Business_Category", $row["Business_Category"]);
-  $newnode->setAttribute("Business_Street1", $row["Business_Street1"]);
-  $newnode->setAttribute("Business_Street2", $row["Business_Street2"]);
-  $newnode->setAttribute("Business_City", $row["Business_City"]);
-  $newnode->setAttribute("Business_State", $row["Business_State"]);
-  $newnode->setAttribute("Business_Zipcode", $row["Business_Zipcode"]);
-  $newnode->setAttribute("Business_Country", $row["Business_Country"]);
-  $newnode->setAttribute("Business_Phone", $row["Business_Phone"]);
-  $newnode->setAttribute("Business_Phone_Ext", $row["Business_Phone_Ext"]);
-  $newnode->setAttribute("Business_Lat", $row["Business_Lat"]);
-  $newnode->setAttribute("Business_Lng", $row["Business_Lng"]);
+    $node = $xmlDoc->createElement("alumnus");
+    $newnode = $parnode->appendChild($node);
+    $newnode->setAttribute("ID_Number", $row["ID_Number"]);
+    $newnode->setAttribute("Last_Name", $row["Last_Name"]);
+    $newnode->setAttribute("First_Name", $row["First_Name"]);
+    $newnode->setAttribute("Class_Year", $row["Class_Year"]);
+    $newnode->setAttribute("School_Code", $row["School_Code"]);
+    $newnode->setAttribute("Business_Title", $row["Business_Title"]);
+    $newnode->setAttribute("Business_Name", $row["Business_Name"]);
+    $newnode->setAttribute("Business_Field", $row["Business_Field"]);
+    $newnode->setAttribute("Business_Category", $row["Business_Category"]);
+    $newnode->setAttribute("Business_Street1", $row["Business_Street1"]);
+    $newnode->setAttribute("Business_Street2", $row["Business_Street2"]);
+    $newnode->setAttribute("Business_City", $row["Business_City"]);
+    $newnode->setAttribute("Business_State", $row["Business_State"]);
+    $newnode->setAttribute("Business_Zipcode", $row["Business_Zipcode"]);
+    $newnode->setAttribute("Business_Country", $row["Business_Country"]);
+    $newnode->setAttribute("Business_Phone", $row["Business_Phone"]);
+    $newnode->setAttribute("Business_Phone_Ext", $row["Business_Phone_Ext"]);
+    $newnode->setAttribute("Business_Lat", $row["Business_Lat"]);
+    $newnode->setAttribute("Business_Lng", $row["Business_Lng"]);
+  }
+
+  echo $xmlDoc->saveXML();
 }
-
-echo $xmlDoc->saveXML();
-
 mysqli_close($mysqli);
 ?>

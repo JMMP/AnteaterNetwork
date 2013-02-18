@@ -29,7 +29,14 @@
           </li>
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown">
-              Class Year <b class="caret"></b>
+              Category <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu" id="js-menu-category">
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown">
+              Year <b class="caret"></b>
             </a>
             <ul class="dropdown-menu" id="js-menu-year">
             </ul>
@@ -38,7 +45,7 @@
             <a class="dropdown-toggle" data-toggle="dropdown">
               Major <b class="caret"></b>
             </a>
-            <ul class="dropdown-menu" id="js-menu-major">
+            <ul class="dropdown-menu" id="js-menu-school">
             </ul>
           </li>
           <li>
@@ -50,71 +57,8 @@
             </form>
           </li>
           <li>
-
+            <a rel="tooltip" title="Resets the map" data-placement="bottom" onclick="clearFilters();">Clear Filters</a>
           </li>
-          <li>
-            <a rel="tooltip" title="Resets the map" data-placement="bottom" onclick="clearFilters(); populate();">Clear Filters</a>
-          </li>
-          <li>
-            <a id="tooltip-clusters" rel="tooltip" title="Groups pins together by location" data-placement="bottom">Clusters
-              <div class="switch switch-mini" id="js-toggle-clusters">
-                <input type="checkbox" checked="checked" />
-              </div>
-            </a>
-          </li>
-          <li>
-            <a rel="tooltip" title="Add or fix your business details" data-placement="bottom" href="http://www.alumni.uci.edu/connect/update-info.php" target="_blank">Update Info</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div id="js-loading-overlay">
-    <div class="progress progress-striped active" id="js-loading-bar">
-      <div class="bar" style="width: 100%"></div>
-    </div>
-  </div>  
-  <div class="alert alert-warning">
-    This is the <strong>development</strong> version of the Anteater Network which may be <strong>unstable</strong>. For the latest <strong>recommended</strong> version, please click <a href="https://instdav.ics.uci.edu//~191grp10/AnteaterNetwork-Testing/">here</a>.
-  </div>
-  <div class="container-fluid">
-    <div class="row-fluid">
-      <div id="js-results-show" class="nav-header">
-        <a>Show</a>
-      </div>
-      <div class="span3" id="js-results">
-        <ul class="nav" id="js-results-list">
-          <li class="nav-header">Results<a id="js-results-hide" class="pull-right">Hide Menu</a></li>
-          <li id="js-noresults" class='alert alert-error'><h4 class='alert-heading'>No results found!</h4></li>
-          <ul class="nav nav-list" id="js-results-inner">
-          </ul>
-        </ul>
-      </div>
-      <div class="span9" id="js-map">
-      </div>
-    </div>
-  </div>
-  <footer class="container-fluid">
-    <a href="http://github.com/JMMP" target="_blank"><img src="images/jmmp_logo.png" width="30" /></a>
-    <a href="http://alumni.uci.edu" target="_blank"><img src="images/uciaa_logo.png" width="91" /></a>
-    <a href="http://facebook.com/uciaa" target="_blank"><i class="icon-fontello-facebook"></i></a>
-    <a href="http://linkedin.com/groups?gid=28617" target="_blank"><i class="icon-fontello-linkedin"></i></a>
-    <a href="http://plus.google.com/117331387039000132685/" target="_blank"><i class="icon-fontello-googleplus"></i></a>
-    <a href="http://twitter.com/UCIAA" target="_blank"><i class="icon-fontello-twitter"></i></a>
-    <a href="http://github.com/JMMP/AnteaterNetwork" target="_blank"><i class="icon-fontello-github"></i></a>
-    <p><small>&copy; 2013 Team JMMP in association with UCI Alumni Association, University of California, Irvine. <em>Version 13.0</em></small></p>
-  </footer>
-  <script src="js/jquery.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDjfKwuT7W5o7YSTt6wHmeDaEhgIxuOUoI&amp;sensor=true"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/jquery.switch.js"></script>
-  <script src="js/jquery-ui.custom.min.js"></script>
-  <script src="js/gmaps.js"></script>
-  <script src="js/markerclusterer.js"></script>
-  <script src="js/select2.min.js"></script>
-  <script src="js/anteaternetwork.js"></script>
-</body>
-</html>         </li>
           <li>
             <a id="tooltip-clusters" rel="tooltip" title="Groups pins together by location" data-placement="bottom">Clusters
               <div class="switch switch-mini" id="js-toggle-clusters">
