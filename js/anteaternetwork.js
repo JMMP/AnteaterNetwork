@@ -10,7 +10,7 @@ var markerImage;
 var mapStyles;
 var mc;
 var markersLatLng = [];
-var filters = [["city", ""], ["name", ""], ["zipcode", ""], ["year", ""], ["school", ""], ["category", ""], ["search", ""]];
+var filters = [["city", ""], ["name", ""], ["year", ""], ["school", ""], ["category", ""], ["search", ""]];
 var mapID = "#js-map";
 var resultsID = "#js-results";
 var resultsInnerID = "#js-results-inner";

@@ -50,17 +50,18 @@
           </li>
           <li>
             <form class="navbar-form" onsubmit="return false">
-              <input class="input-medium" id="js-input-search" type="text" placeholder="Search" onKeyPress="if(enterPressed(event)){ populate('search', this.value) }">
-              <input class="input-mini"  id="js-input-zipcode"type="text" pattern="[\d\-]*" placeholder="Zip Code" onKeyPress="if(enterPressed(event)){ populate('zipcode', this.value) }" />
-              <!--<select multiple class="populate" id="js-input-name2">
-              </select>-->
+              <a rel="tooltip" title="Use minus (-) to exclude a search term!" data-placement="bottom">
+                <input class="input-medium" id="js-input-search" type="text" placeholder="Search" onKeyPress="if(enterPressed(event)){ populate('search', this.value) }" />
+                <!--<select multiple class="populate" id="js-input-name2">
+                </select>-->
+              </a>
             </form>
           </li>
           <li>
             <a rel="tooltip" title="Resets the map" data-placement="bottom" onclick="clearFilters();">Clear Filters</a>
           </li>
           <li>
-            <a id="tooltip-clusters" rel="tooltip" title="Groups pins together by location" data-placement="bottom">Clusters
+            <a rel="tooltip" title="Groups pins together by location" data-placement="bottom">Clusters
               <div class="switch switch-mini" id="js-toggle-clusters">
                 <input type="checkbox" checked="checked" />
               </div>
@@ -116,6 +117,9 @@
   <script src="js/gmaps.js"></script>
   <script src="js/markerclusterer.js"></script>
   <script src="js/select2.min.js"></script>
+  <script src="js/anteaternetwork.js"></script>
+</body>
+</html>js"></script>
   <script src="js/anteaternetwork.js"></script>
 </body>
 </html>

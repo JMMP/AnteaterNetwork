@@ -51,11 +51,6 @@ if (isset($_GET["filters"])) {
         $request .= " AND ";
       $request .= "`Business_Name` LIKE '%" . mysqli_escape_string($mysqli, $_GET["name"]) . "%'";
     }
-    if (isset($_GET["zipcode"]) && preg_match("%[\d\-]*%", $_GET["zipcode"])) {
-      if ($request !== "")
-        $request .= " AND ";
-      $request .= "`Business_Zipcode` LIKE '" . $_GET["zipcode"] . "%'";
-    }
     if (isset($_GET["school"]) && preg_match("%[a-zA-Z ]*%", $_GET["school"])) {
       if ($request !== "")
         $request .= " AND ";
