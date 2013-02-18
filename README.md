@@ -1,6 +1,6 @@
 ![Anteater Network](http://i.imgur.com/4oVj3.png)
 ![JMMP](http://i.imgur.com/lw4AT.png)
-# Anteater Network [12.2](http://instdav.ics.uci.edu//~191grp10/AnteaterNetwork/) Beta
+# Anteater Network [13.0](http://instdav.ics.uci.edu//~191grp10/AnteaterNetwork/) Beta
 ### © 2013 [JMMP](https://github.com/JMMP) (Jola Bolaji, Mark Chege, Melvin Chien, Patrick Chen) in association with UCI Alumni Association, University of California, Irvine.
 
 [Features](#features) | [Changelog](#changelog) | [Resources](#resources) | [License](#license)
@@ -37,7 +37,10 @@
 
 
 ### Changelog
-##### Version 13.0 February XX, 2013
+##### Version 13.1 February XX, 2013
+1. 
+
+##### Version 13.0 February 18, 2013
 1. Display "(No Title)" for businesses without a name. Fixed [issue #100](https://github.com/JMMP/AnteaterNetwork/issues/100).
 * Center map on USA on first load. Fixed [issue #115](https://github.com/JMMP/AnteaterNetwork/issues/115).
 * Implement PHP variable validation to prevent against SQL injections.
