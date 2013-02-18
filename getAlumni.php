@@ -56,10 +56,10 @@ if (isset($_GET["filters"])) {
         $request .= " AND ";
       $request .= "`Business_Zipcode` LIKE '" . $_GET["zipcode"] . "%'";
     }
-    if (isset($_GET["major"]) && preg_match("%[a-zA-Z ]*%", $_GET["major"])) {
+    if (isset($_GET["school"]) && preg_match("%[a-zA-Z ]*%", $_GET["school"])) {
       if ($request !== "")
         $request .= " AND ";
-      $request .= "`School_Code` = '" . $_GET["major"] . "'";
+      $request .= "`School_Code` = '" . $_GET["school"] . "'";
     }
     if (isset($_GET["year"]) && is_numeric($_GET["year"])) {
       if ($request !== "")

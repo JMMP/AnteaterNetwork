@@ -82,6 +82,4 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 echo "<p>Gecoded " . $count . " addresses!</p>";
 mysqli_close($mysqli);
-?>sqli);
-?>se($mysqli);
 ?>

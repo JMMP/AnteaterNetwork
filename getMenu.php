@@ -14,7 +14,7 @@ if (isset($_GET["debug"])) {
   require_once("PhpConsole.php");
   PhpConsole::start();
 } else
-  $debug = false;
+$debug = false;
 
 $categories = array(
   array(
@@ -190,6 +190,21 @@ array(
   )
 );
 
+$schools = array(
+  "BIO"  => "Biology", // Bioloigical Sciences, Biological Chemistry
+  "COMP" => "COMP", // Comparitive Literature, Computer Science
+  "EDUC" => "Education",
+  "ENG"  => "Engineering", // English, Engineering
+  "FINE" => "FINE",
+  "GSM"  => "GSM",
+  "HUM"  => "Humanities",
+  "ICS"  => "Information & Computer Science",
+  "MED"  => "Medicine",
+  "PHYS" => "PHYS", // Physical Science, Physics, Physiology
+  "SOC"  => "Sociology", // Social Science, Sociology
+  "SOEC"  => "Social Ecology"
+  );
+
 $mysqli = mysqli_connect($ip, $username, $password, $database);
 if (mysqli_connect_errno($mysqli)) {
   echo "Failed to connect to MySQL: " . mysqli_connect_error($mysqli);
@@ -206,7 +221,7 @@ if (isset($_GET["menu"]) && preg_match("%[a-zA-Z]*%", $_GET["menu"])) {
     $column = "Business_State";
   if ($filter == "year")
     $column = "Class_Year";
-  if ($filter == "major")
+  if ($filter == "school")
     $column = "School_Code";
   if ($filter == "category")
     $column = "Business_Category";
@@ -236,6 +251,14 @@ if ($filter == "category") {
   $labels = array_unique($labels);
   sort($labels);
   foreach ($labels as $tag) {
+    echo "<li><a onclick=\"populate(" . "'" . $filter . "', " . "'" . $row[$column] . "'" . ")\"><span>" . $tag . "</span></a></li>";
+  }
+} else if ($filter == "school") {
+  while ($row = mysqli_fetch_array($result)) {
+    if (array_key_exists($row[$column], $schools))
+      $tag = $schools[$row[$column]];
+    else
+      $tag = $row[$column];
     echo "<li><a onclick=\"populate(" . "'" . $filter . "', " . "'" . $row[$column] . "'" . ")\"><span>" . $tag . "</span></a></li>";
   }
 } else {

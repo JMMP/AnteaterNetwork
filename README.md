@@ -45,6 +45,9 @@
 * Added free search. Fixed [issue #68](https://github.com/JMMP/AnteaterNetwork/issues/68).
 * Fixed check for first load of web page. Fixed [issue #118](https://github.com/JMMP/AnteaterNetwork/issues/118).
 * Removed populate from Clear Filters button. Fixed [issue #116](https://github.com/JMMP/AnteaterNetwork/issues/116).
+* Use boolean mode for full-text searching. Fixed [issue #117](https://github.com/JMMP/AnteaterNetwork/issues/117).
+* Added negate operator to free search to allow for certain terms to be excluded.
+* Convert school codes to full school names. Fixed [issue #110](https://github.com/JMMP/AnteaterNetwork/issues/110).
 
 ##### Version 12.2 February 12, 2013
 1. Converted XMLHttpRequests to use jQuery AJAX calls. Fixed [issue #99](https://github.com/JMMP/AnteaterNetwork/issues/99).

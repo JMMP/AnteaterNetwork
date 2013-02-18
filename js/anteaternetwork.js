@@ -346,7 +346,11 @@ function getRequest() {
   if (filters[6][1] !== "") {
     var tokens = filters[6][1].split(" ");
     for (i in tokens) {
-      request += "+" + tokens[i] + "* ";
+      if (i.charAt(0) === "-")
+        request += "-";
+      else
+        request += "+";
+      request += tokens[i] + "* ";
     }
     request = filters[6][0] + "=" + encodeURIComponent(request);
   } else {
