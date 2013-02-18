@@ -61,11 +61,16 @@ if (isset($_GET["filters"])) {
         $request .= " AND ";
       $request .= "`Class_Year` = '" . $_GET["year"] . "'";
     }
+    if (isset($_GET["category"]) && preg_match("%[a-zA-Z ]*%", $_GET["category"])) {
+      if ($request !== "")
+        $request .= " AND ";
+      $request .= "`Business_Category` LIKE '%" . mysqli_escape_string($mysqli, $_GET["category"]) . "%'";
+    }
     if ($request != "")
       $query .= " WHERE ";
     $request .= " ORDER BY `Business_Name`";
   }
-  $result = mysqli_query($mysqli, $query . $request); 
+  $result = mysqli_query($mysqli, $query . $request);
 }
 
 if ($debug)
@@ -79,7 +84,7 @@ if (!$debug) {
 // Iterate through the rows, adding XML nodes for each
   header("Content-type:text/xml");
   while ($row = mysqli_fetch_assoc($result)) {
-  // Add to XML document node
+    // Add to XML document node
     $node = $xmlDoc->createElement("alumnus");
     $newnode = $parnode->appendChild($node);
     $newnode->setAttribute("ID_Number", $row["ID_Number"]);

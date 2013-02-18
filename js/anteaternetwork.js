@@ -343,8 +343,8 @@ function toggleClusters(enable) {
 
 function getRequest() {
   var request = "";
-  if (filters[6][1] !== "") {
-    var tokens = filters[6][1].split(" ");
+  if (filters[5][1] !== "") {
+    var tokens = filters[5][1].split(" ");
     for (i in tokens) {
       if (i.charAt(0) === "-")
         request += "-";
@@ -352,7 +352,7 @@ function getRequest() {
         request += "+";
       request += tokens[i] + "* ";
     }
-    request = filters[6][0] + "=" + encodeURIComponent(request);
+    request = filters[5][0] + "=" + encodeURIComponent(request);
   } else {
     for (i in filters) {
       if (filters[i][1] !== "") {

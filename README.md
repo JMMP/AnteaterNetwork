@@ -50,6 +50,7 @@
 * Convert school codes to full school names. Fixed [issue #110](https://github.com/JMMP/AnteaterNetwork/issues/110).
 * Added tooltip for excluding search terms.
 * Removed zip code search.
+* Implemented business categories filter. Fixed [issue #120](https://github.com/JMMP/AnteaterNetwork/issues/120).
 
 ##### Version 12.2 February 12, 2013
 1. Converted XMLHttpRequests to use jQuery AJAX calls. Fixed [issue #99](https://github.com/JMMP/AnteaterNetwork/issues/99).

@@ -14,90 +14,69 @@ if (isset($_GET["debug"])) {
   require_once("PhpConsole.php");
   PhpConsole::start();
 } else
-$debug = false;
+  $debug = false;
 
-$categories = array(
-  array(
-    "id"       => 0,
-    "label"    => "Trade & Natural Resources",
-    "children" => null
-    ),
-  array(
-    "id"       => 1,
-    "label"    => "Trade & Natural Resources",
-    "children" => array(
-      array(
-        "id"       => 15,
-        "label"    => "Professional Services",
-        "children" => null
-        ),
-      array(
-        "id"       => 16,
-        "label"    => "Professional Services",
-        "children" => null
-        ),
-      array(
-        "id"       => 17,
-        "label"    => "Professional Services",
-        "children" => null
-        )
-      )
-    ),
-  array(
-    "id"       => 2,
-    "label"    => "Manufacturing & Utilities",
-    "children" => array()),
-  array(
-    "id"       => 3,
-    "label"    => "Manufacturing & Utilities",
-    "children" => array()),
-  array(
-    "id"       => 4,
-    "label"    => "Manufacturing & Utilities",
-    "children" => array()),
-  array(
-    "id"       => 5,
-    "label"    => "Trade & Natural Resources",
-    "children" => array(
-      array(
-        "id"       => 52,
-        "label"    => "Shopping & Retail",
-        "children" => null
-        ),
-      array(
-        "id"       => 53,
-        "label"    => "Shopping & Retail",
-        "children" => null
-        ),
-      array(
-        "id"       => 54,
-        "label"    => "Dining",
-        "children" => null
-        ),
-      array(
-        "id"       => 55,
-        "label"    => "Shopping & Retail",
-        "children" => null
-        ),
-      array(
-        "id"       => 56,
-        "label"    => "Shopping & Retail",
-        "children" => null
-        ),
-      array(
-        "id"       => 57,
-        "label"    => "Shopping & Retail",
-        "children" => null
-        ),
-      array(
-        "id"       => 58,
-        "label"    => "Dining",
-        "children" => null
-        ),
-      array(
-        "id"       => 59,
-        "label"    => "Shopping & Retail",
-        "children" => null
+$schools = array(
+    "BIO" => "Biology", // Bioloigical Sciences, Biological Chemistry
+    "COMP" => "COMP", // Comparitive Literature, Computer Science
+    "EDUC" => "Education",
+    "ENG" => "Engineering", // English, Engineering
+    "FINE" => "FINE",
+    "GSM" => "GSM",
+    "HUM" => "Humanities",
+    "ICS" => "Information & Computer Science",
+    "MED" => "Medicine",
+    "PHYS" => "PHYS", // Physical Science, Physics, Physiology
+    "SOC" => "Sociology", // Social Science, Sociology
+    "SOEC" => "Social Ecology"
+);
+
+$mysqli = mysqli_connect($ip, $username, $password, $database);
+if (mysqli_connect_errno($mysqli)) {
+  echo "Failed to connect to MySQL: " . mysqli_connect_error($mysqli);
+}
+
+if (isset($_GET["menu"]) && preg_match("%[a-zA-Z]*%", $_GET["menu"])) {
+  global $column;
+  $filter = $_GET["menu"];
+  if ($filter == "city")
+    $column = "Business_City";
+  if ($filter == "zipcode")
+    $column = "Business_Zipcode";
+  if ($filter == "state")
+    $column = "Business_State";
+  if ($filter == "year")
+    $column = "Class_Year";
+  if ($filter == "school")
+    $column = "School_Code";
+  if ($filter == "category")
+    $column = "Business_Category";
+}
+
+$query = "SELECT DISTINCT `" . $column . "` FROM `" . $table . "` ORDER BY `" . $column . "`";
+$result = mysqli_query($mysqli, $query);
+
+if (!$result) {
+  die("Invalid query (" . $query . "): " . mysqli_error($mysqli));
+}
+
+if ($filter == "school") {
+  while ($row = mysqli_fetch_array($result)) {
+    if (array_key_exists($row[$column], $schools))
+      $tag = $schools[$row[$column]];
+    else
+      $tag = $row[$column];
+    echo "<li><a onclick=\"populate(" . "'" . $filter . "', " . "'" . $row[$column] . "'" . ")\"><span>" . $tag . "</span></a></li>";
+  }
+} else {
+  while ($row = mysqli_fetch_array($result)) {
+    echo "<li><a onclick=\"populate(" . "'" . $filter . "', " . "'" . $row[$column] . "'" . ")\"><span>" . $row[$column] . "</span></a></li>";
+  }
+}
+
+mysqli_close($mysqli);
+
+?>ldren" => null
         )
       )
     ),
