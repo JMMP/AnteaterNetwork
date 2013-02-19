@@ -31,6 +31,10 @@ footer [class^="icon-fontello-"] {
   padding-right: 16px;
 }
 
+footer > small {
+  padding-left: 1em;
+}
+
 img {
   max-width: none;
 }
@@ -63,6 +67,7 @@ img {
   -moz-box-shadow: 0px 5px 20px #ccc;
   -webkit-box-shadow: 0px 5px 20px #ccc;
   box-shadow: 0px 5px 20px #ccc;
+  z-index: -1;
 }
 
 #js-results {
@@ -108,7 +113,7 @@ img {
 }
 
 .infoWindow-heading {
-  /*background-color: #e8e8e8;*/
+  font-size: 2em;
   text-transform: uppercase;
   padding: 10px 5px;
   text-align: center;
@@ -138,3 +143,4 @@ img {
 .tooltip-inner {
   background-color: rgba(0, 0, 0, 0.85);
 }
+

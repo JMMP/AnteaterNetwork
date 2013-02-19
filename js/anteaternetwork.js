@@ -48,9 +48,13 @@ $(document).ready(function() {
   });
 
   $(resultsHideID).click(function(e) {
-    $(resultsID).hide("drop", function() {
-      $(resultsID).removeClass("span3");
+    var mapPosition = $(mapID).position();
+    $(mapID).css("position", "absolute");
+    $(mapID).css("left", mapPosition.left);
+    $(resultsID).toggle("drop", function() {
       $(resultsShowID).show();
+      $(mapID).css("position", "relative");
+      $(mapID).css("left", "auto");
       $(mapID).css("margin-left", 0);
       $(mapID).attr("class", "span12");
       gmap.refresh();
@@ -59,10 +63,14 @@ $(document).ready(function() {
 
   $(resultsShowID).click(function(e) {
     $(resultsShowID).hide("drop");
-    $(resultsID).addClass("span3");
     $(mapID).attr("class", "span9");
+    $(mapID).addClass("offset3");
     $(mapID).css("margin-left", "");
-    $(resultsID).show("slide");
+    $(mapID).css("position", "absolute");
+    $(resultsID).toggle("drop", function() {
+      $(mapID).removeClass("offset3");
+      $(mapID).css("position", "relative");
+    });
     gmap.refresh();
   });
 });
