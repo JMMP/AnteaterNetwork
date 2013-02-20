@@ -39,6 +39,7 @@
 ### Changelog
 ##### Version 13.1 February XX, 2013
 1. Fixed map jumping to bottom of page when results list is hidden or shown. Fixed [issue #98](https://github.com/JMMP/AnteaterNetwork/issues/98).
+* Add more school names based on [UCI's Academics page](http://uci.edu/academics.php).
 
 ##### Version 13.0 February 18, 2013
 1. Display "(No Title)" for businesses without a name. Fixed [issue #100](https://github.com/JMMP/AnteaterNetwork/issues/100).

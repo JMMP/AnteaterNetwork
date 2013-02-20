@@ -17,19 +17,22 @@ if (isset($_GET["debug"])) {
   $debug = false;
 
 $schools = array(
-    "BIO" => "Biology", // Bioloigical Sciences, Biological Chemistry
-    "COMP" => "COMP", // Comparitive Literature, Computer Science
-    "EDUC" => "Education",
-    "ENG" => "Engineering", // English, Engineering
-    "FINE" => "FINE",
-    "GSM" => "GSM",
-    "HUM" => "Humanities",
-    "ICS" => "Information & Computer Science",
-    "MED" => "Medicine",
-    "PHYS" => "PHYS", // Physical Science, Physics, Physiology
-    "SOC" => "Sociology", // Social Science, Sociology
-    "SOEC" => "Social Ecology"
-);
+  "ART"  => "Arts",
+  "BIO"  => "Biological Sciences",
+  "BUS"  => "Business",
+  "COMP" => "COMP",
+  "EDUC" => "Education",
+  "ENG"  => "Engineering",
+  "FINE" => "FINE",
+  "GSM"  => "GSM",
+  "HUM"  => "Humanities",
+  "ICS"  => "Information & Computer Sciences",
+  "LAW"  => "Law",
+  "MED"  => "Medicine",
+  "PHYS" => "Physical Sciences",
+  "SOC"  => "Social Sciences",
+  "SOEC" => "Social Ecology"
+  );
 
 $mysqli = mysqli_connect($ip, $username, $password, $database);
 if (mysqli_connect_errno($mysqli)) {
@@ -71,6 +74,12 @@ if ($filter == "school") {
 } else {
   while ($row = mysqli_fetch_array($result)) {
     echo "<li><a onclick=\"populate(" . "'" . $filter . "', " . "'" . $row[$column] . "'" . ")\"><span>" . $row[$column] . "</span></a></li>";
+  }
+}
+
+mysqli_close($mysqli);
+
+?> $row[$column] . "'" . ")\"><span>" . $row[$column] . "</span></a></li>";
   }
 }
 
