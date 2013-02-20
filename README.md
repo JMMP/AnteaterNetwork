@@ -7,39 +7,54 @@
 
 - - -
 ### Features
-##### Interface 70%
+##### Interface 90%
 * Hide-able results list
 * Automatic populating menus
+* Auto focus on search
 * Support online businesses
 * Custom CSS styling
-* Filter by city
-* _Filter by business type_
-* Search by business name
-* _Search by zipcode_
-* _Update My Information form_
-
-##### Map 80%
-* _Auto focus on search_
+* Toggle clusters
+* Clear all filters
 * Google Maps directions
 * Marker clusterers
 * Buffer zone around results
+* _Geolocation_
+* Filter by city
+* Filter by business category
+* Filter by alumni class year
+* Filter by alumni school
+* Free search
+* _Smart search boxes_
+* _Indicator of applied filters_
+* _Update My Information form_
 
-##### Back End 25%
+##### Database 100%
 * Full UCI alumni database
-* _Automatic merging of old and new databases_
-* _Deploy on live server_
+* Geocoding
+* Convert business categories
+* Free search
 
-##### Social Media 90%
-* Twitter
-* Facebook
-* LinkedIn
-* Google+
+##### Other 50%
+* UCI Alumni Association
+  * Website
+  * Facebook
+  * LinkedIn
+  * Google+
+  * Twitter
+* JMMP
+  * Website
+  * GitHub
+* _Tweet businesses_
+* _Share businesses_
+* _Deploy on live server_
+* _Admin panel_
 
 
 ### Changelog
 ##### Version 13.1 February XX, 2013
 1. Fixed map jumping to bottom of page when results list is hidden or shown. Fixed [issue #98](https://github.com/JMMP/AnteaterNetwork/issues/98).
 * Add more school names based on [UCI's Academics page](http://uci.edu/academics.php).
+* Updated Bootstrap to 2.3.0.
 
 ##### Version 13.0 February 18, 2013
 1. Display "(No Title)" for businesses without a name. Fixed [issue #100](https://github.com/JMMP/AnteaterNetwork/issues/100).

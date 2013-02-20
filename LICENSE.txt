@@ -1,7 +1,7 @@
 css/fontello.css
     Brandico Copyright 2012 Vitaly Puzrin
-    Author:    Crowdsourced, for Fontello project
-    License:   SIL Open Font License (http://scripts.sil.org/OFL)
+    Author: Crowdsourced, for Fontello project
+    License: SIL Open Font License (http://scripts.sil.org/OFL)
 
 js/select2.min.js, css/select2.css, images/select2.png, images/select2x2.png, images/spinner.gif
     Select2 Copyright 2012 Igor Vaynberg
