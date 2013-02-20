@@ -1,7 +1,7 @@
 ![Anteater Network](http://i.imgur.com/4oVj3.png)
 ![JMMP](http://i.imgur.com/lw4AT.png)
 # Anteater Network [13.0](http://instdav.ics.uci.edu//~191grp10/AnteaterNetwork/) Beta
-### © 2013 [JMMP](https://github.com/JMMP) (Jola Bolaji, Mark Chege, Melvin Chien, Patrick Chen) in association with UCI Alumni Association, University of California, Irvine.
+### © 2013 [JMMP](http://jmmp.github.com) (Jola Bolaji, Mark Chege, Melvin Chien, Patrick Chen) in association with UCI Alumni Association, University of California, Irvine.
 
 [Features](#features) | [Changelog](#changelog) | [Resources](#resources) | [License](#license)
 
@@ -271,4 +271,4 @@ var google_plus = "<div class='g-plusone' data-size='small' data-annotation='non
 
 
 ### License
-All files are Copyright 2013 [JMMP](https://github.com/JMMP) unless otherwise stated. Please ask for permission to use any of the contents by submitting an issue for this repository. Thank you!
+All files are Copyright 2013 [JMMP](http://jmmp.github.com) unless otherwise stated. Please ask for permission to use any of the contents by submitting an issue for this repository. Thank you!
