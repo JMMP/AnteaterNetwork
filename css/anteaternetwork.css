@@ -31,6 +31,10 @@ footer [class^="icon-fontello-"] {
   padding-right: 16px;
 }
 
+footer > p {
+  font-size: 12px;
+}
+
 footer > small {
   padding-left: 1em;
 }
@@ -46,6 +50,7 @@ img {
 }
 
 #js-loading-overlay {
+  display: none;
   position: fixed;
   z-index: 2;
   width: 100%;

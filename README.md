@@ -55,6 +55,10 @@
 1. Fixed map jumping to bottom of page when results list is hidden or shown. Fixed [issue #98](https://github.com/JMMP/AnteaterNetwork/issues/98).
 * Add more school names based on [UCI's Academics page](http://uci.edu/academics.php).
 * Updated Bootstrap to 2.3.0.
+* Set loading bar to only show when there is something actually being loaded.
+* Updated Schools menu with proper full school names.
+* Started progress on admin panel. Fixed [issue #111](https://github.com/JMMP/AnteaterNetwork/issues/111).
+* Changed color of marker icon.
 
 ##### Version 13.0 February 18, 2013
 1. Display "(No Title)" for businesses without a name. Fixed [issue #100](https://github.com/JMMP/AnteaterNetwork/issues/100).

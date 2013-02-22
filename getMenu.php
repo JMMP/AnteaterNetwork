@@ -17,17 +17,14 @@ if (isset($_GET["debug"])) {
   $debug = false;
 
 $schools = array(
-  "ART"  => "Arts",
   "BIO"  => "Biological Sciences",
-  "BUS"  => "Business",
-  "COMP" => "COMP",
+  "COMP" => "Comparitve Culture",
   "EDUC" => "Education",
   "ENG"  => "Engineering",
-  "FINE" => "FINE",
-  "GSM"  => "GSM",
+  "FINE" => "Arts",
+  "GSM"  => "Business",
   "HUM"  => "Humanities",
   "ICS"  => "Information & Computer Sciences",
-  "LAW"  => "Law",
   "MED"  => "Medicine",
   "PHYS" => "Physical Sciences",
   "SOC"  => "Social Sciences",
@@ -74,6 +71,11 @@ if ($filter == "school") {
 } else {
   while ($row = mysqli_fetch_array($result)) {
     echo "<li><a onclick=\"populate(" . "'" . $filter . "', " . "'" . $row[$column] . "'" . ")\"><span>" . $row[$column] . "</span></a></li>";
+  }
+}
+
+mysqli_close($mysqli);
+?>a></li>";
   }
 }
 
