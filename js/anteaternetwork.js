@@ -337,8 +337,10 @@ function clearMarkers() {
 
 function toggleClusters(enable) {
   if (enable) {
+    gmap.markerClusterer = mc;
     mc.addMarkers(gmap.markers);
   } else {
+    gmap.markerClusterer = null;
     mc.clearMarkers();    
     for (i in gmap.markers) {
       gmap.markers[i].setVisible(true);

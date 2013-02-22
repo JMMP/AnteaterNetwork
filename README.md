@@ -59,6 +59,7 @@
 * Updated Schools menu with proper full school names.
 * Started progress on admin panel. Fixed [issue #111](https://github.com/JMMP/AnteaterNetwork/issues/111).
 * Changed color of marker icon.
+* Remove marker clusterer when it is turned off. Fixed [issue #86](https://github.com/JMMP/AnteaterNetwork/issues/86).
 
 ##### Version 13.0 February 18, 2013
 1. Display "(No Title)" for businesses without a name. Fixed [issue #100](https://github.com/JMMP/AnteaterNetwork/issues/100).

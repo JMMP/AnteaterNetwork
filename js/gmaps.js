@@ -1,5 +1,5 @@
 /*!
- * GMaps.js v0.2.30
+ * GMaps.js v0.3
  * http://hpneo.github.com/gmaps/
  *
  * Copyright 2012, Gustavo Leon
@@ -24,6 +24,7 @@ if(window.google && window.google.maps){
 
     var GMaps = function(options) {
       var self = this;
+
       var events_that_hide_context_menu = ['bounds_changed', 'center_changed', 'click', 'dblclick', 'drag', 'dragend', 'dragstart', 'idle', 'maptypeid_changed', 'projection_changed', 'resize', 'tilesloaded', 'zoom_changed'];
       var events_that_doesnt_hide_context_menu = ['mousemove', 'mouseout', 'mouseover'];
 
@@ -34,6 +35,10 @@ if(window.google && window.google.maps){
       } else {
         this.el = options.el || options.div;
       };
+
+      if (typeof(this.el) === 'undefined' || this.el === null)
+        throw 'No element defined';
+
       this.el.style.width = options.width || this.el.scrollWidth || this.el.offsetWidth;
       this.el.style.height = options.height || this.el.scrollHeight || this.el.offsetHeight;
 
@@ -48,6 +53,7 @@ if(window.google && window.google.maps){
       this.infoWindow = null;
       this.overlay_el = null;
       this.zoom = options.zoom || 15;
+      this.registered_events = {};
 
       var markerClusterer = options.markerClusterer;
 
@@ -125,6 +131,21 @@ if(window.google && window.google.maps){
         this.markerClusterer = markerClusterer.apply(this, [this.map]);
       }
 
+      // finds absolute position of an element
+      var findAbsolutePosition = function(obj)  {
+        var curleft = 0;
+        var curtop = 0;
+        if (obj.offsetParent) {
+          do {
+            curleft += obj.offsetLeft;
+            curtop += obj.offsetTop;
+          } while (obj = obj.offsetParent);
+        }
+        return [curleft,curtop];
+      //returns an array
+      }
+
+
       // Context menus
       var buildContextMenuHTML = function(control, e) {
         var html = '';
@@ -138,7 +159,7 @@ if(window.google && window.google.maps){
         }
 
         if(!getElementById('gmaps_context_menu')) return;
-          
+
         var context_menu_element = getElementById('gmaps_context_menu');
         context_menu_element.innerHTML = html;
 
@@ -160,8 +181,9 @@ if(window.google && window.google.maps){
           google.maps.event.addDomListenerOnce(context_menu_item, 'click', assign_menu_item_action, false);
         }
 
-        var left = self.el.offsetLeft + e.pixel.x - 15;
-        var top = self.el.offsetTop + e.pixel.y - 15;
+        var position = findAbsolutePosition.apply(this, [self.el]);
+        var left = position[0] + e.pixel.x - 15;
+        var top = position[1] + e.pixel.y- 15;
 
         context_menu_element.style.left = left + "px";
         context_menu_element.style.top = top + "px";
@@ -201,7 +223,7 @@ if(window.google && window.google.maps){
         }
 
         var ul = doc.createElement('ul');
-        
+
         ul.id = 'gmaps_context_menu';
         ul.style.display = 'none';
         ul.style.position = 'absolute';
@@ -505,10 +527,13 @@ if(window.google && window.google.maps){
 
         marker.setMap(this.map);
 
-        if(this.markerClusterer)
+        if(this.markerClusterer) {
           this.markerClusterer.addMarker(marker);
+        }
 
         this.markers.push(marker);
+
+        GMaps.fire('marker_added', marker, this);
 
         return marker;
       };
@@ -534,6 +559,8 @@ if(window.google && window.google.maps){
             this.markers[i].setMap(null);
             this.markers.splice(i, 1);
 
+            GMaps.fire('marker_removed', marker, this);
+
             break;
           }
         }
@@ -543,7 +570,7 @@ if(window.google && window.google.maps){
 
       this.removeMarkers = function(collection) {
         var collection = (collection || this.markers);
-          
+
         for(var i=0;i < this.markers.length; i++){
           if(this.markers[i] === collection[i])
             this.markers[i].setMap(null);
@@ -742,6 +769,8 @@ if(window.google && window.google.maps){
 
         this.polylines.push(polyline);
 
+        GMaps.fire('polyline_added', polyline, this);
+
         return polyline;
       };
 
@@ -750,7 +779,9 @@ if(window.google && window.google.maps){
           if(this.polylines[i] === polyline) {
             this.polylines[i].setMap(null);
             this.polylines.splice(i, 1);
-            
+
+            GMaps.fire('polyline_removed', polyline, this);
+
             break;
           }
         }
@@ -788,7 +819,7 @@ if(window.google && window.google.maps){
 
         return polygon;
       };
-      
+
       this.drawRectangle = function(options) {
         options = extend_object({
           map: this.map
@@ -798,7 +829,7 @@ if(window.google && window.google.maps){
           new google.maps.LatLng(options.bounds[0][0], options.bounds[0][1]),
           new google.maps.LatLng(options.bounds[1][0], options.bounds[1][1])
         );
-        
+
         options.bounds = latLngBounds;
 
         var polygon = new google.maps.Rectangle(options);
@@ -813,9 +844,9 @@ if(window.google && window.google.maps){
             });
           })(polygon, polygon_events[ev]);
         }
-        
+
         this.polygons.push(polygon);
-        
+
         return polygon;
       };
 
@@ -854,6 +885,8 @@ if(window.google && window.google.maps){
 
         this.polygons.push(polygon);
 
+        GMaps.fire('polygon_added', polygon, this);
+
         return polygon;
       };
 
@@ -862,7 +895,9 @@ if(window.google && window.google.maps){
           if(this.polygons[i] === polygon) {
             this.polygons[i].setMap(null);
             this.polygons.splice(i, 1);
-            
+
+            GMaps.fire('polygon_removed', polygon, this);
+
             break;
           }
         }
@@ -1193,19 +1228,19 @@ if(window.google && window.google.maps){
         //var default_layers = ['weather', 'clouds', 'traffic', 'transit', 'bicycling', 'panoramio', 'places'];
         options = options || {};
         var layer;
-          
+
         switch(layerName) {
-          case 'weather': this.singleLayers.weather = layer = new google.maps.weather.WeatherLayer(); 
+          case 'weather': this.singleLayers.weather = layer = new google.maps.weather.WeatherLayer();
             break;
-          case 'clouds': this.singleLayers.clouds = layer = new google.maps.weather.CloudLayer(); 
+          case 'clouds': this.singleLayers.clouds = layer = new google.maps.weather.CloudLayer();
             break;
-          case 'traffic': this.singleLayers.traffic = layer = new google.maps.TrafficLayer(); 
+          case 'traffic': this.singleLayers.traffic = layer = new google.maps.TrafficLayer();
             break;
-          case 'transit': this.singleLayers.transit = layer = new google.maps.TransitLayer(); 
+          case 'transit': this.singleLayers.transit = layer = new google.maps.TransitLayer();
             break;
-          case 'bicycling': this.singleLayers.bicycling = layer = new google.maps.BicyclingLayer(); 
+          case 'bicycling': this.singleLayers.bicycling = layer = new google.maps.BicyclingLayer();
             break;
-          case 'panoramio': 
+          case 'panoramio':
               this.singleLayers.panoramio = layer = new google.maps.panoramio.PanoramioLayer();
               layer.setTag(options.filter);
               delete options.filter;
@@ -1218,7 +1253,7 @@ if(window.google && window.google.maps){
                 });
               }
             break;
-            case 'places': 
+            case 'places':
               this.singleLayers.places = layer = new google.maps.places.PlacesService(this.map);
 
               //search and  nearbySearch callback, Both are the same
@@ -1250,7 +1285,7 @@ if(window.google && window.google.maps){
                   query : options.query || null,
                   radius : options.radius || null
                 };
-                
+
                 layer.textSearch(textSearchRequest, options.textSearch);
               }
             break;
@@ -1274,7 +1309,7 @@ if(window.google && window.google.maps){
            delete this.singleLayers[layerName];
         }
       };
-      
+
       // Static Maps
 
       this.toImage = function(options) {
@@ -1302,7 +1337,7 @@ if(window.google && window.google.maps){
           static_map_options['polyline']['strokeOpacity'] = polyline.strokeOpacity
           static_map_options['polyline']['strokeWeight'] = polyline.strokeWeight
         }
-        
+
         return GMaps.staticMapURL(static_map_options);
       };
 
@@ -1311,7 +1346,7 @@ if(window.google && window.google.maps){
       this.addMapType = function(mapTypeId, options) {
         if(options.hasOwnProperty("getTileUrl") && typeof(options["getTileUrl"]) == "function") {
           options.tileSize = options.tileSize || new google.maps.Size(256, 256);
-          
+
           var mapType = new google.maps.ImageMapType(options);
 
           this.map.mapTypes.set(mapTypeId, mapType);
@@ -1339,14 +1374,14 @@ if(window.google && window.google.maps){
       };
 
       // Styles
-      
-      this.addStyle = function(options) {       
+
+      this.addStyle = function(options) {
         var styledMapType = new google.maps.StyledMapType(options.styles, options.styledMapName);
-        
+
         this.map.mapTypes.set(options.mapTypeId, styledMapType);
       };
-      
-      this.setStyle = function(mapTypeId) {     
+
+      this.setStyle = function(mapTypeId) {
         this.map.setMapTypeId(mapTypeId);
       };
 
@@ -1363,6 +1398,16 @@ if(window.google && window.google.maps){
         this.map.setStreetView(this.panorama);
 
         return this.panorama;
+      };
+
+      // Events
+
+      this.on = function(event_name, handler) {
+        return GMaps.on(event_name, this, handler);
+      };
+
+      this.off = function(event_name) {
+        GMaps.off(event_name, this);
       };
     };
 
@@ -1388,11 +1433,11 @@ if(window.google && window.google.maps){
 
       for(var i = 0; i < streetview_events.length; i++) {
         (function(object, name) {
-          google.maps.event.addListener(object, name, function(){
-            if (options[name]) {
+          if (options[name]) {
+            google.maps.event.addListener(object, name, function(){
               options[name].apply(this);
-            }
-          });
+            });
+          }
         })(panorama, streetview_events[i]);
       }
 
@@ -1439,6 +1484,7 @@ if(window.google && window.google.maps){
     };
 
     // Geolocation (Modern browsers only)
+
     GMaps.geolocate = function(options) {
       var complete_callback = options.always || options.complete;
 
@@ -1467,6 +1513,7 @@ if(window.google && window.google.maps){
     };
 
     // Geocoding
+
     GMaps.geocode = function(options) {
       this.geocoder = new google.maps.Geocoder();
       var callback = options.callback;
@@ -1483,6 +1530,7 @@ if(window.google && window.google.maps){
     };
 
     // Static maps
+
     GMaps.staticMapURL = function(options){
       var parameters = [];
       var data;
@@ -1642,6 +1690,53 @@ if(window.google && window.google.maps){
 
       parameters = parameters.join('&');
       return static_root + parameters;
+    };
+
+    // Events
+
+    GMaps.custom_events = ['marker_added', 'marker_removed', 'polyline_added', 'polyline_removed', 'polygon_added', 'polygon_removed', 'geolocated', 'geolocation_failed'];
+
+    GMaps.on = function(event_name, object, handler) {
+      if (GMaps.custom_events.indexOf(event_name) == -1) {
+        return google.maps.event.addListener(object, event_name, handler);
+      }
+      else {
+        var registered_event = {
+          handler : handler,
+          eventName : event_name
+        };
+
+        object.registered_events[event_name] = object.registered_events[event_name] || [];
+        object.registered_events[event_name].push(registered_event);
+
+        return registered_event;
+      }
+    };
+
+    GMaps.off = function(event_name, object) {
+      if (GMaps.custom_events.indexOf(event_name) == -1) {
+        google.maps.event.clearListeners(object, event_name);
+      }
+      else {
+        object.registered_events[event_name] = [];
+      }
+    };
+
+    GMaps.fire = function(event_name, object, scope) {
+      if (GMaps.custom_events.indexOf(event_name) == -1) {
+        google.maps.event.trigger(object, event_name, Array.prototype.slice.apply(arguments).slice(2));
+      }
+      else {
+        if(event_name in scope.registered_events) {
+          var firing_events = scope.registered_events[event_name];
+
+          for(var i = 0; i < firing_events.length; i++) {
+            (function(handler, scope, object) {
+              handler.apply(scope, [object]);
+            })(firing_events[i]['handler'], scope, object);
+          }
+        }
+      }
     };
 
     //==========================
