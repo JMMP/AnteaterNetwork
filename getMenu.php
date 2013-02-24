@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Anteater Network v13.1
+ * Anteater Network v13.2
  * http://git.io/antnet
  *
  * Copyright 2013 JMMP
@@ -71,11 +71,6 @@ if ($filter == "school") {
 } else {
   while ($row = mysqli_fetch_array($result)) {
     echo "<li><a onclick=\"populate(" . "'" . $filter . "', " . "'" . $row[$column] . "'" . ")\"><span>" . $row[$column] . "</span></a></li>";
-  }
-}
-
-mysqli_close($mysqli);
-?>a></li>";
   }
 }
 

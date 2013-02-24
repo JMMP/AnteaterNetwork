@@ -51,7 +51,10 @@
 
 
 ### Changelog
-##### Version 13.1 February XX, 2013
+##### Version 13.2 February XX, 2013
+1. Added geolocation. Fixed [issue #105](https://github.com/JMMP/AnteaterNetwork/issues/105).
+
+##### Version 13.1 February 23, 2013
 1. Fixed map jumping to bottom of page when results list is hidden or shown. Fixed [issue #98](https://github.com/JMMP/AnteaterNetwork/issues/98).
 * Added more school names based on [UCI's Academics page](http://uci.edu/academics.php).
 * Updated Bootstrap to 2.3.0.

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Anteater Network v13.1
+ * Anteater Network v13.2
  * http://git.io/antnet
  *
  * Copyright 2013 JMMP
@@ -264,38 +264,6 @@ function getCategory($cat, $cats, $depth) {
     echo "<p>Category: " . $cat . " ";
     echo "Truncated ID: " . $id . " ";
     echo "Depth: " . $depth . "</p>";
-  }
-  foreach ($cats as $array) {
-    if ($debug) {
-      //var_dump($array);
-    }
-    if ($id == $array["id"]) {
-      if ($debug) {
-        echo "<p>Array ID Match: " . $array["id"] . " Label Match: " . $array["label"] . "</p>";
-      }
-      $label = $array["label"];
-      if ($array["children"] == null) {
-        if ($debug) {
-          echo "<p>No children left.</p>";
-        }
-        return $label;
-      } else {
-        if ($debug) {
-          echo "<p>Continuing on with array: ";
-          //var_dump($array);
-          echo "</p>";
-        }
-        return getCategory($cat, $array["children"], $depth);
-      }
-    }
-  }
-  if ($debug) {
-    echo "<p>Could not find match.</p>";
-  }
-  return $label;
-}
-
-?>/p>";
   }
   foreach ($cats as $array) {
     if ($debug) {

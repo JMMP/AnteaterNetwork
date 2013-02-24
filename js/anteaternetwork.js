@@ -1,16 +1,53 @@
 /*
- * Anteater Network v13.1
+ * Anteater Network v13.2
  * http://git.io/antnet
  *
  * Copyright 2013 JMMP
  */
 
+// Map and custom styling
+var firstLoad = true; // true on initial load AND when all filters are cleared
 var gmap;
-var markerImage;
-var mapStyles;
+var mapStyles = [{
+    "featureType": "water",
+    "stylers": [{
+      "lightness": 14
+    }]
+  }, {
+    "featureType": "road",
+    "stylers": [{
+      "saturation": 100
+    }, {
+      "weight": 0.3
+    }, {
+      "hue": "#002bff"
+    }]
+  }, {
+    "featureType": "landscape",
+    "stylers": [{
+      "hue": "#00ff44"
+    }]
+  }, {
+    "featureType": "poi.school",
+    "stylers": [{
+      "saturation": 100
+    }, {
+      "hue": "#ffe500"
+    }]
+  }];
+
+// Marker clusterer and custom marker icons
 var mc;
+var markerImage = "images/marker_anteater.png";
+var markerGeolocateImage = "images/marker_person.png";
+var markerGeolocate; // Geolocation marker
 var markersLatLng = [];
+var markerBuffer = 0.0035; // buffer around markers in all four directions
+
+// Filters
 var filters = [["city", ""], ["name", ""], ["year", ""], ["school", ""], ["category", ""], ["search", ""]];
+
+// HTML elements accessed by this script
 var mapID = "#js-map";
 var resultsID = "#js-results";
 var resultsInnerID = "#js-results-inner";
@@ -23,17 +60,18 @@ var menuSchoolID = "#js-menu-school";
 var noresultsID = "#js-noresults";
 var toggleClustersID = "#js-toggle-clusters";
 var loadingID = "#js-loading-overlay";
-var markerBuffer = 0.0035;
-var firstLoad = true;
 
 $(document).ready(function() {
   loadMap();
   populate();
 
+  // Catch changes to the clusters switch
+  // Toggle clusters depending on the state of the switch
   $(toggleClustersID).on("switch-change", function (e, data) {
     toggleClusters(data.value);
   });
 
+  // Enable Bootstrap tooltips with custom show and hide delays
   $("[rel=tooltip]").tooltip({
     delay: {
       show: 600,
@@ -41,6 +79,7 @@ $(document).ready(function() {
     }
   });
 
+  // Enable Select2 inputs
   $("#js-input-name2").select2({
     multiple: true,
     placeholder: "Search by state",
@@ -89,35 +128,6 @@ function enterPressed(e) {
 
 function loadMap() {
   $(loadingID).show();
-  markerImage = "images/marker_anteater_small.png";
-  mapStyles = [{
-    "featureType": "water",
-    "stylers": [{
-      "lightness": 14
-    }]
-  }, {
-    "featureType": "road",
-    "stylers": [{
-      "saturation": 100
-    }, {
-      "weight": 0.3
-    }, {
-      "hue": "#002bff"
-    }]
-  }, {
-    "featureType": "landscape",
-    "stylers": [{
-      "hue": "#00ff44"
-    }]
-  }, {
-    "featureType": "poi.school",
-    "stylers": [{
-      "saturation": 100
-    }, {
-      "hue": "#ffe500"
-    }]
-  }];
-
   gmap = new GMaps({
     el: mapID,
     lat: 33.646259,
@@ -134,6 +144,21 @@ function loadMap() {
       return mc = new MarkerClusterer(map);
     }
   });
+
+  gmap.addControl({
+    position: "top_right",
+    content: "My Position",
+    style : {
+      margin: '5px',
+      padding: '1px 6px',
+      border: 'solid 1px #717B87',
+      background: '#fff'
+    },
+    events: {
+      click: function(){geolocate();}
+    }
+  });
+
   getMenu("city");
   getMenu("year");
   getMenu("school");
@@ -408,4 +433,31 @@ function getMenu(menu) {
       });
     }
   });
+}
+
+function geolocate () {
+  GMaps.geolocate({
+    success: function(position) {
+      if (markerGeolocate)
+        markerGeolocate.setMap(null);
+      markerGeolocate = gmap.createMarker({
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+        icon: markerGeolocateImage,
+        title: "Your Position",
+        infoWindow: {
+          content: "<h2>Your Position</h2>"
+        }
+      });
+      markerGeolocate.setMap(gmap.map);
+      gmap.setCenter(position.coords.latitude, position.coords.longitude);
+    },
+    error: function(error) {
+      alert("Your location could not be detected. (" + error.message + ")");
+    },
+    not_supported: function() {
+      alert("Your browser does not support retrieving your location.");
+    }
+  });
+
 }
