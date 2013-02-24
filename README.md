@@ -1,44 +1,66 @@
 ![Anteater Network](http://i.imgur.com/4oVj3.png)
 ![JMMP](http://i.imgur.com/lw4AT.png)
-# Anteater Network [13.0](http://instdav.ics.uci.edu//~191grp10/AnteaterNetwork/) Beta
-### © 2013 [JMMP](https://github.com/JMMP) (Jola Bolaji, Mark Chege, Melvin Chien, Patrick Chen) in association with UCI Alumni Association, University of California, Irvine.
+# Anteater Network [13.1](http://instdav.ics.uci.edu//~191grp10/AnteaterNetwork/) Beta
+### © 2013 [JMMP](http://jmmp.github.com) (Jola Bolaji, Mark Chege, Melvin Chien, Patrick Chen) in association with UCI Alumni Association, University of California, Irvine.
 
 [Features](#features) | [Changelog](#changelog) | [Resources](#resources) | [License](#license)
 
 - - -
 ### Features
-##### Interface 70%
+##### Interface 90%
 * Hide-able results list
 * Automatic populating menus
+* Auto focus on search
 * Support online businesses
 * Custom CSS styling
-* Filter by city
-* _Filter by business type_
-* Search by business name
-* _Search by zipcode_
-* _Update My Information form_
-
-##### Map 80%
-* _Auto focus on search_
+* Toggle clusters
+* Clear all filters
 * Google Maps directions
 * Marker clusterers
 * Buffer zone around results
+* _Geolocation_
+* Filter by city
+* Filter by business category
+* Filter by alumni class year
+* Filter by alumni school
+* Free search
+* _Smart search boxes_
+* _Indicator of applied filters_
+* _Update My Information form_
 
-##### Back End 25%
+##### Database 100%
 * Full UCI alumni database
-* _Automatic merging of old and new databases_
-* _Deploy on live server_
+* Geocoding
+* Convert business categories
+* Free search
 
-##### Social Media 90%
-* Twitter
-* Facebook
-* LinkedIn
-* Google+
+##### Other 50%
+* UCI Alumni Association
+  * Website
+  * Facebook
+  * LinkedIn
+  * Google+
+  * Twitter
+* JMMP
+  * Website
+  * GitHub
+* _Tweet businesses_
+* _Share businesses_
+* _Deploy on live server_
+* _Admin panel_
 
 
 ### Changelog
 ##### Version 13.1 February XX, 2013
-1. 
+1. Fixed map jumping to bottom of page when results list is hidden or shown. Fixed [issue #98](https://github.com/JMMP/AnteaterNetwork/issues/98).
+* Added more school names based on [UCI's Academics page](http://uci.edu/academics.php).
+* Updated Bootstrap to 2.3.0.
+* Set loading bar to only show when there is something actually being loaded.
+* Updated Schools menu with proper full school names.
+* Started progress on admin panel. Fixed [issue #111](https://github.com/JMMP/AnteaterNetwork/issues/111).
+* Changed color of marker icon.
+* Remove marker clusterer when it is turned off. Fixed [issue #86](https://github.com/JMMP/AnteaterNetwork/issues/86).
+* Updated GMaps to 0.3.
 
 ##### Version 13.0 February 18, 2013
 1. Display "(No Title)" for businesses without a name. Fixed [issue #100](https://github.com/JMMP/AnteaterNetwork/issues/100).
@@ -255,4 +277,4 @@ var google_plus = "<div class='g-plusone' data-size='small' data-annotation='non
 
 
 ### License
-All files are Copyright 2013 [JMMP](https://github.com/JMMP) unless otherwise stated. Please ask for permission to use any of the contents by submitting an issue for this repository. Thank you!
+All files are Copyright 2013 [JMMP](http://jmmp.github.com) unless otherwise stated. Please ask for permission to use any of the contents by submitting an issue for this repository. Thank you!
