@@ -64,6 +64,7 @@
 * Updated Schools menu with proper full school names.
 * Started progress on admin panel. Fixed [issue #111](https://github.com/JMMP/AnteaterNetwork/issues/111).
 * Changed color of marker icon.
+* Set businesses with no category to Other. Fixed [issue #122](https://github.com/JMMP/AnteaterNetwork/issues/122).
 * Remove marker clusterer when it is turned off. Fixed [issue #86](https://github.com/JMMP/AnteaterNetwork/issues/86).
 * Updated GMaps to 0.3.
 
