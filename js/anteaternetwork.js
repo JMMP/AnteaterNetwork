@@ -41,8 +41,8 @@ var mc;
 var markerImage = "images/marker_anteater.png";
 var markerGeolocateImage = "images/marker_person.png";
 var markerGeolocate; // Geolocation marker
-var markersLatLng = [];
-var markerBuffer = 0.0035; // buffer around markers in all four directions
+var markersLatLng = []; // Store positions of all markers for buffering the view bounds
+var markerBuffer = 0.0035; // Buffer around markers in all four directions
 
 // Filters
 var filters = [["city", ""], ["name", ""], ["year", ""], ["school", ""], ["category", ""], ["search", ""]];
@@ -86,21 +86,29 @@ $(document).ready(function() {
     tokenSeperators: [",", " "]
   });
 
+  // Hide results list
   $(resultsHideID).click(function(e) {
     var mapPosition = $(mapID).position();
+
+    // Hold map in place while the results list hides
     $(mapID).css("position", "absolute");
     $(mapID).css("left", mapPosition.left);
+
+    // Hide results list
     $(resultsID).toggle("drop", function() {
+      // Show the "Show" button and adjust map after the results list is hidden
       $(resultsShowID).show();
       $(mapID).css("position", "relative");
       $(mapID).css("left", "auto");
       $(mapID).css("margin-left", 0);
       $(mapID).attr("class", "span12");
-      gmap.refresh();
+      gmap.refresh(); // Reload map after it expands
     });
   });
 
+  // Show results list
   $(resultsShowID).click(function(e) {
+    // Hide the "Show" button and hold map in place
     $(resultsShowID).hide("drop");
     $(mapID).attr("class", "span9");
     $(mapID).addClass("offset3");
@@ -110,7 +118,7 @@ $(document).ready(function() {
       $(mapID).removeClass("offset3");
       $(mapID).css("position", "relative");
     });
-    gmap.refresh();
+    gmap.refresh(); // Reload map after it shrinks
   });
 });
 
@@ -127,9 +135,11 @@ function enterPressed(e) {
 }
 
 function loadMap() {
+  // Show loading bar and create new GMaps
   $(loadingID).show();
   gmap = new GMaps({
     el: mapID,
+    // Focus map on UCI (will be overridden once map has markers)
     lat: 33.646259,
     lng: -117.842056,
     zoomControl: true,
@@ -145,6 +155,7 @@ function loadMap() {
     }
   });
 
+  // Add button for geolocation
   gmap.addControl({
     position: "top_right",
     content: "My Position",
@@ -159,28 +170,39 @@ function loadMap() {
     }
   });
 
+  // Populate the menus
   getMenu("city");
   getMenu("year");
   getMenu("school");
   getMenu("category");
 }
 
+// Populate map, alias for no filters
 function populate() {
   populate("", "");
 }
 
+// Populate map
 function populate(filter, input) {
+  // Show loading bar,  store the filter type and value,
+  // and clear the results list and the markers on the map
   $(loadingID).show();
   setFilter(filter, input);
   $(resultsInnerID).html("");
   clearMarkers();
 
+  // AJAX call to getAlumni.php to get the appropriate businesses matching the filters
   $.get("getAlumni.php?filters&" + getRequest(), {}, function(data, status) {
+    // Create markers with the data that is returned
     var alumni = data.getElementsByTagName("alumnus");
     for (i = 0; i < alumni.length; i++)
       createMarker(alumni[i]);
+
+    // Update view bounds of map and check if there are any results displayed
     setBounds();
     checkResults();
+
+    // Hide loading bar once we are done everything
     $(loadingID).fadeOut();
   });
 }
@@ -193,15 +215,24 @@ function setFilter(filter, input) {
 }
 
 function clearFilters() {
+  // Treat clearing all filters as loading the system for the first time
   firstLoad = true;
+
+  // Clear all filters
   for (i in filters)
     filters[i][1] = "";
+
+  // Remove all extra classes from filter menus and
+  // clear values in text boxes
   $("[id^='js-menu-']").children("li").removeClass();
   $("[id^='js-input-'], textarea").val("");
+
+  // Re-populate map
   populate();
 }
 
 function createMarker(alumni) {
+  // Build content for results list
   var sideListing = document.createElement("LI");
   var sideItem = document.createElement("A");
   var sideDetails = document.createElement("SPAN");
@@ -210,10 +241,11 @@ function createMarker(alumni) {
   var busLng = "";
   var busName = "";
   var id = "";
-
-  var infoHTML = "<div class='infoWindow-inner'>";
   var address = "";
+  var infoHTML = "<div class='infoWindow-inner'>"; // Info window content
 
+  // Check if the alumni has various attributes. If they do,
+  // store them and display them in the info window and results list
   if (alumni.hasAttribute("ID_Number"))
     id = alumni.getAttribute("Business_Name");
 
@@ -281,10 +313,9 @@ function createMarker(alumni) {
     busLng = alumni.getAttribute("Business_Lng");
   }
 
+  // Create HTML for the results list
   sideDetails.innerHTML = sideHTML;
-  sideItem.appendChild(sideDetails);
-
-  // Generate HTML list for the results list on the side
+  sideItem.appendChild(sideDetails);  
   sideListing.appendChild(sideItem);
   $(resultsInnerID).append(sideListing);
   
@@ -293,14 +324,16 @@ function createMarker(alumni) {
   if ((busLat !== "" || busLng !== "") && (parseFloat(busLng) !== 0 || parseFloat(busLng) !== 0)) {
     var point = new google.maps.LatLng(parseFloat(busLat), parseFloat(busLng));
 
+    // Buffer for the view bounds of the map
     var pointBufferedNE = new google.maps.LatLng(parseFloat(busLat) + markerBuffer, parseFloat(busLng) + markerBuffer);
     var pointBufferedSW = new google.maps.LatLng(parseFloat(busLat) - markerBuffer, parseFloat(busLng) - markerBuffer);
-
-    // Add marker position to array
     markersLatLng.push(pointBufferedNE);
     markersLatLng.push(pointBufferedSW);
+
+    // Add the Get Directions link
     infoHTML += "<a href='http://maps.google.com/maps?daddr=" + address.replace(" ", "+") + "' target ='_blank'>Get Directions</a>";
 
+    // Add marker to map
     var marker = gmap.addMarker({
       lat: busLat,
       lng: busLng,
@@ -312,11 +345,13 @@ function createMarker(alumni) {
     });
 
     // Open info window when listing is clicked and highlight it
+    // and center map
     $(sideListing).click(function() {
       $(resultsInnerID).children("li").removeClass("active");
       $(sideListing).addClass("active");
       gmap.hideInfoWindows();
       marker.infoWindow.open(gmap, marker);
+      gmap.setCenter(busLat, busLng);
     });
 
     // Highlight listing when marker is clicked
@@ -331,8 +366,9 @@ function createMarker(alumni) {
 }
 
 function setBounds() {
+  // Check if there are markers
   if (markersLatLng.length !== 0) {
-    // Set bounds to United States on first load
+    // Set bounds to United States if it is the first load or filters were cleared
     if (firstLoad) {
       var firstLoadBoundNE = new google.maps.LatLng(45.460131, -71.367188);
       var firstLoadBoundSW = new google.maps.LatLng(33.137551, -124.628906);
@@ -348,6 +384,9 @@ function setBounds() {
 }
 
 function checkResults() {
+  // Check if there are results being shown
+  // We cannot check the markers array because there may
+  // be businesses without an address being shown
   if ($(resultsInnerID).html !== "")
     $(noresultsID).hide();    
   else
@@ -355,6 +394,8 @@ function checkResults() {
 }
 
 function clearMarkers() {
+  // Remove markers from map and marker clusterer
+  // Also clear our view bounds array
   gmap.removeMarkers();
   mc.clearMarkers();
   markersLatLng = [];
@@ -362,15 +403,22 @@ function clearMarkers() {
 
 function toggleClusters(enable) {
   if (enable) {
+    // Set the marker clusterer for the map and
+    // add all the markers to the clusterer
     gmap.markerClusterer = mc;
     mc.addMarkers(gmap.markers);
   } else {
+    // Remove marker clusterer from map and
+    // clear all markers from the clusterer
     gmap.markerClusterer = null;
-    mc.clearMarkers();    
+    mc.clearMarkers();
+    // Show the markers on the map again
     for (i in gmap.markers) {
       gmap.markers[i].setVisible(true);
       gmap.markers[i].setMap(gmap.map);
     }
+
+    // Reset any highlighted listing and close info windows
     $(resultsInnerID).children("li").removeClass();
     gmap.hideInfoWindows();
   }
@@ -378,12 +426,15 @@ function toggleClusters(enable) {
 
 function getRequest() {
   var request = "";
+  // If the free search is being used, ignore the other filters
+  // Otherwise, build the request normally
   if (filters[5][1] !== "") {
+    // Split words up and add necessary operators
+    // for MySQL Full-text boolean mode
+    // After, format the request for HTML
     var tokens = filters[5][1].split(" ");
     for (i in tokens) {
-      if (i.charAt(0) === "-")
-        request += "-";
-      else
+      if (i.charAt(0) !== "-")
         request += "+";
       request += tokens[i] + "* ";
     }
@@ -400,8 +451,10 @@ function getRequest() {
   return request;
 }
 
-
 function getMenu(menu) {
+  // Populate the filter menus
+  // Add an "All" option to the top of each
+  // Add click listeners to each item for highlighting the selected option
   $.get("getMenu.php?menu=" + menu, {}, function(data, status) {
     if (menu == "city") {
       $(menuCityID).html(data);
@@ -438,8 +491,11 @@ function getMenu(menu) {
 function geolocate () {
   GMaps.geolocate({
     success: function(position) {
+      // If a geolocation marker exists, remove it
       if (markerGeolocate)
         markerGeolocate.setMap(null);
+
+      // Make a new marker with the position from the geolocate function
       markerGeolocate = gmap.createMarker({
         lat: position.coords.latitude,
         lng: position.coords.longitude,
@@ -459,5 +515,4 @@ function geolocate () {
       alert("Your browser does not support retrieving your location.");
     }
   });
-
 }

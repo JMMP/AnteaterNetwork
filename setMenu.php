@@ -9,6 +9,7 @@
 
 require("../../secure.php");
 
+// Enable debug functions if the flag is set
 if (isset($_GET["debug"])) {
   $debug = true;
   require_once("PhpConsole.php");
@@ -17,6 +18,7 @@ if (isset($_GET["debug"])) {
   $debug = false;
 }
 
+// Hierarchical tree mapping for the category codes to the full category names
 $categories = array(
   array(
     "id" => 0,
@@ -196,48 +198,69 @@ if (mysqli_connect_errno($mysqli)) {
   echo "Failed to connect to MySQL: " . mysqli_connect_error($mysqli);
 }
 
+// Check for menu flag and match the value against regular expressions
 if (isset($_GET["menu"]) && preg_match("%[a-zA-Z]*%", $_GET["menu"])) {
   global $column, $query;
   $filter = $_GET["menu"];
   if ($filter == "category") {
+    // Get the two category columns that we need
     $query = "SELECT DISTINCT `Business_Category`, `Business_Category_Code` FROM `" . $table . "`";
   }
 }
 
+// Default query for other menus
+// Not currently used for the category menu, since it needs two columns instead of one
 if (!is_null($column)) {
   $query = "SELECT DISTINCT `" . $column . "` FROM `" . $table . "`";
 }
+
 $result = mysqli_query($mysqli, $query);
 
 if (!$result) {
   die("Invalid query (" . $query . "): " . mysqli_error($mysqli));
 }
 
+// Convert category codes to full category names
 if ($filter == "category") {
   $count = 0;
   while ($row = mysqli_fetch_array($result)) {
     global $cat, $catCode;
     if ($debug)
       var_dump($row);
+
+    // Store the retrieved full category name
     $cat = $row["Business_Category"];
+    // Store the retrieved category code
     $catCode = $row["Business_Category_Code"];
+
+    // Only convert the category code if there is no category already
     if (is_null($cat) || $cat === "") {
       if (is_null($catCode) || $catCode === "" || $catCode === " ") {
+        // If the business does not have a category code,
+        // set it to "Other"
         $count++;
         $cat = "Other";
       } else if ($catCode === "RES") {
+        // If the business' category code is "RES",
+        // set it to "Research"
         $count++;
         $cat = "Research";
       } else {
+        // Otherwise, find the category name according to our mapping
         $count++;
         $catCodeAdjusted = $catCode;
+
+        // Change the code to 4 digits
         if (strlen($catCodeAdjusted) < 4) {
           $catCodeAdjusted *= pow(10, 4 - strlen($catCodeAdjusted));
         }
+
+        // Get the category from the mapping
         $cat = getCategory($catCodeAdjusted, $categories, 0);
       }
+
       if (is_null($catCode)) {
-        //echo "hi":
+        // Send a different SQL query for categories that are NULL
         $updateQuery = "UPDATE `" . $table . "` SET `Business_Category` = '" . $cat . "' WHERE `Business_Category_Code` IS NULL";
       } else {
         $updateQuery = "UPDATE `" . $table . "` SET `Business_Category` = '" . $cat . "' WHERE `Business_Category_Code` = '" . $catCode . "'";
@@ -253,45 +276,63 @@ if ($filter == "category") {
   echo "<p>Set " . $count . " categories!</p>";
 }
 
-
 mysqli_close($mysqli);
 
 function getCategory($cat, $cats, $depth) {
+  // $cat is the category code
+  // $cats is the category code mapping array
+  // $depth is the current level in mapping array we are at
+  // $label is the full category name string
   global $debug, $label;
+
+  // Cut the category code to the length we need
+  // using the incremented depth
   $id = intval(substr($cat, 0, ++$depth));
   if ($debug) {
-    //var_dump($cats);
     echo "<p>Category: " . $cat . " ";
     echo "Truncated ID: " . $id . " ";
     echo "Depth: " . $depth . "</p>";
   }
+
+  // Traverse through the top level of the category code
+  // tree until we find an ID that matches our category code
   foreach ($cats as $array) {
-    if ($debug) {
-      //var_dump($array);
-    }
     if ($id == $array["id"]) {
+      // We found the branch with an ID that matches our current category code
       if ($debug) {
         echo "<p>Array ID Match: " . $array["id"] . " Label Match: " . $array["label"] . "</p>";
       }
+
+      // Store the label of this match, just in case
+      // we don't find any more matches later
       $label = $array["label"];
+
       if ($array["children"] == null) {
+        // If the "branch" does not have any children, we are done
+        // and can return the label
         if ($debug) {
           echo "<p>No children left.</p>";
         }
         return $label;
       } else {
+        // If the branch has more children, we need to continue
+        // traversing down the tree
         if ($debug) {
           echo "<p>Continuing on with array: ";
-          //var_dump($array);
           echo "</p>";
         }
+
+        // Call this function again passing it the new children array
         return getCategory($cat, $array["children"], $depth);
       }
     }
   }
+
   if ($debug) {
     echo "<p>Could not find match.</p>";
   }
+
+  // If we could not find any matches, we can return our last stored (matched) label
   return $label;
 }
 

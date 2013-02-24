@@ -9,6 +9,7 @@
 
 require("../../secure.php");
 
+// Enable debug functions if the flag is set
 if (isset($_GET["debug"])) {
   $debug = true;
   require_once("PhpConsole.php");
@@ -31,21 +32,28 @@ if (mysqli_connect_errno($mysqli)) {
 $query = "SELECT * FROM `" . $table . "`";
 $request = "";
 
+// Check for various filters and match them against regular expressions
+// to prevent against SQL injection
+// Also escape the values being passed to SQL statements
 if (isset($_GET["filters"])) {
   global $result;
+  // If we are using the free search, ignore the other filters
   if (isset($_GET["search"]) && preg_match("%[a-zA-Z0-9\+\*\-\.\, ]*%", $_GET["search"])) {
-    // Get columns indexed by FULLTEXT
+    // Get columns indexed by full-text
     $query = "SELECT GROUP_CONCAT( DISTINCT column_name ) FROM information_schema.STATISTICS WHERE table_schema = '" . $database . "' AND table_name = '" . $table . "' AND index_type =  'FULLTEXT'";
     if ($debug)
       echo "<p>Column Query: " . $query . "</p>";
     $result = mysqli_fetch_assoc(mysqli_query($mysqli, $query));
     $columns = $result["GROUP_CONCAT( DISTINCT column_name )"];
+
+    // Build request for the full-text search
     $query = "SELECT * FROM `" . $table . "` WHERE ";
     $request = "MATCH(" . $columns . ") AGAINST ('" . mysqli_escape_string($mysqli, $_GET["search"]) . "' IN BOOLEAN MODE)";
   } else {
     if (isset($_GET["city"]) && preg_match("%[a-zA-Z ]*%", $_GET["city"])) {
       $request .= "`Business_City` = '" . $_GET["city"] . "'";
     }
+
     if (isset($_GET["name"]) && preg_match("%[a-zA-Z ]*%", $_GET["name"])) {
       if ($request !== "")
         $request .= " AND ";

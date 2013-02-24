@@ -12,7 +12,6 @@
 // Arrange - set up test
 // Act - action to be tested
 // Assert - evaluation of results
-//
 
 function appendDivs() {
   var $fixture = $("#qunit-fixture");
