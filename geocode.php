@@ -41,8 +41,6 @@ set_time_limit(mysqli_num_fields($result) / $timeout);
 while ($row = mysqli_fetch_assoc($result)) {
   // Only geocode if there are no coordinates already
   if (is_null($row["Business_Lat"])) {
-    $id = $row["ID_Number"];
-
     // Build address
     $address = $row["Business_Street1"];
     if (!is_null($row["Business_City"]) || $row["Business_City"] != "")
@@ -79,7 +77,10 @@ while ($row = mysqli_fetch_assoc($result)) {
     }
 
     // Store the geocoded latitude and longitude for the business back into the database
-    $updateQuery = "UPDATE `" . $table . "` SET `Business_Lat` = " . $lat . ", `Business_Lng` = " . $lng . " WHERE `ID_Number` = " . $id;
+    $updateQuery = "UPDATE `" . $table . "` SET `Business_Lat` = " . $lat . ", `Business_Lng` = " . $lng . 
+        " WHERE `Business_Street` = '" . $row["Business_Street1"] . 
+        "' AND `Business_City` = '" . $row["Business_City"] . 
+        "' AND `Business_State` = '" . $row["Business_State"] . "'";
     mysqli_query($mysqli, $updateQuery);
     $count++;
 
