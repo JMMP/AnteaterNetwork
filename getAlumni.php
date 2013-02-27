@@ -62,7 +62,7 @@ if (isset($_GET["filters"])) {
     if (isset($_GET["school"]) && preg_match("%[a-zA-Z ]*%", $_GET["school"])) {
       if ($request !== "")
         $request .= " AND ";
-      $request .= "`School_Code` = '" . $_GET["school"] . "'";
+      $request .= "`School_Name` = '" . $_GET["school"] . "'";
     }
     if (isset($_GET["year"]) && is_numeric($_GET["year"])) {
       if ($request !== "")

@@ -17,21 +17,6 @@ if (isset($_GET["debug"])) {
 } else
   $debug = false;
 
-// Mapping for the school codes to full school names
-$schools = array(
-  "BIO"  => "Biological Sciences",
-  "COMP" => "Comparitve Culture",
-  "EDUC" => "Education",
-  "ENG"  => "Engineering",
-  "FINE" => "Arts",
-  "GSM"  => "Business",
-  "HUM"  => "Humanities",
-  "ICS"  => "Information & Computer Sciences",
-  "MED"  => "Medicine",
-  "PHYS" => "Physical Sciences",
-  "SOC"  => "Social Sciences",
-  "SOEC" => "Social Ecology"
-  );
 
 $mysqli = mysqli_connect($ip, $username, $password, $database);
 if (mysqli_connect_errno($mysqli)) {
@@ -52,7 +37,7 @@ if (isset($_GET["menu"]) && preg_match("%[a-zA-Z]*%", $_GET["menu"])) {
   if ($filter == "year")
     $column = "Class_Year";
   if ($filter == "school")
-    $column = "School_Code";
+    $column = "School_Name";
   if ($filter == "category")
     $column = "Business_Category";
 }
@@ -65,22 +50,9 @@ if (!$result) {
   die("Invalid query (" . $query . "): " . mysqli_error($mysqli));
 }
 
-// If we are making the school menu, convert the codes
-// to their full names according to the mapping
-if ($filter == "school") {
-  while ($row = mysqli_fetch_array($result)) {
-    // Check if the code exists in our mapping
-    // If it doesn't, just display the code
-    if (array_key_exists($row[$column], $schools))
-      $tag = $schools[$row[$column]];
-    else
-      $tag = $row[$column];
-    echo "<li><a onclick=\"populate(" . "'" . $filter . "', " . "'" . $row[$column] . "'" . ")\"><span>" . $tag . "</span></a></li>";
-  }
-} else {
-  while ($row = mysqli_fetch_array($result)) {
-    echo "<li><a onclick=\"populate(" . "'" . $filter . "', " . "'" . $row[$column] . "'" . ")\"><span>" . $row[$column] . "</span></a></li>";
-  }
+// Iterate through results and create list for menu
+while ($row = mysqli_fetch_array($result)) {
+  echo "<li><a onclick=\"populate(" . "'" . $filter . "', " . "'" . $row[$column] . "'" . ")\"><span>" . $row[$column] . "</span></a></li>";
 }
 
 mysqli_close($mysqli);
