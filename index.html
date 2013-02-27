@@ -50,13 +50,14 @@
             </ul>
           </li>
           <li>
-            <form class="navbar-form" onsubmit="return false">
-              <a rel="tooltip" title="Use minus (-) to exclude a search term!" data-placement="bottom">
+            <a rel="tooltip" title="Use minus (-) to exclude a search term!" data-placement="bottom" style="padding: 5px 10px">
+              <form class="navbar-form" onsubmit="return false">
+
                 <input class="input-medium" id="js-input-search" type="text" placeholder="Search" onKeyPress="if(enterPressed(event)){ populate('search', this.value) }" />
                   <!--<select multiple class="populate" id="js-input-name2">
                 </select>-->
-              </a>
-            </form>
+              </form>
+            </a>
           </li>
           <li>
             <a rel="tooltip" title="Resets the map" data-placement="bottom" onclick="clearFilters();">Clear Filters</a>

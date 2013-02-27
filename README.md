@@ -57,6 +57,8 @@
 * Commented our JavaScript and PHP code. Fixed [issue #123](https://github.com/JMMP/AnteaterNetwork/issues/123).
 * Added business category and alumni school name to free search. Fixed [issue #132](https://github.com/JMMP/AnteaterNetwork/issues/132).
 * Removed dependency on alumni ID numbers. Fixed [issue #129](https://github.com/JMMP/AnteaterNetwork/issues/129).
+* Fixed no results notice not showing up. Fixed [issue #134](https://github.com/JMMP/AnteaterNetwork/issues/134).
+* Fixed free search tooltip positioning.
 
 ##### Version 13.1 February 23, 2013
 1. Fixed map jumping to bottom of page when results list is hidden or shown. Fixed [issue #98](https://github.com/JMMP/AnteaterNetwork/issues/98).

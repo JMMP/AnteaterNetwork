@@ -134,6 +134,10 @@ img {
   margin-bottom: 0px;
 }
 
+.navbar-form input {
+  margin-top: 0px;
+}
+
 .row-fluid {
   margin-top: 9px;
   margin-bottom: 10px;

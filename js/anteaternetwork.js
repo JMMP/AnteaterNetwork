@@ -387,7 +387,7 @@ function checkResults() {
   // Check if there are results being shown
   // We cannot check the markers array because there may
   // be businesses without an address being shown
-  if ($(resultsInnerID).html !== "")
+  if ($(resultsInnerID).html() !== "")
     $(noresultsID).hide();    
   else
     $(noresultsID).show();
