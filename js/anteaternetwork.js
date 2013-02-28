@@ -45,7 +45,7 @@ var markersLatLng = []; // Store positions of all markers for buffering the view
 var markerBuffer = 0.0035; // Buffer around markers in all four directions
 
 // Filters
-var filters = [["city", ""], ["name", ""], ["year", ""], ["school", ""], ["category", ""], ["search", ""]];
+var filters = [["city", ""], ["category", ""], ["year", ""], ["school", ""], ["search", ""]];
 
 // HTML elements accessed by this script
 var mapID = "#js-map";
@@ -60,6 +60,7 @@ var menuSchoolID = "#js-menu-school";
 var noresultsID = "#js-noresults";
 var toggleClustersID = "#js-toggle-clusters";
 var loadingID = "#js-loading-overlay";
+var filterListID = "#js-filter-list";
 
 $(document).ready(function() {
   loadMap();
@@ -426,27 +427,38 @@ function toggleClusters(enable) {
 
 function getRequest() {
   var request = "";
+
+  // Hide and clear filter list unless needed
+  $(filterListID).hide();
+  $(filterListID).html("");
+
   // If the free search is being used, ignore the other filters
   // Otherwise, build the request normally
-  if (filters[5][1] !== "") {
+  if (filters[4][1] !== "") {
     // Split words up and add necessary operators
     // for MySQL Full-text boolean mode
     // After, format the request for HTML
-    var tokens = filters[5][1].split(" ");
+    var tokens = filters[4][1].split(" ");
     for (i in tokens) {
       if (i.charAt(0) !== "-")
         request += "+";
       request += tokens[i] + "* ";
     }
-    request = filters[5][0] + "=" + encodeURIComponent(request);
+    request = filters[4][0] + "=" + encodeURIComponent(request);
   } else {
     for (i in filters) {
       if (filters[i][1] !== "") {
         if (request !== "")
           request += "&";
         request += filters[i][0] + "=" + filters[i][1];
+
+        // Format and display filter
+        filterCapitalized = filters[i][0].charAt(0).toUpperCase() + filters[i][0].slice(1);
+        $(filterListID).append("<div class='span3'><span class='label label-info'>" + filterCapitalized + "</span> " + filters[i][1] + "</div>");
       }
     }
+    if ($(filterListID).html() !== "")
+      $(filterListID).show(); // Show filter list if there are filters applied
   }
   return request;
 }

@@ -44,9 +44,14 @@ img {
 }
 
 [id^="js-menu-"] {
-  max-height: 350px;  
+  max-height: 360px;  
   overflow: hidden;
   overflow-y: auto;
+}
+
+#js-filter-list {
+  margin-bottom: 0px;
+  margin-top: 5px;
 }
 
 #js-loading-overlay {
@@ -121,7 +126,6 @@ img {
   text-transform: uppercase;
   padding: 10px 5px;
   text-align: center;
-  
 }
 
 .infoWindow-body {
@@ -132,6 +136,10 @@ img {
 
 .nav {
   margin-bottom: 0px;
+}
+
+.navbar .nav > li > a {
+  padding: 10px 10px;
 }
 
 .navbar-form input {
@@ -148,6 +156,8 @@ img {
   margin-bottom: 10px;
 }
 
-.tooltip-inner {
-  background-color: rgba(0, 0, 0, 0.85);
+@media (max-width: 979px) {
+  #js-input-search {
+    width: 90px;
+  }
 }

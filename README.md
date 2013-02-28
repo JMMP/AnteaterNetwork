@@ -59,6 +59,8 @@
 * Removed dependency on alumni ID numbers. Fixed [issue #129](https://github.com/JMMP/AnteaterNetwork/issues/129).
 * Fixed no results notice not showing up. Fixed [issue #134](https://github.com/JMMP/AnteaterNetwork/issues/134).
 * Fixed free search tooltip positioning.
+* Added responsive behavior to menu bar. Fixed [issue #95](https://github.com/JMMP/AnteaterNetwork/issues/95).
+* Added currently applied filters bar. Fixed [issue #106](https://github.com/JMMP/AnteaterNetwork/issues/106).
 
 ##### Version 13.1 February 23, 2013
 1. Fixed map jumping to bottom of page when results list is hidden or shown. Fixed [issue #98](https://github.com/JMMP/AnteaterNetwork/issues/98).
