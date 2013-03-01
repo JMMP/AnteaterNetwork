@@ -51,7 +51,7 @@
 
 
 ### Changelog
-##### Version 13.2 February XX, 2013
+##### Version 13.2 February 28, 2013
 1. Added geolocation. Fixed [issue #105](https://github.com/JMMP/AnteaterNetwork/issues/105).
 * Added map focusing to marker when listing is clicked. 
 * Commented our JavaScript and PHP code. Fixed [issue #123](https://github.com/JMMP/AnteaterNetwork/issues/123).
@@ -61,6 +61,7 @@
 * Fixed free search tooltip positioning.
 * Added responsive behavior to menu bar. Fixed [issue #95](https://github.com/JMMP/AnteaterNetwork/issues/95).
 * Added currently applied filters bar. Fixed [issue #106](https://github.com/JMMP/AnteaterNetwork/issues/106).
+* Redid the anteater in Anteater Network logo. Fixed [issue #130](https://github.com/JMMP/AnteaterNetwork/issues/130).
 
 ##### Version 13.1 February 23, 2013
 1. Fixed map jumping to bottom of page when results list is hidden or shown. Fixed [issue #98](https://github.com/JMMP/AnteaterNetwork/issues/98).

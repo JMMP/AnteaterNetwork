@@ -92,7 +92,7 @@ img {
 }
 
 #js-results-inner {
-  max-height: 574px;
+  height: 574px;
   overflow: hidden;
   overflow-y: auto;
 }
@@ -156,8 +156,12 @@ img {
   margin-bottom: 10px;
 }
 
-@media (max-width: 979px) {
-  #js-input-search {
-    width: 90px;
+@media (max-width: 767px) {
+  #js-results-list {
+    height: 400px;
+  }
+
+  #js-results-inner {
+    height: 374px;
   }
 }
