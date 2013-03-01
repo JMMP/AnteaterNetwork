@@ -1,5 +1,5 @@
 /*
- * Anteater Network v13.1
+ * Anteater Network v13.2
  * http://git.io/antnet
  *
  * Copyright 2013 JMMP
@@ -44,9 +44,14 @@ img {
 }
 
 [id^="js-menu-"] {
-  max-height: 350px;  
+  max-height: 360px;  
   overflow: hidden;
   overflow-y: auto;
+}
+
+#js-filter-list {
+  margin-bottom: 0px;
+  margin-top: 5px;
 }
 
 #js-loading-overlay {
@@ -87,7 +92,7 @@ img {
 }
 
 #js-results-inner {
-  max-height: 574px;
+  height: 574px;
   overflow: hidden;
   overflow-y: auto;
 }
@@ -121,7 +126,6 @@ img {
   text-transform: uppercase;
   padding: 10px 5px;
   text-align: center;
-  
 }
 
 .infoWindow-body {
@@ -134,6 +138,14 @@ img {
   margin-bottom: 0px;
 }
 
+.navbar .nav > li > a {
+  padding: 10px 10px;
+}
+
+.navbar-form input {
+  margin-top: 0px;
+}
+
 .row-fluid {
   margin-top: 9px;
   margin-bottom: 10px;
@@ -144,7 +156,12 @@ img {
   margin-bottom: 10px;
 }
 
-.tooltip-inner {
-  background-color: rgba(0, 0, 0, 0.85);
-}
+@media (max-width: 767px) {
+  #js-results-list {
+    height: 400px;
+  }
 
+  #js-results-inner {
+    height: 374px;
+  }
+}

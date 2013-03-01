@@ -14,35 +14,35 @@
 <body>
   <div class="navbar navbar-inverse navbar-static-top">
     <div class="navbar-inner">
-      <div class="container">
+      <div class="container-fluid">
         <ul class="nav">
           <li>
             <a class="brand" href="http://instdav.ics.uci.edu/~191grp10/AnteaterNetwork/">
               <img src="images/anteaternetwork_logo_short.png" width="77" />
             </a>
           </li>
-          <li class="dropdown">
+          <li class="dropdown hidden-phone">
             <a class="dropdown-toggle" data-toggle="dropdown">
               City <b class="caret"></b>
             </a>
             <ul class="dropdown-menu" id="js-menu-city">
             </ul>
           </li>
-          <li class="dropdown">
+          <li class="dropdown hidden-phone">
             <a class="dropdown-toggle" data-toggle="dropdown">
               Category <b class="caret"></b>
             </a>
             <ul class="dropdown-menu" id="js-menu-category">
             </ul>
           </li>
-          <li class="dropdown">
+          <li class="dropdown hidden-phone">
             <a class="dropdown-toggle" data-toggle="dropdown">
               Year <b class="caret"></b>
             </a>
             <ul class="dropdown-menu" id="js-menu-year">
             </ul>
           </li>
-          <li class="dropdown">
+          <li class="dropdown hidden-phone">
             <a class="dropdown-toggle" data-toggle="dropdown">
               School <b class="caret"></b>
             </a>
@@ -50,25 +50,25 @@
             </ul>
           </li>
           <li>
-            <form class="navbar-form" onsubmit="return false">
-              <a rel="tooltip" title="Use minus (-) to exclude a search term!" data-placement="bottom">
+            <a rel="tooltip" title="Use minus (-) to exclude a search term!" data-placement="bottom" style="padding: 5px 10px">
+              <form class="navbar-form" onsubmit="return false">
                 <input class="input-medium" id="js-input-search" type="text" placeholder="Search" onKeyPress="if(enterPressed(event)){ populate('search', this.value) }" />
                   <!--<select multiple class="populate" id="js-input-name2">
                 </select>-->
-              </a>
-            </form>
+              </form>
+            </a>
           </li>
-          <li>
-            <a rel="tooltip" title="Resets the map" data-placement="bottom" onclick="clearFilters();">Clear Filters</a>
+          <li class="hidden-phone">
+            <a rel="tooltip" title="Resets the map" data-placement="bottom" onclick="clearFilters();">Reset</a>
           </li>
-          <li>
+          <li class="hidden-phone">
             <a rel="tooltip" title="Groups pins together by location" data-placement="bottom">Clusters
               <div class="switch switch-mini" id="js-toggle-clusters">
                 <input type="checkbox" checked="checked" />
               </div>
             </a>
           </li>
-          <li>
+          <li class="visible-desktop">
             <a rel="tooltip" title="Add or fix your business details" data-placement="bottom" href="http://www.alumni.uci.edu/connect/update-info.php" target="_blank">Update Info</a>
           </li>
         </ul>
@@ -80,10 +80,14 @@
       <div class="bar" style="width: 100%"></div>
     </div>
   </div>  
-  <div class="alert alert-warning">
+  <!--<div class="alert alert-warning">
     This is the <strong>development</strong> version of the Anteater Network which may be <strong>unstable</strong>. For the latest <strong>recommended</strong> version, please click <a href="https://instdav.ics.uci.edu//~191grp10/AnteaterNetwork-Testing/">here</a>.
-  </div>
+  </div>-->
   <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span12" id="js-filter-list">
+      </div>
+    </div>
     <div class="row-fluid">
       <div id="js-results-show" class="nav-header">
         <a>Show</a>
@@ -108,7 +112,7 @@
     <a href="http://plus.google.com/117331387039000132685/" target="_blank"><i class="icon-fontello-googleplus"></i></a>
     <a href="http://twitter.com/UCIAA" target="_blank"><i class="icon-fontello-twitter"></i></a>
     <a href="http://github.com/JMMP/AnteaterNetwork" target="_blank"><i class="icon-fontello-github"></i></a>
-    <small>&copy; 2013 Team JMMP in association with the UC Irvine Alumni Association. <em>Version 13.1</em> <a href="http://github.com/JMMP/AnteaterNetwork/issues" target="_blank" rel="tooltip" title="Found a bug? Report it to us here!"><i class="icon-flag"></i></a></small>
+    <small>&copy; 2013 Team JMMP in association with the UC Irvine Alumni Association. <em>Version 13.2</em> <span class="hidden-desktop"><a href="http://github.com/JMMP/AnteaterNetwork/issues" target="_blank" rel="tooltip" title="Report bugs to us here!"><i class="icon-flag"></i></a> <a href="http://www.alumni.uci.edu/connect/update-info.php" target="_blank" rel="tooltip" title="Update or add your business details here!"><i class="icon-pencil"></i></a></span><span class="visible-desktop">Please report any bugs to us <a href="http://github.com/JMMP/AnteaterNetwork/issues" target="_blank">here</a>.</span></small>
   </footer>
   <script src="js/jquery.min.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDjfKwuT7W5o7YSTt6wHmeDaEhgIxuOUoI&amp;sensor=true"></script>

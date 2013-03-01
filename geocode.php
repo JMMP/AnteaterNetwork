@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Anteater Network v13.1
+ * Anteater Network v13.2
  * http://git.io/antnet
  *
  * Copyright 2013 JMMP
@@ -9,6 +9,7 @@
 
 require("../../secure.php");
 
+// Enable debug functions if the flag is set
 if (isset($_GET["debug"])) {
   $debug = true;
   require_once("PhpConsole.php");
@@ -38,9 +39,8 @@ set_time_limit(mysqli_num_fields($result) / $timeout);
 
 // Geocoding
 while ($row = mysqli_fetch_assoc($result)) {
+  // Only geocode if there are no coordinates already
   if (is_null($row["Business_Lat"])) {
-    $id = $row["ID_Number"];
-
     // Build address
     $address = $row["Business_Street1"];
     if (!is_null($row["Business_City"]) || $row["Business_City"] != "")
@@ -52,20 +52,22 @@ while ($row = mysqli_fetch_assoc($result)) {
     if (!is_null($row["Business_Zipcode"]) || $row["Business_Zipcode"] != "")
       $address .= ", " . $row["Business_Zipcode"];
 
-    // Geocode
+    // Encode addres and send to Google to geocode
     $url = "http://maps.googleapis.com/maps/api/geocode/json?address=" . urlencode($address) . "&sensor=false";
     $geocoded = utf8_encode(file_get_contents($url));
     $geocoded = json_decode($geocoded, true);
     $status = $geocoded["status"];
     $location = $geocoded["results"][0]["geometry"]["location"];
+
     if ($status == "OK") {
+      // If geocoding was successfuli, store the returned latitude and longitude
       if ($debug)
         echo "<p>" . $row["Business_Name"] . "...OK</p>";
       $lat = $location["lat"];
       $lng = $location["lng"];
     } else if ($status == "ZERO_RESULTS") {
-      // If geocode returned no results, set latitude and longitude to 0
-      // Don't need to re-geocode these businesses next time
+      // If geocoding returned no results, set latitude and longitude to 0
+      // so we know not to re-geocode these businesses next time
       if ($debug)
         echo "<p>" . $row["Business_Name"] . "...FAILED (Address: " . $address . ", URL: " . $url . ")</p>";
       $lat = 0;
@@ -73,7 +75,12 @@ while ($row = mysqli_fetch_assoc($result)) {
     } else {
       die("<p>Geocoded " . $count . " addresses. Geocode was not successful: " . $status . "</p>");
     }
-    $updateQuery = "UPDATE `" . $table . "` SET `Business_Lat` = " . $lat . ", `Business_Lng` = " . $lng . " WHERE `ID_Number` = " . $id;
+
+    // Store the geocoded latitude and longitude for the business back into the database
+    $updateQuery = "UPDATE `" . $table . "` SET `Business_Lat` = " . $lat . ", `Business_Lng` = " . $lng . 
+        " WHERE `Business_Street` = '" . $row["Business_Street1"] . 
+        "' AND `Business_City` = '" . $row["Business_City"] . 
+        "' AND `Business_State` = '" . $row["Business_State"] . "'";
     mysqli_query($mysqli, $updateQuery);
     $count++;
 
