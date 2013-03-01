@@ -1,6 +1,6 @@
 ![Anteater Network](http://raw.github.com/JMMP/AnteaterNetwork/master/images/anteaternetwork_logo_full.png)
 ![JMMP](https://raw.github.com/JMMP/AnteaterNetwork/master/images/jmmp_logo.png)
-# Anteater Network [13.2](http://instdav.ics.uci.edu//~191grp10/AnteaterNetwork/) Beta
+# Anteater Network [14.0](http://instdav.ics.uci.edu//~191grp10/AnteaterNetwork/) Beta
 ### © 2013 [JMMP](http://jmmp.github.com) (Jola Bolaji, Mark Chege, Melvin Chien, Patrick Chen) in association with UC Irvine Alumni Association.
 
 [Features](#features) | [Changelog](#changelog) | [Resources](#resources) | [License](#license)
@@ -51,6 +51,9 @@
 
 
 ### Changelog
+##### Version 14.0 March XX, 2013
+1. 
+
 ##### Version 13.2 February 28, 2013
 1. Added geolocation. Fixed [issue #105](https://github.com/JMMP/AnteaterNetwork/issues/105).
 * Added map focusing to marker when listing is clicked. 
