@@ -1,5 +1,5 @@
 /*
- * Anteater Network v13.1
+ * Anteater Network v13.2
  * http://git.io/antnet
  *
  * Copyright 2013 JMMP
@@ -12,7 +12,6 @@
 // Arrange - set up test
 // Act - action to be tested
 // Assert - evaluation of results
-//
 
 function appendDivs() {
   var $fixture = $("#qunit-fixture");

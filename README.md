@@ -1,7 +1,7 @@
-![Anteater Network](http://i.imgur.com/4oVj3.png)
-![JMMP](http://i.imgur.com/lw4AT.png)
+![Anteater Network](images/anteaternetwork_logo_full.png)
+![JMMP](images/jmmp_logo.png)
 # Anteater Network [13.1](http://instdav.ics.uci.edu//~191grp10/AnteaterNetwork/) Beta
-### © 2013 [JMMP](http://jmmp.github.com) (Jola Bolaji, Mark Chege, Melvin Chien, Patrick Chen) in association with UCI Alumni Association, University of California, Irvine.
+### © 2013 [JMMP](http://jmmp.github.com) (Jola Bolaji, Mark Chege, Melvin Chien, Patrick Chen) in association with UC Irvine Alumni Association.
 
 [Features](#features) | [Changelog](#changelog) | [Resources](#resources) | [License](#license)
 
@@ -51,7 +51,19 @@
 
 
 ### Changelog
-##### Version 13.1 February XX, 2013
+##### Version 13.2 February 28, 2013
+1. Added geolocation. Fixed [issue #105](https://github.com/JMMP/AnteaterNetwork/issues/105).
+* Added map focusing to marker when listing is clicked. 
+* Commented our JavaScript and PHP code. Fixed [issue #123](https://github.com/JMMP/AnteaterNetwork/issues/123).
+* Added business category and alumni school name to free search. Fixed [issue #132](https://github.com/JMMP/AnteaterNetwork/issues/132).
+* Removed dependency on alumni ID numbers. Fixed [issue #129](https://github.com/JMMP/AnteaterNetwork/issues/129).
+* Fixed no results notice not showing up. Fixed [issue #134](https://github.com/JMMP/AnteaterNetwork/issues/134).
+* Fixed free search tooltip positioning.
+* Added responsive behavior to menu bar. Fixed [issue #95](https://github.com/JMMP/AnteaterNetwork/issues/95).
+* Added currently applied filters bar. Fixed [issue #106](https://github.com/JMMP/AnteaterNetwork/issues/106).
+* Redid the anteater in Anteater Network logo. Fixed [issue #130](https://github.com/JMMP/AnteaterNetwork/issues/130).
+
+##### Version 13.1 February 23, 2013
 1. Fixed map jumping to bottom of page when results list is hidden or shown. Fixed [issue #98](https://github.com/JMMP/AnteaterNetwork/issues/98).
 * Added more school names based on [UCI's Academics page](http://uci.edu/academics.php).
 * Updated Bootstrap to 2.3.0.
@@ -59,6 +71,7 @@
 * Updated Schools menu with proper full school names.
 * Started progress on admin panel. Fixed [issue #111](https://github.com/JMMP/AnteaterNetwork/issues/111).
 * Changed color of marker icon.
+* Set businesses with no category to Other. Fixed [issue #122](https://github.com/JMMP/AnteaterNetwork/issues/122).
 * Remove marker clusterer when it is turned off. Fixed [issue #86](https://github.com/JMMP/AnteaterNetwork/issues/86).
 * Updated GMaps to 0.3.
 
