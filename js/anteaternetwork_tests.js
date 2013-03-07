@@ -5,13 +5,6 @@
  * Copyright 2013 JMMP
  */
 
-// http://qunitjs.com/cookbook/
-// http://msdn.microsoft.com/en-us/library/hh404088.aspx
-// http://benalman.com/talks/unit-testing-qunit.html
-// 
-// Arrange - set up test
-// Act - action to be tested
-// Assert - evaluation of results
 
 function appendDivs() {
   var $fixture = $("#qunit-fixture");
@@ -19,7 +12,6 @@ function appendDivs() {
   $fixture.append("<ul id='sidenav'><div id='js-sidenav-inner'></div></ul>");
   $fixture.append("<div id='js-menu-city'></div>");
 }
-
 
 module("Google", {
   setup: function() {
@@ -65,7 +57,7 @@ module("Markers", {
 test("Count markers", function() {
   expect(4);
   ok(gmap.markers != null, "Markers array exists");
-  ok(gmap.markers.length > 1, "Markers array length");
+  ok(gmap.markers.length > 0, "Markers array length");
 });
 
 test("Validate markers", function() {
@@ -78,6 +70,11 @@ test("Validate markers", function() {
   }
 });
 
+test("Check results", function() {
+  expect(3);
+  checkResults();
+  ok(!$(resultsNoneID).is(":visible"), "Results list not empty");
+});
 
 test("Clear all markers", function() {
   expect(4);
@@ -87,54 +84,69 @@ test("Clear all markers", function() {
   deepEqual([], markersLatLng, "Empty markersLatLng array");
 });
 
+test("Clusters", function() {
+  expect(6);
+  toggleClusters(true);
+  equal(typeof gmap.markerClusterer, "object", "Marker clusterer set");
+  ok(mc.markers_.length > 0, "Marker clusterer has markers");
+
+  toggleClusters(false);
+  equal(gmap.markerClusterer, null, "Marker clusterer removed");
+  ok(mc.markers_.length == 0, "Marker clusterer markers cleared");
+});
 
 module("Filters", {
   setup: function() {
     setFilter("city", "Irvine");
-    setFilter("name", "Me");
-    setFilter("zipcode", "92617");
+    setFilter("category", "FOOD");
+    setFilter("year", "111111");
+    setFilter("school", "ICS");
+    setFilter("badentry", "blah");
     ok(true, "Setup");
   },
   teardown: function() {
-    filters = [
-    ["city", ""],
-    ["name", ""],
-    ["zipcode", ""]];
+    for (i in filters)
+      filters[i] = "";
     ok(true, "Teardown");
   }
 });
 
-test("Update filters", function() {
-  expect(5);
-  equal(filters[0][1], "Irvine", "City");
-  equal(filters[1][1], "Me", "Name");
-  equal(filters[2][1], "92617", "Zipcode");
+test("Set filters", function() {
+  expect(8);
+  equal(filters.city, "Irvine", "City");
+  equal(filters.category, "FOOD", "Category");
+  equal(filters.year, "111111", "Year");
+  equal(filters.school, "ICS", "School");
+  equal(filters.search, "", "Search");
+  equal(filters.badentry, undefined, "Bad entry");
 });
 
 test("Reset all filters", function() {
-  expect(5);
-  setFilter("city", "Irvine");
-  setFilter("name", "Me");
-  setFilter("zipcode", "92617");
+  expect(7);
   clearFilters();
-  equal("", filters[0][1], "Empty city filter text");
-  equal("", filters[1][1], "Empty name filter text");
-  equal("", filters[2][1], "Empty name filter text");
+  equal(filters.city, "", "City");
+  equal(filters.category, "", "Category");
+  equal(filters.year, "", "Year");
+  equal(filters.school, "", "School");
+  equal(filters.search, "", "Search");
 
 });
 
 test("Create requests from multiple filters", function() {
-  expect(5);
+  expect(6);
 
   var request = getRequest();
-  equal(request, "?city=Irvine&name=Me&zipcode=92617", "City, name and zipcode");
+  equal(request, "city=Irvine&category=FOOD&year=111111&school=ICS", "City, category, year, and school");
 
   setFilter("city", "");
   request = getRequest();
-  equal(request, "?name=Me&zipcode=92617", "Name and zipcode");
+  equal(request, "category=FOOD&year=111111&school=ICS", "Category, year, and school");
 
-  setFilter("name", "");
-  setFilter("city", "Irvine");
+  setFilter("category", "");
   request = getRequest();
-  equal(request, "?city=Irvine&zipcode=92617", "City and zipcode");
+  equal(request, "year=111111&school=ICS", "Year and school");
+
+  setFilter("search", "Hello Pandas");
+  request = getRequest();
+  equal(request, "search=%2BHello*%20%2BPandas*%20", "Free search");
 });

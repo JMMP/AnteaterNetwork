@@ -87,11 +87,11 @@ $(document).ready(function() {
   });
 
   // Enable Select2 inputs
-  $("#js-input-name2").select2({
+  /*$("#js-input-name2").select2({
     multiple: true,
     placeholder: "Search by state",
     tokenSeperators: [",", " "]
-  });
+  });*/
 
   // Hide results list
   $(resultsHideID).click(function(e) {
