@@ -9,32 +9,32 @@
 var firstLoad = true; // true on initial load AND when all filters are cleared
 var gmap;
 var mapStyles = [{
-    "featureType": "water",
-    "stylers": [{
-      "lightness": 14
-    }]
+  "featureType": "water",
+  "stylers": [{
+    "lightness": 14
+  }]
+}, {
+  "featureType": "road",
+  "stylers": [{
+    "saturation": 100
   }, {
-    "featureType": "road",
-    "stylers": [{
-      "saturation": 100
-    }, {
-      "weight": 0.3
-    }, {
-      "hue": "#002bff"
-    }]
+    "weight": 0.3
   }, {
-    "featureType": "landscape",
-    "stylers": [{
-      "hue": "#00ff44"
-    }]
+    "hue": "#002bff"
+  }]
+}, {
+  "featureType": "landscape",
+  "stylers": [{
+    "hue": "#00ff44"
+  }]
+}, {
+  "featureType": "poi.school",
+  "stylers": [{
+    "saturation": 100
   }, {
-    "featureType": "poi.school",
-    "stylers": [{
-      "saturation": 100
-    }, {
-      "hue": "#ffe500"
-    }]
-  }];
+    "hue": "#ffe500"
+  }]
+}];
 
 // Marker clusterer and custom marker icons
 var mc;
@@ -45,7 +45,13 @@ var markersLatLng = []; // Store positions of all markers for buffering the view
 var markerBuffer = 0.0035; // Buffer around markers in all four directions
 
 // Filters
-var filters = [["city", ""], ["category", ""], ["year", ""], ["school", ""], ["search", ""]];
+var filters = {
+  city: "",
+  category: "",
+  year: "",
+  school: "",
+  search: ""
+};
 
 // HTML elements accessed by this script
 var mapID = "#js-map";
@@ -53,11 +59,11 @@ var resultsID = "#js-results";
 var resultsInnerID = "#js-results-inner";
 var resultsHideID = "#js-results-hide";
 var resultsShowID = "#js-results-show";
+var resultsNoneID = "#js-results-none";
 var menuCityID = "#js-menu-city";
 var menuCategoryID = "#js-menu-category";
 var menuYearID = "#js-menu-year";
 var menuSchoolID = "#js-menu-school";
-var noresultsID = "#js-noresults";
 var toggleClustersID = "#js-toggle-clusters";
 var loadingID = "#js-loading-overlay";
 var filterListID = "#js-filter-list";
@@ -209,10 +215,8 @@ function populate(filter, input) {
 }
 
 function setFilter(filter, input) {
-  for (i in filters) {
-    if (filters[i][0] == filter)
-      filters[i][1] = input;
-  }
+  if (filters.hasOwnProperty(filter))
+    filters[filter] = input;
 }
 
 function clearFilters() {
@@ -221,7 +225,7 @@ function clearFilters() {
 
   // Clear all filters
   for (i in filters)
-    filters[i][1] = "";
+    filters[i] = "";
 
   // Remove all extra classes from filter menus and
   // clear values in text boxes
@@ -389,9 +393,9 @@ function checkResults() {
   // We cannot check the markers array because there may
   // be businesses without an address being shown
   if ($(resultsInnerID).html() !== "")
-    $(noresultsID).hide();    
+    $(resultsNoneID).hide();    
   else
-    $(noresultsID).show();
+    $(resultsNoneID).show();
 }
 
 function clearMarkers() {
@@ -434,27 +438,27 @@ function getRequest() {
 
   // If the free search is being used, ignore the other filters
   // Otherwise, build the request normally
-  if (filters[4][1] !== "") {
+  if (filters.search !== "") {
     // Split words up and add necessary operators
     // for MySQL Full-text boolean mode
     // After, format the request for HTML
-    var tokens = filters[4][1].split(" ");
+    var tokens = filters.search.split(" ");
     for (i in tokens) {
       if (i.charAt(0) !== "-")
         request += "+";
       request += tokens[i] + "* ";
     }
-    request = filters[4][0] + "=" + encodeURIComponent(request);
+    request = "search=" + encodeURIComponent(request);
   } else {
     for (i in filters) {
-      if (filters[i][1] !== "") {
+      if (filters[i] !== "") {
         if (request !== "")
           request += "&";
-        request += filters[i][0] + "=" + filters[i][1];
+        request += i + "=" + filters[i];
 
         // Format and display filter
-        filterCapitalized = filters[i][0].charAt(0).toUpperCase() + filters[i][0].slice(1);
-        $(filterListID).append("<div class='span3'><span class='label label-info'>" + filterCapitalized + "</span> " + filters[i][1] + "</div>");
+        filterCapitalized = i.charAt(0).toUpperCase() + i.slice(1);
+        $(filterListID).append("<div class='span3'><span class='label label-info'>" + filterCapitalized + "</span> " + filters[i] + "</div>");
       }
     }
     if ($(filterListID).html() !== "")
