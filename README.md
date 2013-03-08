@@ -55,6 +55,10 @@
 1. Converted filters from an array to an object with properties.
 * Updated QUnit tests. Fixed [issue #128](https://github.com/JMMP/AnteaterNetwork/issues/128).
 * Auto resize map and results list depending on height of window.
+* Use [Font Awesome](http://fortawesome.github.com/Font-Awesome/) instead of Fontello.
+* Updated Bootstrap, jQuery, jQuery UI, QUnit, and GMaps to use CDNs.
+* Updated bootstrapSwitch to 1.2.
+* Updated LICENSES file.
 
 ##### Version 13.2 February 28, 2013
 1. Added geolocation. Fixed [issue #105](https://github.com/JMMP/AnteaterNetwork/issues/105).

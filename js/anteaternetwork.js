@@ -68,7 +68,7 @@ var menuSchoolID = "#js-menu-school";
 var toggleClustersID = "#js-toggle-clusters";
 var loadingID = "#js-loading-overlay";
 var filterListID = "#js-filter-list";
-var heightBuffer = 152; // Distance in pixels of height of navbar
+var heightBuffer = 167; // Distance in pixels of height of navbar and footer
 
 $(document).ready(function() {
   // Resize map and results list on load
