@@ -15,30 +15,24 @@ a {
 }
 
 footer {
-  padding: 15px;
+  font-size: 12px;
+  padding-top: 15px;
 }
 
 footer > a {
+  font-size: 2.3em;
   color: #000000;
-  font-size: 1.6em;
+  padding-right: 5px;
 }
 
 footer > a:hover {
   color: #000000;
+  text-decoration: none;
 }
 
-footer [class^="icon-fontello-"] {
-  padding-right: 16px;
+footer img {
+  margin-bottom: 10px;
 }
-
-footer > p {
-  font-size: 12px;
-}
-
-footer > small {
-  padding-left: 1em;
-}
-
 img {
   max-width: none;
 }
@@ -136,6 +130,10 @@ img {
 
 #js-results-show > a {
   text-decoration: none;
+}
+
+#js-toggle-clusters {
+  min-width: 50px;
 }
 
 .infoWindow-heading {
