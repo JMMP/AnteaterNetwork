@@ -56,6 +56,7 @@ var filters = {
 // HTML elements accessed by this script
 var mapID = "#js-map";
 var resultsID = "#js-results";
+var resultsListID = "#js-results-list";
 var resultsInnerID = "#js-results-inner";
 var resultsHideID = "#js-results-hide";
 var resultsShowID = "#js-results-show";
@@ -67,8 +68,13 @@ var menuSchoolID = "#js-menu-school";
 var toggleClustersID = "#js-toggle-clusters";
 var loadingID = "#js-loading-overlay";
 var filterListID = "#js-filter-list";
+var heightBuffer = 152; // Distance in pixels of height of navbar
 
 $(document).ready(function() {
+  // Resize map and results list on load
+  updateSize();
+
+  // Initialize system
   loadMap();
   populate();
 
@@ -129,6 +135,12 @@ $(document).ready(function() {
   });
 });
 
+// Resize map and results list when window is resized
+$(window).resize(function(){
+  updateSize();
+  gmap.refresh(); 
+});
+
 // Catch enter presses on main page
 function enterPressed(e) {
   var keycode;
@@ -139,6 +151,21 @@ function enterPressed(e) {
   else
     return false;
   return (keycode == 13);
+}
+
+function updateSize() {
+  // Resize map and results list according to height of window
+  var distance = heightBuffer;
+  $(mapID).height(window.innerHeight - distance);
+  if (window.innerWidth <= 767) {
+    // If screen resolution is less than 767px wide,
+    // show a shorter results list
+    distance += 150;
+  }
+  $(resultsID).css("max-height", window.innerHeight - distance);
+  $(resultsListID).css("max-height", window.innerHeight - distance);
+  $(resultsInnerID).height(window.innerHeight - distance - 26);
+  $(resultsInnerID).css("max-height", window.innerHeight - distance - 26);
 }
 
 function loadMap() {
