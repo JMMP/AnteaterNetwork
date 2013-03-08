@@ -1,10 +1,18 @@
+/* ============================================================
+ * bootstrapSwitch v1.2 by Larentis Mattia @spiritualGuru
+ * http://www.larentis.eu/switch/
+ * ============================================================
+ * Licensed under the Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * ============================================================ */
+
 !function ($) {
   "use strict";
 
-  $.fn.switch = function (method) {
+  $.fn['bootstrapSwitch'] = function (method) {
     var methods = {
-      init:function () {
-        this.each(function () {
+      init: function () {
+        return this.each(function () {
             var $element = $(this)
               , $div
               , $switchLeft
@@ -13,22 +21,33 @@
               , myClasses = ""
               , classes = $element.attr('class')
               , color
-              , moving;
+              , moving
+              , onLabel = "ON"
+              , offLabel = "OFF";
 
             $.each(['switch-mini', 'switch-small', 'switch-large'], function (i, el) {
               if (classes.indexOf(el) >= 0)
                 myClasses = el;
             });
 
+            $element.addClass('has-switch');
+
             if ($element.data('on') !== undefined)
               color = "switch-" + $element.data('on');
+
+            if ($element.data('on-label') !== undefined)
+              onLabel = $element.data('on-label');
+
+            if ($element.data('off-label') !== undefined)
+              offLabel = $element.data('off-label');
 
             $switchLeft = $('<span>')
               .addClass("switch-left")
               .addClass(myClasses)
               .addClass(color)
-              .text("ON");
+              .html(onLabel);
 
+            color = '';
             if ($element.data('off') !== undefined)
               color = "switch-" + $element.data('off');
 
@@ -36,21 +55,22 @@
               .addClass("switch-right")
               .addClass(myClasses)
               .addClass(color)
-              .text("OFF");
+              .html(offLabel);
 
             $label = $('<label>')
               .html("&nbsp;")
               .addClass(myClasses)
               .attr('for', $element.find('input').attr('id'));
 
-            $div = $element.find('input').wrap($('<div>')).parent().data('animated', false);
+            $div = $element.find(':checkbox').wrap($('<div>')).parent().data('animated', false);
 
             if ($element.data('animated') !== false)
               $div.addClass('switch-animate').data('animated', true);
 
-            $div.append($switchLeft);
-            $div.append($label);
-            $div.append($switchRight);
+            $div
+              .append($switchLeft)
+              .append($label)
+              .append($switchRight);
 
             $element.find('>div').addClass(
               $element.find('input').is(':checked') ? 'switch-on' : 'switch-off'
@@ -63,9 +83,18 @@
               $this.siblings('label').trigger('mousedown').trigger('mouseup').trigger('click');
             };
 
+            $element.on('keydown', function (e) {
+              if (e.keyCode === 32) {
+                e.stopImmediatePropagation();
+                e.preventDefault();
+                changeStatus($(e.target).find('span:first'));
+              }
+            });
+
             $switchLeft.on('click', function (e) {
               changeStatus($(this));
             });
+
             $switchRight.on('click', function (e) {
               changeStatus($(this));
             });
@@ -85,7 +114,7 @@
               if ($element.data('animated') !== false)
                 $element.addClass("switch-animate");
 
-              $element.parent().trigger('switch-change', {'el':$(this), 'value':$(this).is(':checked')})
+              $element.parent().trigger('switch-change', {'el': $(this), 'value': $(this).is(':checked')})
             });
 
             $element.find('label').on('mousedown touchstart', function (e) {
@@ -159,20 +188,28 @@
           }
         );
       },
-      toggleActivation:function () {
+      toggleActivation: function () {
         $(this).toggleClass('deactivate');
       },
-      toggleState:function (skipOnChange) {
+      isActive: function () {
+        return !$(this).hasClass('deactivate');
+      },
+      setActive: function (active) {
+        if (active)
+          $(this).removeClass('deactivate');
+        else $(this).addClass('deactivate');
+      },
+      toggleState: function (skipOnChange) {
         var $input = $(this).find('input:checkbox');
         $input.prop('checked', !$input.is(':checked')).trigger('change', skipOnChange);
       },
-      setState:function (value, skipOnChange) {
+      setState: function (value, skipOnChange) {
         $(this).find('input:checkbox').prop('checked', value).trigger('change', skipOnChange);
       },
-      status:function () {
+      status: function () {
         return $(this).find('input:checkbox').is(':checked');
       },
-      destroy:function () {
+      destroy: function () {
         var $div = $(this).find('div')
           , $checkbox;
 
@@ -197,5 +234,5 @@
 }(jQuery);
 
 $(function () {
-  $('.switch').switch();
+  $('.switch')['bootstrapSwitch']();
 });
