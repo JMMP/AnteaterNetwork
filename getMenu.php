@@ -50,10 +50,14 @@ if (!$result) {
   die("Invalid query (" . $query . "): " . mysqli_error($mysqli));
 }
 
+$output = "<option value=''>" . ucfirst($filter) . "</option>";
+
 // Iterate through results and create list for menu
 while ($row = mysqli_fetch_array($result)) {
-  echo "<li><a onclick=\"populate(" . "'" . $filter . "', " . "'" . $row[$column] . "'" . ")\"><span>" . $row[$column] . "</span></a></li>";
+  $output .= "<option value='" . $row[$column] ."'>" . $row[$column] . "</option>";
 }
+
+echo $output;
 
 mysqli_close($mysqli);
 ?>

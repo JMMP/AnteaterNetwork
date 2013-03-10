@@ -59,6 +59,7 @@
 * Updated Bootstrap, jQuery, jQuery UI, QUnit, and GMaps to use CDNs.
 * Updated bootstrapSwitch to 1.2.
 * Updated LICENSES file.
+* Added smarter select boxes with [Bootstrap Combobox](https://github.com/danielfarrell/bootstrap-combobox). Fixed [issue #93](https://github.com/JMMP/AnteaterNetwork/issues/93).
 
 ##### Version 13.2 February 28, 2013
 1. Added geolocation. Fixed [issue #105](https://github.com/JMMP/AnteaterNetwork/issues/105).

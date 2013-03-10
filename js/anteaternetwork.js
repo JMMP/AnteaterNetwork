@@ -61,10 +61,12 @@ var resultsInnerID = "#js-results-inner";
 var resultsHideID = "#js-results-hide";
 var resultsShowID = "#js-results-show";
 var resultsNoneID = "#js-results-none";
-var menuCityID = "#js-menu-city";
-var menuCategoryID = "#js-menu-category";
-var menuYearID = "#js-menu-year";
-var menuSchoolID = "#js-menu-school";
+var menus = {
+  city: "#js-menu-city",
+  category: "#js-menu-category",
+  year: "#js-menu-year",
+  school: "#js-menu-school"
+};
 var toggleClustersID = "#js-toggle-clusters";
 var loadingID = "#js-loading-overlay";
 var filterListID = "#js-filter-list";
@@ -91,13 +93,6 @@ $(document).ready(function() {
       hide: 200
     }
   });
-
-  // Enable Select2 inputs
-  /*$("#js-input-name2").select2({
-    multiple: true,
-    placeholder: "Search by state",
-    tokenSeperators: [",", " "]
-  });*/
 
   // Hide results list
   $(resultsHideID).click(function(e) {
@@ -495,40 +490,21 @@ function getRequest() {
 }
 
 function getMenu(menu) {
-  // Populate the filter menus
-  // Add an "All" option to the top of each
-  // Add click listeners to each item for highlighting the selected option
-  $.get("getMenu.php?menu=" + menu, {}, function(data, status) {
-    if (menu == "city") {
-      $(menuCityID).html(data);
-      $(menuCityID).prepend("<li class=\"active\"><a onclick=\"populate('city', '')\">All</a></li><li class=\"divider\"></li>");
-      $(menuCityID).children("li").click( function() {
-        $(menuCityID).children("li").removeClass("active");
-        $(this).addClass("active");
+  if (filters.hasOwnProperty(menu)) {
+    // Populate the filter menus
+    // Add change event handler for applying the filter
+    $.get("getMenu.php?menu=" + menu, function(data) {
+      var element = $(menus[menu]);
+      element.html(data);
+      element.combobox({
+        items: 8,
+        minLength: 2
       });
-    } else if (menu == "year") {
-      $(menuYearID).html(data);
-      $(menuYearID).prepend("<li class=\"active\"><a onclick=\"populate('year', '')\">All</a></li><li class=\"divider\"></li>");
-      $(menuYearID).children("li").click( function() {
-        $(menuYearID).children("li").removeClass("active");
-        $(this).addClass("active");
-      });
-    } else if (menu == "school") {
-      $(menuSchoolID).html(data);
-      $(menuSchoolID).prepend("<li class=\"active\"><a onclick=\"populate('school', '')\">All</a></li><li class=\"divider\"></li>");
-      $(menuSchoolID).children("li").click( function() {
-        $(menuSchoolID).children("li").removeClass("active");
-        $(this).addClass("active");
-      });
-    } else if (menu == "category") {
-      $(menuCategoryID).html(data);
-      $(menuCategoryID).prepend("<li class=\"active\"><a onclick=\"populate('category', '')\">All</a></li><li class=\"divider\"></li>");
-      $(menuCategoryID).children("li").click( function() {
-        $(menuCategoryID).children("li").removeClass("active");
-        $(this).addClass("active");
-      });
-    }
-  });
+      element.change(function(data) {
+        populate(menu, element.val());
+      })
+    });
+  }
 }
 
 function geolocate () {
