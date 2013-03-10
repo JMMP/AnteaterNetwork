@@ -20,35 +20,48 @@
               <img src="images/anteaternetwork_logo_short.png" width="77" />
             </a>
           </li>
-          <li class="hidden-phone js-filters">
+        </ul>
+        <ul class="nav" id="js-filters">
+          <li>
             <a style="padding: 5px 10px">
               <select class="combobox input-small" id="js-menu-city">
               </select>
             </a>
           </li>
-          <li class="hidden-phone js-filters">
+          <li>
             <a style="padding: 5px 10px">
               <select class="combobox input-small" id="js-menu-category">
               </select>
             </a>
           </li>
-          <li class="hidden-phone js-filters">
+          <li>
             <a style="padding: 5px 10px">
               <select class="combobox input-tiny" id="js-menu-year">
               </select>
             </a>
           </li>
-          <li class="hidden-phone js-filters">
+          <li>
             <a style="padding: 5px 10px">
               <select class="combobox input-small" id="js-menu-school">
               </select>
             </a>
           </li>
+        </ul>
+        <ul class="nav">
           <li class="js-search">
             <a rel="tooltip" title="Use minus (-) to exclude a search term!" data-placement="bottom" style="padding: 5px 10px">
               <form class="navbar-form" onsubmit="return false">
                 <input class="input-medium" type="text" placeholder="Search" onKeyPress="if(enterPressed(event)){ populate('search', this.value) }" />
               </form>
+            </a>
+          </li>
+        </ul>
+        <ul class="nav">
+          <li>
+            <a rel="tooltip" title="Switch between filters and search" data-placement="bottom">Filters
+              <div class="switch switch-mini" id="js-toggle-filters">
+                <input type="checkbox" />
+              </div>
             </a>
           </li>
           <li class="hidden-phone">

@@ -68,33 +68,42 @@ var menus = {
   school: "#js-menu-school"
 };
 var toggleClustersID = "#js-toggle-clusters";
+var toggleFiltersID = "#js-toggle-filters";
+var filtersID = "#js-filters";
+var searchID = "#js-search";
 var loadingID = "#js-loading-overlay";
-var filterListID = "#js-filter-list";
 var heightBuffer = 167; // Distance in pixels of height of navbar and footer
 
 $(document).ready(function() {
   // Resize map and results list on load
   updateSize();
 
+  // Hide filters by default
+  $(filtersID).hide();
+
   // Initialize system
   loadMap();
   populate();
 
-  // Catch changes to the clusters switch
-  // Toggle clusters depending on the state of the switch
+  // Change event handler for toggling filters and search
+  $(toggleFiltersID).on("switch-change", function (e, data) {
+    if (data.value) {
+      $(filtersID).toggle("slide");
+      $(searchID).toggle();
+      
+    } else {
+      $(filtersID).toggle("slide", function() {
+        $(searchID).toggle();
+      });
+    }    
+  });
+
+  // Change event handler for toggling clusters
   $(toggleClustersID).on("switch-change", function (e, data) {
     toggleClusters(data.value);
   });
 
-  // Enable Bootstrap tooltips with custom show and hide delays
-  $("[rel=tooltip]").tooltip({
-    delay: {
-      show: 600,
-      hide: 200
-    }
-  });
-
-  // Hide results list
+  // Click event handler for hiding results list
   $(resultsHideID).click(function(e) {
     var mapPosition = $(mapID).position();
 
@@ -114,7 +123,7 @@ $(document).ready(function() {
     });
   });
 
-  // Show results list
+  // Click event handler for showing results list
   $(resultsShowID).click(function(e) {
     // Hide the "Show" button and hold map in place
     $(resultsShowID).hide("drop");
@@ -127,6 +136,14 @@ $(document).ready(function() {
       $(mapID).css("position", "relative");
     });
     gmap.refresh(); // Reload map after it shrinks
+  });
+
+  // Enable Bootstrap tooltips with custom show and hide delays
+  $("[rel=tooltip]").tooltip({
+    delay: {
+      show: 600,
+      hide: 200
+    }
   });
 });
 
@@ -249,10 +266,8 @@ function clearFilters() {
   for (i in filters)
     filters[i] = "";
 
-  // Remove all extra classes from filter menus and
-  // clear values in text boxes
-  $("[id^='js-menu-']").children("li").removeClass();
-  $("[id^='js-input-'], textarea").val("");
+  // Clear values in text boxes
+  $(searchID).val("");
 
   // Re-populate map
   populate();
@@ -430,13 +445,11 @@ function clearMarkers() {
 
 function toggleClusters(enable) {
   if (enable) {
-    // Set the marker clusterer for the map and
-    // add all the markers to the clusterer
+    // Set the marker clusterer and add all the markers to the clusterer
     gmap.markerClusterer = mc;
     mc.addMarkers(gmap.markers);
   } else {
-    // Remove marker clusterer from map and
-    // clear all markers from the clusterer
+    // Remove marker clusterer and clear all markers from the clusterer
     gmap.markerClusterer = null;
     mc.clearMarkers();
     // Show the markers on the map again
@@ -453,10 +466,6 @@ function toggleClusters(enable) {
 
 function getRequest() {
   var request = "";
-
-  // Hide and clear filter list unless needed
-  $(filterListID).hide();
-  $(filterListID).html("");
 
   // If the free search is being used, ignore the other filters
   // Otherwise, build the request normally
@@ -477,14 +486,8 @@ function getRequest() {
         if (request !== "")
           request += "&";
         request += i + "=" + filters[i];
-
-        // Format and display filter
-        filterCapitalized = i.charAt(0).toUpperCase() + i.slice(1);
-        $(filterListID).append("<div class='span3'><span class='label label-info'>" + filterCapitalized + "</span> " + filters[i] + "</div>");
       }
     }
-    if ($(filterListID).html() !== "")
-      $(filterListID).show(); // Show filter list if there are filters applied
   }
   return request;
 }
