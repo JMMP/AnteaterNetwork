@@ -1,5 +1,5 @@
 /*
- * Anteater Network v13.2
+ * Anteater Network v14.0
  * http://git.io/antnet
  *
  * Copyright 2013 JMMP
@@ -15,52 +15,65 @@ a {
 }
 
 footer {
-  padding: 15px;
+  font-size: 12px;
+  padding-top: 15px;
 }
 
 footer > a {
+  font-size: 2.3em;
   color: #000000;
-  font-size: 1.6em;
+  padding-right: 5px;
 }
 
 footer > a:hover {
   color: #000000;
+  text-decoration: none;
 }
 
-footer [class^="icon-fontello-"] {
-  padding-right: 16px;
-}
-
-footer > p {
-  font-size: 12px;
-}
-
-footer > small {
-  padding-left: 1em;
+footer img {
+  margin-bottom: 10px;
 }
 
 img {
   max-width: none;
 }
 
-[id^="js-menu-"] {
+.combobox-container {
+  margin-bottom: 0px;
+}
+
+.btn .combobox-clear {
+  margin-left: 0px;
+  margin-top: 0px;
+  color: #333333;
+}
+
+.dropdown-menu {
   max-height: 360px;  
   overflow: hidden;
   overflow-y: auto;
 }
 
-#js-filter-list {
-  margin-bottom: 0px;
-  margin-top: 5px;
+.dropdown-menu > li > a {
+  text-shadow: none;
+}
+
+.input-tiny {
+  width: 45px;
+}
+
+@media (max-width: 767px) {
+  .input-tiny {
+    width: 90px;
+  }
 }
 
 #js-loading-overlay {
-  display: none;
   position: fixed;
   z-index: 2;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.6);
   top: 0;
   left: 0;
 }
@@ -70,37 +83,58 @@ img {
   width: 40%;
   top: 40%;
   left: 30%;
+  z-index: 3;
+}
+
+#js-login {
+  top: 25%;
+  max-width: 300px;
+  margin-left: -150px;
 }
 
 #js-map {
-  height: 600px;
+  height: 500px;
   -moz-box-shadow: 0px 5px 20px #ccc;
   -webkit-box-shadow: 0px 5px 20px #ccc;
   box-shadow: 0px 5px 20px #ccc;
+  min-height: 200px;
+}
+
+#js-options-phone a {
+  margin-right: 10px;
+}
+
+#js-options-phone a:hover {
+  text-decoration: none;
 }
 
 #js-results {
   margin-left: 0px;
+  min-height: 100px;
 }
 
-#js-results-list {
-  background-color: #e8e8e8;
-  height: 600px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
+#js-results-hide:hover {
+  background-color: transparent;
 }
 
 #js-results-inner {
-  height: 574px;
   overflow: hidden;
   overflow-y: auto;
+  min-height: 74px;
 }
 
 #js-results-inner > li {
   border-bottom: 1px solid #f7f7f7;
   padding-top: 5px;
   padding-bottom: 5px;
+}
+
+#js-results-list {
+  background-color: #e8e8e8;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  min-height: 100px;
 }
 
 #js-results-show {
@@ -121,6 +155,10 @@ img {
   text-decoration: none;
 }
 
+#js-toggle-clusters {
+  min-width: 50px;
+}
+
 .infoWindow-heading {
   font-size: 2em;
   text-transform: uppercase;
@@ -138,30 +176,28 @@ img {
   margin-bottom: 0px;
 }
 
+.navbar .btn {
+  margin-top: 0px;
+}
+
 .navbar .nav > li > a {
   padding: 10px 10px;
 }
 
-.navbar-form input {
+.navbar .nav > li > a > i {
+  font-size: 1.3em;
+}
+
+.navbar input {
   margin-top: 0px;
+  margin-bottom: 0px;
 }
 
 .row-fluid {
   margin-top: 9px;
-  margin-bottom: 10px;
 }
 
 [class^="span"] {
   margin-top: 10px;
   margin-bottom: 10px;
-}
-
-@media (max-width: 767px) {
-  #js-results-list {
-    height: 400px;
-  }
-
-  #js-results-inner {
-    height: 374px;
-  }
 }

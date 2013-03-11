@@ -1,5 +1,5 @@
 /*
- * Anteater Network v13.2
+ * Anteater Network v14.0
  * http://git.io/antnet
  *
  * Copyright 2013 JMMP
@@ -9,32 +9,32 @@
 var firstLoad = true; // true on initial load AND when all filters are cleared
 var gmap;
 var mapStyles = [{
-    "featureType": "water",
-    "stylers": [{
-      "lightness": 14
-    }]
+  "featureType": "water",
+  "stylers": [{
+    "lightness": 14
+  }]
+}, {
+  "featureType": "road",
+  "stylers": [{
+    "saturation": 100
   }, {
-    "featureType": "road",
-    "stylers": [{
-      "saturation": 100
-    }, {
-      "weight": 0.3
-    }, {
-      "hue": "#002bff"
-    }]
+    "weight": 0.3
   }, {
-    "featureType": "landscape",
-    "stylers": [{
-      "hue": "#00ff44"
-    }]
+    "hue": "#002bff"
+  }]
+}, {
+  "featureType": "landscape",
+  "stylers": [{
+    "hue": "#00ff44"
+  }]
+}, {
+  "featureType": "poi.school",
+  "stylers": [{
+    "saturation": 100
   }, {
-    "featureType": "poi.school",
-    "stylers": [{
-      "saturation": 100
-    }, {
-      "hue": "#ffe500"
-    }]
-  }];
+    "hue": "#ffe500"
+  }]
+}];
 
 // Marker clusterer and custom marker icons
 var mc;
@@ -45,49 +45,72 @@ var markersLatLng = []; // Store positions of all markers for buffering the view
 var markerBuffer = 0.0035; // Buffer around markers in all four directions
 
 // Filters
-var filters = [["city", ""], ["category", ""], ["year", ""], ["school", ""], ["search", ""]];
+var filters = {
+  city: "",
+  category: "",
+  year: "",
+  school: "",
+  search: ""
+};
 
 // HTML elements accessed by this script
 var mapID = "#js-map";
 var resultsID = "#js-results";
+var resultsListID = "#js-results-list";
 var resultsInnerID = "#js-results-inner";
 var resultsHideID = "#js-results-hide";
 var resultsShowID = "#js-results-show";
-var menuCityID = "#js-menu-city";
-var menuCategoryID = "#js-menu-category";
-var menuYearID = "#js-menu-year";
-var menuSchoolID = "#js-menu-school";
-var noresultsID = "#js-noresults";
-var toggleClustersID = "#js-toggle-clusters";
+var resultsNoneID = "#js-results-none";
+var menus = {
+  city: "#js-menu-city",
+  category: "#js-menu-category",
+  year: "#js-menu-year",
+  school: "#js-menu-school"
+};
+var toggleClustersID = ".js-toggle-clusters";
+var toggleFiltersID = ".js-toggle-filters";
+var filtersID = "#js-filters";
+var searchID = "#js-search";
 var loadingID = "#js-loading-overlay";
-var filterListID = "#js-filter-list";
+var heightBuffer = 167; // Distance in pixels of height of navbar and footer
 
 $(document).ready(function() {
-  loadMap();
-  populate();
+  // Resize map and results list on load
+  updateSize();
 
-  // Catch changes to the clusters switch
-  // Toggle clusters depending on the state of the switch
+  // Hide filters by default
+  $(filtersID).hide();
+
+  // Start with filters if user is on a desktop
+  if ($(".visible-desktop").is(":visible")) {
+    $(toggleFiltersID).bootstrapSwitch("setState", true, true);
+    $(filtersID).toggle("slide", function() {
+      $(searchID).toggle();
+    });
+  }
+
+  // Change event handler for toggling filters and search
+  $(toggleFiltersID).on("switch-change", function (e, data) {
+    if (data.value) {
+      $(searchID).toggle();
+      $(filtersID).toggle("slide");      
+    } else {
+      $(filtersID).toggle("slide", function() {
+        $(searchID).toggle();
+      });
+    }    
+  });
+
+  // Change event handler for toggling clusters
   $(toggleClustersID).on("switch-change", function (e, data) {
     toggleClusters(data.value);
   });
 
-  // Enable Bootstrap tooltips with custom show and hide delays
-  $("[rel=tooltip]").tooltip({
-    delay: {
-      show: 600,
-      hide: 200
-    }
-  });
+  // Initialize system
+  loadMap();
+  populate();
 
-  // Enable Select2 inputs
-  $("#js-input-name2").select2({
-    multiple: true,
-    placeholder: "Search by state",
-    tokenSeperators: [",", " "]
-  });
-
-  // Hide results list
+  // Click event handler for hiding results list
   $(resultsHideID).click(function(e) {
     var mapPosition = $(mapID).position();
 
@@ -107,7 +130,7 @@ $(document).ready(function() {
     });
   });
 
-  // Show results list
+  // Click event handler for showing results list
   $(resultsShowID).click(function(e) {
     // Hide the "Show" button and hold map in place
     $(resultsShowID).hide("drop");
@@ -121,6 +144,20 @@ $(document).ready(function() {
     });
     gmap.refresh(); // Reload map after it shrinks
   });
+
+  // Enable Bootstrap tooltips with custom show and hide delays
+  $("[rel=tooltip]").tooltip({
+    delay: {
+      show: 600,
+      hide: 200
+    }
+  });
+});
+
+// Resize map and results list when window is resized
+$(window).resize(function(){
+  updateSize();
+  gmap.refresh(); 
 });
 
 // Catch enter presses on main page
@@ -133,6 +170,21 @@ function enterPressed(e) {
   else
     return false;
   return (keycode == 13);
+}
+
+function updateSize() {
+  // Resize map and results list according to height of window
+  var distance = heightBuffer;
+  $(mapID).height(window.innerHeight - distance);
+  if (window.innerWidth <= 767) {
+    // If screen resolution is less than 767px wide,
+    // show a shorter results list
+    distance += 150;
+  }
+  $(resultsID).css("max-height", window.innerHeight - distance);
+  $(resultsListID).css("max-height", window.innerHeight - distance);
+  $(resultsInnerID).height(window.innerHeight - distance - 26);
+  $(resultsInnerID).css("max-height", window.innerHeight - distance - 26);
 }
 
 function loadMap() {
@@ -209,10 +261,8 @@ function populate(filter, input) {
 }
 
 function setFilter(filter, input) {
-  for (i in filters) {
-    if (filters[i][0] == filter)
-      filters[i][1] = input;
-  }
+  if (filters.hasOwnProperty(filter))
+    filters[filter] = input;
 }
 
 function clearFilters() {
@@ -221,12 +271,10 @@ function clearFilters() {
 
   // Clear all filters
   for (i in filters)
-    filters[i][1] = "";
+    filters[i] = "";
 
-  // Remove all extra classes from filter menus and
-  // clear values in text boxes
-  $("[id^='js-menu-']").children("li").removeClass();
-  $("[id^='js-input-'], textarea").val("");
+  // Clear values in text boxes
+  $("input").val("");
 
   // Re-populate map
   populate();
@@ -389,9 +437,9 @@ function checkResults() {
   // We cannot check the markers array because there may
   // be businesses without an address being shown
   if ($(resultsInnerID).html() !== "")
-    $(noresultsID).hide();    
+    $(resultsNoneID).hide();    
   else
-    $(noresultsID).show();
+    $(resultsNoneID).show();
 }
 
 function clearMarkers() {
@@ -404,13 +452,11 @@ function clearMarkers() {
 
 function toggleClusters(enable) {
   if (enable) {
-    // Set the marker clusterer for the map and
-    // add all the markers to the clusterer
+    // Set the marker clusterer and add all the markers to the clusterer
     gmap.markerClusterer = mc;
     mc.addMarkers(gmap.markers);
   } else {
-    // Remove marker clusterer from map and
-    // clear all markers from the clusterer
+    // Remove marker clusterer and clear all markers from the clusterer
     gmap.markerClusterer = null;
     mc.clearMarkers();
     // Show the markers on the map again
@@ -428,76 +474,47 @@ function toggleClusters(enable) {
 function getRequest() {
   var request = "";
 
-  // Hide and clear filter list unless needed
-  $(filterListID).hide();
-  $(filterListID).html("");
-
   // If the free search is being used, ignore the other filters
   // Otherwise, build the request normally
-  if (filters[4][1] !== "") {
+  if (filters.search !== "") {
     // Split words up and add necessary operators
     // for MySQL Full-text boolean mode
     // After, format the request for HTML
-    var tokens = filters[4][1].split(" ");
+    var tokens = filters.search.split(" ");
     for (i in tokens) {
       if (i.charAt(0) !== "-")
         request += "+";
       request += tokens[i] + "* ";
     }
-    request = filters[4][0] + "=" + encodeURIComponent(request);
+    request = "search=" + encodeURIComponent(request);
   } else {
     for (i in filters) {
-      if (filters[i][1] !== "") {
+      if (filters[i] !== "") {
         if (request !== "")
           request += "&";
-        request += filters[i][0] + "=" + filters[i][1];
-
-        // Format and display filter
-        filterCapitalized = filters[i][0].charAt(0).toUpperCase() + filters[i][0].slice(1);
-        $(filterListID).append("<div class='span3'><span class='label label-info'>" + filterCapitalized + "</span> " + filters[i][1] + "</div>");
+        request += i + "=" + filters[i];
       }
     }
-    if ($(filterListID).html() !== "")
-      $(filterListID).show(); // Show filter list if there are filters applied
   }
   return request;
 }
 
 function getMenu(menu) {
-  // Populate the filter menus
-  // Add an "All" option to the top of each
-  // Add click listeners to each item for highlighting the selected option
-  $.get("getMenu.php?menu=" + menu, {}, function(data, status) {
-    if (menu == "city") {
-      $(menuCityID).html(data);
-      $(menuCityID).prepend("<li class=\"active\"><a onclick=\"populate('city', '')\">All</a></li><li class=\"divider\"></li>");
-      $(menuCityID).children("li").click( function() {
-        $(menuCityID).children("li").removeClass("active");
-        $(this).addClass("active");
+  if (filters.hasOwnProperty(menu)) {
+    // Populate the filter menus
+    // Add change event handler for applying the filter
+    $.get("getMenu.php?menu=" + menu, function(data) {
+      var element = $(menus[menu]);
+      element.html(data);
+      element.combobox({
+        items: 8,
+        minLength: 2
       });
-    } else if (menu == "year") {
-      $(menuYearID).html(data);
-      $(menuYearID).prepend("<li class=\"active\"><a onclick=\"populate('year', '')\">All</a></li><li class=\"divider\"></li>");
-      $(menuYearID).children("li").click( function() {
-        $(menuYearID).children("li").removeClass("active");
-        $(this).addClass("active");
-      });
-    } else if (menu == "school") {
-      $(menuSchoolID).html(data);
-      $(menuSchoolID).prepend("<li class=\"active\"><a onclick=\"populate('school', '')\">All</a></li><li class=\"divider\"></li>");
-      $(menuSchoolID).children("li").click( function() {
-        $(menuSchoolID).children("li").removeClass("active");
-        $(this).addClass("active");
-      });
-    } else if (menu == "category") {
-      $(menuCategoryID).html(data);
-      $(menuCategoryID).prepend("<li class=\"active\"><a onclick=\"populate('category', '')\">All</a></li><li class=\"divider\"></li>");
-      $(menuCategoryID).children("li").click( function() {
-        $(menuCategoryID).children("li").removeClass("active");
-        $(this).addClass("active");
-      });
-    }
-  });
+      element.change(function(data) {
+        populate(menu, element.val());
+      })
+    });
+  }
 }
 
 function geolocate () {

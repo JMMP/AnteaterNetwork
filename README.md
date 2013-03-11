@@ -1,6 +1,6 @@
-![Anteater Network](images/anteaternetwork_logo_full.png)
-![JMMP](images/jmmp_logo.png)
-# Anteater Network [13.1](http://instdav.ics.uci.edu//~191grp10/AnteaterNetwork/) Beta
+![Anteater Network](https://raw.github.com/JMMP/INF191/master/anteaternetwork/logos/antnet_logo_2_slogan.png)
+![JMMP](https://raw.github.com/JMMP/INF191/master/jmmp/logos/jmmp_logo_black.png)
+# Anteater Network [14.0](http://instdav.ics.uci.edu//~191grp10/AnteaterNetwork/) Beta
 ### © 2013 [JMMP](http://jmmp.github.com) (Jola Bolaji, Mark Chege, Melvin Chien, Patrick Chen) in association with UC Irvine Alumni Association.
 
 [Features](#features) | [Changelog](#changelog) | [Resources](#resources) | [License](#license)
@@ -51,6 +51,19 @@
 
 
 ### Changelog
+##### Version 14.0 March 10, 2013
+1. Converted filters from an array to an object with properties.
+* Updated QUnit tests. Fixed [issue #128](https://github.com/JMMP/AnteaterNetwork/issues/128).
+* Auto resize map and results list depending on height of window.
+* Use [Font Awesome](http://fortawesome.github.com/Font-Awesome/) instead of Fontello.
+* Updated Bootstrap, jQuery, jQuery UI, QUnit, and GMaps to use CDNs.
+* Updated bootstrapSwitch to 1.2.
+* Updated LICENSES file.
+* Added smarter select boxes with [Bootstrap Combobox](https://github.com/danielfarrell/bootstrap-combobox). Fixed [issue #93](https://github.com/JMMP/AnteaterNetwork/issues/93).
+* Added toggle to switch between search and filters.
+* Adjusted responsive behavior of menu bar. Fixed [issue #136](https://github.com/JMMP/AnteaterNetwork/issues/136).
+* Default to filters for desktops.
+
 ##### Version 13.2 February 28, 2013
 1. Added geolocation. Fixed [issue #105](https://github.com/JMMP/AnteaterNetwork/issues/105).
 * Added map focusing to marker when listing is clicked. 
