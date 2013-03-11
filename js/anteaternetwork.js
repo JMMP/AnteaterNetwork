@@ -67,8 +67,8 @@ var menus = {
   year: "#js-menu-year",
   school: "#js-menu-school"
 };
-var toggleClustersID = "#js-toggle-clusters";
-var toggleFiltersID = "#js-toggle-filters";
+var toggleClustersID = ".js-toggle-clusters";
+var toggleFiltersID = ".js-toggle-filters";
 var filtersID = "#js-filters";
 var searchID = "#js-search";
 var loadingID = "#js-loading-overlay";
@@ -88,9 +88,8 @@ $(document).ready(function() {
   // Change event handler for toggling filters and search
   $(toggleFiltersID).on("switch-change", function (e, data) {
     if (data.value) {
-      $(filtersID).toggle("slide");
       $(searchID).toggle();
-      
+      $(filtersID).toggle("slide");      
     } else {
       $(filtersID).toggle("slide", function() {
         $(searchID).toggle();
@@ -267,7 +266,7 @@ function clearFilters() {
     filters[i] = "";
 
   // Clear values in text boxes
-  $(searchID).val("");
+  $("input").val("");
 
   // Re-populate map
   populate();

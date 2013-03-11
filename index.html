@@ -42,40 +42,38 @@
           </li>
           <li>
             <a style="padding: 5px 10px">
-              <select class="combobox input-small" id="js-menu-school">
+              <select class="combobox input-tiny" id="js-menu-school">
               </select>
             </a>
           </li>
-        </ul>
-        <ul class="nav">
-          <li class="js-search">
-            <a rel="tooltip" title="Use minus (-) to exclude a search term!" data-placement="bottom" style="padding: 5px 10px">
-              <form class="navbar-form" onsubmit="return false">
-                <input class="input-medium" type="text" placeholder="Search" onKeyPress="if(enterPressed(event)){ populate('search', this.value) }" />
-              </form>
-            </a>
+          <li class="visible-desktop">
+            <a rel="tooltip" title="Resets the map" data-placement="bottom" onclick="clearFilters();">Reset</a>
           </li>
         </ul>
         <ul class="nav">
+          <li id="js-search">
+            <a rel="tooltip" title="Use minus (-) to exclude a search term!" data-placement="bottom" style="padding: 5px 10px">
+              <input class="input-large" type="text" placeholder="Search" onKeyPress="if(enterPressed(event)){ populate('search', this.value) }" />
+            </a>
+          </li>
+        </ul>
+        <ul class="nav visible-desktop">
           <li>
             <a rel="tooltip" title="Switch between filters and search" data-placement="bottom">Filters
-              <div class="switch switch-mini" id="js-toggle-filters">
+              <div class="switch switch-mini js-toggle-filters">
                 <input type="checkbox" />
               </div>
             </a>
           </li>
-          <li class="hidden-phone">
-            <a rel="tooltip" title="Resets the map" data-placement="bottom" onclick="clearFilters();">Reset</a>
-          </li>
-          <li class="hidden-phone">
+          <li>
             <a rel="tooltip" title="Groups pins together by location" data-placement="bottom">Clusters
-              <div class="switch switch-mini" id="js-toggle-clusters">
-                <input type="checkbox" checked="checked" />
+              <div class="switch switch-mini js-toggle-clusters">
+                <input type="checkbox" checked />
               </div>
             </a>
           </li>
-          <li class="visible-desktop">
-            <a rel="tooltip" title="Add or fix your business details" data-placement="bottom" href="http://www.alumni.uci.edu/connect/update-info.php" target="_blank">Update Info</a>
+          <li>
+            <a class="visible-desktop" rel="tooltip" title="Add or fix your business details" data-placement="bottom" href="http://www.alumni.uci.edu/connect/update-info.php" target="_blank">Update Info</a>
           </li>
         </ul>
       </div>
@@ -88,6 +86,19 @@
   </div>
   <div class="alert alert-warning">
     This is the <strong>development</strong> version of the Anteater Network which may be <strong>unstable</strong>. For the latest <strong>recommended</strong> version, please click <a href="https://instdav.ics.uci.edu//~191grp10/AnteaterNetwork-Testing/">here</a>.
+  </div>
+  <div class="container-fluid hidden-desktop" id="js-options-phone">
+    <a rel="tooltip" title="Switch between filters and search" data-placement="bottom">Filters
+      <div class="switch switch-mini js-toggle-filters">
+        <input type="checkbox" />
+      </div>
+    </a>
+    <a rel="tooltip" title="Groups pins together by location" data-placement="bottom">Clusters
+      <div class="switch switch-mini js-toggle-clusters">
+        <input type="checkbox" checked />
+      </div>
+    </a>
+    <a rel="tooltip" title="Resets the map" data-placement="bottom" onclick="clearFilters();">Reset</a>
   </div>
   <div class="container-fluid">
     <div class="row-fluid">
