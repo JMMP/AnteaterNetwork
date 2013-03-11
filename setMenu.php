@@ -196,7 +196,7 @@ $categories = array(
 // Mapping for the school codes to full school names
 $schools = array(
   "BIO" => "Biological Sciences",
-  "COMP" => "Comparitve Culture",
+  "COMP" => "Comparative Culture",
   "EDUC" => "Education",
   "ENG" => "Engineering",
   "FINE" => "Arts",

@@ -59,7 +59,13 @@ img {
 }
 
 .input-tiny {
-  width: 40px;
+  width: 45px;
+}
+
+@media (max-width: 767px) {
+  .input-tiny {
+    width: 90px;
+  }
 }
 
 #js-loading-overlay {
@@ -77,6 +83,7 @@ img {
   width: 40%;
   top: 40%;
   left: 30%;
+  z-index: 3;
 }
 
 #js-login {
@@ -90,10 +97,20 @@ img {
   -moz-box-shadow: 0px 5px 20px #ccc;
   -webkit-box-shadow: 0px 5px 20px #ccc;
   box-shadow: 0px 5px 20px #ccc;
+  min-height: 200px;
+}
+
+#js-options-phone a {
+  margin-right: 10px;
+}
+
+#js-options-phone a:hover {
+  text-decoration: none;
 }
 
 #js-results {
   margin-left: 0px;
+  min-height: 100px;
 }
 
 #js-results-hide:hover {
@@ -103,6 +120,7 @@ img {
 #js-results-inner {
   overflow: hidden;
   overflow-y: auto;
+  min-height: 74px;
 }
 
 #js-results-inner > li {
@@ -116,6 +134,7 @@ img {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
+  min-height: 100px;
 }
 
 #js-results-show {

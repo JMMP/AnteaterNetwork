@@ -101,7 +101,6 @@
 .has-switch label {
   margin-top: -1px;
   margin-bottom: -1px;
-  z-index: 100;
   width: 33.333333%;
   border-left: 1px solid #cccccc;
   border-right: 1px solid #cccccc;
