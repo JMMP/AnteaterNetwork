@@ -184,6 +184,10 @@ img {
   padding: 10px 10px;
 }
 
+.navbar .nav > li > a > i {
+  font-size: 1.3em;
+}
+
 .navbar input {
   margin-top: 0px;
   margin-bottom: 0px;

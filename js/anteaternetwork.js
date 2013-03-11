@@ -81,9 +81,13 @@ $(document).ready(function() {
   // Hide filters by default
   $(filtersID).hide();
 
-  // Initialize system
-  loadMap();
-  populate();
+  // Start with filters if user is on a desktop
+  if ($(".visible-desktop").is(":visible")) {
+    $(toggleFiltersID).bootstrapSwitch("setState", true, true);
+    $(filtersID).toggle("slide", function() {
+      $(searchID).toggle();
+    });
+  }
 
   // Change event handler for toggling filters and search
   $(toggleFiltersID).on("switch-change", function (e, data) {
@@ -101,6 +105,10 @@ $(document).ready(function() {
   $(toggleClustersID).on("switch-change", function (e, data) {
     toggleClusters(data.value);
   });
+
+  // Initialize system
+  loadMap();
+  populate();
 
   // Click event handler for hiding results list
   $(resultsHideID).click(function(e) {

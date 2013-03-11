@@ -30,6 +30,7 @@
 
 #### MarkerClusterer for Google Maps v3
 **Author:** Luke Mahe  
+**Website:** <http://code.google.com/p/google-maps-utility-library-v3/source/browse/trunk/markerclusterer/>
 **License:** Apache License (http://www.apache.org/licenses/LICENSE-2.0)  
 
 #### Bootstrap Switch

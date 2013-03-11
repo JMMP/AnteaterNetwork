@@ -73,7 +73,12 @@
             </a>
           </li>
           <li>
-            <a class="visible-desktop" rel="tooltip" title="Add or fix your business details" data-placement="bottom" href="http://www.alumni.uci.edu/connect/update-info.php" target="_blank">Update Info</a>
+            <a rel="tooltip" title="Add or fix your business details" data-placement="bottom" href="http://www.alumni.uci.edu/connect/update-info.php" target="_blank" rel="tooltip" title="Add or fix your business details here!"><i class="icon-pencil"></i></a>
+          </li>
+        </ul>
+        <ul class="nav hidden-desktop">
+          <li>
+            <a rel="tooltip" title="Add or fix your business details" data-placement="bottom" href="http://www.alumni.uci.edu/connect/update-info.php" target="_blank" rel="tooltip" title="Add or fix your business details here!"><i class="icon-pencil"></i></a>
           </li>
         </ul>
       </div>
@@ -84,21 +89,23 @@
       <div class="bar" style="width: 100%"></div>
     </div>
   </div>
-  <div class="alert alert-warning">
+  <!--<div class="alert alert-warning">
     This is the <strong>development</strong> version of the Anteater Network which may be <strong>unstable</strong>. For the latest <strong>recommended</strong> version, please click <a href="https://instdav.ics.uci.edu//~191grp10/AnteaterNetwork-Testing/">here</a>.
-  </div>
+  </div>-->
   <div class="container-fluid hidden-desktop" id="js-options-phone">
-    <a rel="tooltip" title="Switch between filters and search" data-placement="bottom">Filters
-      <div class="switch switch-mini js-toggle-filters">
-        <input type="checkbox" />
-      </div>
-    </a>
-    <a rel="tooltip" title="Groups pins together by location" data-placement="bottom">Clusters
-      <div class="switch switch-mini js-toggle-clusters">
-        <input type="checkbox" checked />
-      </div>
-    </a>
-    <a rel="tooltip" title="Resets the map" data-placement="bottom" onclick="clearFilters();">Reset</a>
+    <div class="row-fluid">
+      <a rel="tooltip" title="Switch between filters and search" data-placement="bottom">Filters
+        <div class="switch switch-mini js-toggle-filters">
+          <input type="checkbox" />
+        </div>
+      </a>
+      <a rel="tooltip" title="Groups pins together by location" data-placement="bottom">Clusters
+        <div class="switch switch-mini js-toggle-clusters">
+          <input type="checkbox" checked />
+        </div>
+      </a>
+      <a rel="tooltip" title="Resets the map" data-placement="bottom" onclick="clearFilters();">Reset</a>
+    </div>
   </div>
   <div class="container-fluid">
     <div class="row-fluid">
