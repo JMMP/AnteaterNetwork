@@ -51,7 +51,7 @@
 
 
 ### Changelog
-##### Version 14.0 March XX, 2013
+##### Version 14.0 March 10, 2013
 1. Converted filters from an array to an object with properties.
 * Updated QUnit tests. Fixed [issue #128](https://github.com/JMMP/AnteaterNetwork/issues/128).
 * Auto resize map and results list depending on height of window.
