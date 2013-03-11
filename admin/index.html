@@ -33,31 +33,50 @@
       </div>
     </div>
   </div>
+  <div class="modal fade" id="js-login">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">x</button>
+      <h3>AntNet Admin Panel</h3>
+    </div>
+    <div class="modal-body">
+      <form method="post" action="">
+        <p><input type="text" placeholder="Username"></p>
+        <p><input type="password" placeholder="Password"></p>
+        <p><button type="submit" class="btn btn-primary">Sign in</button>
+          <a href="#">Forgot Password?</a>
+        </p>
+      </form>
+    </div>
+  </div>
   <div class="hero-unit">
-    <h1>Anteater Network</h1>
-    <p>Tagline</p>
-    <p>
-      <a class="btn btn-primary btn-large" href="http://class.ics.uci.edu//~191grp10/AnteaterNetwork/">Go to Anteater Network</a>
-      <a class="btn btn-inverse btn-large" href="http://github.com/jmmp/AnteaterNetwork">GitHub Project</a>
-    </p>
+    <div class="container">
+      <h1>Anteater Network</h1>
+      <p>Tagline</p>
+      <p>
+        <a class="btn btn-primary btn-large" href="http://class.ics.uci.edu//~191grp10/AnteaterNetwork/">Go to Anteater Network</a>
+        <a class="btn btn-inverse btn-large" href="http://github.com/jmmp/AnteaterNetwork">GitHub Project</a>
+      </p>
+    </div>
   </div>
-  <div class="container" id="setup">
-    <h2>Setup</h2>
+  <div class="container">
+    <div class="row" id="setup">
+      <h2>Setup</h2>
+    </div>
+    <div class="row" id="database">
+      <h2>Database</h2>
+    </div>
+    <div class="row" id="documentation">
+      <h2>Documentation</h2>
+    </div>
+    <div class="row" id="contact">
+      <h2>Contact Us</h2>
+      <h3>JMMP <small><a href="http://jmmp.github.com">Website</a> <a href="http://github.com/jmmp/">GitHub</a></small></h3>
+      <h3>Email <small><a href="mailto:melvin.chien+jmmp@gmail.com">Melvin Chien</a> <a href="mailto:patrickchen2+jmmp@gmail.com">Patrick Chen</a></small></h3>
+    </div>
+    <footer class="row">
+      <p>&copy; 2013 Team JMMP in association with the UC Irvine Alumni Association. <em>Version 13.2</em> <a href="http://github.com/JMMP/AnteaterNetwork/issues" target="_blank" rel="tooltip" title="Found a bug? Report it to us here!"><i class="icon-flag"></i></a></p>
+    </footer>
   </div>
-  <div class="container" id="database">
-    <h2>Database</h2>
-  </div>
-  <div class="container" id="documentation">
-    <h2>Documentation</h2>
-  </div>
-  <div class="container" id="contact">
-    <h2>Contact Us</h2>
-    <h3>JMMP <small><a href="http://jmmp.github.com">Website</a> <a href="http://github.com/jmmp/">GitHub</a></small></h3>
-    <h3>Email <small><a href="mailto:melvin.chien+jmmp@gmail.com">Melvin Chien</a> <a href="mailto:patrickchen2+jmmp@gmail.com">Patrick Chen</a></small></h3>
-  </div>
-  <footer class="container">
-    <p>&copy; 2013 Team JMMP in association with the UC Irvine Alumni Association. <em>Version 13.2</em> <a href="http://github.com/JMMP/AnteaterNetwork/issues" target="_blank" rel="tooltip" title="Found a bug? Report it to us here!"><i class="icon-flag"></i></a></p>
-  </footer>
   <script src="../js/jquery.min.js"></script>
   <script src="../js/bootstrap.min.js"></script>
   <script src="../js/anteaternetwork_admin.js"></script>

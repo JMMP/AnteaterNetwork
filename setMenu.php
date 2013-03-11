@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Anteater Network v13.2
+ * Anteater Network v14.0
  * http://git.io/antnet
  *
  * Copyright 2013 JMMP
@@ -196,7 +196,7 @@ $categories = array(
 // Mapping for the school codes to full school names
 $schools = array(
   "BIO" => "Biological Sciences",
-  "COMP" => "Comparitve Culture",
+  "COMP" => "Comparative Culture",
   "EDUC" => "Education",
   "ENG" => "Engineering",
   "FINE" => "Arts",
