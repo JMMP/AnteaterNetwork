@@ -51,6 +51,10 @@
 
 
 ### Changelog
+##### Version 14.1 March XX, 2013
+1. Encoded all filter values, not just search. Fixed [issue #139](https://github.com/JMMP/AnteaterNetwork/issues/139).
+* Added Reset button to Search menu.
+
 ##### Version 14.0 March 10, 2013
 1. Converted filters from an array to an object with properties.
 * Updated QUnit tests. Fixed [issue #128](https://github.com/JMMP/AnteaterNetwork/issues/128).
@@ -260,6 +264,7 @@ Username: UCI-ICS\username
 [bootstrap-switch](https://github.com/nostalgiaz/bootstrap-switch)  
 [PHP MySQL Improved Extension](http://www.php.net/manual/en/book.mysqli.php)  
 [Alternative Geocoder](http://datasciencetoolkit.org)
+[Passwords in PHP](http://www.c-sharpcorner.com/UploadFile/satyapriyanayak/store-password-in-encrypted-format-during-registration-in-ph/)
 
 
 ### License

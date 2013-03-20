@@ -492,7 +492,7 @@ function getRequest() {
       if (filters[i] !== "") {
         if (request !== "")
           request += "&";
-        request += i + "=" + filters[i];
+        request += i + "=" + encodeURIComponent(filters[i]);
       }
     }
   }
