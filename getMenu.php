@@ -7,7 +7,7 @@
  * Copyright 2013 JMMP
  */
 
-require("../../secure.php");
+require("../../antnet_secure.php");
 
 // Enable debug functions if the flag is set
 if (isset($_GET["debug"])) {

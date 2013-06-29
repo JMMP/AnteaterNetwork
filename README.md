@@ -18,14 +18,14 @@
 * Google Maps directions
 * Marker clusterers
 * Buffer zone around results
-* _Geolocation_
+* Geolocation
 * Filter by city
 * Filter by business category
 * Filter by alumni class year
 * Filter by alumni school
 * Free search
-* _Smart search boxes_
-* _Indicator of applied filters_
+* Smart search boxes
+* Indicator of applied filters
 * _Update My Information form_
 
 ##### Database 100%
@@ -51,6 +51,10 @@
 
 
 ### Changelog
+##### Version 14.1 March XX, 2013
+1. Encoded all filter values, not just search. Fixed [issue #139](https://github.com/JMMP/AnteaterNetwork/issues/139).
+* Added Reset button to Search menu.
+
 ##### Version 14.0 March 10, 2013
 1. Converted filters from an array to an object with properties.
 * Updated QUnit tests. Fixed [issue #128](https://github.com/JMMP/AnteaterNetwork/issues/128).
@@ -260,47 +264,8 @@ Username: UCI-ICS\username
 [bootstrap-switch](https://github.com/nostalgiaz/bootstrap-switch)  
 [PHP MySQL Improved Extension](http://www.php.net/manual/en/book.mysqli.php)  
 [Alternative Geocoder](http://datasciencetoolkit.org)
-
-##### Facebook Like Button
-<https://developers.facebook.com/docs/reference/plugins/like/>
-
-````javascript
-<div id="fb-root"></div>
-
-	<script>(function(d, s, id) {
-
-	var js, fjs = d.getElementsByTagName(s)[0];
-
-	if (d.getElementById(id)) return;
-	
-	js = d.createElement(s); js.id = id;
-		
-	js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-	fjs.parentNode.insertBefore(js, fjs);
-	
-	}(document, 'script', 'facebook-jssdk'));
-</script>
-
-<iframe src='//www.facebook.com/plugins/like.php?href=https%3A%2F%2Finstdav.ics.uci.edu%2F%7E191grp10%2F5-fivevariant%2F&amp;send=false&amp;layout=button_count&amp;width=60&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21' scrolling='no' frameborder='0' style='border:none; overflow:hidden; width:100px; height:21px;' allowTransparency='true'></iframe>
-````
-
-##### Google+ Button
-<https://developers.google.com/+/plugins/+1button/>
-
-````javascript
-var google_plus = "<div class='g-plusone' data-size='small' data-annotation='none' data-href='https://instdav.ics.uci.edu/~191grp10/5-fivevariant/'></div>";
-
-<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
-````
-
-##### Tweet Button
-<https://twitter.com/about/resources/buttons#tweet>
-````javascript
-<a href="https://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a>
-
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-````
+[Passwords in PHP](http://www.c-sharpcorner.com/UploadFile/satyapriyanayak/store-password-in-encrypted-format-during-registration-in-ph/)
 
 
 ### License
-All files are Copyright 2013 [JMMP](http://jmmp.github.com) unless otherwise stated. Please ask for permission to use any of the contents by submitting an issue for this repository. Thank you!
+Please see LICENSES.

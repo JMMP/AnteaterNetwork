@@ -72,7 +72,7 @@ var toggleFiltersID = ".js-toggle-filters";
 var filtersID = "#js-filters";
 var searchID = "#js-search";
 var loadingID = "#js-loading-overlay";
-var heightBuffer = 167; // Distance in pixels of height of navbar and footer
+var heightBuffer = 187; // Distance in pixels of height of navbar and footer
 
 $(document).ready(function() {
   // Resize map and results list on load
@@ -82,7 +82,7 @@ $(document).ready(function() {
   $(filtersID).hide();
 
   // Start with filters if user is on a desktop
-  if ($(".visible-desktop").is(":visible")) {
+  if ($(".visible-desktop").is(":visible") || $(".visible-tablet").is(":visible")) {
     $(toggleFiltersID).bootstrapSwitch("setState", true, true);
     $(filtersID).toggle("slide", function() {
       $(searchID).toggle();
@@ -492,7 +492,7 @@ function getRequest() {
       if (filters[i] !== "") {
         if (request !== "")
           request += "&";
-        request += i + "=" + filters[i];
+        request += i + "=" + encodeURIComponent(filters[i]);
       }
     }
   }
