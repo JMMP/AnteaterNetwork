@@ -29,7 +29,7 @@
 
 #### GMaps.js
 **Author:** Gustavo Leon  
-**Website:** <http://hpneo.github.com/gmaps/>  
+**Website:** <http://hpneo.github.io/gmaps/>  
 **License:** [MIT License](http://opensource.org/licenses/MIT)  
 
 #### MarkerClusterer for Google Maps v3
