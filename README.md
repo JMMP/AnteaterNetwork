@@ -1,9 +1,7 @@
-![Anteater Network](https://raw.github.com/JMMP/INF191/master/anteaternetwork/logos/antnet_logo_2_slogan.png)
-![JMMP](https://raw.github.com/JMMP/INF191/master/jmmp/logos/jmmp_logo_black.png)
-# Anteater Network [14.0](http://instdav.ics.uci.edu//~191grp10/AnteaterNetwork/) Beta
+![Anteater Network](img/antnet_logo_full.png)
+![JMMP](img/jmmp_logo.jpg)
+# Anteater Network [14.0](http://alumni.uci.edu/anteater-network) Beta
 ### © 2013 [JMMP](http://jmmp.github.com) (Jola Bolaji, Mark Chege, Melvin Chien, Patrick Chen) in association with UC Irvine Alumni Association.
-
-[Features](#features) | [Changelog](#changelog) | [Resources](#resources) | [License](#license)
 
 - - -
 ### Features
@@ -51,7 +49,12 @@
 
 
 ### Changelog
-##### Version 14.1 March XX, 2013
+##### Version 15.0 July XX, 2013
+1. Rebuilding system from scratch!
+* Added [Bootstrap](http://twitter.github.io/bootstrap/) 2.3.2.
+* Added Journal Bootstrap theme by [Bootswatch](http://bootswatch.com/).
+
+##### Version 14.1 June 30, 2013
 1. Encoded all filter values, not just search. Fixed [issue #139](https://github.com/JMMP/AnteaterNetwork/issues/139).
 * Added Reset button to Search menu.
 
