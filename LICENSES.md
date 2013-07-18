@@ -1,3 +1,7 @@
+## Anteater Network v15.0
+### Copyright 2013 JMMP and UCI Alumni Association
+### <http://melvin.io/AnteaterNetwork>
+
 #### jQuery
 **Author:** jQuery Foundation  
 **Website:** <http://jquery.com/>  
@@ -15,7 +19,7 @@
 
 #### Bootstrap
 **Author:** Mark Otto and Jacob Thornton  
-**Website:** <http://twitter.github.com/bootstrap/>  
+**Website:** <http://twitter.github.io/bootstrap/>  
 **License:** [Apache License](http://www.apache.org/licenses/LICENSE-2.0)  
 
 #### Font Awesome
@@ -43,4 +47,9 @@
 **Website:** <http://github.com/danielfarrell/bootstrap-combobox>  
 **License:** [Apache License](http://www.apache.org/licenses/LICENSE-2.0)  
 
-All files are Copyright 2013 [JMMP](https://github.com/JMMP) unless otherwise stated. Please ask for permission to use any of the contents by submitting an issue for this repository at <http://git.io/antnet>. Thank you!
+#### Bootswatch - Journal
+**Author:** Thomas Park  
+**Website:** <http://bootswatch.com/journal/>  
+**License:** [Apache License](http://www.apache.org/licenses/LICENSE-2.0)  
+
+All files are Copyright 2013 [JMMP](https://github.com/JMMP) unless otherwise stated.
