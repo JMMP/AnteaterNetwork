@@ -53,6 +53,7 @@
 1. Rebuilding system from scratch!
 * Added [Bootstrap](http://twitter.github.io/bootstrap/) 2.3.2.
 * Added Journal Bootstrap theme by [Bootswatch](http://bootswatch.com/).
+* Added [jQuery](http://jquery.com) 1.10.2.
 
 ##### Version 14.1 June 30, 2013
 1. Encoded all filter values, not just search. Fixed [issue #139](https://github.com/JMMP/AnteaterNetwork/issues/139).
