@@ -1,5 +1,5 @@
 ![Anteater Network](img/antnet_logo_full.png)
-![JMMP](img/jmmp_logo.jpg)
+![JMMP](img/jmmp_logo.png)
 # Anteater Network [14.0](http://alumni.uci.edu/anteater-network) Beta
 ### © 2013 [JMMP](http://jmmp.github.com) (Jola Bolaji, Mark Chege, Melvin Chien, Patrick Chen) in association with UC Irvine Alumni Association.
 
