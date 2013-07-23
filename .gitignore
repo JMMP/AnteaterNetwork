@@ -1,11 +1,2 @@
-
 *.DS_Store
-
-*.db
-
 *secure.php
-
-*login.php
-web-server.js
-
-index.php
