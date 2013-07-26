@@ -4,4 +4,6 @@
  + http://melvin.io/AnteaterNetwork
  */
 
- 
+ .brand > img {
+  width: 50%;
+ }
