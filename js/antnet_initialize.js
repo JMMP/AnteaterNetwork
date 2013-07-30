@@ -11,7 +11,7 @@ var AntNet = function () {
    */
 
   $(document).ready(function() {
-
+    $(".js-select").chosen();
   });
 
   return {
