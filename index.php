@@ -16,14 +16,14 @@
   <link href="css/bootstrap-responsive.css" rel="stylesheet" media="screen"/>
   <!--<link href="css/journal.css" rel="stylesheet" media="screen"/>-->
   <link href="css/chosen.css" rel="stylesheet" media="screen"/>
-  <link href="css/antnet_styles.css" rel="stylesheet" media="screen"/>
-  <script src="js/jquery.min.js"></script>
+  <link href="css/antnet.css" rel="stylesheet" media="screen"/>
+  <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
   <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyDjfKwuT7W5o7YSTt6wHmeDaEhgIxuOUoI&amp;sensor=true"></script>
   <script src="js/bootstrap.js"></script>
   <!--<script src="js/gmaps.js"></script>-->
   <script src="js/markerclusterer.js"></script>
   <script src="js/chosen.jquery.js"></script>
-  <script src="js/antnet_initialize.js"></script>
+  <script src="js/antnet.js"></script>
 </head>
 <body>
   <div class="navbar navbar-inverse navbar-static-top">
@@ -80,8 +80,12 @@
     <div class="row-fluid">
       <div class="span3">
         <ul class="nav" id="js-results-list">
-          <li class="nav-header">Results<a id="js-results-hide" class="pull-right">Hide</a></li>
+          <li class="nav-header">
+            Results<a id="js-results-hide" class="pull-right">Hide</a>
+          </li>
         </ul>
+      </div>
+      <div class="span9" id="js-map">
       </div>
     </div>
   </div>
