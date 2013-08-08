@@ -10,6 +10,7 @@ AntNet = function () {
    * Comment
    */
 
+  google.maps.visualRefresh = true;
   var mapStyles = [{
       "featureType": "water",
       "stylers": [{
@@ -47,8 +48,10 @@ AntNet = function () {
         zoom: 15,
         panControl: false,
         zoomControl: true,
-        scaleControl: false,
-        streetViewControl: true,
+        zoomControlOptions: {
+          position: google.maps.ControlPosition.TOP_RIGHT,
+          style: google.maps.ZoomControlStyle.LARGE
+        },
         styles: mapStyles
       });
     }
