@@ -27,13 +27,17 @@
   width: 150px;
 }
 
-#js-map {
+#js-map,
+#js-results-list {
   height: 600px;
   display: block;
   float: left;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
+
+#js-map {
   width: 75%;
 }
 
@@ -43,12 +47,6 @@
 
 #js-results-list {
   background-color: #e8e8e8;
-  height: 600px;
-  display: block;
-  float: left;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
   width: 25%;
   border-right: 2px solid #0088CC;
 }
@@ -75,6 +73,10 @@
   text-decoration: none;
 }
 
+.nav {
+  margin-bottom: 0px;
+}
+
 .navbar #js-menu-desktop {
   display: block;
   float: right;
@@ -99,4 +101,13 @@
 
 #js-menu-desktop .icon-bar + .icon-bar {
   margin-top: 3px;
+}
+
+@media (max-width: 767px) {
+  #js-map,
+  #js-results-list {
+    float: none;
+    width: 100%;
+    display: block;
+  }
 }
