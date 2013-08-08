@@ -52,12 +52,13 @@
 ##### Version 15.0 July XX, 2013
 1. Rebuilding system from scratch!
 * Added [Bootstrap](http://twitter.github.io/bootstrap/) 2.3.2.
-* Added Journal Bootstrap theme by [Bootswatch](http://bootswatch.com/).
+* Added Cerulean Bootstrap theme by [Bootswatch](http://bootswatch.com/).
 * Added [jQuery](http://jquery.com) 1.10.2.
-* Added [GMaps.js](http://hpneo.github.io/gmaps/) 0.4.4.
 * Optimized images
 * Added [Marker Clusterer](http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/) 1.0.
 * Added [Chosen](http://harvesthq.github.io/chosen/) 0.14.0.
+* Created basic user interface layout.
+* Removed Bootstrap Responsive CSS.
 
 ##### Version 14.1 June 30, 2013
 1. Encoded all filter values, not just search. Fixed [issue #139](https://github.com/JMMP/AnteaterNetwork/issues/139).
