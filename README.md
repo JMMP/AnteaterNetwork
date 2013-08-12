@@ -49,7 +49,7 @@
 
 
 ### Changelog
-##### Version 15.0 July XX, 2013
+##### Version 15.0 August XX, 2013
 1. Rebuilding system from scratch!
 * Added [Bootstrap](http://twitter.github.io/bootstrap/) 2.3.2.
 * Added Cerulean Bootstrap theme by [Bootswatch](http://bootswatch.com/).
@@ -59,6 +59,7 @@
 * Added [Chosen](http://harvesthq.github.io/chosen/) 0.14.0.
 * Created basic user interface layout.
 * Removed Bootstrap Responsive CSS.
+* Added [Filter.js](http://github.com/jiren/filter.js) 1.5.1.
 
 ##### Version 14.1 June 30, 2013
 1. Encoded all filter values, not just search. Fixed [issue #139](https://github.com/JMMP/AnteaterNetwork/issues/139).
