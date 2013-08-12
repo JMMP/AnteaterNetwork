@@ -23,7 +23,7 @@ $_SESSION["ip"] = $_SERVER["REMOTE_ADDR"];
   <script src="js/bootstrap.js"></script>
   <script src="js/markerclusterer.js"></script>
   <script src="js/chosen.jquery.js"></script>
-  <script src="js/filter.js"></script>
+  <script src="js/jlinq.js"></script>
   <script src="js/antnet.js"></script>
 </head>
 <body>
