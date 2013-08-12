@@ -52,4 +52,9 @@
 **Website:** <http://bootswatch.com/journal/>  
 **License:** [Apache License](http://www.apache.org/licenses/LICENSE-2.0)  
 
+#### Filter.js
+**Author:** Jiren Patel  
+**Website:** <https://github.com/jiren/filter.js>  
+**License:** [MIT License](http://opensource.org/licenses/MIT)  
+
 All files are Copyright 2013 [JMMP](https://github.com/JMMP) unless otherwise stated.
