@@ -1,15 +1,17 @@
-<!--
-   + Anteater Network v15.0
-   + Copyright 2013 JMMP and UCI Alumni Association
-   + http://melvin.io/AnteaterNetwork
- -->
- <?php
- session_start();
- $_SESSION["ip"] = $_SERVER["REMOTE_ADDR"];
- ?>
- <!DOCTYPE html>
- <html lang="en">
- <head>
+<?php
+session_start();
+
+/*
++ Anteater Network v15.0
++ Copyright 2013 JMMP and UCI Alumni Association
++ http://alumni.uci.edu/anteater-network/
+*/
+
+$_SESSION["ip"] = $_SERVER["REMOTE_ADDR"];
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Anteater Network</title>
   <link href="css/bootstrap.css" rel="stylesheet" media="screen"/>
@@ -76,11 +78,11 @@
   </div>
   <div class="container-fluid">
     <div class="row-fluid">
-        <ul class="nav" id="js-results-list">
-          <li class="nav-header">
-            Results<a id="js-results-hide" class="pull-right">Hide</a>
-          </li>
-        </ul>
+      <ul class="nav" id="js-results-list">
+        <li class="nav-header">
+          Results<a id="js-results-hide" class="pull-right">Hide</a>
+        </li>
+      </ul>
       <!-- Bootstrap's "google-maps" class fixes map control distortion -->
       <div class="google-maps" id="js-map">
       </div>

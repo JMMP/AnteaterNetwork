@@ -1,13 +1,15 @@
 /*
  + Anteater Network v15.0
  + Copyright 2013 JMMP and UCI Alumni Association
- + http://melvin.io/AnteaterNetwork
+ + http://alumni.uci.edu/anteater-network/
  */
 
 AntNet = function () {
 
   /*
-   * Comment
+   *
+   * Private variables
+   *
    */
 
   google.maps.visualRefresh = true;
@@ -39,10 +41,34 @@ AntNet = function () {
         }]
     }];
 
+  var gmap;
+  var markers;
+
+  /*
+   *
+   * Private functions
+   *
+   */
 
   return {
+
+    /*
+     *
+     * Public variables
+     *
+     */
+
+    Map: gmap,
+    Markers: markers,
+
+    /*
+     *
+     * Public functions
+     *
+     */
+
     init: function() {
-      var gmap = new google.maps.Map(document.getElementById("js-map"), {
+      gmap = new google.maps.Map(document.getElementById("js-map"), {
         center: new google.maps.LatLng(33.646259, -117.842056),
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         zoom: 15,
