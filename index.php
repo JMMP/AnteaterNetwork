@@ -84,7 +84,7 @@ $_SESSION["ip"] = $_SERVER["REMOTE_ADDR"];
           Results<a id="js-results-hide" class="pull-right">Hide</a>
         </li>
       </ul>
-      <!-- Bootstrap's "google-maps" class fixes map control distortion -->
+      <!-- Bootstrap's "google-maps" class fixes distortion of map controls -->
       <div class="google-maps" id="js-map">
       </div>
     </div>
