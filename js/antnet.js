@@ -7,6 +7,8 @@
 AntNet = {
 
   alumni: null,
+  categories: null,
+  schools: null,
   infowindow: null,
   map: null,
   mapStyles: [{
@@ -64,23 +66,31 @@ AntNet = {
     this.map = new google.maps.Map(document.getElementById("js-map"), this.mapOptions);
     this.markers = [];
     this.infowindow = new google.maps.InfoWindow();
-    this.getAlumni();
+    this.getData();
     
   },
 
-  getAlumni: function() {
+  getData: function() {
     var that = this;
-    $.getJSON("getAlumni.php?antnet")
-    .fail(function() { console.log("getAlumni error"); })
+    $.getJSON("antnet_get.php?antnet")
+    .fail(function() { console.log("getData error"); })
     .done(function(data) {
-      that.alumni = data;
-      $.each(that.alumni, function(i, alumnus) {
-        that.createMarker(alumnus);
-      });
+      that.alumni = data.alumni;
+      that.categories = data.categories;
+      that.schools = data.schools;
+      that.createMarkers();
     });
   },
 
-  createMarker: function(alumnus) {
+  createMarkers: function() {
+    var that = this;
+    var sortedAlumni = jlinq.from(that.alumni).sort("Business_Name").select();
+    $.each(sortedAlumni, function(i, alumnus) {
+      that.addBusiness(alumnus);
+    });
+  },
+
+  addBusiness: function(alumnus) {
     var marker = new google.maps.Marker({
       map: this.map,
       position: new google.maps.LatLng(alumnus.Business_Lat, alumnus.Business_Lng),

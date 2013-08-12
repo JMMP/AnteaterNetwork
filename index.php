@@ -79,9 +79,12 @@ $_SESSION["ip"] = $_SERVER["REMOTE_ADDR"];
   </div>
   <div class="container-fluid">
     <div class="row-fluid">
-      <ul class="nav" id="js-results-list">
-        <li class="nav-header">
-          Results<a id="js-results-hide" class="pull-right">Hide</a>
+      <ul class="nav" id="js-results">
+        <li class="nav-header" id="js-results-header">
+          Businesses<a id="js-results-hide" class="pull-right">Hide</a>
+        </li>
+        <li class="alert alert-info" id="js-results-none">
+          <h4 class="alert-heading">No results found!</h4>
         </li>
       </ul>
       <!-- Bootstrap's "google-maps" class fixes distortion of map controls -->

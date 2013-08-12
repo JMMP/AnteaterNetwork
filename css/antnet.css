@@ -28,7 +28,7 @@
 }
 
 #js-map,
-#js-results-list {
+#js-results {
   height: 600px;
   display: block;
   float: left;
@@ -54,14 +54,10 @@
   padding: 10px 5px;
 }
 
-.js-select {
-  width: 150px;
-}
-
-#js-results-list {
+#js-results {
   background-color: #e8e8e8;
   width: 25%;
-  border-right: 2px solid #0088CC;
+  border-right: 2px solid #808080; /*#0088CC*/
 }
 
 #js-results-hide:hover {
@@ -84,6 +80,10 @@
 
 #js-results-show > a {
   text-decoration: none;
+}
+
+.js-select {
+  width: 150px;
 }
 
 .nav {
@@ -118,7 +118,7 @@
 
 @media (max-width: 767px) {
   #js-map,
-  #js-results-list {
+  #js-results {
     float: none;
     width: 100%;
     display: block;

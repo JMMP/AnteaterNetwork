@@ -7,10 +7,10 @@ session_start();
  + http://alumni.uci.edu/anteater-network
  */
 
-if (isset($_GET["antnet"])) {
+ if (isset($_GET["antnet"])) {
   require_once("../../antnet_secure.php");
 
-  // Get businesses
+  // Get alumni
   $result = mysqli_query($mysqli, 
     "SELECT id, 
     Last_Name,
@@ -36,13 +36,13 @@ if (isset($_GET["antnet"])) {
 
   if (!$result) {
     if ($debug)
-      echo "Businesses query failed: " . mysqli_error($mysqli);
+      echo "Alumni query failed: " . mysqli_error($mysqli);
     die();
   }
 
-  $businesses = array();
+  $alumni = array();
   while ($row = mysqli_fetch_assoc($result))
-    $businesses[] = $row;
+    $alumni[] = $row;
 
 
   // Get schools
@@ -78,7 +78,7 @@ if (isset($_GET["antnet"])) {
 
   // Return all results as a JSON object
   $data = array(
-    "businesses" => $businesses,
+    "alumni" => $alumni,
     "schools" => $schools,
     "categories" => $categories);
 
