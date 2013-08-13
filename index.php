@@ -15,7 +15,7 @@ $_SESSION["ip"] = $_SERVER["REMOTE_ADDR"];
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Anteater Network</title>
   <link href="css/bootstrap.css" rel="stylesheet" media="screen"/>
-  <!--<link href="css/journal.css" rel="stylesheet" media="screen"/>-->
+  <link href="css/cerulean.css" rel="stylesheet" media="screen"/>
   <link href="css/chosen.css" rel="stylesheet" media="screen"/>
   <link href="css/antnet.css" rel="stylesheet" media="screen"/>
   <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
