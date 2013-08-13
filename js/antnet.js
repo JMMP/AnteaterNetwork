@@ -64,10 +64,41 @@ AntNet = {
 
   init: function() {
     this.map = new google.maps.Map(document.getElementById("js-map"), this.mapOptions);
-    this.markers = [];
     this.infowindow = new google.maps.InfoWindow();
+    this.markers = [];
     this.getData();
+    $(".js-select").chosen();
+    $("#js-filter-search").keypress(function(event) {
+      if (event.which == 13)
+        event.preventDefault();
+    });
+    this.resize();
     
+  },
+
+  resize: function() {
+    // Height of navbar
+    var hNavbar = 41;
+    // Height of results list header
+    var hResultsHeader = 26;
+    // Remaining usable height
+    var hMax = window.innerHeight - hNavbar;
+
+    // If screen width is less than or equal to 767px,
+    // reduce height of results list and map
+    var hMobile = 0;
+    if (window.innerWidth <= 767)
+      hMobile = 250;
+
+    hMax -= hMobile;
+
+    $("#js-results").height(hMax);
+    $("#js-results-list").height(hMax - hResultsHeader);
+
+    if (hMobile == 250)
+      $("#js-map").height(hMax - $("#js-results").height());
+    else
+      $("#js-map").height(hMax);
   },
 
   getData: function() {
@@ -82,7 +113,13 @@ AntNet = {
     });
   },
 
+  clearResults: function() {
+    $("#js-results-list").children(":gt(0)").remove();
+    $("#js-results-error").hide();
+  },
+
   createMarkers: function() {
+    this.clearResults();
     var that = this;
     var sortedAlumni = jlinq.from(that.alumni).sort("Business_Name").select();
     $.each(sortedAlumni, function(i, alumnus) {
@@ -98,28 +135,49 @@ AntNet = {
       icon: this.markerImageBusiness
     });
 
-    var infowindowContent = document.createElement("div");
-    infowindowContent.className = "js-map-infowindow";
-    infowindowContent.innerHTML = alumnus.First_Name + alumnus.Last_Name;
+    this.markers[alumnus.id] = marker;
+
+    var infowindowContent = alumnus.First_Name + " " + alumnus.Last_Name;
+    var infowindowHTML = '<div class="js-infowindow">' + infowindowContent + '</div>';
 
     var that = this;
     google.maps.event.addListener(marker, "click", function() {
-      that.infowindow.setContent(infowindowContent);
+      that.infowindow.setContent(infowindowHTML);
       that.infowindow.open(that.map, marker);
-    })
+    });
 
-    this.markers[alumnus.id] = marker;
+    var fragment = document.createDocumentFragment();
+    var resultLI = document.createElement("li");
+    var resultA = document.createElement("a");
+    var resultTitle = document.createElement("b");
+    resultTitle.appendChild(document.createTextNode(alumnus.Business_Name));
+    resultTitle.appendChild(document.createElement("br"));
+    var resultDesc = document.createElement("span");
+    resultDesc.innerHTML = alumnus.Business_Street1 + "<br />" + alumnus.Business_City + 
+                     ", " + alumnus.Business_State + " " + alumnus.Business_Zipcode;
+    resultA.appendChild(resultTitle);
+    resultA.appendChild(resultDesc);
+    resultLI.appendChild(resultA);
+    fragment.appendChild(resultLI);
+
+    $("#js-results-list").append(fragment);
+    
+    $(resultLI).click(function() {
+      $("#js-results-list").children("li").removeClass("active");
+      $(this).addClass("active");
+      google.maps.event.trigger(marker, "click");
+    });
+
   }
 
 
 };
 
 $(document).ready(function() {
-  $(".js-select").chosen();
   AntNet.init();
   google.maps.visualRefresh = true;
-  $("#js-filter-search").keypress(function(event) {
-    if (event.which == 13)
-      event.preventDefault();
-  });
 });
+
+$(window).resize(function() {
+  AntNet.resize();
+})
