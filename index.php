@@ -27,12 +27,12 @@ $_SESSION["ip"] = $_SERVER["REMOTE_ADDR"];
   <script src="js/antnet.js"></script>
 </head>
 <body>
-  <div class="navbar navbar-inverse navbar-static-top">
+  <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
       <div class="container-fluid">
         <ul class="nav">
           <li>
-            <a class="brand" style="padding: 7px 15px;">
+            <a class="brand" id="antnet-logo">
               <img src="img/antnet_logo.png" />
             </a>
           </li>

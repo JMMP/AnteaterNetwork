@@ -4,11 +4,17 @@
  + http://alumni.uci.edu/anteater-network
  */
 
- a {
+a {
   cursor: pointer;
 }
 
-.brand > img {
+#antnet-logo {
+  padding: 7px 10px;
+  margin-left: -10px;
+  margin-right: 15px;
+}
+
+#antnet-logo > img {
   width: 60px;
 }
 
@@ -112,8 +118,10 @@
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
 }
 
-.navbar-inner {
+.navbar-fixed-top .navbar-inner {
   min-height: 40px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 #js-menu-desktop .icon-bar + .icon-bar {
