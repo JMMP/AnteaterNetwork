@@ -14,26 +14,26 @@ $_SESSION["ip"] = $_SERVER["REMOTE_ADDR"];
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Anteater Network</title>
-  <link href="css/bootstrap.css" rel="stylesheet" media="screen"/>
-  <link href="css/cerulean.css" rel="stylesheet" media="screen"/>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+  <link href="//netdna.bootstrapcdn.com/bootswatch/2.3.2/cerulean/bootstrap.min.css" rel="stylesheet" media="screen"/>
   <link href="css/chosen.css" rel="stylesheet" media="screen"/>
   <link href="css/antnet.css" rel="stylesheet" media="screen"/>
   <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
   <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyDjfKwuT7W5o7YSTt6wHmeDaEhgIxuOUoI&sensor=true"></script>
-  <script src="js/bootstrap.js"></script>
-  <script src="js/markerclusterer.js"></script>
-  <script src="js/chosen.jquery.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/chosen/1.0/chosen.jquery.min.js"></script>
   <script src="js/jlinq.js"></script>
+  <script src="js/markerclusterer.js"></script>
   <script src="js/antnet.js"></script>
 </head>
 <body>
-  <div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar navbar-inverse navbar-static-top" id="js-navbar">
     <div class="navbar-inner">
       <div class="container-fluid">
         <ul class="nav">
           <li>
             <a class="brand" id="antnet-logo">
-              <img src="img/antnet_logo.png" />
+              <img src="img/antnet_logo.png" alt="Anteater Network" />
             </a>
           </li>
           <li>
@@ -83,9 +83,11 @@ $_SESSION["ip"] = $_SERVER["REMOTE_ADDR"];
         <li class="nav-header" id="js-results-header">
           Businesses<a id="js-results-hide" class="pull-right">Hide</a>
         </li>
-        <li class="alert alert-info" id="js-results-none">
+        <li class="alert alert-info" id="js-results-error">
           <h4 class="alert-heading">No results found!</h4>
         </li>
+        <ul class="nav nav-list" id="js-results-list">          
+        </ul>
       </ul>
       <!-- Bootstrap's "google-maps" class fixes distortion of map controls -->
       <div class="google-maps" id="js-map">
