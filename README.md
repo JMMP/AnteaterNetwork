@@ -52,11 +52,11 @@
 ##### Version 15.0 August XX, 2013
 1. Rebuilding system from scratch!
 * Added [Bootstrap](http://twitter.github.io/bootstrap/) 2.3.2.
-* Added Cerulean Bootstrap theme by [Bootswatch](http://bootswatch.com/).
+* Added Cerulean Bootstrap theme by [Bootswatch](http://bootswatch.com/2/).
 * Added [jQuery](http://jquery.com) 1.10.2.
 * Optimized images
 * Added [Marker Clusterer](http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclusterer/) 1.0.
-* Added [Chosen](http://harvesthq.github.io/chosen/) 0.14.0.
+* Added [Chosen](http://harvesthq.github.io/chosen/) 1.0.0.
 * Created basic user interface layout.
 * Removed Bootstrap Responsive CSS.
 * Added [jLinq](http://hugoware.com/projects/jlinq) 3.0.1.
