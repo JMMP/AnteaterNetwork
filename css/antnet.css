@@ -145,6 +145,7 @@ a {
   margin-top: 3px;
 }
 
+/* MOBILE
 @media (max-width: 767px) {
   #js-map,
   #js-results {
@@ -153,3 +154,4 @@ a {
     display: block;
   }
 }
+*/

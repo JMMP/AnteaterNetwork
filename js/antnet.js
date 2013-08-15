@@ -86,19 +86,22 @@ AntNet = {
 
     // If screen width is less than or equal to 767px,
     // reduce height of results list and map
+    /* MOBILE
     var hMobile = 0;
     if (window.innerWidth <= 767)
       hMobile = 250;
 
     hMax -= hMobile;
-
+    */
     $("#js-results").height(hMax);
     $("#js-results-list").height(hMax - hResultsHeader);
 
+    /* MOBILE
     if (hMobile == 250)
       $("#js-map").height(hMax - $("#js-results").height());
     else
       $("#js-map").height(hMax);
+    */
   },
 
   getData: function() {
