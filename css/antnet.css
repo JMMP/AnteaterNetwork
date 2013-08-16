@@ -83,6 +83,10 @@ a {
   padding-bottom: 5px;
 }
 
+#js-results-error {
+  display: none;
+}
+
 #js-results-hide:hover {
   background-color: transparent;
 }

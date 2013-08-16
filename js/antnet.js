@@ -4,14 +4,23 @@
  + http://alumni.uci.edu/anteater-network
  */
 
-AntNet = {
+var AntNet = {
   alumni: null,
   categories: null,
   schools: null,
   sizes: null,
-  filters: null,
   infowindow: null,
   map: null,
+  columns: {
+    category: "Business_Category",
+    school: "School_Name",
+    name: "Business_Name"
+  },
+  filters: {
+    school: "",
+    category: "",
+    search: ""
+  },
   mapStyles: [{
     "featureType": "water",
     "stylers": [{
@@ -52,7 +61,7 @@ AntNet = {
     styles: this.mapStyles
   },
   mapViewBuffer: 0.0035,
-  markers: null,
+  markers: [],
   markerClusterer: null,
   markerImageBusiness: "img/marker_anteater.png",
   markerImageUser: "img/marker_person.png",
@@ -63,17 +72,7 @@ AntNet = {
   init: function() {
     this.map = new google.maps.Map(document.getElementById("js-map"), this.mapOptions);
     this.infowindow = new google.maps.InfoWindow();
-    this.markers = [];
-    this.filters = {
-      category: "",
-      school: "",
-      search: ""
-    }
     this.getData();
-    $("#js-filter-search").keypress(function(event) {
-      if (event.which == 13)
-        event.preventDefault();
-    });
     this.resize();
     $(".js-select").chosen({
       allow_single_deselect: true
@@ -122,25 +121,37 @@ AntNet = {
       that.schools = data.schools;
       that.sizes = data.sizes;
       that.setMenus();
-      that.addBusinesses();
+      that.update();
     });
   },
 
   // FUNCTION setMenus()
   // Populates the select menus
   setMenus: function() {
-    $("#js-filter-category").append(this.createMenu(this.categories, "Business_Category"));
+    var that = this;
+    $("#js-filter-category").append(this.createMenu(this.categories, this.columns.category));
     $("#js-filter-category").trigger("chosen:updated");
-    $("#js-filter-category").change(function(e, p) {
-      filters.category = $("#js-filter-category").val();
+    $("#js-filter-category").change(function() {
+      that.filters.category = $("#js-filter-category").val();
+      that.update();
     });
-    $("#js-filter-school").append(this.createMenu(this.schools, "School_Name"));
+    $("#js-filter-school").append(this.createMenu(this.schools, this.columns.school));
     $("#js-filter-school").trigger("chosen:updated");
-    $("#js-filter-school").change(function(e, p) {
-      filters.school = $("#js-filter-school").val();
+    $("#js-filter-school").change(function() {
+      that.filters.school = $("#js-filter-school").val();
+      that.update();
+    });
+    $("#js-filter-search").keyup(function() {
+      that.filters.search = $("#js-filter-search").val();
+      delay(function() {
+        that.update();
+      }, 500);
+      
     });
   },
 
+  // FUNCTION createMenu(array, column)
+  // Creates a select menu with the given array and column name
   createMenu: function(data, field) {
     var fragment = document.createDocumentFragment();
     for (var i in data) {
@@ -150,18 +161,35 @@ AntNet = {
     }
     return fragment;
   },
+
+  // FUNCTION getFiltered()
+  // Filter the alumni data to match user input
+  getFiltered: function() {
+    var filtered = this.alumni;
+    if (this.filters.category != "") {
+      filtered = jlinq.from(filtered).equals(this.columns.category, this.filters.category).select();
+    }
+
+    if (this.filters.school != "") {
+      filtered = jlinq.from(filtered).equals(this.columns.school, this.filters.school).select();
+    } 
+
+    if (this.filters.search != "") {      
+      //filtered = jlinq.from(filtered).contains(this.filters.search).select();
+    }
+    return jlinq.from(filtered).sort(this.columns.name).select();
+  },
   
-  // FUNCTION addBusinesses()
+  // FUNCTION update()
   // Sorts and filters alumni data and calls helper functions to create
   // results list and markers for those businesses
-  addBusinesses: function() {
+  update: function() {
     this.clearBusinesses();
-    var that = this;
-    var sortedAlumni = jlinq.from(that.alumni).sort("Business_Name").select();
-    if (jlinq.from(sortedAlumni).count() > 0) {
+    var filtered = this.getFiltered();
+    if (jlinq.from(filtered).count() > 0) {
       $("#js-results-error").hide();
-      for (var alumnus in sortedAlumni)
-        that.addBusiness(sortedAlumni[alumnus]);
+      for (var alumnus in filtered)
+        this.addBusiness(filtered[alumnus]);
     }
   },
 
@@ -174,7 +202,7 @@ AntNet = {
       title: alumnus.Business_Name,
       icon: this.markerImageBusiness
     });
-    this.markers[alumnus.id] = marker;
+    this.markers.push(marker);
 
     // Create infowindow content
     var infowindowContent = "<b>" + alumnus.Business_Name + "</b><br />";
@@ -203,7 +231,7 @@ AntNet = {
       that.infowindow.setContent(infowindowHTML);
       that.infowindow.open(that.map, marker);
       var posTop = $("#js-results-list").scrollTop() + 
-        $(resultLI).position().top - $("#js-results-list").position().top;
+      $(resultLI).position().top - $("#js-results-list").position().top;
       $("#js-results-list").animate({
         scrollTop: posTop
       }, 700);
@@ -224,10 +252,23 @@ AntNet = {
   // FUNCTION clearBusinesses()
   // Clears the results list and map, and show the No Results notice
   clearBusinesses: function() {
-    $("#js-results-list").children(":gt(0)").remove();
-    $("#js-results-error").show();
+    if ($("#js-results-error").is(":hidden")) {
+      $("#js-results-list").children().remove();
+      $("#js-results-error").show();
+      for (var i = 0; i < this.markers.length; i++)
+        this.markers[i].setMap(null);
+      this.markers = [];
+    }
   }
 };
+
+var delay = (function() {
+  var timer = 0;
+  return function(callback, ms) {
+    clearTimeout(timer);
+    timer = setTimeout(callback, ms);
+  };
+})();
 
 // When DOM is loaded, initialize system and enable Google Maps visual refresh
 $(document).ready(function() {
