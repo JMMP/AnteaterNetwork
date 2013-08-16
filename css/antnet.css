@@ -40,16 +40,16 @@ a {
 }
 
 .js-infowindow {
-  text-align: center;
-  background-color: #e8e8e8;
-  border-radius: 4px;
+  margin-top: 5px;
 }
 
 .js-infowindow > b {
   text-align: center;
-  font-size: 2em;
-  text-transform: uppercase;
-  padding: 10px 5px;
+  font-size: 1.2em;
+}
+
+.js-infowindow > p {
+  padding-top: 5px;
 }
 
 #js-map,
