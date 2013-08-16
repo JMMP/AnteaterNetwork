@@ -41,24 +41,11 @@ session_start();
   }
 
   $alumni = array();
-  while ($row = mysqli_fetch_assoc($result))
+  $numAlumni = 0;
+  while ($row = mysqli_fetch_assoc($result)) {
     $alumni[] = $row;
-
-
-  // Get schools
-  $result = mysqli_query($mysqli,
-    "SELECT DISTINCT School_Name 
-    FROM " . $table . " ORDER BY School_Name");
-
-  if (!$result) {
-    if ($debug)
-      echo "Schools query failed: " . mysqli_error($mysqli);
-    die();
+    $numAlumni++;
   }
-
-  $schools = array();
-  while ($row = mysqli_fetch_assoc($result))
-    $schools[] = $row;
 
 
   // Get categories
@@ -73,14 +60,42 @@ session_start();
   }
 
   $categories = array();
-  while ($row = mysqli_fetch_assoc($result))
+  $numCategories = 0;
+  while ($row = mysqli_fetch_assoc($result)) {
     $categories[] = $row;
+    $numCategories++;
+  }
+
+
+  // Get schools
+  $result = mysqli_query($mysqli,
+    "SELECT DISTINCT School_Name 
+    FROM " . $table . " ORDER BY School_Name");
+
+  if (!$result) {
+    if ($debug)
+      echo "Schools query failed: " . mysqli_error($mysqli);
+    die();
+  }
+
+  $schools = array();
+  $numSchools = 0;
+  while ($row = mysqli_fetch_assoc($result)) {
+    $schools[] = $row;
+    $numSchools++;
+  }
 
   // Return all results as a JSON object
+  $sizes = array(
+    "alumni"     => $numAlumni,
+    "categories" => $numCategories,
+    "schools"    => $numSchools
+    );
   $data = array(
-    "alumni" => $alumni,
-    "schools" => $schools,
-    "categories" => $categories);
+    "alumni"     => $alumni,
+    "categories" => $categories,
+    "schools"    => $schools,
+    "size"       => $sizes);
 
   echo json_encode($data);
   mysqli_close($mysqli);

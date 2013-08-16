@@ -5,10 +5,11 @@
  */
 
 AntNet = {
-
   alumni: null,
   categories: null,
   schools: null,
+  sizes: null,
+  filters: null,
   infowindow: null,
   map: null,
   mapStyles: [{
@@ -55,7 +56,7 @@ AntNet = {
   markerClusterer: null,
   markerImageBusiness: "img/marker_anteater.png",
   markerImageUser: "img/marker_person.png",
-  
+
 
   // FUNCTION init()
   // Initializes Anteater Network, variables, and Google Maps
@@ -63,14 +64,20 @@ AntNet = {
     this.map = new google.maps.Map(document.getElementById("js-map"), this.mapOptions);
     this.infowindow = new google.maps.InfoWindow();
     this.markers = [];
+    this.filters = {
+      category: "",
+      school: "",
+      search: ""
+    }
     this.getData();
-    $(".js-select").chosen();
     $("#js-filter-search").keypress(function(event) {
       if (event.which == 13)
         event.preventDefault();
     });
     this.resize();
-    
+    $(".js-select").chosen({
+      allow_single_deselect: true
+    });
   },
 
   // FUNCTION resize()
@@ -113,8 +120,35 @@ AntNet = {
       that.alumni = data.alumni;
       that.categories = data.categories;
       that.schools = data.schools;
+      that.sizes = data.sizes;
+      that.setMenus();
       that.addBusinesses();
     });
+  },
+
+  // FUNCTION setMenus()
+  // Populates the select menus
+  setMenus: function() {
+    $("#js-filter-category").append(this.createMenu(this.categories, "Business_Category"));
+    $("#js-filter-category").trigger("chosen:updated");
+    $("#js-filter-category").change(function(e, p) {
+      filters.category = $("#js-filter-category").val();
+    });
+    $("#js-filter-school").append(this.createMenu(this.schools, "School_Name"));
+    $("#js-filter-school").trigger("chosen:updated");
+    $("#js-filter-school").change(function(e, p) {
+      filters.school = $("#js-filter-school").val();
+    });
+  },
+
+  createMenu: function(data, field) {
+    var fragment = document.createDocumentFragment();
+    for (var i in data) {
+      var menuOption = document.createElement("option");
+      menuOption.appendChild(document.createTextNode(data[i][field]));
+      fragment.appendChild(menuOption);
+    }
+    return fragment;
   },
   
   // FUNCTION addBusinesses()
@@ -126,9 +160,8 @@ AntNet = {
     var sortedAlumni = jlinq.from(that.alumni).sort("Business_Name").select();
     if (jlinq.from(sortedAlumni).count() > 0) {
       $("#js-results-error").hide();
-      $.each(sortedAlumni, function(i, alumnus) {
-        that.addBusiness(alumnus);
-      });
+      for (var alumnus in sortedAlumni)
+        that.addBusiness(sortedAlumni[alumnus]);
     }
   },
 
@@ -141,16 +174,14 @@ AntNet = {
       title: alumnus.Business_Name,
       icon: this.markerImageBusiness
     });
-
     this.markers[alumnus.id] = marker;
 
-
+    // Create infowindow content
     var infowindowContent = "<b>" + alumnus.Business_Name + "</b><br />";
     infowindowContent += "<p>" + alumnus.First_Name + " " + alumnus.Last_Name + "</p>";
     var infowindowHTML = '<div class="js-infowindow">' + infowindowContent + '</div>';
 
-    
-
+    // Create listing content
     var fragment = document.createDocumentFragment();
     var resultLI = document.createElement("li");
     var resultA = document.createElement("a");

@@ -39,13 +39,11 @@ $_SESSION["ip"] = $_SERVER["REMOTE_ADDR"];
           <li>
             <select class="js-select" id="js-filter-school" data-placeholder="School">
               <option></option>
-              <option value="test">Test</option>
             </select>
           </li>
           <li>
             <select class="js-select" id="js-filter-category" data-placeholder="Category">
               <option></option>
-              <option value="test">Test</option>
             </select>
           </li>
           <li>
