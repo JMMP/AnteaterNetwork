@@ -56,12 +56,9 @@ AntNet = {
   markerImageBusiness: "img/marker_anteater.png",
   markerImageUser: "img/marker_person.png",
   
-  /*
-   *
-   * Functions
-   *
-   */
 
+  // FUNCTION init()
+  // Initializes Anteater Network, variables, and Google Maps
   init: function() {
     this.map = new google.maps.Map(document.getElementById("js-map"), this.mapOptions);
     this.infowindow = new google.maps.InfoWindow();
@@ -76,6 +73,8 @@ AntNet = {
     
   },
 
+  // FUNCTION resize()
+  // Resizes and reflows HTML elements to match user's screen resolution
   resize: function() {
     // Height of navbar
     var hNavbar = 41;
@@ -99,11 +98,13 @@ AntNet = {
     /* MOBILE
     if (hMobile == 250)
       $("#js-map").height(hMax - $("#js-results").height());
-    else
+    else*/
       $("#js-map").height(hMax);
-    */
+    
   },
 
+  // FUNCTION getData()
+  // Makes AJAX call to PHP scripts, gets and stores data of businesses
   getData: function() {
     var that = this;
     $.getJSON("antnet_get.php?antnet")
@@ -112,24 +113,27 @@ AntNet = {
       that.alumni = data.alumni;
       that.categories = data.categories;
       that.schools = data.schools;
-      that.createMarkers();
+      that.addBusinesses();
     });
   },
-
-  clearResults: function() {
-    $("#js-results-list").children(":gt(0)").remove();
-    $("#js-results-error").hide();
-  },
-
-  createMarkers: function() {
-    this.clearResults();
+  
+  // FUNCTION addBusinesses()
+  // Sorts and filters alumni data and calls helper functions to create
+  // results list and markers for those businesses
+  addBusinesses: function() {
+    this.clearBusinesses();
     var that = this;
     var sortedAlumni = jlinq.from(that.alumni).sort("Business_Name").select();
-    $.each(sortedAlumni, function(i, alumnus) {
-      that.addBusiness(alumnus);
-    });
+    if (jlinq.from(sortedAlumni).count() > 0) {
+      $("#js-results-error").hide();
+      $.each(sortedAlumni, function(i, alumnus) {
+        that.addBusiness(alumnus);
+      });
+    }
   },
 
+  // FUNCTION addBusiness(alumnus)
+  // Creates a marker, infowindow, and listing for a single business
   addBusiness: function(alumnus) {
     var marker = new google.maps.Marker({
       map: this.map,
@@ -140,14 +144,12 @@ AntNet = {
 
     this.markers[alumnus.id] = marker;
 
-    var infowindowContent = alumnus.First_Name + " " + alumnus.Last_Name;
+
+    var infowindowContent = "<b>" + alumnus.Business_Name + "</b><br />";
+    infowindowContent += "<p>" + alumnus.First_Name + " " + alumnus.Last_Name + "</p>";
     var infowindowHTML = '<div class="js-infowindow">' + infowindowContent + '</div>';
 
-    var that = this;
-    google.maps.event.addListener(marker, "click", function() {
-      that.infowindow.setContent(infowindowHTML);
-      that.infowindow.open(that.map, marker);
-    });
+    
 
     var fragment = document.createDocumentFragment();
     var resultLI = document.createElement("li");
@@ -157,30 +159,52 @@ AntNet = {
     resultTitle.appendChild(document.createElement("br"));
     var resultDesc = document.createElement("span");
     resultDesc.innerHTML = alumnus.Business_Street1 + "<br />" + alumnus.Business_City + 
-                     ", " + alumnus.Business_State + " " + alumnus.Business_Zipcode;
+    ", " + alumnus.Business_State + " " + alumnus.Business_Zipcode;
     resultA.appendChild(resultTitle);
     resultA.appendChild(resultDesc);
     resultLI.appendChild(resultA);
     fragment.appendChild(resultLI);
-
     $("#js-results-list").append(fragment);
-    
-    $(resultLI).click(function() {
+
+    // Open infowindow and scroll to listing when marker is clicked
+    var that = this;
+    google.maps.event.addListener(marker, "click", function() {
+      that.infowindow.setContent(infowindowHTML);
+      that.infowindow.open(that.map, marker);
+      var posTop = $("#js-results-list").scrollTop() + 
+        $(resultLI).position().top - $("#js-results-list").position().top;
+      $("#js-results-list").animate({
+        scrollTop: posTop
+      }, 700);
       $("#js-results-list").children("li").removeClass("active");
-      $(this).addClass("active");
-      google.maps.event.trigger(marker, "click");
+      $(resultLI).addClass("active");
     });
+    
+    // Focus marker and open infowindow when listing is clicked
+    $(resultLI).click(function() {
+      that.map.panTo(marker.position);
+      that.infowindow.setContent(infowindowHTML);
+      that.infowindow.open(that.map, marker);
+      $("#js-results-list").children("li").removeClass("active");
+      $(resultLI).addClass("active");
+    });
+  },
 
+  // FUNCTION clearBusinesses()
+  // Clears the results list and map, and show the No Results notice
+  clearBusinesses: function() {
+    $("#js-results-list").children(":gt(0)").remove();
+    $("#js-results-error").show();
   }
-
-
 };
 
+// When DOM is loaded, initialize system and enable Google Maps visual refresh
 $(document).ready(function() {
   AntNet.init();
   google.maps.visualRefresh = true;
 });
 
+// Call AntNet.resize() whenever the window is resized
 $(window).resize(function() {
   AntNet.resize();
 })
