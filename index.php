@@ -22,7 +22,6 @@ $_SESSION["ip"] = $_SERVER["REMOTE_ADDR"];
   <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyDjfKwuT7W5o7YSTt6wHmeDaEhgIxuOUoI&sensor=true"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/chosen/1.0/chosen.jquery.min.js"></script>
-  <script src="js/jlinq.js"></script>
   <script src="js/markerclusterer.js"></script>
   <script src="js/antnet.js"></script>
 </head>

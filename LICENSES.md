@@ -47,14 +47,9 @@
 **Website:** <http://github.com/danielfarrell/bootstrap-combobox>  
 **License:** [Apache License](http://www.apache.org/licenses/LICENSE-2.0)  
 
-#### Bootswatch - Journal
+#### Bootswatch - Cerulean
 **Author:** Thomas Park  
-**Website:** <http://bootswatch.com/journal/>  
+**Website:** <http://bootswatch.com/cerulean/>  
 **License:** [Apache License](http://www.apache.org/licenses/LICENSE-2.0)  
-
-#### jLinq
-**Author:** Hugo Bonacci  
-**Website:** <http://hugoware.com/projects/jlinq>  
-**License:** [CC By 3.0 License](http://creativecommons.org/licenses/by/3.0/)  
 
 All files are Copyright 2013 [JMMP](https://github.com/JMMP) unless otherwise stated.

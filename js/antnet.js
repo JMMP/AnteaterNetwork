@@ -6,16 +6,12 @@
 
 var AntNet = {
   alumni: null,
+  filtered: null,
   categories: null,
   schools: null,
   sizes: null,
   infowindow: null,
   map: null,
-  columns: {
-    category: "Business_Category",
-    school: "School_Name",
-    name: "Business_Name"
-  },
   filters: {
     school: "",
     category: "",
@@ -66,7 +62,6 @@ var AntNet = {
   markerImageBusiness: "img/marker_anteater.png",
   markerImageUser: "img/marker_person.png",
 
-
   // FUNCTION init()
   // Initializes Anteater Network, variables, and Google Maps
   init: function() {
@@ -95,7 +90,7 @@ var AntNet = {
     var hMobile = 0;
     if (window.innerWidth <= 767)
       hMobile = 250;
-
+     
     hMax -= hMobile;
     */
     $("#js-results").height(hMax);
@@ -105,8 +100,7 @@ var AntNet = {
     if (hMobile == 250)
       $("#js-map").height(hMax - $("#js-results").height());
     else*/
-      $("#js-map").height(hMax);
-    
+    $("#js-map").height(hMax);
   },
 
   // FUNCTION getData()
@@ -114,8 +108,8 @@ var AntNet = {
   getData: function() {
     var that = this;
     $.getJSON("antnet_get.php?antnet")
-    .fail(function() { console.log("getData error"); })
-    .done(function(data) {
+        .fail(function() { console.log("getData error"); })
+        .done(function(data) {
       that.alumni = data.alumni;
       that.categories = data.categories;
       that.schools = data.schools;
@@ -129,13 +123,13 @@ var AntNet = {
   // Populates the select menus
   setMenus: function() {
     var that = this;
-    $("#js-filter-category").append(this.createMenu(this.categories, this.columns.category));
+    $("#js-filter-category").append(this.createMenu(this.categories, "Business_Category"));
     $("#js-filter-category").trigger("chosen:updated");
     $("#js-filter-category").change(function() {
       that.filters.category = $("#js-filter-category").val();
       that.update();
     });
-    $("#js-filter-school").append(this.createMenu(this.schools, this.columns.school));
+    $("#js-filter-school").append(this.createMenu(this.schools, "School_Name"));
     $("#js-filter-school").trigger("chosen:updated");
     $("#js-filter-school").change(function() {
       that.filters.school = $("#js-filter-school").val();
@@ -146,7 +140,7 @@ var AntNet = {
       delay(function() {
         that.update();
       }, 500);
-      
+
     });
   },
 
@@ -162,34 +156,76 @@ var AntNet = {
     return fragment;
   },
 
-  // FUNCTION getFiltered()
-  // Filter the alumni data to match user input
-  getFiltered: function() {
-    var filtered = this.alumni;
-    if (this.filters.category != "") {
-      filtered = jlinq.from(filtered).equals(this.columns.category, this.filters.category).select();
-    }
-
-    if (this.filters.school != "") {
-      filtered = jlinq.from(filtered).equals(this.columns.school, this.filters.school).select();
-    } 
-
-    if (this.filters.search != "") {      
-      //filtered = jlinq.from(filtered).contains(this.filters.search).select();
-    }
-    return jlinq.from(filtered).sort(this.columns.name).select();
-  },
-  
   // FUNCTION update()
   // Sorts and filters alumni data and calls helper functions to create
   // results list and markers for those businesses
   update: function() {
-    this.clearBusinesses();
-    var filtered = this.getFiltered();
-    if (jlinq.from(filtered).count() > 0) {
+    this.clear();
+    this.filter();
+        
+    if (this.filtered.length > 0) {
       $("#js-results-error").hide();
-      for (var alumnus in filtered)
-        this.addBusiness(filtered[alumnus]);
+      for (var alumnus in this.filtered)
+        this.addBusiness(this.filtered[alumnus]);
+    }
+  },
+
+  // FUNCTION filter()
+  // Filter alumni data to match user input
+  filter: function() {
+    if (this.filters.category !== "") {
+      var filtered = this.filtered;
+      this.filtered = [];
+      for (var alumnus in filtered) {
+        var current = filtered[alumnus];
+        if (current.Business_Category.toUpperCase().indexOf(this.filters.category.toUpperCase()) > -1)
+          this.filtered.push(current);
+      }
+    }
+
+    if (this.filters.school !== "") {
+      var filtered = this.filtered;
+      this.filtered = [];
+      for (var alumnus in filtered) {
+        var current = filtered[alumnus];
+        if (current.School_Name.toUpperCase().indexOf(this.filters.school.toUpperCase()) > -1)
+          this.filtered.push(current);
+      }
+    }
+
+    if (this.filters.search !== "") {      
+      var terms = this.filters.search;
+      // Remove leading and trailing spaces
+      terms.replace(/^\s+|\s+$/g, "");
+      // Replace multiple spaces with single space
+      terms.replace(/\s{2,}/g, " ");
+      // Split multiple search terms into array
+      terms = terms.split(" ");
+      for (var i in terms) {
+        var filtered = this.filtered;
+        this.filtered = [];
+        var query = terms[i].toUpperCase();        
+        for (var alumnus in filtered) {
+          var current = filtered[alumnus];
+          if (current.id.toUpperCase().indexOf(query) > -1 ||
+              current.Last_Name.toUpperCase().indexOf(query) > -1 ||
+              current.First_Name.toUpperCase().indexOf(query) > -1 ||
+              current.Class_Year.toUpperCase().indexOf(query) > -1 ||
+              current.School_Name.toUpperCase().indexOf(query) > -1 ||
+              current.Business_Title.toUpperCase().indexOf(query) > -1 ||
+              current.Business_Name.toUpperCase().indexOf(query) > -1 ||
+              current.Business_Category.toUpperCase().indexOf(query) > -1 ||
+              current.Business_Street1.toUpperCase().indexOf(query) > -1 ||
+              current.Business_Street2.toUpperCase().indexOf(query) > -1 ||
+              current.Business_City.toUpperCase().indexOf(query) > -1 ||
+              current.Business_State.toUpperCase().indexOf(query) > -1 ||
+              current.Business_Country.toUpperCase().indexOf(query) > -1 ||
+              current.Business_Zipcode.toUpperCase().indexOf(query) > -1 ||
+              current.Business_Phone.toUpperCase().indexOf(query) > -1) {
+            this.filtered.push(current);
+          }
+        }
+      }
     }
   },
 
@@ -217,8 +253,8 @@ var AntNet = {
     resultTitle.appendChild(document.createTextNode(alumnus.Business_Name));
     resultTitle.appendChild(document.createElement("br"));
     var resultDesc = document.createElement("span");
-    resultDesc.innerHTML = alumnus.Business_Street1 + "<br />" + alumnus.Business_City + 
-    ", " + alumnus.Business_State + " " + alumnus.Business_Zipcode;
+    resultDesc.innerHTML = alumnus.Business_Street1 + "<br />" + alumnus.Business_City +
+            ", " + alumnus.Business_State + " " + alumnus.Business_Zipcode;
     resultA.appendChild(resultTitle);
     resultA.appendChild(resultDesc);
     resultLI.appendChild(resultA);
@@ -230,15 +266,15 @@ var AntNet = {
     google.maps.event.addListener(marker, "click", function() {
       that.infowindow.setContent(infowindowHTML);
       that.infowindow.open(that.map, marker);
-      var posTop = $("#js-results-list").scrollTop() + 
-      $(resultLI).position().top - $("#js-results-list").position().top;
+      var posTop = $("#js-results-list").scrollTop() +
+              $(resultLI).position().top - $("#js-results-list").position().top;
       $("#js-results-list").animate({
         scrollTop: posTop
       }, 700);
       $("#js-results-list").children("li").removeClass("active");
       $(resultLI).addClass("active");
     });
-    
+
     // Focus marker and open infowindow when listing is clicked
     $(resultLI).click(function() {
       that.map.panTo(marker.position);
@@ -249,16 +285,17 @@ var AntNet = {
     });
   },
 
-  // FUNCTION clearBusinesses()
+  // FUNCTION clear()
   // Clears the results list and map, and show the No Results notice
-  clearBusinesses: function() {
+  clear: function() {
     if ($("#js-results-error").is(":hidden")) {
       $("#js-results-list").children().remove();
       $("#js-results-error").show();
       for (var i = 0; i < this.markers.length; i++)
         this.markers[i].setMap(null);
-      this.markers = [];
-    }
+    }    
+    this.markers = [];
+    this.filtered = this.alumni;
   }
 };
 
@@ -279,4 +316,4 @@ $(document).ready(function() {
 // Call AntNet.resize() whenever the window is resized
 $(window).resize(function() {
   AntNet.resize();
-})
+});

@@ -59,7 +59,6 @@
 * Added [Chosen](http://harvesthq.github.io/chosen/) 1.0.0.
 * Created basic user interface layout.
 * Removed Bootstrap Responsive CSS.
-* Added [jLinq](http://hugoware.com/projects/jlinq) 3.0.1.
 
 ##### Version 14.1 June 30, 2013
 1. Encoded all filter values, not just search. Fixed [issue #139](https://github.com/JMMP/AnteaterNetwork/issues/139).

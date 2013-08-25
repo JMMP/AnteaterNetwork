@@ -95,7 +95,7 @@ session_start();
     "alumni"     => $alumni,
     "categories" => $categories,
     "schools"    => $schools,
-    "size"       => $sizes);
+    "sizes"       => $sizes);
 
   echo json_encode($data);
   mysqli_close($mysqli);
