@@ -9,14 +9,14 @@ var AntNet = {
   filtered: null,
   categories: null,
   schools: null,
-  sizes: null,
   infowindow: null,
-  map: null,
   filters: {
     school: "",
     category: "",
     search: ""
   },
+  map: null,
+  mapBounds: null,
   mapStyles: [{
     "featureType": "water",
     "stylers": [{
@@ -47,7 +47,7 @@ var AntNet = {
   mapOptions: {
     center: new google.maps.LatLng(33.646259, -117.842056),
     mapTypeId: google.maps.MapTypeId.ROADMAP,
-    zoom: 15,
+    zoom: 12,
     panControl: false,
     zoomControl: true,
     zoomControlOptions: {
@@ -56,7 +56,6 @@ var AntNet = {
     },
     styles: this.mapStyles
   },
-  mapViewBuffer: 0.0035,
   markers: [],
   markerClusterer: null,
   markerImageBusiness: "img/marker_anteater.png",
@@ -113,7 +112,6 @@ var AntNet = {
       that.alumni = data.alumni;
       that.categories = data.categories;
       that.schools = data.schools;
-      that.sizes = data.sizes;
       that.setMenus();
       that.update();
     });
@@ -162,11 +160,14 @@ var AntNet = {
   update: function() {
     this.clear();
     this.filter();
-        
+
     if (this.filtered.length > 0) {
       $("#js-results-error").hide();
+      this.mapBounds = new google.maps.LatLngBounds();
       for (var alumnus in this.filtered)
         this.addBusiness(this.filtered[alumnus]);
+      if (!this.mapBounds.isEmpty())
+        this.map.fitBounds(this.mapBounds);
     }
   },
 
@@ -232,18 +233,9 @@ var AntNet = {
   // FUNCTION addBusiness(alumnus)
   // Creates a marker, infowindow, and listing for a single business
   addBusiness: function(alumnus) {
-    var marker = new google.maps.Marker({
-      map: this.map,
-      position: new google.maps.LatLng(alumnus.Business_Lat, alumnus.Business_Lng),
-      title: alumnus.Business_Name,
-      icon: this.markerImageBusiness
-    });
-    this.markers.push(marker);
-
-    // Create infowindow content
-    var infowindowContent = "<b>" + alumnus.Business_Name + "</b><br />";
-    infowindowContent += "<p>" + alumnus.First_Name + " " + alumnus.Last_Name + "</p>";
-    var infowindowHTML = '<div class="js-infowindow">' + infowindowContent + '</div>';
+    var latLngBuffer = 0.0035;
+    var busLat = parseFloat(alumnus.Business_Lat);
+    var busLng = parseFloat(alumnus.Business_Lng);
 
     // Create listing content
     var fragment = document.createDocumentFragment();
@@ -261,28 +253,57 @@ var AntNet = {
     fragment.appendChild(resultLI);
     $("#js-results-list").append(fragment);
 
-    // Open infowindow and scroll to listing when marker is clicked
-    var that = this;
-    google.maps.event.addListener(marker, "click", function() {
-      that.infowindow.setContent(infowindowHTML);
-      that.infowindow.open(that.map, marker);
-      var posTop = $("#js-results-list").scrollTop() +
-              $(resultLI).position().top - $("#js-results-list").position().top;
-      $("#js-results-list").animate({
-        scrollTop: posTop
-      }, 700);
-      $("#js-results-list").children("li").removeClass("active");
-      $(resultLI).addClass("active");
-    });
+    // Create a marker and infowindow for businesses with latitudes and longitudes
+    // Businesses with latitude or longitude of 0 are still displayed in results list
+    if (busLat == 0 || busLng == 0) {
+      $(resultLI).click(function() {
+        $("#js-results-list").children("li").removeClass("active");
+        $(resultLI).addClass("active");        
+      });
+    } else {
+      // Create marker
+      var marker = new google.maps.Marker({
+        map: this.map,
+        position: new google.maps.LatLng(busLat, busLng),
+        title: alumnus.Business_Name,
+        icon: this.markerImageBusiness
+      });
+      this.markers.push(marker);
 
-    // Focus marker and open infowindow when listing is clicked
-    $(resultLI).click(function() {
-      that.map.panTo(marker.position);
-      that.infowindow.setContent(infowindowHTML);
-      that.infowindow.open(that.map, marker);
-      $("#js-results-list").children("li").removeClass("active");
-      $(resultLI).addClass("active");
-    });
+      // Create buffered LatLngs for map view bounds
+      var latLngNE = new google.maps.LatLng(busLat + latLngBuffer, busLng + latLngBuffer);
+      var latLngSW = new google.maps.LatLng(busLat - latLngBuffer, busLng - latLngBuffer);
+      this.mapBounds.extend(latLngNE);
+      this.mapBounds.extend(latLngSW);
+
+      // Create infowindow content
+      var infowindowContent = "<b>" + alumnus.Business_Name + "</b><br />";
+      infowindowContent += "<p>" + alumnus.First_Name + " " + alumnus.Last_Name + "</p>";
+      var infowindowHTML = '<div class="js-infowindow">' + infowindowContent + '</div>';
+
+      // Open infowindow and scroll to listing when marker is clicked
+      var that = this;
+      google.maps.event.addListener(marker, "click", function() {
+        that.infowindow.setContent(infowindowHTML);
+        that.infowindow.open(that.map, marker);
+        var posTop = $("#js-results-list").scrollTop() +
+            $(resultLI).position().top - $("#js-results-list").position().top;
+        $("#js-results-list").animate({
+          scrollTop: posTop
+        }, 700);
+        $("#js-results-list").children("li").removeClass("active");
+        $(resultLI).addClass("active");
+      });
+
+      // Focus marker and open infowindow when listing is clicked
+      $(resultLI).click(function() {
+        that.map.panTo(marker.position);
+        that.infowindow.setContent(infowindowHTML);
+        that.infowindow.open(that.map, marker);
+        $("#js-results-list").children("li").removeClass("active");
+        $(resultLI).addClass("active");
+      });
+    }
   },
 
   // FUNCTION clear()
