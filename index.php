@@ -16,7 +16,7 @@ $_SESSION["ip"] = $_SERVER["REMOTE_ADDR"];
   <title>Anteater Network</title>
   <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
   <link href="//netdna.bootstrapcdn.com/bootswatch/2.3.2/cerulean/bootstrap.min.css" rel="stylesheet" media="screen"/>
-  <link href="css/chosen.css" rel="stylesheet" media="screen"/>
+  <link href="css/chosen.min.css" rel="stylesheet" media="screen"/>
   <link href="css/antnet.css" rel="stylesheet" media="screen"/>
   <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
   <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyDjfKwuT7W5o7YSTt6wHmeDaEhgIxuOUoI&sensor=true"></script>
