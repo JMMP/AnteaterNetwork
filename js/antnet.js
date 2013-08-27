@@ -68,9 +68,6 @@ var AntNet = {
     this.infowindow = new google.maps.InfoWindow();
     this.getData();
     this.resize();
-    $(".js-select").chosen({
-      allow_single_deselect: true
-    });
   },
 
   // FUNCTION resize()
@@ -89,7 +86,6 @@ var AntNet = {
     var hMobile = 0;
     if (window.innerWidth <= 767)
       hMobile = 250;
-     
     hMax -= hMobile;
     */
     $("#js-results").height(hMax);
@@ -194,18 +190,22 @@ var AntNet = {
       }
     }
 
-    if (this.filters.search !== "") {      
+    if (this.filters.search !== "") {
       var terms = this.filters.search;
+      // Remove the symbols ; : ' " , . & * + ( ) / \
+      terms = terms.replace(/[;:'",.&*+()\/\\]/g, "");
       // Remove leading and trailing spaces
-      terms.replace(/^\s+|\s+$/g, "");
+      terms = terms.replace(/^\s+|\s+$/g, "");
       // Replace multiple spaces with single space
-      terms.replace(/\s{2,}/g, " ");
+      terms = terms.replace(/\s{2,}/g, " ");
+      // Convert search terms to upper case
+      terms = terms.toUpperCase();
       // Split multiple search terms into array
       terms = terms.split(" ");
       for (var i in terms) {
         var filtered = this.filtered;
         this.filtered = [];
-        var query = terms[i].toUpperCase();        
+        var query = terms[i];
         for (var alumnus in filtered) {
           var current = filtered[alumnus];
           if (current.id.toUpperCase().indexOf(query) > -1 ||
@@ -231,22 +231,45 @@ var AntNet = {
   },
 
   // FUNCTION addBusiness(alumnus)
-  // Creates a marker, infowindow, and listing for a single business
+  // Creates a marker, infowindow, and result listing for a single business
   addBusiness: function(alumnus) {
     var latLngBuffer = 0.0035;
     var busLat = parseFloat(alumnus.Business_Lat);
     var busLng = parseFloat(alumnus.Business_Lng);
 
-    // Create listing content
+    // Check if needed fields exists, then store and format them accordingly
+    var busName = alumnus.Business_Name;
+    var busStreet1 = "";
+    var busStreet2 = "";
+    var busCity = "";
+    var busState = "";
+    var busCountry = "";
+    var busZipcode = "";
+    if (alumnus.Business_Street1 !== "") {
+      busStreet1 = alumnus.Business_Street1;
+      if (alumnus.Business_Street2 !== "")
+        busStreet2 = ", " + alumnus.Business_Street2;
+    }
+    if (alumnus.Business_City !== "") {
+      busCity = alumnus.Business_City;
+      if (alumnus.Business_State !== "")
+        busState = ", " + alumnus.Business_State;
+    }
+    if (alumnus.Business_Country !== "")
+      busCountry = ", " + alumnus.Business_Country;
+    if (alumnus.Business_Zipcode !== "")
+      busZipcode = " " + alumnus.Business_Zipcode;
+    var busAddress = busName + ", " + busStreet1 + busCity + busState + busZipcode;
+
+    // Create result listing content
     var fragment = document.createDocumentFragment();
     var resultLI = document.createElement("li");
     var resultA = document.createElement("a");
     var resultTitle = document.createElement("b");
-    resultTitle.appendChild(document.createTextNode(alumnus.Business_Name));
+    resultTitle.appendChild(document.createTextNode(busName));
     resultTitle.appendChild(document.createElement("br"));
     var resultDesc = document.createElement("span");
-    resultDesc.innerHTML = alumnus.Business_Street1 + "<br />" + alumnus.Business_City +
-            ", " + alumnus.Business_State + " " + alumnus.Business_Zipcode;
+    resultDesc.innerHTML = busCity + busState;
     resultA.appendChild(resultTitle);
     resultA.appendChild(resultDesc);
     resultLI.appendChild(resultA);
@@ -258,14 +281,14 @@ var AntNet = {
     if (busLat == 0 || busLng == 0) {
       $(resultLI).click(function() {
         $("#js-results-list").children("li").removeClass("active");
-        $(resultLI).addClass("active");        
+        $(resultLI).addClass("active");
       });
     } else {
       // Create marker
       var marker = new google.maps.Marker({
         map: this.map,
         position: new google.maps.LatLng(busLat, busLng),
-        title: alumnus.Business_Name,
+        title: busName,
         icon: this.markerImageBusiness
       });
       this.markers.push(marker);
@@ -277,11 +300,14 @@ var AntNet = {
       this.mapBounds.extend(latLngSW);
 
       // Create infowindow content
-      var infowindowContent = "<b>" + alumnus.Business_Name + "</b><br />";
-      infowindowContent += "<p>" + alumnus.First_Name + " " + alumnus.Last_Name + "</p>";
+      var infowindowContent = "<b>" + busName + "</b><br />";
+      infowindowContent += "<p>" + alumnus.First_Name + " " + alumnus.Last_Name + "<br />" +
+          busStreet1 + busStreet2 + "<br />" + busCity + busState + busCountry + busZipcode +
+          "<br />" + alumnus.Business_Phone + "</p>";
+      infowindowContent += "<a href='http://maps.google.com/maps?daddr=" + busAddress.replace(" ", "+") + "' target ='_blank'>Get Directions</a>";
       var infowindowHTML = '<div class="js-infowindow">' + infowindowContent + '</div>';
 
-      // Open infowindow and scroll to listing when marker is clicked
+      // Open infowindow and scroll to results listing when marker is clicked
       var that = this;
       google.maps.event.addListener(marker, "click", function() {
         that.infowindow.setContent(infowindowHTML);
@@ -295,7 +321,7 @@ var AntNet = {
         $(resultLI).addClass("active");
       });
 
-      // Focus marker and open infowindow when listing is clicked
+      // Focus marker and open infowindow when results listing is clicked
       $(resultLI).click(function() {
         that.map.panTo(marker.position);
         that.infowindow.setContent(infowindowHTML);
@@ -307,14 +333,14 @@ var AntNet = {
   },
 
   // FUNCTION clear()
-  // Clears the results list and map, and show the No Results notice
+  // Clears the list and map, and show the No Results notice
   clear: function() {
     if ($("#js-results-error").is(":hidden")) {
       $("#js-results-list").children().remove();
       $("#js-results-error").show();
       for (var i = 0; i < this.markers.length; i++)
         this.markers[i].setMap(null);
-    }    
+    }
     this.markers = [];
     this.filtered = this.alumni;
   }
@@ -332,6 +358,9 @@ var delay = (function() {
 $(document).ready(function() {
   AntNet.init();
   google.maps.visualRefresh = true;
+  $(".js-select").chosen({
+      allow_single_deselect: true
+    });
 });
 
 // Call AntNet.resize() whenever the window is resized
