@@ -11,8 +11,8 @@ session_start();
   require_once("../../antnet_secure.php");
 
   // Get alumni
-  $result = mysqli_query($mysqli, 
-    "SELECT id, 
+  $result = mysqli_query($mysqli,
+    "SELECT id,
     Last_Name,
     First_Name,
     Class_Year,
@@ -31,8 +31,7 @@ session_start();
     Business_Phone_Ext,
     Business_Lat,
     Business_Lng
-    FROM " . $table . 
-    " WHERE Business_Name != \"\" ORDER BY Business_Name");
+    FROM " . $table . " WHERE Business_Name != \"\" ORDER BY Business_Name");
 
   if (!$result) {
     if ($debug)
@@ -41,17 +40,13 @@ session_start();
   }
 
   $alumni = array();
-  $numAlumni = 0;
-  while ($row = mysqli_fetch_assoc($result)) {
+  while ($row = mysqli_fetch_assoc($result))
     $alumni[] = $row;
-    $numAlumni++;
-  }
 
 
   // Get categories
   $result = mysqli_query($mysqli,
-    "SELECT DISTINCT Business_Category 
-    FROM " . $table . " ORDER BY Business_Category");
+    "SELECT DISTINCT Business_Category FROM " . $table . " ORDER BY Business_Category");
 
   if (!$result) {
     if ($debug)
@@ -60,17 +55,13 @@ session_start();
   }
 
   $categories = array();
-  $numCategories = 0;
-  while ($row = mysqli_fetch_assoc($result)) {
+  while ($row = mysqli_fetch_assoc($result))
     $categories[] = $row;
-    $numCategories++;
-  }
 
 
   // Get schools
   $result = mysqli_query($mysqli,
-    "SELECT DISTINCT School_Name 
-    FROM " . $table . " ORDER BY School_Name");
+    "SELECT DISTINCT School_Name FROM " . $table . " ORDER BY School_Name");
 
   if (!$result) {
     if ($debug)
@@ -79,26 +70,16 @@ session_start();
   }
 
   $schools = array();
-  $numSchools = 0;
-  while ($row = mysqli_fetch_assoc($result)) {
+  while ($row = mysqli_fetch_assoc($result))
     $schools[] = $row;
-    $numSchools++;
-  }
 
   // Return all results as a JSON object
-  $sizes = array(
-    "alumni"     => $numAlumni,
-    "categories" => $numCategories,
-    "schools"    => $numSchools
-    );
   $data = array(
     "alumni"     => $alumni,
     "categories" => $categories,
-    "schools"    => $schools,
-    "sizes"       => $sizes);
+    "schools"    => $schools);
 
   echo json_encode($data);
   mysqli_close($mysqli);
 }
-
 ?>
