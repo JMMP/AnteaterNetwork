@@ -60,13 +60,13 @@ $_SESSION["ip"] = $_SERVER["REMOTE_ADDR"];
             </a>
             <ul class="dropdown-menu">
               <li>
-                <a><i class="icon-user"></i> About</a>
+                <a href="#about" data-toggle="modal"><i class="icon-user"></i> About</a>
               </li>
               <li>
-                <a><i class="icon-pencil"></i> Update My Info</a>
+                <a href="#update" data-toggle="modal"><i class="icon-pencil"></i> Update Info</a>
               </li>
               <li>
-                <a><i class="icon-question-sign"></i> Help</a>
+                <a href="#help" data-toggle="modal"><i class="icon-question-sign"></i> Help</a>
               </li>
             </ul>
           </li>
@@ -74,8 +74,62 @@ $_SESSION["ip"] = $_SERVER["REMOTE_ADDR"];
       </div>
     </div>
   </div>
+  <div id="about" class="modal hide fade" tabindex="-1">
+    <div class="modal-header">
+      <button class="close" data-dismiss="modal">x</button>
+      <h3>About</h3>
+    </div>
+    <div class="modal-body">
+      <img src="img/antnet_logo_full.png"><br />
+      <h3 class="text-center"><i>Connecting you to Anteaters</i></h3>
+      <p>The <b>Anteater Network</b> connects University of California, Irvine
+      alumni who have started their own businesses to past, present, and future Anteaters.
+      Simply browse the map or search for the Anteater owned businesses you care about.</p>
+      <p>© 2013 JMMP in association with the UC Irvine Alumni Association</p>
+      <a href="mailto:jmmp@melvin.io"><img src="img/jmmp_logo.png"></a><a href="alumni.uci.edu"><img src="img/uciaa_logo.png"></a>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+  <div id="update" class="modal hide fade" tabindex="-1">
+    <div class="modal-header">
+      <button class="close" data-dismiss="modal">x</button>
+      <h2>Update My Information</h2>
+    </div>
+    <div class="modal-body">
+      <h4>Keep your business information up to date!</h4>
+      <p>Help represent the University of California, Irvine and expose your business with the <b>Anteater Network</b>!</p>
+      <p>To update your personal and/or business contact information with UCI,
+      you can:</p>
+      <ul>
+        <li>Email us at <a href="mailto:alumni@uci.edu">alumni@uci.edu</a></li>
+        <li>Fill in our online form <a href="/connect/update.php">here</a></li>
+      </ul>
+      <p>If your business switches phone numbers, moves location, gets a new website, or makes any changes to its contact information, be sure to let us know!</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+  <div id="help" class="modal hide fade" tabindex="-1">
+    <div class="modal-header">
+      <button class="close" data-dismiss="modal">x</button>
+      <h3>Help</h3>
+    </div>
+    <div class="modal-body">
+      <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+      sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+      sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+      Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" data-dismiss="modal">Close</button>
+    </div>
+  </div>
   <div class="container-fluid">
     <div class="row-fluid">
+      <noscript>The Anteater Network requires JavaScript. Please enable JavaScript and refresh this page.</noscript>
       <ul class="nav" id="js-results">
         <li class="nav-header" id="js-results-header">
           Businesses<a id="js-results-hide" class="pull-right">Hide</a>
@@ -83,7 +137,7 @@ $_SESSION["ip"] = $_SERVER["REMOTE_ADDR"];
         <li class="alert alert-info" id="js-results-error">
           <h4 class="alert-heading">No results found!</h4>
         </li>
-        <ul class="nav nav-list" id="js-results-list">          
+        <ul class="nav nav-list" id="js-results-list">
         </ul>
       </ul>
       <!-- Bootstrap's "google-maps" class fixes distortion of map controls -->
