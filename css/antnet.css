@@ -34,6 +34,10 @@ a {
   padding-right: 0px;
 }
 
+.help-links > a:hover {
+  text-decoration: none;
+}
+
 #js-filter-search {
   margin-top: 5px;
   width: 150px;

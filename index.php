@@ -15,8 +15,9 @@ $_SESSION["ip"] = $_SERVER["REMOTE_ADDR"];
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Anteater Network</title>
   <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
-  <link href="//netdna.bootstrapcdn.com/bootswatch/2.3.2/cerulean/bootstrap.min.css" rel="stylesheet" media="screen"/>
+  <link href="css/cerulean.no-icons.min.css" rel="stylesheet" media="screen"/>
   <link href="css/chosen.min.css" rel="stylesheet" media="screen"/>
+  <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
   <link href="css/antnet.css" rel="stylesheet" media="screen"/>
   <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
   <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyDjfKwuT7W5o7YSTt6wHmeDaEhgIxuOUoI&sensor=true"></script>
@@ -122,6 +123,16 @@ $_SESSION["ip"] = $_SERVER["REMOTE_ADDR"];
       sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
       sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
       Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+      <h4 class="help-links">UC Irvine Alumni Association
+      <a href="http://alumni.uci.edu/"><i class="icon-globe"></i></a> 
+      <a href="mailto:alumni@uci.edu"><i class="icon-envelope"></i></a> 
+      <a href="https://www.facebook.com/uciaa"><i class="icon-facebook-sign"></i></a> 
+      <a href="https://twitter.com/UCIAA"><i class="icon-twitter-sign"></i></a> 
+      <a href="http://www.linkedin.com/groups?home=&gid=28617&trk=anet_ug_hm"><i class="icon-linkedin-sign"></i></a> 
+      <a href="http://www.flickr.com/photos/uciaa/sets/"><i class="icon-flickr-sign"></i></a></h4>
+      <h4 class="help-links">JMMP
+      <a href="https://github.com/JMMP"><i class="icon-globe"></i></a> 
+      <a href="mailto:jmmp@melvin.io"><i class="icon-envelope"></i></a></h4>
     </div>
     <div class="modal-footer">
       <button class="btn" data-dismiss="modal">Close</button>
