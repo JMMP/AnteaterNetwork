@@ -14,7 +14,6 @@ $_SESSION["ip"] = $_SERVER["REMOTE_ADDR"];
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Anteater Network</title>
-  <link href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
   <link href="css/cerulean.no-icons.min.css" rel="stylesheet" media="screen"/>
   <link href="css/chosen.min.css" rel="stylesheet" media="screen"/>
   <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
@@ -66,9 +65,9 @@ $_SESSION["ip"] = $_SERVER["REMOTE_ADDR"];
               <li>
                 <a href="#update" data-toggle="modal"><i class="icon-pencil"></i> Update Info</a>
               </li>
-              <li>
+              <!--<li>
                 <a href="#help" data-toggle="modal"><i class="icon-question-sign"></i> Help</a>
-              </li>
+              </li>-->
             </ul>
           </li>
         </ul>
@@ -81,48 +80,12 @@ $_SESSION["ip"] = $_SERVER["REMOTE_ADDR"];
       <h3>About</h3>
     </div>
     <div class="modal-body">
-      <img src="img/antnet_logo_full.png"><br />
-      <h3 class="text-center"><i>Connecting you to Anteaters</i></h3>
+      <p class="text-center"><img src="img/antnet_logo_full.png"></p>
       <p>The <b>Anteater Network</b> connects University of California, Irvine
       alumni who have started their own businesses to past, present, and future Anteaters.
       Simply browse the map or search for the Anteater owned businesses you care about.</p>
-      <p>© 2013 JMMP in association with the UC Irvine Alumni Association</p>
-      <a href="mailto:jmmp@melvin.io"><img src="img/jmmp_logo.png"></a><a href="alumni.uci.edu"><img src="img/uciaa_logo.png"></a>
-    </div>
-    <div class="modal-footer">
-      <button class="btn" data-dismiss="modal">Close</button>
-    </div>
-  </div>
-  <div id="update" class="modal hide fade" tabindex="-1">
-    <div class="modal-header">
-      <button class="close" data-dismiss="modal">x</button>
-      <h2>Update My Information</h2>
-    </div>
-    <div class="modal-body">
-      <h4>Keep your business information up to date!</h4>
-      <p>Help represent the University of California, Irvine and expose your business with the <b>Anteater Network</b>!</p>
-      <p>To update your personal and/or business contact information with UCI,
-      you can:</p>
-      <ul>
-        <li>Email us at <a href="mailto:alumni@uci.edu">alumni@uci.edu</a></li>
-        <li>Fill in our online form <a href="/connect/update.php">here</a></li>
-      </ul>
-      <p>If your business switches phone numbers, moves location, gets a new website, or makes any changes to its contact information, be sure to let us know!</p>
-    </div>
-    <div class="modal-footer">
-      <button class="btn" data-dismiss="modal">Close</button>
-    </div>
-  </div>
-  <div id="help" class="modal hide fade" tabindex="-1">
-    <div class="modal-header">
-      <button class="close" data-dismiss="modal">x</button>
-      <h3>Help</h3>
-    </div>
-    <div class="modal-body">
-      <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-      sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-      sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-      Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+      <p>&copy; 2013 JMMP in association with the UC Irvine Alumni Association</p>
+      <a href="https://github.com/JMMP"><img src="img/jmmp_logo.png"></a><a href="alumni.uci.edu"><img src="img/uciaa_logo.png"></a>
       <h4 class="help-links">UC Irvine Alumni Association
       <a href="http://alumni.uci.edu/"><i class="icon-globe"></i></a> 
       <a href="mailto:alumni@uci.edu"><i class="icon-envelope"></i></a> 
@@ -138,6 +101,51 @@ $_SESSION["ip"] = $_SERVER["REMOTE_ADDR"];
       <button class="btn" data-dismiss="modal">Close</button>
     </div>
   </div>
+  <div id="update" class="modal hide fade" tabindex="-1">
+    <div class="modal-header">
+      <button class="close" data-dismiss="modal">x</button>
+      <h3>Update My Information</h3>
+    </div>
+    <div class="modal-body">
+      <h4 class="text-center">Keep your business information up to date!</h4>
+      <p>Help represent the University of California, Irvine and expose your business with the <b>Anteater Network</b>!</p>
+      <p>To update your personal and/or business contact information with UCI,
+      you can:</p>
+      <ul>
+        <li>Email us at <a href="mailto:alumni@uci.edu">alumni@uci.edu</a></li>
+        <li>Fill in our online form <a href="/connect/update.php">here</a></li>
+      </ul>
+      <p>If your business switches phone numbers, moves location, gets a new website, or makes any changes to its contact information, be sure to let us know!</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+  <!--<div id="help" class="modal hide fade" tabindex="-1">
+    <div class="modal-header">
+      <button class="close" data-dismiss="modal">x</button>
+      <h3>Help</h3>
+    </div>
+    <div class="modal-body">
+      <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
+      sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+      sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+      Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+      <h3 class="help-links">UC Irvine Alumni Association
+      <a href="http://alumni.uci.edu/"><i class="icon-globe"></i></a> 
+      <a href="mailto:alumni@uci.edu"><i class="icon-envelope"></i></a> 
+      <a href="https://www.facebook.com/uciaa"><i class="icon-facebook-sign"></i></a> 
+      <a href="https://twitter.com/UCIAA"><i class="icon-twitter-sign"></i></a> 
+      <a href="http://www.linkedin.com/groups?home=&gid=28617&trk=anet_ug_hm"><i class="icon-linkedin-sign"></i></a> 
+      <a href="http://www.flickr.com/photos/uciaa/sets/"><i class="icon-flickr-sign"></i></a></h3>
+      <h3 class="help-links">JMMP
+      <a href="https://github.com/JMMP"><i class="icon-globe"></i></a> 
+      <a href="mailto:jmmp@melvin.io"><i class="icon-envelope"></i></a></h3>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" data-dismiss="modal">Close</button>
+    </div>
+  </div>-->
   <div class="container-fluid">
     <div class="row-fluid">
       <noscript>The Anteater Network requires JavaScript. Please enable JavaScript and refresh this page.</noscript>
