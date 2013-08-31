@@ -12,11 +12,6 @@
 **Website:** <http://jqueryui.com/>  
 **License:** [MIT License](http://github.com/jquery/jquery-ui/blob/master/MIT-LICENSE.txt)  
 
-#### QUnit
-**Author:** jQuery Foundation  
-**Website:** <http://qunitjs.com/>  
-**License:** [MIT License](http://github.com/jquery/jquery-ui/blob/master/MIT-LICENSE.txt)  
-
 #### Bootstrap
 **Author:** Mark Otto and Jacob Thornton  
 **Website:** <http://twitter.github.io/bootstrap/>  
@@ -27,24 +22,9 @@
 **Website:** <http://fortawesome.github.com/Font-Awesome>  
 **License:** [SIL Open Font License](http://scripts.sil.org/OFL)  
 
-#### GMaps.js
-**Author:** Gustavo Leon  
-**Website:** <http://hpneo.github.io/gmaps/>  
-**License:** [MIT License](http://opensource.org/licenses/MIT)  
-
 #### MarkerClusterer for Google Maps v3
 **Author:** Luke Mahe  
 **Website:** <http://code.google.com/p/google-maps-utility-library-v3/source/browse/trunk/markerclusterer/>  
-**License:** [Apache License](http://www.apache.org/licenses/LICENSE-2.0)  
-
-#### Bootstrap Switch
-**Author:** Larentis Mattia  
-**Website:** <http://www.larentis.eu/switch/>  
-**License:** [Apache License](http://www.apache.org/licenses/LICENSE-2.0)  
-
-#### Bootstrap Combobox
-**Author:** Daniel Farrell  
-**Website:** <http://github.com/danielfarrell/bootstrap-combobox>  
 **License:** [Apache License](http://www.apache.org/licenses/LICENSE-2.0)  
 
 #### Bootswatch - Cerulean
