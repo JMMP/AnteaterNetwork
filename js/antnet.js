@@ -114,7 +114,8 @@ var AntNet = {
   },
 
   // FUNCTION setMenus()
-  // Populates the select menus
+  // Populates the select menus and binds event handlers to navbar items and
+  // results listing hide and show buttons
   setMenus: function() {
     var that = this;
     $("#js-filter-category").append(this.createMenu(this.categories, "Business_Category"));
@@ -123,18 +124,21 @@ var AntNet = {
       that.filters.category = $("#js-filter-category").val();
       that.update();
     });
+
     $("#js-filter-school").append(this.createMenu(this.schools, "School_Name"));
     $("#js-filter-school").trigger("chosen:updated");
     $("#js-filter-school").change(function() {
       that.filters.school = $("#js-filter-school").val();
       that.update();
     });
+
     $("#js-filter-search").keyup(function() {
       that.filters.search = $("#js-filter-search").val();
       delay(function() {
         that.update();
       }, 500);
-    });    
+    });
+
     $("#js-clusters").click(function() {
       if ($(this).hasClass("btn-primary")) {
         $(this).removeClass("btn-primary");
@@ -146,10 +150,43 @@ var AntNet = {
         $(this).addClass("btn-primary");
         that.markerClusterer = new MarkerClusterer(that.map, that.markers);
       }
-
       // Hide infowindows and remove highlighting
       $("#js-results-list").children("li").removeClass("active");
       that.infowindow.close();
+    });
+
+    $("#js-results-hide").click(function() {
+      // Hold map's position while results list hides
+      $("#js-map").css("left", $("#js-map").position().left);
+      $("#js-map").css("position", "absolute");
+
+      //Hide results list and show the Show button
+      $("#js-results").hide("slide", {
+        direction: "left"
+      }, 500, function() {
+        $("#js-map").css("left", "auto");
+        $("#js-map").css("position", "relative");
+        $("#js-results-show").show();
+      });
+      $("#js-map").css("width", "100%");
+      google.maps.event.trigger(that.map, "resize");
+    });
+
+    $("#js-results-show").click(function() {
+      // Hide the Show button and hold map's position
+      $(this).hide();
+      $("#js-map").css("right", "0");
+      $("#js-map").css("position", "absolute");
+      $("#js-map").css("width", "77%");
+
+      // Show the results list
+      $("#js-results").show("slide", {
+        direction: "left"
+      }, 700, function() {
+        $("#js-map").css("right", "auto");
+        $("#js-map").css("position", "relative");
+      });
+      google.maps.event.trigger(that.map, "resize");
     });
   },
 
@@ -335,7 +372,7 @@ var AntNet = {
             $(resultLI).position().top - $("#js-results-list").position().top;
         $("#js-results-list").animate({
           scrollTop: posTop
-        }, 700);
+        }, 500);
         $("#js-results-list").children("li").removeClass("active");
         $(resultLI).addClass("active");
       });
@@ -357,7 +394,7 @@ var AntNet = {
     if ($("#js-results-error").is(":hidden")) {
       $("#js-results-list").children().remove();
       $("#js-results-error").show();
-      for (var i = 0; i < this.markers.length; i++)
+      for (var i in this.markers)
         this.markers[i].setMap(null);
     }
     this.markers = [];

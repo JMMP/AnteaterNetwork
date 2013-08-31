@@ -8,6 +8,7 @@ html, body {
   height: 100%;
   margin: 0px;
   padding: 0px;
+  background-color: #808080;
 }
 
 a {
@@ -103,14 +104,14 @@ a {
   display: none;
   z-index: 1;
   position: absolute;
-  left: 0px;
   transform: rotate(90deg);
   -ms-transform: rotate(90deg);
   -moz-transform: rotate(90deg);
-  -webkit-transform: rotate(90deg); 
+  -webkit-transform: rotate(90deg);
   -o-transform: rotate(90deg);
   background-color: rgba(255, 255, 255, 0.8);
-  margin: 27px 10px;
+  top: 60px;
+  left: 1.5em;
 }
 
 #js-results-show > a {

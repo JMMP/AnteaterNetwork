@@ -22,6 +22,7 @@ $_SESSION["ip"] = $_SERVER["REMOTE_ADDR"];
   <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyDjfKwuT7W5o7YSTt6wHmeDaEhgIxuOUoI&sensor=true"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/chosen/1.0/chosen.jquery.min.js"></script>
+  <script src="js/jquery-ui.custom.min.js"></script>
   <script src="js/markerclusterer.min.js"></script>
   <script src="js/antnet.js"></script>
 </head>
@@ -68,9 +69,6 @@ $_SESSION["ip"] = $_SERVER["REMOTE_ADDR"];
               <li>
                 <a href="#update" data-toggle="modal"><i class="icon-pencil"></i> Update Info</a>
               </li>
-              <!--<li>
-                <a href="#help" data-toggle="modal"><i class="icon-question-sign"></i> Help</a>
-              </li>-->
             </ul>
           </li>
         </ul>
@@ -90,14 +88,14 @@ $_SESSION["ip"] = $_SERVER["REMOTE_ADDR"];
       <p>&copy; 2013 JMMP in association with the UC Irvine Alumni Association</p>
       <a href="https://github.com/JMMP"><img src="img/jmmp_logo.png"></a><a href="alumni.uci.edu"><img src="img/uciaa_logo.png"></a>
       <h4 class="help-links">UC Irvine Alumni Association
-      <a href="http://alumni.uci.edu/"><i class="icon-globe"></i></a> 
-      <a href="mailto:alumni@uci.edu"><i class="icon-envelope"></i></a> 
-      <a href="https://www.facebook.com/uciaa"><i class="icon-facebook-sign"></i></a> 
-      <a href="https://twitter.com/UCIAA"><i class="icon-twitter-sign"></i></a> 
-      <a href="http://www.linkedin.com/groups?home=&gid=28617&trk=anet_ug_hm"><i class="icon-linkedin-sign"></i></a> 
+      <a href="http://alumni.uci.edu/"><i class="icon-globe"></i></a>
+      <a href="mailto:alumni@uci.edu"><i class="icon-envelope"></i></a>
+      <a href="https://www.facebook.com/uciaa"><i class="icon-facebook-sign"></i></a>
+      <a href="https://twitter.com/UCIAA"><i class="icon-twitter-sign"></i></a>
+      <a href="http://www.linkedin.com/groups?home=&gid=28617&trk=anet_ug_hm"><i class="icon-linkedin-sign"></i></a>
       <a href="http://www.flickr.com/photos/uciaa/sets/"><i class="icon-flickr-sign"></i></a></h4>
       <h4 class="help-links">JMMP
-      <a href="https://github.com/JMMP"><i class="icon-globe"></i></a> 
+      <a href="https://github.com/JMMP"><i class="icon-globe"></i></a>
       <a href="mailto:jmmp@melvin.io"><i class="icon-envelope"></i></a></h4>
     </div>
     <div class="modal-footer">
@@ -124,34 +122,12 @@ $_SESSION["ip"] = $_SERVER["REMOTE_ADDR"];
       <button class="btn" data-dismiss="modal">Close</button>
     </div>
   </div>
-  <!--<div id="help" class="modal hide fade" tabindex="-1">
-    <div class="modal-header">
-      <button class="close" data-dismiss="modal">x</button>
-      <h3>Help</h3>
-    </div>
-    <div class="modal-body">
-      <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr,
-      sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-      sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
-      Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-      <h3 class="help-links">UC Irvine Alumni Association
-      <a href="http://alumni.uci.edu/"><i class="icon-globe"></i></a> 
-      <a href="mailto:alumni@uci.edu"><i class="icon-envelope"></i></a> 
-      <a href="https://www.facebook.com/uciaa"><i class="icon-facebook-sign"></i></a> 
-      <a href="https://twitter.com/UCIAA"><i class="icon-twitter-sign"></i></a> 
-      <a href="http://www.linkedin.com/groups?home=&gid=28617&trk=anet_ug_hm"><i class="icon-linkedin-sign"></i></a> 
-      <a href="http://www.flickr.com/photos/uciaa/sets/"><i class="icon-flickr-sign"></i></a></h3>
-      <h3 class="help-links">JMMP
-      <a href="https://github.com/JMMP"><i class="icon-globe"></i></a> 
-      <a href="mailto:jmmp@melvin.io"><i class="icon-envelope"></i></a></h3>
-    </div>
-    <div class="modal-footer">
-      <button class="btn" data-dismiss="modal">Close</button>
-    </div>
-  </div>-->
   <div class="container-fluid">
     <div class="row-fluid">
       <noscript>The Anteater Network requires JavaScript. Please enable JavaScript and refresh this page.</noscript>
+      <div id="js-results-show" class="nav-header">
+        <a>Show</a>
+      </div>
       <ul class="nav" id="js-results">
         <li class="nav-header" id="js-results-header">
           Businesses<a id="js-results-hide" class="pull-right">Hide</a>
