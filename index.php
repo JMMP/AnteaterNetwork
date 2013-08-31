@@ -22,7 +22,7 @@ $_SESSION["ip"] = $_SERVER["REMOTE_ADDR"];
   <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyDjfKwuT7W5o7YSTt6wHmeDaEhgIxuOUoI&sensor=true"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/chosen/1.0/chosen.jquery.min.js"></script>
-  <script src="js/markerclusterer.js"></script>
+  <script src="js/markerclusterer.min.js"></script>
   <script src="js/antnet.js"></script>
 </head>
 <body>
@@ -46,7 +46,10 @@ $_SESSION["ip"] = $_SERVER["REMOTE_ADDR"];
             </select>
           </li>
           <li>
-            <input class="search-query pull-right" id="js-filter-search" type="text" placeholder="Search">
+            <input class="search-query" id="js-filter-search" type="text" placeholder="Search">
+          </li>
+          <li>
+            <button class="btn btn-mini" id="js-clusters">Clusters</button>
           </li>
         </ul>
         <ul class="nav pull-right">

@@ -134,7 +134,22 @@ var AntNet = {
       delay(function() {
         that.update();
       }, 500);
+    });    
+    $("#js-clusters").click(function() {
+      if ($(this).hasClass("btn-primary")) {
+        $(this).removeClass("btn-primary");
+        that.markerClusterer.clearMarkers();
+        that.markerClusterer = null;
+        for (var i in that.markers)
+          that.markers[i].setMap(that.map);
+      } else {
+        $(this).addClass("btn-primary");
+        that.markerClusterer = new MarkerClusterer(that.map, that.markers);
+      }
 
+      // Hide infowindows and remove highlighting
+      $("#js-results-list").children("li").removeClass("active");
+      that.infowindow.close();
     });
   },
 
@@ -286,12 +301,16 @@ var AntNet = {
     } else {
       // Create marker
       var marker = new google.maps.Marker({
-        map: this.map,
         position: new google.maps.LatLng(busLat, busLng),
         title: busName,
         icon: this.markerImageBusiness
       });
       this.markers.push(marker);
+
+      if (this.markerClusterer)
+        this.markerClusterer.addMarker(marker);
+      else
+        marker.setMap(this.map);
 
       // Create buffered LatLngs for map view bounds
       var latLngNE = new google.maps.LatLng(busLat + latLngBuffer, busLng + latLngBuffer);
@@ -342,6 +361,8 @@ var AntNet = {
         this.markers[i].setMap(null);
     }
     this.markers = [];
+    if (this.markerClusterer)
+      this.markerClusterer.clearMarkers();
     this.filtered = this.alumni;
   }
 };

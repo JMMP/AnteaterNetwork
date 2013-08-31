@@ -38,6 +38,10 @@ a {
   text-decoration: none;
 }
 
+#js-clusters {
+  margin-left: 15px;
+}
+
 #js-filter-search {
   margin-top: 5px;
   width: 150px;
