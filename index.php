@@ -12,7 +12,7 @@ $_SESSION["ip"] = $_SERVER["REMOTE_ADDR"];
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Anteater Network</title>
   <link href="css/cerulean.no-icons.min.css" rel="stylesheet" media="screen"/>
   <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" media="screen">
@@ -49,9 +49,7 @@ $_SESSION["ip"] = $_SERVER["REMOTE_ADDR"];
               </select>
             </li>
             <li>
-              <form class="navbar-form pull-left">
-                <input class="search-query span1" id="js-filter-search" type="text" placeholder="Search">
-              </form>
+              <input class="search-query" id="js-filter-search" type="text" placeholder="Search">
             </li>
             <li>
               <button class="btn btn-mini js-clusters" id="js-clusters-button" type="button">Clusters</button>

@@ -87,10 +87,10 @@ var AntNet = {
     this.heightUsable = $(window).height() - this.heightNavbar;
 
     if (this.mobile) {
-      $("#js-results").height(this.heightUsable * 0.25);
-      $("#js-results-list").height(this.heightUsable * 0.25 - this.heightResultsHeader);
+      $("#js-results").height(this.heightUsable * 0.3);
+      $("#js-results-list").height(this.heightUsable * 0.3 - this.heightResultsHeader);
       if ($("#js-results").is(":visible"))
-        $("#js-map").height(this.heightUsable * 0.75);
+        $("#js-map").height(this.heightUsable * 0.7);
       else
         $("#js-map").height(this.heightUsable);
     } else {
@@ -144,16 +144,14 @@ var AntNet = {
     $(".js-clusters").click(function() {
       if (that.markerClusterer) {
         $("#js-clusters-button").removeClass("btn-primary");
-        $("#js-clusters-menu").removeClass("icon-check-sign");
-        $("#js-clusters-menu").addClass("icon-check-empty");
+        $("#js-clusters-menu").removeClass("icon-check-sign").addClass("icon-check-empty");
         that.markerClusterer.clearMarkers();
         that.markerClusterer = null;
         for (var i in that.markers)
           that.markers[i].setMap(that.map);
       } else {
         $("#js-clusters-button").addClass("btn-primary");
-        $("#js-clusters-menu").removeClass("icon-check-empty");
-        $("#js-clusters-menu").addClass("icon-check-sign");
+        $("#js-clusters-menu").removeClass("icon-check-empty").addClass("icon-check-sign");
         that.markerClusterer = new MarkerClusterer(that.map, that.markers);
       }
 
@@ -199,12 +197,10 @@ var AntNet = {
       $("#js-results").hide("slide", {
         direction: "left"
       }, 500, function() {
-        if (that.mobile) {
+        if (that.mobile)
           $("#js-map").height(that.heightUsable);
-        } else {
-          $("#js-map").css("left", "");
-          $("#js-map").css("width", "100%");
-        }
+        else
+          $("#js-map").css("left", "").css("width", "100%");
         $("#js-results-show").show();
       });
 
@@ -212,23 +208,19 @@ var AntNet = {
       $("#js-results-show").hide();
 
       // Hide the Show button and hold map's position
-      if (this.mobile) {
-        $("#js-map").css("bottom", "0");
-        $("#js-map").height(this.heightUsable * 0.75);
-      } else {
-        $("#js-map").css("right", "0");
-        $("#js-map").css("width", "");
-      }
+      if (this.mobile)
+        $("#js-map").css("bottom", "0").height(this.heightUsable * 0.7);
+      else
+        $("#js-map").css("right", "0").css("width", "");
 
       // Show the results list
       $("#js-results").show("slide", {
         direction: "left"
       }, 500, function() {
-        if (that.mobile) {
+        if (that.mobile)
           $("#js-map").css("bottom", "");
-        } else {
+        else
           $("#js-map").css("right", "");
-        }
       });
     }
 
