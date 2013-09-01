@@ -15,12 +15,6 @@ a {
   cursor: pointer;
 }
 
-#antnet-logo {
-  padding: 7px 10px;
-  margin-left: -10px;
-  margin-right: 15px;
-}
-
 #antnet-logo > img {
   width: 60px;
 }
@@ -39,8 +33,8 @@ a {
   text-decoration: none;
 }
 
-#js-clusters {
-  margin-left: 15px;
+button.js-clusters {
+  margin-left: 13px;
 }
 
 #js-filter-search {
@@ -126,16 +120,16 @@ a {
   margin-bottom: 0px;
 }
 
-#js-navbar #js-menu-desktop {
+#js-navbar #js-menu {
   display: block;
   float: right;
   padding: 7px 10px;
-  margin: 5px 5px 0px 5px;
+  margin: 7px -5px 0px 5px;
   color: #ffffff;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
 
-#js-navbar #js-menu-desktop .icon-bar {
+#js-navbar #js-menu .icon-bar {
   display: block;
   width: 18px;
   height: 2px;
@@ -154,17 +148,65 @@ a {
   padding-right: 20px;
 }
 
-#js-menu-desktop .icon-bar + .icon-bar {
+#js-menu .icon-bar + .icon-bar {
   margin-top: 3px;
 }
 
-/* MOBILE
+@media (min-width: 768px) {
+  #antnet-logo {
+    padding: 7px 10px;
+    margin-left: -10px;
+    margin-right: 15px;
+  }
+
+  .chosen-container {
+    display: block;
+  }
+
+  .dropdown-menu > li > a.js-clusters {
+    display: none;
+  }
+
+  button.js-clusters {
+    display: block;
+  }
+
+  .js-select {
+    display: none;
+  }
+}
+
 @media (max-width: 767px) {
+  #antnet-logo {
+    padding: 7px 0px;
+    margin-left: -10px;
+    margin-right: 10px;
+  }
+
+  .chosen-container {
+    display: none;
+  }
+
+  .dropdown-menu > li > a.js-clusters {
+    display: block;
+  }
+
+  button.js-clusters {
+    display: none;
+  }
+
+  #js-filter-search {
+    width: 180px;
+  }
+
   #js-map,
   #js-results {
     float: none;
     width: 100%;
     display: block;
   }
+
+  .js-select {
+    display: none;
+  }
 }
-*/

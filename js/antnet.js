@@ -71,31 +71,30 @@ var AntNet = {
   },
 
   // FUNCTION resize()
-  // Resizes and reflows HTML elements to match user's screen resolution
+  // Resizes and reflows HTML elements to match browser width
   resize: function() {
     // Height of navbar
-    var hNavbar = 41;
+    var heightNavbar = 41;
     // Height of results list header
-    var hResultsHeader = 26;
+    var heightResultsHeader = 26;
+
+    // Check browser width (mobile device)
+    var mobile = false;
+    if ($(window).width() <= 767)
+      mobile = true;
+
     // Remaining usable height
-    var hMax = window.innerHeight - hNavbar;
+    var heightUsable = window.innerHeight - heightNavbar;
 
-    // If screen width is less than or equal to 767px,
-    // reduce height of results list and map
-    /* MOBILE
-    var hMobile = 0;
-    if (window.innerWidth <= 767)
-      hMobile = 250;
-    hMax -= hMobile;
-    */
-    $("#js-results").height(hMax);
-    $("#js-results-list").height(hMax - hResultsHeader);
-
-    /* MOBILE
-    if (hMobile == 250)
-      $("#js-map").height(hMax - $("#js-results").height());
-    else*/
-    $("#js-map").height(hMax);
+    if (mobile) {
+      $("#js-results").height(heightUsable * 0.25);
+      $("#js-results-list").height(heightUsable * 0.25 - heightResultsHeader);
+      $("#js-map").height(heightUsable - $("#js-results").height());
+    } else {
+      $("#js-results").height(heightUsable);
+      $("#js-results-list").height(heightUsable - heightResultsHeader);
+      $("#js-map").height(heightUsable);
+    }
   },
 
   // FUNCTION getData()
@@ -139,17 +138,22 @@ var AntNet = {
       }, 500);
     });
 
-    $("#js-clusters").click(function() {
-      if ($(this).hasClass("btn-primary")) {
-        $(this).removeClass("btn-primary");
+    $(".js-clusters").click(function() {
+      if (that.markerClusterer) {
+        $("#js-clusters-button").removeClass("btn-primary");
+        $("#js-clusters-menu").removeClass("icon-check-sign");
+        $("#js-clusters-menu").addClass("icon-check-empty");
         that.markerClusterer.clearMarkers();
         that.markerClusterer = null;
         for (var i in that.markers)
           that.markers[i].setMap(that.map);
       } else {
-        $(this).addClass("btn-primary");
+        $("#js-clusters-button").addClass("btn-primary");
+        $("#js-clusters-menu").removeClass("icon-check-empty");
+        $("#js-clusters-menu").addClass("icon-check-sign");
         that.markerClusterer = new MarkerClusterer(that.map, that.markers);
       }
+
       // Hide infowindows and remove highlighting
       $("#js-results-list").children("li").removeClass("active");
       that.infowindow.close();

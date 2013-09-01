@@ -17,6 +17,16 @@
 **Website:** <http://twitter.github.io/bootstrap/>  
 **License:** [Apache License](http://www.apache.org/licenses/LICENSE-2.0)  
 
+#### Bootswatch - Cerulean
+**Author:** Thomas Park  
+**Website:** <http://bootswatch.com/cerulean/>  
+**License:** [Apache License](http://www.apache.org/licenses/LICENSE-2.0)  
+
+#### Bootstrap Modal
+**Author:** Jordan Schroter  
+**Website:** <http://jschr.github.io/bootstrap-modal/>  
+**License:** [Apache License](https://github.com/jschr/bootstrap-modal/blob/master/LICENSE)  
+
 #### Font Awesome
 **Author:** Dave Gandy  
 **Website:** <http://fortawesome.github.com/Font-Awesome>  
@@ -27,9 +37,5 @@
 **Website:** <http://code.google.com/p/google-maps-utility-library-v3/source/browse/trunk/markerclusterer/>  
 **License:** [Apache License](http://www.apache.org/licenses/LICENSE-2.0)  
 
-#### Bootswatch - Cerulean
-**Author:** Thomas Park  
-**Website:** <http://bootswatch.com/cerulean/>  
-**License:** [Apache License](http://www.apache.org/licenses/LICENSE-2.0)  
 
 All files are Copyright 2013 [JMMP](https://github.com/JMMP) unless otherwise stated.
