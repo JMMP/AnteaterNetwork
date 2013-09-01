@@ -60,6 +60,10 @@ var AntNet = {
   markerClusterer: null,
   markerImageBusiness: "img/marker_anteater.png",
   markerImageUser: "img/marker_person.png",
+  mobile: false,
+  heightNavbar: 41,
+  heightResultsHeader: 26,
+  heightUsable: null,
 
   // FUNCTION init()
   // Initializes Anteater Network, variables, and Google Maps
@@ -73,27 +77,26 @@ var AntNet = {
   // FUNCTION resize()
   // Resizes and reflows HTML elements to match browser width
   resize: function() {
-    // Height of navbar
-    var heightNavbar = 41;
-    // Height of results list header
-    var heightResultsHeader = 26;
-
     // Check browser width (mobile device)
-    var mobile = false;
     if ($(window).width() <= 767)
-      mobile = true;
+      this.mobile = true;
+    else
+      this.mobile = false;
 
     // Remaining usable height
-    var heightUsable = window.innerHeight - heightNavbar;
+    this.heightUsable = $(window).height() - this.heightNavbar;
 
-    if (mobile) {
-      $("#js-results").height(heightUsable * 0.25);
-      $("#js-results-list").height(heightUsable * 0.25 - heightResultsHeader);
-      $("#js-map").height(heightUsable - $("#js-results").height());
+    if (this.mobile) {
+      $("#js-results").height(this.heightUsable * 0.25);
+      $("#js-results-list").height(this.heightUsable * 0.25 - this.heightResultsHeader);
+      if ($("#js-results").is(":visible"))
+        $("#js-map").height(this.heightUsable * 0.75);
+      else
+        $("#js-map").height(this.heightUsable);
     } else {
-      $("#js-results").height(heightUsable);
-      $("#js-results-list").height(heightUsable - heightResultsHeader);
-      $("#js-map").height(heightUsable);
+      $("#js-results").height(this.heightUsable);
+      $("#js-results-list").height(this.heightUsable - this.heightResultsHeader);
+      $("#js-map").height(this.heightUsable);
     }
   },
 
@@ -107,15 +110,15 @@ var AntNet = {
       that.alumni = data.alumni;
       that.categories = data.categories;
       that.schools = data.schools;
-      that.setMenus();
+      that.setNavbar();
       that.update();
     });
   },
 
-  // FUNCTION setMenus()
+  // FUNCTION setNavbar()
   // Populates the select menus and binds event handlers to navbar items and
   // results listing hide and show buttons
-  setMenus: function() {
+  setNavbar: function() {
     var that = this;
     $("#js-filter-category").append(this.createMenu(this.categories, "Business_Category"));
     $("#js-filter-category").trigger("chosen:updated");
@@ -160,37 +163,11 @@ var AntNet = {
     });
 
     $("#js-results-hide").click(function() {
-      // Hold map's position while results list hides
-      $("#js-map").css("left", $("#js-map").position().left);
-      $("#js-map").css("position", "absolute");
-
-      //Hide results list and show the Show button
-      $("#js-results").hide("slide", {
-        direction: "left"
-      }, 500, function() {
-        $("#js-map").css("left", "auto");
-        $("#js-map").css("position", "relative");
-        $("#js-results-show").show();
-      });
-      $("#js-map").css("width", "100%");
-      google.maps.event.trigger(that.map, "resize");
+      that.hideResults(true);
     });
 
     $("#js-results-show").click(function() {
-      // Hide the Show button and hold map's position
-      $(this).hide();
-      $("#js-map").css("right", "0");
-      $("#js-map").css("position", "absolute");
-      $("#js-map").css("width", "77%");
-
-      // Show the results list
-      $("#js-results").show("slide", {
-        direction: "left"
-      }, 700, function() {
-        $("#js-map").css("right", "auto");
-        $("#js-map").css("position", "relative");
-      });
-      google.maps.event.trigger(that.map, "resize");
+      that.hideResults(false);
     });
   },
 
@@ -204,6 +181,59 @@ var AntNet = {
       fragment.appendChild(menuOption);
     }
     return fragment;
+  },
+
+  // FUNCTION hideResults(boolean)
+  // Hides or shows the results listing and resizes the map accordingly
+  hideResults: function(hide) {
+    var that = this;
+    $("#js-map").css("position", "absolute");
+
+    if (hide) {
+      if (!this.mobile) {
+        // Hold map's position while results list hides
+        $("#js-map").css("left", $("#js-map").position().left);
+      }
+
+      //Hide results list and show the Show button
+      $("#js-results").hide("slide", {
+        direction: "left"
+      }, 500, function() {
+        if (that.mobile) {
+          $("#js-map").height(that.heightUsable);
+        } else {
+          $("#js-map").css("left", "");
+          $("#js-map").css("width", "100%");
+        }
+        $("#js-results-show").show();
+      });
+
+    } else {
+      $("#js-results-show").hide();
+
+      // Hide the Show button and hold map's position
+      if (this.mobile) {
+        $("#js-map").css("bottom", "0");
+        $("#js-map").height(this.heightUsable * 0.75);
+      } else {
+        $("#js-map").css("right", "0");
+        $("#js-map").css("width", "");
+      }
+
+      // Show the results list
+      $("#js-results").show("slide", {
+        direction: "left"
+      }, 500, function() {
+        if (that.mobile) {
+          $("#js-map").css("bottom", "");
+        } else {
+          $("#js-map").css("right", "");
+        }
+      });
+    }
+
+    $("#js-map").css("position", "relative");
+    google.maps.event.trigger(this.map, "resize");
   },
 
   // FUNCTION update()
@@ -421,8 +451,9 @@ $(document).ready(function() {
   AntNet.init();
   google.maps.visualRefresh = true;
   $(".js-select").chosen({
-      allow_single_deselect: true
-    });
+    allow_single_deselect: "true",
+    width: "150px"
+  });
 });
 
 // Call AntNet.resize() whenever the window is resized

@@ -39,7 +39,6 @@ button.js-clusters {
 
 #js-filter-search {
   margin-top: 5px;
-  width: 150px;
 }
 
 .js-infowindow {
@@ -57,22 +56,12 @@ button.js-clusters {
 
 #js-map,
 #js-results {
+  background-color: #e8e8e8;
   height: 600px;
   display: block;
-  float: left;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-}
-
-#js-map {
-  width: 77%;
-}
-
-#js-results {
-  background-color: #e8e8e8;
-  width: 23%;
-  border-right: 2px solid #808080; /*#0088CC*/
 }
 
 #js-results-list {
@@ -171,8 +160,26 @@ button.js-clusters {
     display: block;
   }
 
-  .js-select {
-    display: none;
+  #js-filter-search {
+    width: 180px;
+  }
+
+  #js-map {
+    width: 77%;
+  }
+
+  #js-results {
+    width: 23%;
+  }
+
+  #js-map,
+  #js-results {
+    float: left;
+  }
+
+  #js-results {
+    border-right: 2px solid #808080;
+    border-bottom: none;
   }
 }
 
@@ -204,6 +211,11 @@ button.js-clusters {
     float: none;
     width: 100%;
     display: block;
+  }
+
+  #js-results {
+    border-right: none;
+    border-bottom: 2px solid #808080;
   }
 
   .js-select {
