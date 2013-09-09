@@ -1,0 +1,224 @@
+/*
+ + Anteater Network v15.0
+ + Copyright 2013 JMMP and UCI Alumni Association
+ + http://alumni.uci.edu/anteater-network
+ */
+
+html, body {
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  background-color: #808080;
+}
+
+a {
+  cursor: pointer;
+}
+
+#antnet-logo > img {
+  width: 60px;
+}
+
+.chosen-container {
+  margin-top: 8px;
+  margin-right: 15px;
+}
+
+.container-fluid {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.help-links > a:hover {
+  text-decoration: none;
+}
+
+button.js-clusters {
+  margin-left: 13px;
+}
+
+#js-filter-search {
+  margin-top: 5px;
+}
+
+.js-infowindow {
+  margin-top: 5px;
+}
+
+.js-infowindow > b {
+  text-align: center;
+  font-size: 1.2em;
+}
+
+.js-infowindow > p {
+  padding-top: 5px;
+}
+
+#js-map,
+#js-results {
+  background-color: #e8e8e8;
+  height: 600px;
+  display: block;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+#js-results-list {
+  height: 564px;
+  overflow: auto;
+}
+
+#js-results-list > li {
+  border-bottom: 1px solid #0088CC;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+#js-results-error {
+  display: none;
+}
+
+#js-results-hide:hover {
+  background-color: transparent;
+}
+
+#js-results-show {
+  display: none;
+  z-index: 1;
+  position: absolute;
+  transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  background-color: rgba(255, 255, 255, 0.8);
+  top: 60px;
+  left: 1.5em;
+}
+
+#js-results-show > a {
+  text-decoration: none;
+}
+
+.js-select {
+  width: 150px;
+}
+
+.nav {
+  margin-bottom: 0px;
+}
+
+#js-navbar #js-menu {
+  display: block;
+  float: right;
+  padding: 7px 10px;
+  margin: 7px -5px 0px 5px;
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+#js-navbar #js-menu .icon-bar {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background-color: #f5f5f5;
+  -webkit-border-radius: 1px;
+  -moz-border-radius: 1px;
+  border-radius: 1px;
+  -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+}
+
+#js-navbar .navbar-inner {
+  min-height: 40px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+#js-menu .icon-bar + .icon-bar {
+  margin-top: 3px;
+}
+
+@media (min-width: 768px) {
+  #antnet-logo {
+    padding: 7px 10px;
+    margin-left: -10px;
+    margin-right: 15px;
+  }
+
+  .chosen-container {
+    display: block;
+  }
+
+  .dropdown-menu > li > a.js-clusters {
+    display: none;
+  }
+
+  button.js-clusters {
+    display: block;
+  }
+
+  #js-filter-search {
+    width: 180px;
+  }
+
+  #js-map {
+    width: 77%;
+  }
+
+  #js-results {
+    width: 23%;
+  }
+
+  #js-map,
+  #js-results {
+    float: left;
+  }
+
+  #js-results {
+    border-right: 2px solid #808080;
+    border-bottom: none;
+  }
+}
+
+@media (max-width: 767px) {
+  #antnet-logo {
+    padding: 7px 0px;
+    margin-left: -10px;
+    margin-right: 10px;
+  }
+
+  .chosen-container {
+    display: none;
+  }
+
+  .dropdown-menu > li > a.js-clusters {
+    display: block;
+  }
+
+  button.js-clusters {
+    display: none;
+  }
+
+  #js-filter-search {
+    width: 180px;
+  }
+
+  #js-map,
+  #js-results {
+    float: none;
+    width: 100%;
+    display: block;
+  }
+
+  #js-results {
+    border-right: none;
+    border-bottom: 2px solid #808080;
+  }
+
+  .js-select {
+    display: none;
+  }
+}
