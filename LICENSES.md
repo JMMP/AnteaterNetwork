@@ -1,6 +1,6 @@
 ## Anteater Network v15.0
-### Copyright 2013 JMMP and UCI Alumni Association
-### <http://melvin.io/AnteaterNetwork>
+### © 2013 [JMMP](http://github.com/JMMP/) (Jola Bolaji, Mark Chege, Melvin Chien, Patrick Chen) and the [UC Irvine Alumni Association](http://alumni.uci.edu).
+### <http://alumni.uci.edu/anteater-network>
 
 #### jQuery
 **Author:** jQuery Foundation  
@@ -38,4 +38,4 @@
 **License:** [Apache License](http://www.apache.org/licenses/LICENSE-2.0)  
 
 
-All files are Copyright 2013 [JMMP](https://github.com/JMMP) unless otherwise stated.
+All files are Copyright [JMMP](http://github.com/JMMP) unless otherwise stated.

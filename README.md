@@ -1,15 +1,15 @@
-![Anteater Network](img/antnet_logo_full.png)
+![Anteater Network](img/antnet_logo_full.png)  
 ![JMMP](img/jmmp_logo.png)
-# Anteater Network [14.0](http://alumni.uci.edu/anteater-network) Beta
-### © 2013 [JMMP](http://jmmp.github.com) (Jola Bolaji, Mark Chege, Melvin Chien, Patrick Chen) in association with UC Irvine Alumni Association.
+# Anteater Network [15.0](http://alumni.uci.edu/anteater-network)  
+### © 2013 [JMMP](http://github.com/JMMP/) (Jola Bolaji, Mark Chege, Melvin Chien, Patrick Chen) and the [UC Irvine Alumni Association](http://alumni.uci.edu).
 
 - - -
 ### Features
-##### Interface 90%
+##### Interface
 * Hide-able results list
 * Automatic populating menus
 * Auto focus on search
-* Support online businesses
+* Supports online businesses
 * Custom CSS styling
 * Toggle clusters
 * Clear all filters
@@ -17,39 +17,13 @@
 * Marker clusterers
 * Buffer zone around results
 * Geolocation
-* Filter by city
-* Filter by business category
-* Filter by alumni class year
-* Filter by alumni school
-* Free search
-* Smart search boxes
-* Indicator of applied filters
-* _Update My Information form_
-
-##### Database 100%
-* Full UCI alumni database
-* Geocoding
-* Convert business categories
-* Free search
-
-##### Other 50%
-* UCI Alumni Association
-  * Website
-  * Facebook
-  * LinkedIn
-  * Google+
-  * Twitter
-* JMMP
-  * Website
-  * GitHub
-* _Tweet businesses_
-* _Share businesses_
-* _Deploy on live server_
-* _Admin panel_
+* Filter by category or school
+* Instant free search
+* Mobile friendly
 
 
 ### Changelog
-##### Version 15.0 August XX, 2013
+##### Version 15.0 September 9, 2013
 1. Rebuilding system from scratch!
 * Added [Bootstrap](http://twitter.github.io/bootstrap/) 2.3.2.
 * Added Cerulean Bootstrap theme by [Bootswatch](http://bootswatch.com/2/).
@@ -59,6 +33,11 @@
 * Added [Chosen](http://harvesthq.github.io/chosen/) 1.0.0.
 * Created basic user interface layout.
 * Removed Bootstrap Responsive CSS.
+* Added [Bootstrap Modal](http://jschr.github.io/bootstrap-modal/).
+* Added [Font Awesome](http://fortawesome.github.com/Font-Awesome).
+* Added responsive features.
+* Integrated into UCIAA site.
+* Redid Anteater Network logo.
 
 ##### Version 14.1 June 30, 2013
 1. Encoded all filter values, not just search. Fixed [issue #139](https://github.com/JMMP/AnteaterNetwork/issues/139).
@@ -252,29 +231,6 @@ at the same time
 
 ##### Version 0.0 June 2012
 1. Prototype
-
-
-### Resources
-VPN: <http://www.oit.uci.edu/security/vpn.html>  
-[Windows](http://www.ics.uci.edu/computing/account/mapdrive_win.php): \\\\samba.ics.uci.edu\191grp10  
-[Mac](http://www.ics.uci.edu/computing/account/mapdrive_mac.php): smb://samba.ics.uci.edu/191grp10  
-Username: UCI-ICS\username  
-[Log in with SSH](http://www.ics.uci.edu/computing/linux/hosts.php)  
-
-[jquery-ui-map](http://code.google.com/p/jquery-ui-map/)  
-[Gmap3](http://gmap3.net/)  
-[gmaps.js](http://hpneo.github.com/gmaps/)  
-[Initialize Google Map in AngularJS](http://stackoverflow.com/questions/11180750/initialize-google-map-in-angularjs)  
-[Google Maps for AngularJS](http://nlaplante.github.com/angular-google-maps/)  
-[3 Reasons to Choose AngularJS](http://net.tutsplus.com/tutorials/javascript-ajax/3-reasons-to-choose-angularjs-for-your-next-project/)  
-[Async Tasks With JQuery Promises](http://net.tutsplus.com/tutorials/JavaScript-ajax/wrangle-async-tasks-with-jquery-promises/)  
-[JQuery Deferred Object](http://api.jquery.com/category/deferred-object/)  
-[bootstrap-tour](https://github.com/sorich87/bootstrap-tour)  
-[bootstrap-switch](https://github.com/nostalgiaz/bootstrap-switch)  
-[PHP MySQL Improved Extension](http://www.php.net/manual/en/book.mysqli.php)  
-[Alternative Geocoder](http://datasciencetoolkit.org)
-[Passwords in PHP](http://www.c-sharpcorner.com/UploadFile/satyapriyanayak/store-password-in-encrypted-format-during-registration-in-ph/)
-
 
 ### License
 Please see LICENSES.
