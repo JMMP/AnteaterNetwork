@@ -9,7 +9,12 @@
   padding-bottom: 14px;
 }
 
-.brand > img {
-  width: 42px;
-  padding-right: 5px;
+.btn-large > img {
+  width: 35px;
+  margin-top: -3px;
+  padding-right: 2px;
+}
+
+.contact > a {
+  text-decoration: none;
 }
